@@ -1,0 +1,199 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.worthcracy {
+    text-align: center;
+}
+
+div.widget.worthcracy .title {
+    text-align: left !important;
+}
+
+div.widget.worthcracy ul {
+    padding: 3em 52px 3em 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    background: url('../euro/xl.png') no-repeat right center;
+}
+
+div.widget.worthcracy ul li {
+    display: inline-block;
+    width: 92px;
+    height: 8px;
+    overflow: visible;
+    background-color: #e7e7e7;
+    position: relative;
+}
+
+div.widget.worthcracy  ul li > span.threshold,
+div.widget.worthcracy  ul li > strong,
+div.widget.worthcracy  ul li > em {
+    display: block;
+    width: 92px;
+    position: absolute;
+    text-align: center;
+}
+
+div.widget.worthcracy  ul li > span.threshold {
+    top: -25px;
+    font-size: 16px;
+}
+
+div.widget.worthcracy  ul li > em,
+div.widget.worthcracy  ul li > strong {
+    top: 12px;    
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    color: #808285;        
+}
+
+div.widget.worthcracy  ul li > em {
+    font-style: normal;
+    font-size: 12px;
+}
+
+div.widget.user-worthcracy  ul li > strong {
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;    
+    top: 15px;
+    padding-top: 9px;
+    background: url('beak.png') no-repeat top center;
+}
+
+div.widget.worthcracy  ul li.done.worth-1,
+div.widget.worthcracy  ul li.done.worth-1.active {
+    background-color: #B6CAE0 !important;
+    color: #B6CAE0;
+}
+
+div.widget.worthcracy  ul li.done.worth-2,
+div.widget.worthcracy  ul li.done.worth-2.active {
+    background-color: #92AFD1 !important;
+    color: #92AFD1;
+}
+
+div.widget.worthcracy  ul li.done.worth-3,
+div.widget.worthcracy  ul li.done.worth-3.active {
+    background-color: #799EC7 !important;
+    color: #799EC7;
+}
+
+div.widget.worthcracy  ul li.done.worth-4,
+div.widget.worthcracy  ul li.done.worth-4.active {
+    background-color: #3C71AE !important;
+    color: #3C71AE;
+}
+
+div.widget.worthcracy  ul li.done.worth-5,
+div.widget.worthcracy  ul li.done.worth-5.active {
+    background-color: #0C4E99 !important;
+    color: #0C4E99;
+}
+
+/* Para el mini legend del lateral */
+div.side-worthcracy ul {
+    margin: 0 0 0 4px;
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    background: url('/view/css/euro/s.png') no-repeat right 11px;
+	padding: 2em 20px 1em 0;
+}
+
+div.side-worthcracy ul li {
+    display: inline-block;
+    width: 44px;
+    height: 6px;
+    overflow: visible;
+    background-color: #e7e7e7;
+    position: relative;
+}
+
+div.side-worthcracy  ul li > span.threshold,
+div.side-worthcracy  ul li > strong,
+div.side-worthcracy  ul li > em {
+    display: block;
+    width: 44px;
+    position: absolute;
+    text-align: center;
+}
+
+div.side-worthcracy  ul li > span.threshold {
+    top: -14px;
+    font-size: 9px;
+}
+
+div.side-worthcracy  ul li > em,
+div.side-worthcracy  ul li > strong {
+    top: 10px;
+    width: 301px;
+    left: 50%;
+    margin-left: -150px;
+    color: #808285;
+}
+
+div.side-worthcracy  ul li > em {
+    font-style: normal;
+    font-size: 9px;
+}
+
+div.side-worthcracy  ul li.done.worth-1 {
+    background-color: #B6CAE0;
+    color: #B6CAE0;
+}
+
+div.side-worthcracy  ul li.done.worth-2 {
+    background-color: #92AFD1;
+    color: #92AFD1;
+}
+
+div.side-worthcracy  ul li.done.worth-3 {
+    background-color: #799EC7;
+    color: #799EC7;
+}
+
+div.side-worthcracy  ul li.done.worth-4 {
+    background-color: #3C71AE;
+    color: #3C71AE;
+}
+
+div.side-worthcracy  ul li.done.worth-5 {
+    background-color: #0C4E99;
+    color: #0C4E99;
+}
+
+/* Para la cantidad total aportada */
+div.widget.user-worthcracy div.worth-amount {
+    display: inline;
+    float:left;
+    color: #95268D;
+    font-weight: bold;
+    font-size: 30px;
+    position: relative;
+    top: 25px;
+    left: 35px;
+    line-height: 33px;
+    padding-right: 30px;
+    background: url('/view/css/euro/violet/l.png') no-repeat center right;
+    border-bottom: 1px solid #95268D;
+}
+

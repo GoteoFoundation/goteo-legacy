@@ -1,0 +1,127 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.project-share .title {
+    border: none;
+}
+
+div.widget.project-share div.left,div.widget.project-share div.right{
+	float:left;
+}
+
+div.widget.project-share div.left{
+	width:70%;
+}
+
+div.widget.project-share div.right{
+	width:30%;
+}
+
+
+div.widget.project-share h4{
+	font-weight:normal;
+	margin-top:0;
+}
+
+div.widget.project-share ul {
+	height: 60px;
+	list-style: none outside none;
+	margin: 0;
+	overflow: visible;
+	padding: 0;
+	position: relative;
+}
+
+div.widget.project-share li {
+    display: block;
+    padding-left: 30px;
+    float: left;    
+    min-height: 2em;
+    line-height: 2em;
+    background: no-repeat left center;
+    min-width: 20%;
+}
+
+div.widget.project-share li a {
+    text-decoration: none;
+}
+
+div.widget.project-share li.twitter {
+    background-image: url('/view/css/social/twitter.png');    
+	position:absolute;
+	top:0;left:0;
+}
+
+div.widget.project-share li.facebook {
+    background-image: url('/view/css/social/facebook.png');
+	position:absolute;
+	top:30px;left:0;	
+}
+
+div.widget.project-share li.url{
+	position:absolute;
+	top:0;left:100px;
+}
+
+div.widget.project-share li.proyecto{
+	background-image: url("/view/css/project/widget/proyecto.jpg");
+	font-size: 11px;
+	height: 20px;
+	line-height: 20px;
+	margin-left: 5px;
+	width: 128px;
+}
+div.widget.project-share li.proyecto a{
+	color:#fff;
+}
+
+div.widget.project-share li.google {
+    background-image: url('/view/css/social/google.png');	
+}
+
+
+
+div.widget.project-share li.identica {
+    background-image: url('/view/css/social/identica.png');
+}
+
+div.widget.project-share li.url {
+    background-image: url('/view/css/social/url.png'); 
+}
+
+div.widget.project-share li.embed {
+    background-image: url('/view/css/social/embed.png');
+}
+
+div.widget.project-share li.url span,
+div.widget.project-share li.embed span{
+    display: none;
+}
+
+div.widget.project-share li.url input,
+div.widget.project-share li.url input:focus,
+div.widget.project-share li.embed input,
+div.widget.project-share li.embed input:focus {
+    border: none;
+    font-size: inherit;
+    background-color: #e6e6e6 !important;
+    padding: .3em .4em;
+    border-radius: .25em;
+    -moz-border-radius: .2em;
+    font-weight: normal;
+}

@@ -1,0 +1,421 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/* Estos estilos son para:
+La pagina de aportar, la pagina de retornos, el lateral de retornos
+*/
+/* Detalle de la linea verde */
+div.widget.project-rewards h4.supertitle {
+    border-bottom: 1px solid #00B25A !important;
+}
+
+div.widget.project-invest div.social h4.title,
+div.widget.project-rewards div.social h4.title,
+#rewards-summary div.social h4.title {
+    color: #28b258 !important;
+}
+
+div.widget.project-invest > div.social ul li,
+div.widget.project-rewards > div.social ul li,
+#rewards-summary > div.social ul li {
+    background-color: #f3f9f2;
+}
+
+div.widget.project-invest > div.social ul li.active,
+div.widget.project-rewards > div.social ul li.active,
+#rewards-summary > div.social ul li.active {
+    background-color: #d5ebd7;
+}
+
+div.widget.project-invest div.individual h4.title,
+div.widget.project-rewards div.individual h4.title,
+#rewards-summary div.individual h4.title {
+    color: #96238F !important;
+	margin-top: 20px;
+}
+
+div.widget.project-invest > div.individual ul li,
+div.widget.project-rewards > div.individual ul li,
+#rewards-summary > div.individual ul li{
+    background-color: #F5E9F4;	
+}
+
+div.side div.widget.project-invest > div.individual ul li,
+div.widget.project-rewards > div.individual ul li,
+div.side #rewards-summary > div.individual ul li{
+	background-position: 10px 35px;
+}
+
+div.widget.project-invest > div.individual ul li.active,
+div.widget.project-rewards > div.individual ul li.active,
+#rewards-summary > div.individual ul li.active {
+    background-color: #E5C8E3;
+}
+
+div.widget.project-invest > div.individual ul li span.name,
+div.widget.project-rewards > div.individual ul li span.name,
+#rewards-summary > div.individual ul li span.name{
+    margin: 0 0 .4em;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: none;
+}
+
+
+
+div.widget.project-rewards > div.individual ul li div.amount,
+#rewards-summary > div.individual ul li div.amount {
+    text-align: right;
+    color: #96238F;
+    position: relative;
+    top: -10px;
+    right: -10px;
+	text-transform:uppercase;
+	height: 28px;
+}
+
+#rewards-summary > div.individual ul li div.amount {
+    margin-bottom: -20px;
+	text-transform:uppercase;
+}
+
+div.widget.project-rewards > div.individual ul li div.amount span.euro,
+#rewards-summary > div.individual ul li div.amount span.euro {
+    margin: 0px 0px 0px 2px;
+    background: url('/view/css/euro/violet/s.png') no-repeat right center;
+    display: inline-block;
+    background-color: #e7e7e7;
+    border-right: #e7e7e7 solid 5px;
+	font-size: 14px;
+	padding-left: 8px;
+	padding-right: 20px;
+	line-height: 28px;
+	font-weight: bold;
+}
+
+div.widget.project-rewards > div.individual ul li div.investors,
+#rewards-summary > div.individual ul li div.investors {
+    color: #313B96;
+/*    border: #313B96 1px solid; */
+    padding: 2px 6px 2px 3px;
+    text-transform: uppercase;
+    margin-left: -60px;
+    margin-top: 10px;
+}
+
+div.widget.project-rewards > div.individual ul li span.taken,
+#rewards-summary > div.individual ul li span.taken {
+    color: #313B96;
+    border: #313B96 1px solid;
+    margin-right: 5px;
+    padding: 2px 6px;
+	margin-left: 6px;
+}
+
+div.widget.project-rewards > div.individual ul li span.left,
+#rewards-summary > div.individual ul li span.left {
+    color: #EE4843;
+    font-weight: bold;
+}
+
+div.widget.project-invest ul,
+div.widget.project-rewards ul,
+#rewards-summary ul {
+    margin: 1em 0;
+    padding: 0;
+    list-style: none;
+}
+
+div.widget.project-invest ul li,
+div.widget.project-rewards ul li,
+#rewards-summary ul li {
+    padding: 10px 10px 10px 60px;
+    background: none no-repeat 10px 10px;
+    min-height: 32px;    
+    margin-bottom: 1em;
+}
+
+div.widget.project-invest ul li > p,
+div.widget.project-rewards ul li > p,
+#rewards-summary ul li > p {
+    margin:  0 0 1em;
+}
+
+div.widget.project-invest ul li > .name,
+div.widget.project-rewards ul li > .name,
+#rewards-summary ul li > .name {
+    margin: 0 0 .4em;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: none;
+}
+
+
+div.widget.project-invest ul li.file,
+div.widget.project-rewards ul li.file,
+#rewards-summary ul li.file{
+    background-image: url('/view/css/icon/m/file.png');
+}
+
+div.widget.project-invest ul li.money,
+div.widget.project-rewards ul li.money,
+#rewards-summary ul li.money {
+    background-image: url('/view/css/icon/m/money.png');
+}
+
+div.widget.project-invest ul li.code,
+div.widget.project-rewards ul li.code,
+#rewards-summary ul li.code {
+    background-image: url('/view/css/icon/m/code.png');
+}
+
+div.widget.project-invest ul li.service,
+div.widget.project-rewards ul li.service,
+#rewards-summary ul li.service {
+    background-image: url('/view/css/icon/m/service.png');
+}
+
+div.widget.project-invest ul li.manual,
+div.widget.project-rewards ul li.manual,
+#rewards-summary ul li.manual {
+    background-image: url('/view/css/icon/m/manual.png');
+}
+
+div.widget.project-invest ul li.product,
+div.widget.project-rewards ul li.product,
+#rewards-summary ul li.product {
+    background-image: url('/view/css/icon/m/product.png');
+}
+
+div.center div.widget.project-invest ul li.product, div.center div.widget.project-rewards ul li.product, div.center  #rewards-summary ul li.product{	background-position: 10px 10px;}
+
+div.widget.project-invest ul li.design,
+div.widget.project-rewards ul li.design,
+#rewards-summary ul li.design {
+    background-image: url('/view/css/icon/m/design.png');
+}
+
+div.widget.project-invest ul li.other,
+div.widget.project-rewards ul li.other,
+#rewards-summary ul li.other {
+    background-image: url('/view/css/icon/m/other.png');
+}
+
+div.widget.project-rewards > a.more {
+    display: inline-block;
+    float: right;
+    text-decoration: none;
+}
+
+div.widget.project-invest ul li div.license h4,
+div.widget.project-invest ul li div.license h5,
+div.widget.project-invest ul li div.license h6,
+div.widget.project-invest ul li div.license h7,
+div.widget.project-invest ul li div.license h8,
+div.widget.project-rewards ul li div.license h4,
+div.widget.project-rewards ul li div.license h5,
+div.widget.project-rewards ul li div.license h6,
+div.widget.project-rewards ul li div.license h7,
+div.widget.project-rewards ul li div.license h8,
+#rewards-summary ul li div.license h4,
+#rewards-summary ul li div.license h5,
+#rewards-summary ul li div.license h6,
+#rewards-summary ul li div.license h7,
+#rewards-summary ul li div.license h8 {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: none;
+    border-bottom: 1px dashed #c8c8c8;
+    margin: .5em 0 .6em;
+    padding: 0 0 .2em;
+}
+
+div.widget.project-invest ul li div.license a,
+div.widget.project-rewards ul li div.license a,
+#rewards-summary ul li div.license a {
+    text-decoration: none;
+}
+
+div.widget.project-invest ul li div.license > a strong,
+div.widget.project-rewards ul li div.license > a strong,
+#rewards-summary ul li div.license > a strong {
+    background: url("/view/css/license/license.png") no-repeat left 4px;
+    padding-top: 40px;
+    display: block;
+}
+
+
+div.widget.project-invest ul li div.license,
+div.widget.project-rewards ul li div.license,
+#rewards-summary ul li div.license {
+    font-size: 11px;
+}
+
+div.widget.project-invest ul li div.license  p,
+div.widget.project-rewards ul li div.license  p,
+#rewards-summary ul li div.license  p {
+    margin: .2em 0;
+}
+
+div.widget.project-invest ul li div.license.agpl > a strong,
+div.widget.project-rewards ul li div.license.agpl > a strong,
+#rewards-summary ul li div.license.agpl > a strong {
+    background-image: url('/view/css/license/agpl.png');
+}
+
+div.widget.project-invest ul li div.license.apache > a strong,
+div.widget.project-rewards ul li div.license.apache > a strong,
+#rewards-summary ul li div.license.apache > a strong {
+    background-image: url('/view/css/license/apache.png');
+}
+
+div.widget.project-invest ul li div.license.balloon > a strong,
+div.widget.project-rewards ul li div.license.balloon > a strong,
+#rewards-summary ul li div.license.balloon > a strong {
+    background-image: url('/view/css/license/balloon.png');
+}
+
+div.widget.project-invest ul li div.license.bsd > a strong,
+div.widget.project-rewards ul li div.license.bsd > a strong,
+#rewards-summary ul li div.license.bsd > a strong {
+    background-image: url('/view/css/license/bsd.png');
+}
+
+div.widget.project-invest ul li div.license.cc0 > a strong,
+div.widget.project-rewards ul li div.license.cc0 > a strong,
+#rewards-summary ul li div.license.cc0 > a strong {
+    background-image: url('/view/css/license/cc0.png');
+}
+
+div.widget.project-invest ul li div.license.ccby > a strong,
+div.widget.project-rewards ul li div.license.ccby > a strong,
+#rewards-summary ul li div.license.ccby > a strong {
+    background-image: url('/view/css/license/ccby.png');
+}
+
+div.widget.project-invest ul li div.license.ccbync > a strong,
+div.widget.project-rewards ul li div.license.ccbync > a strong,
+#rewards-summary ul li div.license.ccbync > a strong {
+    background-image: url('/view/css/license/ccbync.png');
+}
+
+div.widget.project-invest ul li div.license.ccbyncnd > a strong,
+div.widget.project-rewards ul li div.license.ccbyncnd > a strong,
+#rewards-summary ul li div.license.ccbyncnd > a strong {
+    background-image: url('/view/css/license/ccbyncnd.png');
+}
+
+div.widget.project-invest ul li div.license.ccbyncsa > a strong,
+div.widget.project-rewards ul li div.license.ccbyncsa > a strong,
+#rewards-summary ul li div.license.ccbyncsa > a strong {
+    background-image: url('/view/css/license/ccbyncsa.png');
+}
+
+div.widget.project-invest ul li div.license.ccbynd > a strong,
+div.widget.project-rewards ul li div.license.ccbynd > a strong,
+#rewards-summary ul li div.license.ccbynd > a strong {
+    background-image: url('/view/css/license/ccbynd.png');
+}
+
+div.widget.project-invest ul li div.license.ccbysa > a strong,
+div.widget.project-rewards ul li div.license.ccbysa > a strong,
+#rewards-summary ul li div.license.ccbysa > a strong {
+    background-image: url('/view/css/license/ccbysa.png');
+}
+
+div.widget.project-invest ul li div.license.fal > a strong,
+div.widget.project-rewards ul li div.license.fal > a strong,
+#rewards-summary ul li div.license.fal > a strong {
+    background-image: url('/view/css/license/fal.png');
+}
+
+div.widget.project-invest ul li div.license.fdl > a strong,
+div.widget.project-rewards ul li div.license.fdl > a strong,
+#rewards-summary ul li div.license.fdl > a strong {
+    background-image: url('/view/css/license/fdl.png');
+}
+
+div.widget.project-invest ul li div.license.freebsd > a strong,
+div.widget.project-rewards ul li div.license.freebsd > a strong,
+#rewards-summary ul li div.license.freebsd > a strong {
+    background-image: url('/view/css/license/freebsd.png');
+}
+
+div.widget.project-invest ul li div.license.gpl > a strong,
+div.widget.project-rewards ul li div.license.gpl > a strong,
+#rewards-summary ul li div.license.gpl > a strong {
+    background-image: url('/view/css/license/gpl.png');
+}
+
+div.widget.project-invest ul li div.license.gpl2 > a strong,
+div.widget.project-rewards ul li div.license.gpl2 > a strong,
+#rewards-summary ul li div.license.gpl2 > a strong {
+    background-image: url('/view/css/license/gpl2.png');
+}
+
+div.widget.project-invest ul li div.license.lgpl > a strong,
+div.widget.project-rewards ul li div.license.lgpl > a strong,
+#rewards-summary ul li div.license.lgpl > a strong {
+    background-image: url('/view/css/license/lgpl.png');
+}
+
+div.widget.project-invest ul li div.license.mit > a strong,
+div.widget.project-rewards ul li div.license.mit > a strong,
+#rewards-summary ul li div.license.mit > a strong {
+    background-image: url('/view/css/license/mit.png');
+}
+div.widget.project-invest ul li div.license.mpl > a strong,
+div.widget.project-rewards ul li div.license.mpl > a strong,
+#rewards-summary ul li div.license.mpl > a strong {
+    background-image: url('/view/css/license/mpl.png');
+}
+div.widget.project-invest ul li div.license.odbl > a strong,
+div.widget.project-rewards ul li div.license.odbl > a strong,
+#rewards-summary ul li div.license.odbl > a strong {
+    background-image: url('/view/css/license/odbl.png');
+}
+div.widget.project-invest ul li div.license.odcby > a strong,
+div.widget.project-rewards ul li div.license.odcby > a strong,
+#rewards-summary ul li div.license.odcby > a strong {
+    background-image: url('/view/css/license/odcby.png');
+}
+div.widget.project-invest ul li div.license.oshw > a strong,
+div.widget.project-rewards ul li div.license.oshw > a strong,
+#rewards-summary ul li div.license.oshw > a strong {
+    background-image: url('/view/css/license/oshw.png');
+}
+div.widget.project-invest ul li div.license.pd > a strong,
+div.widget.project-rewards ul li div.license.pd > a strong,
+#rewards-summary ul li div.license.pd > a strong {
+    background-image: url('/view/css/license/pd.png');
+}
+div.widget.project-invest ul li div.license.php > a strong,
+div.widget.project-rewards ul li div.license.php > a strong,
+#rewards-summary ul li div.license.php > a strong {
+    background-image: url('/view/css/license/php.png');
+}
+div.widget.project-invest ul li div.license.tapr > a strong,
+div.widget.project-rewards ul li div.license.tapr > a strong,
+#rewards-summary ul li div.license.tapr > a strong {
+    background-image: url('/view/css/license/tapr.png');
+}
+div.widget.project-invest ul li div.license.xoln > a strong,
+div.widget.project-rewards ul li div.license.xoln > a strong,
+#rewards-summary ul li div.license.xoln > a strong {
+    background-image: url('/view/css/license/xoln.png');
+}

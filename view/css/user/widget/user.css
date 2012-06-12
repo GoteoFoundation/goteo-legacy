@@ -1,0 +1,91 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.user {   
+    margin-bottom: .8em;
+}
+
+div.widget.user div.image {
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+div.widget.user blockquote.about {
+    padding: 0 2px;
+    margin: 0 0 1em;
+}
+
+div.widget.user dl,
+div.widget.user dt,
+div.widget.user dd {
+    padding: 0;
+    margin: 0;
+}
+
+div.widget.user dl dt {
+    display: none;
+}
+
+div.widget.user dl dd {
+    border-top: 1px solid #a5a7a9;
+    padding: 1em 0;
+}
+
+div.widget.user dl dd.location {
+    padding-left: 15px;
+    background: url('/view/css/location/s.png') no-repeat left center;
+    text-indent: .5em;
+    text-decoration: none;
+}
+
+div.widget.user dl dd.links ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    line-height: 2em;
+}
+
+div.widget.user dl dd.links ul a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+div.widget.user dl dd.message {
+    padding-left: 22px;
+    background: url('/view/css/bocadillo/s.png') no-repeat left center;
+    text-indent: .5em;
+    text-decoration: none;
+}
+
+div.widget.user dl dd.message a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    color: #28B258;
+}
+
+div.widget.user dl dd.message a:hover {
+    text-decoration: underline;
+}
+
+div.widget.user a.button {
+    margin: 1.5em 0 10px;
+}

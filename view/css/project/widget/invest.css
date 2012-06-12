@@ -1,0 +1,234 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.project-invest h1,
+div.widget.project-invest h2,
+div.widget.project-invest h3,
+div.widget.project-invest h4,
+div.widget.project-invest h5,
+div.widget.project-invest h6 {
+    text-transform: none;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+div.widget.project-invest h1,
+div.widget.project-invest h2,
+div.widget.project-invest h3 {
+    font-size: 24px;
+}
+
+div.widget.project-invest h4 {
+    font-size: 18px;
+}
+
+div.widget.project-invest h5,
+div.widget.project-invest h6,
+div.widget.project-invest h7,
+div.widget.project-invest h8 {
+    font-size: 16px;
+}
+
+div.widget.project-invest > div {
+    margin-bottom: 2em;
+}
+
+div.invest-message {
+    background-color: #cce7e8 !important;
+    min-height: 70px;
+    background: url("/view/css/project/view/invest/message_beak.png") no-repeat left bottom;
+}
+
+div.invest-message h2 {
+    margin: 0px !important;
+}
+
+div.invest-message h2 span {
+    color: #232020;
+}
+
+div.invest-message img{
+    float: left;
+    margin-right: 20px;
+}
+
+div.invest-message span.message {
+    padding: 0px;
+    font-size: 0.9em !important;
+    text-transform: none !important;
+    font-weight: normal !important;
+    color: #57595b !important;
+}
+
+div.widget.project-invest h3.beak {
+    background-color: #cce7e8 !important;
+    padding: 20px 0px 30px 20px;
+    background: url("/view/css/project/view/invest/header_beak.png") no-repeat left bottom;
+    font-size: 1em !important;
+    text-transform: uppercase !important;
+}
+
+div.widget.project-invest.address table {
+    width: 100%;
+}
+div.widget.project-invest.address table tr td label {
+    text-align: right;
+    padding-right: 5px;
+    padding-left: 10px;
+}
+div.widget.project-invest #amount {
+    background: url('/view/css/euro/violet/l.png') no-repeat left center #E7E7E7;
+    color: #96238F;
+    padding-left: 40px;
+    width: 100px;
+    height: 24px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+div.widget.project-invest #fullname,
+div.widget.project-invest #address {
+    width: 266px;
+}
+div.widget.project-invest #nif, 
+div.widget.project-invest #zipcode {
+    width: 100px;
+}
+div.widget.project-invest #location {
+    width: 100px;
+}
+div.widget.project-invest #country {
+    width: 100px;
+}
+div.widget.project-invest #email {
+    width: 350px;
+}
+div.widget.project-invest div.individual ul li label.amount {
+    color: #96238f;
+    font-weight: bold;
+}
+
+div.widget.project-invest div.individual ul li.disabled{
+    background-color: #e8e7e7;
+}
+
+div.widget.project-invest div.individual ul li.disabled label.amount {
+    color: #58595b;
+}
+
+div.widget.project-invest button.pay-tpv {
+    background: url('/view/css/button/tpv.gif') no-repeat 0 0 transparent;
+    width: 178px;
+    height: 35px;
+    text-indent: 2000px;
+    padding: 3px;
+}
+
+div.widget.project-invest button.pay-paypal {
+    background: url('/view/css/button/paypal.gif') no-repeat 0 0 transparent;
+    width: 145px;
+    height: 32px;
+    text-indent: 2000px;
+    padding: 3px;
+}
+
+div.widget.project-invest button.pay-tpv:hover,
+div.widget.project-invest button.pay-paypal:hover {
+    border: 1px solid #20b2b3;
+}
+
+div.widget.project-invest div.individual ul li {
+	padding: 0px;
+}
+
+div.widget.project-invest div.individual ul li label.resign{
+	padding: 10px 10px 10px 65px;
+	display: block;
+	cursor: pointer;
+}
+
+div.widget.project-invest div.individual ul li label.amount{
+	padding: 10px 10px 10px 65px;
+	display: block;
+	cursor: pointer;
+}
+
+div.widget.project-invest div.individual ul li label.amount p{
+	color: #58595B;
+	font-weight: normal;
+	font-size: 13px;
+}
+
+div.widget.project-invest div.individual ul li.disabled label.amount h5 {
+	color: #58595B;	
+}
+
+div.widget.project-invest div.individual ul li label.amount h1,
+div.widget.project-invest div.individual ul li label.amount h2,
+div.widget.project-invest div.individual ul li label.amount h3,
+div.widget.project-invest div.individual ul li label.amount h4,
+div.widget.project-invest div.individual ul li label.amount h5,
+div.widget.project-invest div.individual ul li label.amount h6,
+div.widget.project-invest div.individual ul li label.amount h7,
+div.widget.project-invest div.individual ul li label.amount h8 {
+	color: #000000;
+	font-weight: normal;
+	font-size: 13px;
+}
+
+div.widget.project-invest div.individual ul li input[type="checkbox"] {
+	opacity: 0;
+}
+
+div.widget.project-invest div.individual ul li label input[type="checkbox"] + span.chkbox {
+	display: block;
+	width:12px;
+	height:12px;
+	background: url("checkbox.png") no-repeat scroll 0 0px transparent;
+	position: absolute;
+	margin-top: -15px;
+}
+
+div.widget.project-invest div.individual ul li label input[type="checkbox"]:checked + span.chkbox {
+	background-position: 0 -13px;
+}
+
+div.widget.project-invest div.individual ul li.disabled label input[type="checkbox"] + span.chkbox {
+	background: url("/view/css/project/widget/checkbox_disabled.png") no-repeat scroll 0 0px transparent;
+}
+
+div.widget.project-invest p label input[type="checkbox"] {
+	opacity: 0;
+}
+
+div.widget.project-invest p label {
+	cursor: pointer;	
+}
+
+div.widget.project-invest p label input[type="checkbox"] + span.chkbox {
+	display: block;
+	width:12px;
+	height:12px;
+	background: url("/view/css/project/widget/checkbox_disabled.png") no-repeat scroll 0 0px transparent;
+	position: absolute;
+	margin-top: -15px;
+}
+
+div.widget.project-invest p label input[type="checkbox"]:checked + span.chkbox {
+	background-position: 0 -13px;
+}

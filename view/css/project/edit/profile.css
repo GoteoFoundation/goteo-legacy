@@ -1,0 +1,94 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+
+/**
+ * User profile 
+ */
+ 
+body.project-edit div#main.userProfile div.superform li.element.user_avatar > div.children > div.elements > ol > li.element {
+/*    display: table-cell; */
+    display: inline-block;
+    vertical-align: top;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.user_avatar ol {
+    padding: 0;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.user_avatar li.element.avatar-image {
+    padding: 0 2em;
+    margin: 0px !important;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.user_avatar li.element.avatar img {
+    width: 128px;
+    height: 128px;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.user_avatar li.element .title {
+    display: none;
+}
+
+/* Registros de web */
+
+body.project-edit div#main.userProfile div.superform li.element.web div.title {
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 70%;
+    float: left;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.web input.edit {
+    margin-top: -1em;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.web input.remove {
+    margin-bottom: 1em;
+    margin-top: 0;
+}
+
+/* Edicion de web */
+body.project-edit div#main.userProfile div.superform li.element.editweb li.element.web-accept input,
+body.project-edit div#main.userProfile div.superform li.element.editweb li.element.web-remove input {
+    margin: 0;
+    margin-right: 3px;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.editweb li.buttons div.contents,
+body.project-edit div#main.userProfile div.superform li.element.editweb li.buttons ol {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.editweb li.buttons ol {
+    text-align: right;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.editweb li.buttons li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+body.project-edit div#main.userProfile div.superform li.element.editweb li.buttons input {
+    width: auto;
+    float: left;
+    margin: 0 10px 0 0;
+}
+

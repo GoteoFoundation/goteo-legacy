@@ -1,0 +1,190 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+body.user-login div#main > div {
+    display: table-cell;
+	width: 30%;
+}
+
+body.user-login div#main > div > * {
+    padding: 20px 20px 15px;
+    background-color: white;
+	margin: 0 0 15px;
+}
+
+body.user-login div#main > div h2 {
+    margin: 0 0 2em;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+body.user-login div#main div.external-login {
+	width: 40%;
+}
+
+body.user-login div#main div.external-login  {
+    padding: 0 20px;
+}
+
+body.user-login div#main > div form > div {
+    padding: 0 0 1em;
+}
+
+body.user-login div#main > div form > div label {
+    line-height: 2em;
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+	font-style: normal;
+}
+
+body.user-login div#main > div form > div input {
+    display: block;
+    background-color: #DFF2F3;
+	height: 12px;
+	font-size: 11px;
+	width: 21.5em;
+}
+
+body.user-login div#main form input[type="submit"] {
+    margin-bottom: 10px;
+}
+
+body.user-login div#main div.register form > div input {
+	height: 12px;
+	width: 21.5em;
+}
+
+body.user-login div#main div.register form > div em {
+    color: red;
+	font-size: 11px;
+}
+
+body.user-login div#main div.register label.conditions {
+    font-size: 11px;
+	line-height: 16px;
+	color: #999999;
+}
+
+body.user-login div#main div.register label.conditions a {
+    font-size: 11px;
+	color: #999999;
+}
+
+body.user-login div#main div.register label.conditions a:hover {
+    color: #20B3B2;
+}
+
+body.user-login .sign-in-with {
+	list-style: none;
+	margin: 0 0 0 15px;
+	padding: 0;
+}
+
+.sign-in-with li{
+	margin: 0 0 10px;
+    display:block;
+}
+
+.sign-in-with > li a {
+    padding: 3px 22px 3px 30px;
+    text-decoration: none;
+    background: transparent no-repeat 0px 0px;
+    line-height: 22px;
+    font-size: 12px;
+}
+
+.sign-in-with > li a:hover {
+	opacity:0.7;
+	filter:alpha(opacity=70);
+}
+.sign-in-with li.more {
+	margin:0;
+	padding:0;
+	color:#555;
+}
+.sign-in-with li.more a {
+	margin:0;
+	padding:0;
+	font-size: 12px;
+	color:#555;
+	text-decoration:underline;
+}
+.sign-in-with li.facebook a {
+    color: #4e6091;
+    background-image: url('/view/css/facebook.png');
+}
+
+.sign-in-with li.twitter a {
+    color: #6dc7eb;
+    background-image: url('/view/css/twitter.png');
+}
+
+.sign-in-with li.linkedin a {
+    color: #4195BA;
+    background-image: url('/view/css/linkedin.png');
+}
+.sign-in-with li.google a {
+	background-image: url('/view/css/openid-google.png');
+}
+.sign-in-with li.yahoo a {
+	background-image: url('/view/css/openid-yahoo.png');
+}
+.sign-in-with li.myopenid a {
+	background-image: url('/view/css/openid-myopenid.png');
+}
+.sign-in-with li.openid input {
+	color: #999;
+	padding-left:24px;
+	padding-right:0px;
+	background: url('/view/css/openid-openid.png') no-repeat 4px 3px;
+}
+.sign-in-with li.openid input.focus,.sign-in-with li.openid input.used {
+	color:#666;
+}
+.sign-in-with > li.openid a {
+    background-color: #58595B;
+    padding: 1px 6px;
+    text-transform: capitalize;
+    border: none;
+    cursor: pointer;
+    font-weight: normal;
+    margin: 1px 0 1px 6px;
+    color: white;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: #aaa;
+}
+
+.login > div a {
+	float: right;
+	font-size: 11px;
+	position: relative;
+	bottom: 5px;
+	color: #999999;
+}
+
+.login > div a:hover {
+	color: #20B3B2;
+}
+

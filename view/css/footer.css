@@ -1,0 +1,478 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+body{
+	overflow:hidden !important;
+}
+
+div#footer ul {
+	margin:0;padding:0;
+}
+
+div#footer {  
+	width:100%;  
+	height: 150px;
+	margin:0;
+	padding: 20px 0 10px 0;
+	
+    position: relative;		
+    background-color: #faf8f8;         
+    z-index: 0;    
+    /*max-width: 940px;*/
+    bottom: 0;
+    overflow: hidden;
+    clear: both;
+    color: #1f1d1e;
+    font-size: 12px;
+    text-decoration: none;   
+}
+
+div#sub-footer{
+	width:100%;
+    margin: 0;
+	height:30px;
+    font-size: 12px;
+    overflow: hidden;
+    background-color: #58595B;
+	float:none !important;
+	color:#fff;
+}
+
+div#footer .w940,
+div#sub-footer .w940 {
+	width:940px;
+	margin:0 auto;
+}
+
+/*generics*/
+div#footer a,div#subfooter a{
+	text-decoration:none;
+}
+
+div#subfooter a:hover{
+	color:#1db3b2;
+}
+
+/*hijos de footer*/
+div#footer div.block{
+	float:left;
+	width: 155px;
+	height: 142px;
+	padding-left:15px;	
+	border-left:#ebe9ea 2px solid;	
+    overflow: hidden;
+}
+
+
+/*
+div#footer div#social{
+	width:125px;
+}
+div#footer div#sponsors{
+	width:225px;	
+}
+div#footer div#services{
+	width:115px;
+}
+*/
+
+
+/*hijos de div.block*/
+div#footer div.block h8{
+	font-size:11px;
+	color:#59595C;
+}
+
+div#footer div.block ul{
+	list-style:none;
+	margin-top:15px;
+	height:115px;
+	overflow:auto;
+}
+div#footer div.block ul.paginacion {
+	margin: 8px 0 0 0;
+	list-style:none;
+	padding:0px;
+	float:left;
+	height:auto;
+}
+
+div#footer div.block ul.paginacion li {
+	cursor:pointer;
+    display: block;
+    float: left;
+    overflow: hidden;
+	margin: 0px 4px 5px 4px;
+}
+
+div#footer div.block ul.paginacion li a {
+    width: 10px;
+    height: 12px;
+    margin-top: 2px;
+    background-color: #cdcdce;
+    color: #cdcdce;
+	display:block;
+}
+
+div#footer div.block ul.paginacion li a:hover {
+    background-color: #20b3b2;
+    color: #20b3b2;
+}
+
+div#footer div.block ul.paginacion li.current a {
+    background-color: #808184 !important;
+    color: #808184 !important;
+}
+
+div#slides_sponsor .slidersponsors-ctrl .next,
+div#slides_sponsor .slidersponsors-ctrl .prev {
+    width: 16px;
+    height: 16px;
+	line-height: 2000px;
+	overflow: hidden;
+	float:left;
+	margin: 8px 0 0 0;
+	cursor:pointer;
+/*	display: inline-block; */
+}
+
+div#slides_sponsor .slidersponsors-ctrl .prev {
+	background: url('/view/css/small_arrowslider-sprt.png') scroll no-repeat 0 0;
+}
+
+div#slides_sponsor .slidersponsors-ctrl .prev:hover {
+	background: url('/view/css/small_arrowslider-sprt.png') scroll no-repeat 0 -32px;
+}
+
+div#slides_sponsor .slidersponsors-ctrl .next{
+	background: url('/view/css/small_arrowslider-sprt.png') scroll no-repeat 0 -16px;
+}
+
+div#slides_sponsor .slidersponsors-ctrl .next:hover {
+	background: url('/view/css/small_arrowslider-sprt.png') scroll no-repeat 0 -48px;
+}
+
+div#footer div.block ul li{
+	line-height:12px;
+    margin-bottom:5px;
+    font-size:11px;
+}
+
+div#footer div.block ul li a{
+	font-size:11px;
+	color:#808285;
+}
+
+div#footer div.block ul li a:hover{
+	color:#1db3b2;
+}
+
+div#footer .scroll-pane
+{
+	width: 100%;
+	height: 200px;
+	overflow: auto;
+}
+div#footer .horizontal-only
+{
+	height: auto;
+	max-height: 200px;
+}
+
+/*particular de social*/
+div#footer div.social{
+	width:109px !important;
+}
+
+div#footer div.social ul{
+	overflow:visible;
+}
+
+div#footer div.social ul li{
+	height:18px;
+	font-size:11px;	
+	margin-bottom:5px;
+}
+
+div#footer div.social ul li a{
+	margin:0;
+	font-size:11px; 
+    padding-left: 30px;
+    display: block;
+    background: no-repeat left center;
+    line-height: 20px;
+}
+
+div#footer div.social li a:hover{
+	opacity:0.7;
+	filter:alpha(opacity=70)
+}
+
+div#footer div.social li.twitter a {
+    color: #6dc7eb;
+    background-image: url('/view/css/twitter.png');
+}
+
+div#footer div.social li.facebook a {
+    color: #4e6091;
+    background-image: url('/view/css/facebook.png');
+}
+
+div#footer div.social li.identica a {
+    color: #c42f31;
+    background-image: url('/view/css/identica.png');
+}
+
+div#footer div.social li.gplus a {
+    color: #5075aa;
+    background-image: url('/view/css/google.png');
+}
+
+div#footer div.social li.rss a {
+    color: #ee8226;
+    background-image: url('/view/css/rss.png');
+}
+
+
+/*particular de apoyo social*/
+div#footer div.sponsors div.slides_container{
+	width:165px;
+	height:148px;
+	display:none;
+	float:left;
+	margin: 10px 0 0 0;
+}
+div#footer div.sponsors{
+	margin:0px;
+	width:165px;
+	height:148px;
+	display:block;
+}
+
+div#footer div.sponsors > .slides_control > .sponsor {
+    height: 148px;
+    margin: 20px 10px 0;
+}
+
+/*particular de servicios*/
+div#footer div.services{
+
+}
+
+div#footer div.services ul li a{
+	text-transform:uppercase;
+}
+
+
+
+div#footer div.sponsors {
+    position: relative;
+    width: 165px;
+    min-width: 0 !important;
+}
+
+div#footer div.services {
+    position: relative;
+    width: 96px;
+    min-width: 0 !important;
+}
+
+
+/*particular de sponsor*/
+div#footer div.sponsors img#current{
+	margin-left:13px;
+	margin-top:20px;
+}
+
+
+/*hijos de sub-footer*/
+div#sub-footer ul{
+	float:left;
+	max-width:700px;
+	padding-left:0;
+}
+
+div#sub-footer ul li{
+	display:inline-block;
+	color:#fff;
+	margin-right:25px;
+}
+
+div#sub-footer ul li a{
+	text-decoration:none;
+	text-transform:uppercase;
+	color:#fff;
+}
+
+div#sub-footer + * {
+    font-size: 12px;
+    border-top: 2.2em solid #59595c;
+    margin-top: -2.2em;
+}
+
+div#sub-footer ul {
+    margin-top: 8px;
+    list-style: none;
+}
+
+div#sub-footer a {
+    color: #e9e3dc;
+    font-size: 11px;
+}
+
+div#sub-footer a:hover {
+    color: #8ed9d8 !important;
+}
+
+div#sub-footer div.platoniq {
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+    min-width: 0 !important;
+	position:relative;
+	float:right;
+}
+
+div#sub-footer div.platoniq span.text{
+	margin-right:15px;
+}
+
+div#sub-footer div.platoniq span.logo {
+    display: inline-block;
+    float: left;
+}
+
+div#sub-footer div.platoniq a.foundation {
+    display: inline-block;
+    width: 120px;
+    height: 30px;
+	background: url('/view/css/logoFFA.png') no-repeat 0px 5px transparent;
+    text-indent: 2000px;
+    line-height: 2000px;
+    overflow: hidden;
+	position:relative;
+}
+
+div#sub-footer div.platoniq a.foundation:hover{
+	background: url('/view/css/logoFFA2.png') no-repeat 0px 5px transparent;
+}
+
+div#sub-footer div.platoniq a.growby {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    background: url('/view/css/platoniq.png') no-repeat 0px 8px transparent;
+    text-indent: 2000px;
+    line-height: 2000px;
+    overflow: hidden;
+	position:relative;
+}
+
+div#sub-footer div.platoniq a.growby:hover{
+	background: url('/view/css/platoniq2.png') no-repeat 0px 8px transparent;
+}
+
+div#sub-footer div.platoniq a.poweredby {
+    display: inline-block;
+    height: 30px;
+    font-size: 12px !important;
+    color: #FFF;
+	text-decoration: none;
+    cursor: default;
+    position: absolute;
+    top: 8px;
+    right: 100px;
+    width: 100%;
+}
+
+div#sub-footer div.platoniq a.poweredby:hover{
+    color: #FFF !important;
+	text-decoration: none;
+    cursor: default;
+}
+
+/* Sponsors */
+.slidersponsors-ctrl {
+	max-width: 940px;
+	margin: 0 auto;
+	list-style:none;
+	padding:0px;
+    display: block;
+    position: absolute;
+    top: 110px;
+}
+
+.slidersponsors-ctrl li {
+	cursor:pointer;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.slidersponsors-ctrl li.navi > * {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-indent: 2000px;
+    line-height: 2000px;
+    margin: 0px 3px;
+}
+
+.slidersponsors-ctrl li.navi a {
+    width: 10px;
+    height: 10px;
+    margin-top: 3px;
+    background-color: #cdcdce;
+    color: #cdcdce;
+}
+
+.slidersponsors-ctrl li.navi a:hover {
+    background-color: #20b3b2;
+    color: #20b3b2;
+}
+
+.slidersponsors-ctrl li.navi a.active {
+    background-color: #808184 !important;
+    color: #808184 !important;
+}
+
+.slidersponsors-ctrl li.prev,
+.slidersponsors-ctrl li.next {
+    width: 16px;
+    height: 16px;
+	line-height: 2000px !important;
+	overflow: hidden;
+/*	display: inline-block; */
+}
+
+.slidersponsors-ctrl li.prev {
+	background: url('small_arrowslider-sprt.png') scroll no-repeat 0 0;
+}
+
+.slidersponsors-ctrl li.prev:hover {
+	background: url('small_arrowslider-sprt.png') scroll no-repeat 0 -32px;
+}
+
+.slidersponsors-ctrl li.next {
+	background: url('small_arrowslider-sprt.png') scroll no-repeat 0 -16px;
+}
+
+.slidersponsors-ctrl li.next:hover {
+	background: url('small_arrowslider-sprt.png') scroll no-repeat 0 -48px;
+}

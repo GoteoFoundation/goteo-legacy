@@ -1,0 +1,142 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+@import url('widget/worthcracy.css');
+@import url('widget/about.css');
+@import url('widget/social.css');
+@import url('widget/supporters.css');
+@import url('widget/mates.css');
+
+body.user-profile div#main div.widget, 
+body.community div#main div.widget {
+    margin-bottom: 20px;
+}
+
+body.user-profile div#main > div.center,
+body.community div#main > div.center {
+    width: 620px;
+    float: left;        
+}
+
+body.user-profile div#main > div.side,
+body.community div#main > div.side {
+    float: right;
+    width: 300px;
+}
+
+/* Detalle de la linea azul*/
+div.widget.user-supporters h3.supertitle {
+    border-bottom: 1px solid #313B96 !important;
+}
+
+div.widget.user-mates div.users h3.supertitle{border-top: 1px solid #808285;border-bottom: 1px solid #20B3B2;padding:5px 0 5px 5px;color:#20B3B2;font-size:12px;background:none;}
+
+
+body.user-profile div#main div.discover-group div.widget.project {
+    margin: 0px 0px 0px 15px;
+}
+
+
+
+/* mates que sale en la parte central
+***********************************************/
+div.center div.widget.user-mates .users ul > li{
+	border-bottom:#D5D5D6 1px solid;
+    margin-right: 14px;
+    max-width: 275px;
+}
+
+
+div.center div.widget.user-mates .users ul > li h4{
+	margin-top:4px;
+}
+
+div.center div.widget.user-mates .users ul > li span.projects,div.center div.widget.user-mates .users ul > li span.profile{
+	display:inline-block;
+	margin-right:15px;	
+}
+
+div.center div.widget.user-mates .users ul > li span.profile, div.center div.widget.user-mates .users ul > li span.contact{	
+	display:block;
+	float:left;
+}
+
+div.center div.widget.user-mates .users ul > li span.profile a{
+	float:left;
+	background:url('/view/css/user/plus.png') left no-repeat;
+	padding-left:15px;
+	color:#808285;
+}
+
+div.center div.widget.user-mates .users ul > li span.profile a:hover{
+	background:url('/view/css/user/plus-hover.png') left no-repeat;
+	color:#58595B;
+}
+
+div.center div.widget.user-mates .users ul > li span.contact a{
+	background:url('/view/css/user/contact.png') left no-repeat;
+	padding-left:15px;
+	color:#808285;	
+}
+
+div.center div.widget.user-mates .users ul > li span.contact a:hover{
+	background:url('/view/css/user/contact-hover.png') left no-repeat;
+	color:#58595B;
+}
+
+
+/* lista de categor�as */
+div.center > div.widget.categorylist{padding-bottom:12px;}
+div.center > div.widget.categorylist ul{list-style:none;display:inline-block;margin:0;padding-left:0;}
+div.center > div.widget.categorylist ul li{display:inline-block;margin-left:0;padding-left:0;}
+div.center > div.widget.categorylist ul li a{text-decoration:none;
+}
+div.center > div.widget.categorylist ul li a.active,
+div.center > div.widget.categorylist ul li a:hover{color:#19B4B2}
+
+div.center > div.widget.categorylist > h3.title{font-size: 19px;font-weight: bold;margin: 0 0 1em -20px;padding-left: 20px;}
+div.center > div.widget.categorylist > div.filters{border-bottom: 1px solid #D5D5D6;border-top: 1px solid #D5D5D6;padding: 5px;}
+	div.center > div.widget.categorylist > div.filters > span{font-size:11px;}
+	div.center > div.widget.categorylist > div.filters > ul{margin-left:1em;}
+	div.center > div.widget.categorylist > div.filters > ul > li{margin-right:5px;}
+	div.center > div.widget.categorylist > div.filters > ul > li > a{display:inline-block;
+	background:url('/view/css/user/grey-triangle-down.png') no-repeat left; padding-left:15px;font-size:11px;}
+	div.center > div.widget.categorylist > div.filters > ul > li > a.active{background:url('/view/css/user/blue-triangle-down.png') no-repeat left;}
+
+div.center > div.widget.categorylist > div.list{
+}
+	div.center > div.widget.categorylist > div.list > ul{}
+	div.center > div.widget.categorylist > div.list > ul > li{margin-right:0.5em;
+	margin-bottom: 0.5em;
+}
+	div.center > div.widget.categorylist > div.list > ul > li > a{text-transform:uppercase;font-size:12px;}
+
+/* detalle de categor�as (encabezado de categor�a)*/
+div.center > div.widget.user-mates > h3.title{padding: 9px 0 7px 5px;font-size: 12px;font-weight: normal; background:none; border-bottom: 1px solid #1eb2b2;border-top: 1px solid #808285;color: #20B3B2;font-size: 12px;
+	margin: 0;
+}
+
+
+
+div.center div.widget.user-message{position:relative;z-index:99;}
+div.center div.widget.user-message textarea{display:block;margin-left:50px;width:510px;}
+div.center div.widget.user-message #bocadillo{background:url('/view/css/bocadillo.jpg') no-repeat;position:absolute;
+width:56px;	height:51px;z-index:100;}
+div.center div.widget.user-message #a-preview{color: #2EAB58;
+font-weight: bold;left: 52px;position: relative;text-decoration: none;text-transform: uppercase;top: 10px;}
+div.center div.widget.user-message button{float:right;margin-right:8px;}

@@ -1,0 +1,143 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.project-needs table {
+    border-collapse: collapse;
+}
+
+div.widget.project-needs table td,
+div.widget.project-needs table th {
+    padding: .5em;
+    border-bottom: 1px dashed #C1C1C1;
+}
+
+div.widget.project-needs table th.summary div.click{
+	margin-left:5px;
+}
+div.widget.project-needs table th.summary div.click span.icon{
+	height:10px;width:10px;
+	background:url('/view/css/project/widget/minusplus.png') 0 10px;
+	position:relative;right:5px;top:3px;
+	clear:left;
+}
+
+div.widget.project-needs table th.summary div.click span{
+	display:block;
+	float:left;
+	cursor:pointer;	
+	max-width:360px;
+}
+
+div.widget.project-needs table th.summary div.click span.icon.closed{
+	background:url('/view/css/project/widget/minusplus.png') 0 0px;
+}
+
+div.widget.project-needs table th.summary div.click blockquote{
+/*	display:none;  Desplegado por defecto */
+    padding: 0;
+    margin: 3px 0 0 0;
+    font-weight: normal;
+	margin-left:10px;
+	clear:left;
+}
+
+
+div.widget.project-needs table thead th {
+    text-transform: uppercase;
+}
+
+div.widget.project-needs table th.summary {
+    text-align: left;
+    width: 75%;
+}
+
+div.widget.project-needs table *.min,
+div.widget.project-needs table *.max {
+    padding: 7px 1.5em;
+	text-align: right;
+	vertical-align: top;
+}
+
+div.widget.project-needs table *.min {
+    color: #96238F;
+}
+
+div.widget.project-needs table thead th.summary {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+div.widget.project-needs table tbody{
+	background:#F5E9F4;
+	border-top:#C1C1C1 2px solid;
+	border-bottom:#C1C1C1 2px solid;
+}
+
+div.widget.project-needs table tbody tr.req{background:#F5E9F4;border-bottom:#C1C1C1 1px dashed;}
+div.widget.project-needs table tbody tr.noreq{background:#F2F2F2;border-bottom:#C1C1C1 1px dashed;}
+
+div.widget.project-needs table thead + tbody + thead th.min,
+div.widget.project-needs table thead + tbody + thead th.max {
+    font-size: 0;
+}
+
+
+div.widget.project-needs table thead th.summary,
+div.widget.project-needs table thead th.summary {
+    padding-left: 50px;        
+    background: none no-repeat .5em .5em;
+    min-height: 32px;        
+    line-height: 32px;
+}
+
+div.widget.project-needs table thead + tbody + thead th.summary {
+    padding-top: 1em;
+    background-position: .5em 1em;
+}
+
+div.widget.project-needs table thead.task th.summary {
+    background-image: url('/view/css/icon/m/task.png');
+}
+
+div.widget.project-needs table thead.structure th.summary {
+    background-image: url('/view/css/icon/m/structure.png');
+}
+
+div.widget.project-needs table thead.material th.summary {
+    background-image: url('/view/css/icon/m/material.png');
+}
+
+div.widget.project-needs table thead.lend th.summary {
+    background-image: url('/view/css/icon/m/lend.png');
+}
+
+div.widget.project-needs table tfoot th.total {
+    text-align: right;
+}
+
+div.widget.project-needs table tfoot tr > * {
+    border: none;   
+}
+
+
+div.widget.project-needs div#legend{}
+div.widget.project-needs div#legend div.min{float:left;margin-right:15px;line-height:1em;}
+div.widget.project-needs div#legend div.min span{height:10px;width:10px;border:#BB70B6 1px solid;background:#F2E5F1;display:block;float:left;margin-right:5px;}
+div.widget.project-needs div#legend div.max{float:left;line-height:1em;}
+div.widget.project-needs div#legend div.max span{height:10px;width:10px;border:#C1C1C1 1px solid;background:#F2F2F2;display:block;float:left;margin-right:5px;}

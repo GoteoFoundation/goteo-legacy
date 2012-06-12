@@ -1,0 +1,132 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+@import url("project.css");
+
+div.widget.projects > .title {
+    margin-bottom: 20px;
+}
+
+div.widget.projects div.project {
+    background-color: #ebeaeb;
+    margin: 0 0 3.33% 3.33%;
+    float: left;    
+    padding: 0;
+    width: 250px;
+	position:relative;
+	z-index:98;
+}
+
+div.widget.projects div.project a.expand{
+	position:absolute;
+	top:0;bottom:0;left:0;right:0;
+	width:100%;
+	z-index:99;
+    padding: 0px;
+}
+
+div.widget.projects div.project a.button{
+    padding: 0.4em 1em !important;
+}
+
+div.widget.projects div.project div.balloon {
+    background: #cae4e6 url('/view/css/balloonbeak.png') no-repeat bottom left;
+    border-bottom: 15px solid white;
+    height: 76px;
+}
+
+div.widget.projects div.project div.balloon > blockquote {  
+    height: 4em;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+}
+
+div.widget.projects div.project div.balloon > h4 {
+    font-size:  14px;    
+    font-weight: bold;            
+    margin: 0 0 .5em;
+    padding: 0;
+}
+
+div.widget.projects div.project div.description {
+/*    display: none; Lo muestro y recorto caracteres*/
+}
+
+div.widget.projects > div.more {
+    clear: both;
+    text-align: right;
+    
+}
+
+div.widget.projects > div.more a {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+div.widget.projects > div.more a:hover {
+    text-decoration: underline;
+}
+
+/* = Apartado WIDGETS de MIS PROYECTOS en el DASHBOARD 
+**************************************************************************/
+div.widget.projects > .widget-title {
+    padding: 0 0 0 30px;
+}
+div.widget.projects > .widget-porject-legend {
+	margin: 0 0 20px 30px;
+	text-transform:uppercase;
+}
+
+div.widget.projects > .project-code {
+	float: left;
+	height: auto;
+	margin-left: 45px;
+	overflow: auto;
+	width: auto;
+}
+
+div.widget.projects > #widget-code  {
+	width:350px;
+	float:left;
+	margin: 0 0 0 20px;
+}
+div.widget.projects > #widget-code .wc-embed  {
+	background: url("/view/css/social/embed.png") no-repeat;
+	height:20px;
+	text-transform:uppercase;
+	padding: 3px 0 0 25px;
+}
+div.widget.projects > #widget-code textarea  {
+	width:200px;
+	margin: 10px 0;
+	padding:10px;
+	background:#E7E7E7;	
+	border:none;
+	font-size:11px;
+	resize:none;
+}
+
+
+/* fancybox widget del proyecto en vista pública de proyecto
+**************************************************************/
+div#proyecto h2.widget-title{font-weight:normal;font-size:20px;margin-bottom:1px;text-transform:uppercase;}
+div#proyecto div#project-code{float: left;width: auto;margin:0 0 0 30px;}
+div#proyecto div#widget-code{float: left;width: 220px;}
+div#proyecto div#widget-code blockquote{font-size:11px;}

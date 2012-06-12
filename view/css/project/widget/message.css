@@ -1,0 +1,76 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.project-message{	
+	position:relative;
+	max-width:580px;
+}
+
+div.project-message div#bocadillo{
+	background:url('/view/css/bocadillo.jpg') no-repeat;
+	position:absolute;
+	width: 50px;
+	height: 50px;
+	margin-top: 8px;
+}
+/*
+div.project-message h3.title{
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 19px;
+	padding-bottom:5px;
+	margin-bottom:12px;
+}*/
+div.project-message button{
+	float:right;
+	margin-top: 25px;
+	font-weight: normal;
+	padding: 5px 20px;
+	margin-bottom: 0;
+	font-style: normal;
+}
+
+div.widget.project-message textarea {
+    background-color: #DCEEDF;
+	border: 1px solid #2EAB58;
+	clear: right;
+	display: block;
+	float: right;
+	height: 50px;
+	margin: 10px -1px -1px;
+	padding: 0.3em 0;
+	width: 525px;
+	resize:none;
+}
+
+div.widget.project-message a.preview{
+	color: #2EAB58;
+	font-weight: normal;
+	left: 52px;
+	position: relative;
+	text-decoration: none;
+	text-transform: uppercase;
+	top: 10px;
+	font-style: normal;
+}
+
+div.widget.project-message .button {
+    float: right;
+    margin: 1em 0 0;
+}
+

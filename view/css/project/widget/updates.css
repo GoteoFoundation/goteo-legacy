@@ -1,0 +1,255 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.project-updates h1,
+div.widget.project-updates h2,
+div.widget.project-updates h3,
+div.widget.project-updates h4,
+div.widget.project-updates h5,
+div.widget.project-updates h6 {
+    text-transform: none;
+    font-weight: bold;
+    margin-top: 0;
+}
+div.widget.project-updates h1,
+div.widget.project-updates h2,
+div.widget.project-updates h3 {
+    font-size: 24px;
+}
+div.widget.project-updates h4 {
+    font-size: 18px;
+}
+div.widget.project-updates h5,
+div.widget.project-updates h6,
+div.widget.project-updates h7,
+div.widget.project-updates h8 {
+    font-size: 16px;
+}
+div.widget.project-updates > div {
+    margin-bottom: 2em;
+}
+.project-updates {
+    width:620px;
+	margin: 0 20px 0 0;
+	float:left;
+}
+.project-updates .post{
+    background-color: white;
+    line-height: 18px;
+    margin: 0 0 20px;
+}
+.project-updates .post h4 a {
+    font: bold 18px Helvetica, Arial, Geneva, sans-serif;
+	margin: 0 0 5px 0;
+	text-transform:none;
+	color:#535353;
+	text-decoration:none;
+}
+.project-updates .post  .date{
+    display:block;
+	color: #808285;
+	margin: 10px 0 0;
+	font-size: 11px;
+}
+.project-updates .post .categories{
+    display:block;
+	color:#808285;
+	margin: 0 0 8px 0;
+}
+.project-updates .post blockquote{
+	color: #58595B;
+	padding: 0 0 8px;
+	border-bottom: 1px solid #CABCBF;
+	margin: 8px 0 16px;
+	font-size: 12px;
+	line-height: 18px;
+}
+.project-updates .post .embed{
+    width: 500px;
+    height: 285px;
+	margin: 10px  18px;
+}
+
+.project-updates .post .embed-legend{
+	border-left: 2px solid #58595B;
+	color: #9B9B9D;
+	font-size: 0.9em;
+	margin-left: 16px;
+	width: 495px;
+	padding-left: 10px;
+	margin-bottom:10px;
+	font-style:oblique
+}
+
+.project-updates .widget.post .gallery-image{
+	text-align:left;
+}
+.project-updates .widget.post .gallery-image img{
+	margin: 0 18px;
+}
+.project-updates .post .comments-num{
+	float:left;
+	background: transparent url('/view/css/ico-blogcomment.png') scroll no-repeat  0 0;
+	padding: 0 0 0 26px;
+	height:24px;
+	margin: 0;
+	line-height: 24px;
+}
+.project-updates .post .comments-num a {
+	color:#00ad4e;
+	text-decoration:none;
+}
+/** Comments like messages **/
+div.post-comments div.message {
+    background: #e7e7e7 url('/view/css/message/beak/1.png') no-repeat left top;
+    margin-left: 60px;
+    padding: .5em 1em .5em 1.5em;
+    overflow: visible;
+    position: relative;
+}
+
+div.post-comments div.owner {
+    background: #e9f4ea url('/view/css/message/beak/2.png') no-repeat left top !important;
+}
+
+div.post-comments div.message + div.message {
+    margin-top: 20px;
+}
+
+div.post-comments div.message .avatar {
+    position: absolute;
+    left: -60px;
+    top: 0;
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+
+div.post-comments div.message .user {
+    text-transform: none;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 1em;
+    float: left;
+}
+
+div.post-comments div.message .date {
+    float: right;
+    color: #808080;
+    font-size: 11px;
+}
+
+div.post-comments div.message blockquote {
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+/** end Comments like messages**/
+/** share goteo **/
+.project-updates .post ul.share-goteo {
+	margin: 0;
+	padding:0px;
+	list-style:none;
+	float:right;
+}
+.project-updates .post ul.share-goteo li{
+	display:inline;
+	float:left;
+	margin: 0 0 0 10px;
+}
+.project-updates .post  ul.share-goteo li.twitter a,
+.project-updates .post  ul.share-goteo li.facebook a,
+.project-updates .post  ul.share-goteo li.rss a{
+	height:20px;
+	float:left;
+	padding: 0 0 0 25px;
+	font-size: 11px;
+	line-height: 20px;
+}
+.project-updates .post ul.share-goteo li.sharetext{
+	height:20px;
+	float:left;
+	color: #808285;
+	font-size: 11px;
+}
+.project-updates .post ul.share-goteo li.twitter a{
+	background: transparent url('/view/css/twitter.png') scroll no-repeat  0 0;
+	color:#13c2ec;
+	text-decoration:none;
+}
+.project-updates .post ul.share-goteo li.facebook a{
+	background: transparent url('/view/css/facebook.png') scroll no-repeat  0 0;
+	color:#4a6393;
+	text-decoration:none;
+}
+.project-updates div.widget.blog-comment {
+    margin: 20px 0 0 0;
+}
+.project-updates div.widget.blog-comment h5 {
+    margin: 0 0 5px 0;
+}
+.project-updates div.widget.blog-comment textarea {
+	display:block;
+	width:530px;
+}
+.project-updates div.widget.blog-comment input.button {
+	margin: 20px 0 0 0;
+	float:right;
+}
+.side {
+	float:right;
+}
+
+.project-updates ul#pagination {
+	margin: 0px 0px 10px 0px !important;
+}
+
+
+/* escribe tu comentario */
+.project-updates div.widget.blog-comment textarea {
+	background-color: #DCEEDF;
+	border: 1px solid #2EAB58;
+	clear: right;
+	display: block;
+	float: right;
+	height: 50px;
+	margin: 10px -1px -1px;
+	padding: 0.3em 0;
+	resize: none;
+	width: 525px;
+}
+
+.project-updates div.widget.blog-comment input.green {
+	margin: 20px 0 0 0;
+	float:right;
+	font-weight: bold;
+	margin-top: 35px;
+	padding: 5px 20px;
+}
+
+.project-updates div.widget.blog-comment a.preview{
+	color: #2EAB58;
+	font-weight: normal;
+	left: 52px;
+	position: relative;
+	text-decoration: none;
+	text-transform: uppercase;
+	top: 10px;
+	font-style: normal;
+}
+/* end send comment */

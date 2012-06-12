@@ -1,0 +1,153 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.project-schedule table {
+    border-collapse: separate;
+    width: 100%;
+    cursor: default !important;
+}
+
+div.widget.project-schedule table td,
+div.widget.project-schedule table th {
+    border: none; 
+    text-align: center;
+    padding: .5em .1em;
+    font-size: 11px;
+    width: 1.5em;
+    
+}
+
+div.widget.project-schedule thead.days,
+div.widget.project-schedule thead.weeks {
+    display: none;
+}
+
+div.widget.project-schedule thead.months tr th {
+    font-weight: normal;    
+    border: solid #e0e0e0;
+    border-width: 0 1px 0 0;
+}
+
+div.widget.project-schedule thead tr th:last-child {
+    border-right-width: 0;
+}
+
+div.widget.project-schedule thead tr th:first-child {   
+    display: none;
+}
+
+div.widget.project-schedule thead.months tr th span {
+    color: #808285;
+}
+
+
+div.widget.project-schedule thead tr > * {
+    border-top: none;
+}
+
+div.widget.project-schedule table tbody {
+    background: #f5f5f5;
+}
+
+div.widget.project-schedule table tbody tr {
+    border: solid #d3d3d3;
+    border-width: 1px 0;
+}
+
+div.widget.project-schedule table tbody th,
+div.widget.project-schedule table tbody td {
+    height: 5em;
+    vertical-align: middle;
+    padding: .5em;
+}
+
+div.widget.project-schedule table tbody th {
+    display: none;
+}
+
+
+div.widget.project-schedule table tbody th strong {
+    font-size: 13px;
+    font-weight: bold;
+    display: block;
+    line-height: 13px;
+    width: 22px;
+}
+
+div.widget.project-schedule table tbody th span {
+    display: none;
+}
+
+
+div.widget.project-schedule table tbody td.on {
+	background-color: #d1edf1;    
+    text-align: left;
+    padding: 1em;
+}
+
+div.widget.project-schedule table tbody td.on span {
+    opacity: .75;
+}
+
+div.widget.project-schedule table tbody td.on.task {
+    background: #d1edf1 url('/view/css/icon/s/task.png') no-repeat 10px center;
+    padding-left: 38px;
+}
+
+div.widget.project-schedule table tbody td.on.material {
+    background: #d1edf1 url('/view/css/icon/s/material.png') no-repeat 10px center;
+    padding-left: 38px;
+}
+
+div.widget.project-schedule table tbody td.on.structure {
+    background: #d1edf1 url("/view/css/icon/s/structure.png") no-repeat 10px center;
+    padding-left: 38px;
+} 
+
+/* Coste imprescindible */
+div.widget.project-schedule table tbody td.on.req {
+    background-color: #e4c9e2;
+}
+
+/* Coste adicional */
+div.widget.project-schedule table tbody td.on.noreq {
+    background-color: #e2e2e2;
+}
+
+/*
+div.widget.project-schedule table tbody tr:nth-child(4n+1) td.on {
+    background-color: #f9d3d4;
+}
+
+div.widget.project-schedule table tbody tr:nth-child(4n+3) td.on {
+    background-color: #d2f0f0;
+}
+
+div.widget.project-schedule table tbody tr:nth-child(4n+4) td.on {
+    background-color: #c7c7e4;
+}
+*/
+
+
+div.widget.project-schedule table tbody td span {
+    font-size: 11px;
+    font-weight: normal;
+    text-align: center;
+    height: 5em;
+    overflow: hidden;
+}

@@ -1,0 +1,151 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+@import url('common.css');
+@import url('header.css');
+@import url('footer.css');
+@import url('home.css');
+@import url('superform.css');
+@import url('admin.css');
+@import url('dashboard.css');
+@import url('review.css');
+@import url('project.css');
+@import url('user.css');
+@import url('glossary.css');
+@import url('faq.css');
+@import url('blog.css');
+@import url('news.css');
+@import url('discover.css');
+@import url('tipsy/tipsy.css');
+@import url('about.css');
+@import url('feed.css');
+
+div#sub-header > div,
+div#sub-header-secondary > div {
+    display: block;
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+div#sub-header > div > h2 {
+    margin: 0;
+    padding: 0;
+}
+
+/* Main container */
+div#main {    
+    width: 940px;
+    margin: 10px auto;
+    clear: both;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 0;
+}
+
+/**
+ * Widgets
+ */
+ 
+div.widget {
+    background-color: white;
+    padding: 15px 20px;
+    overflow: hidden;    
+}
+
+ 
+ div.widget .supertitle {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0 2px .5em;
+    border-bottom: 1px solid #21b0b0;
+    margin-bottom: 1em;
+}
+
+div.widget .title{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 0 0 20px;
+    margin: 0 0 .8em -20px;
+    text-decoration: none;
+	background: url("arrowH2-section.gif") no-repeat -5px -16px;
+}
+
+
+/**
+ * User profile 
+*/
+body.user-profile div#sub-header h2 {
+    padding-left: 72px;
+    min-height: 55px;
+    position: relative;
+    line-height: 1.2em;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+body.user-profile div#sub-header h2 img {
+    position: absolute;    
+    width: 55px;
+    height: 55px;        
+/*    border: 1px solid #e2e2e2; */
+    left: 0;
+}
+
+body.user-profile div#sub-header h2 em {
+    display: block;
+    font-weight: bold;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-style: normal;
+}
+
+/* read more */
+div.read_more {
+    text-align: right;
+	margin-top: 16px;
+}
+div.read_more a {
+    text-decoration: none;
+    text-transform: uppercase;
+	font-size: 11px;
+}
+div.read_more a:hover {
+    color: #20B3B2;
+}
+/** end readmore **/
+
+div#message{background: none repeat scroll 0 0 #19B4B2;color: #FFFFFF;padding: 20px 0;font-size: 14px;width: 100%;}
+div#message div#message-content{width:940px;margin:0 auto;position:relative;}
+div#message div#message-content input.message-close{ background:url('/view/css/message-close.png') no-repeat; width:34px;height:33px;border:none;position:absolute;top:-8px;right:0;z-index:100; cursor:pointer;}
+div#message div#message-content ul{list-style:none;margin:0;padding:0;}
+
+
+
+/*no mostrar muesca en los widgets laterales*/
+div.side div.widget .title{background:none;}
+
+/*widget embed code for project*/
+body.project-embed{min-width:250px !important;max-width:250px !important;margin:0;padding:0}
+body.project-embed > div#wrapper{width:250px;margin:0;padding:0;}
+body.project-embed > div#wrapper > div.alone-project{width:250px;margin:0;padding:0;}
+body.project-embed > div#wrapper > div.alone-project > div.widget.project{width:250px;margin:0;padding:10px 0 0 0; position:relative;background-color:#EBEAEB;height:420px;}
+body.project-embed > div#wrapper > div.alone-project > div.widget.project a.expand{position:absolute;top:0;bottom:0;width:100%;z-index:100}
+body.project-embed > div#wrapper > div.alone-project > div.widget.project.active{background-color:#F8F8F8 !important;}
+div.alone-project > div.widget.project > div.buttons > a.button{padding: 0.6em 1em}

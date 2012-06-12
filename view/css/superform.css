@@ -1,0 +1,605 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/**
+ * Superform!
+ */
+ 
+@import url('superform/datepicker.css');
+
+body.js div.superform .jshidden {
+    display: none;
+}
+
+div.superform fieldset {
+    border: 1px solid #99a2a5;    
+}
+
+div.superform fieldset legend {
+    color: #6d7375;
+}
+
+div.superform h3 {
+    font-size: 30px;    
+}
+
+div.superform li.element > h4,
+div.superform li.element > h5,
+div.superform li.element > h6,
+div.superform li.element > h7,
+div.superform li.element > h8 {    
+    margin: 0 0 .5em;    
+    font-size: 14px;
+}
+
+div.superform li.element > label {
+    font-weight: bold;        
+    text-transform: uppercase;
+    margin: 1em 0;
+    display: block;
+}
+
+div.superform > div.hint,
+div.superform > div.elements {    
+    overflow: visible;
+}
+
+div.superform > div.hint {
+    color: #7f8183;    
+    overflow: hidden;
+}
+
+body.js div.superform > div.hint {
+    background: url('superform/wizard.png') no-repeat right top;     
+    border-right: 1px dashed #b7c2c5;      
+}
+
+div.superform > div.elements {
+    border-right: 1px dashed #b7c2c5;
+    position: relative;
+}
+
+div.superform > div.hint h4,
+div.superform > div.hint blockquote {    
+    background-color: #ffffff;
+/*
+    background: url('/view/css/superform/guide.png') 20px 20px;
+    padding-left: 60px;
+*/
+    padding: 20px;    
+    vertical-align: top;
+    border: dashed #b7c2c5;
+    border-width: 1px 0 0;
+    margin: 0;    
+}
+
+div.superform > div.hint h4 {
+    font-size: 30px;
+    float: left;
+}
+
+div.superform > div.hint blockquote {
+    font-size: 12px;
+    border-right-width: 1px;
+    min-height: 3em;
+}
+
+body.js div.superform > div.hint blockquote {
+    margin-right: 250px;
+}
+
+div.superform > div.hint blockquote p {
+    margin: 0;
+}
+
+div.superform div.elements > ol {
+    padding: 0;    
+    margin: 0;
+    list-style: none;
+}
+
+div.superform > div.elements div.elements > ol {
+    padding-left: 2em;    
+}
+
+div.superform li.element > div.contents + div.children > div.elements > ol,
+div.superform li.element > div.contents + div.feedback + div.children > div.elements > ol{
+    margin-top: 1em;
+}
+
+div.superform li.element {
+    position: relative;
+    padding: 1em 0;
+    border-top: 1px dashed #B7C2C5;
+    clear: both;
+}
+
+div.superform li.element:last-child {
+    padding-bottom: 0;
+}
+
+div.superform > div.elements > ol > li.element {
+    padding: 2em 2em 2em 0;
+}
+
+div.superform > div.elements > ol > li.element.inline {
+    border-top: none;
+    padding: 0 2em 2em 0;
+}
+
+div.superform li.element > * + div.contents {
+    margin-top: 1em;
+}
+
+body.js div.superform > div.elements > ol > li.element {
+    margin-right: 251px;
+    border-right: 1px dashed #b7c2c5;
+}
+
+body.js div.superform > div.elements > ol > li.element li.element {
+    margin-right: 0;
+    border-right: none;
+}
+
+body div.superform > div.elements li.element li.element.inline {
+    border-top: none;
+}
+
+div.superform div.elements > ol > li div.element {
+    display: inline;    
+}
+
+div.superform div.elements > ol > li > div.contents + div.children > div.elements {
+    margin-top: 1em;
+}
+
+div.superform input[type='text'],
+div.superform input[type='password'],
+div.superform textarea {
+    padding: .4em;    
+    background-color: #d7d9da;
+    border: 1px solid #58595b;
+}
+
+div.superform textarea {
+    min-height: 6em;
+}
+
+/* Full-width elements */
+div.superform li.element.fullwidth {    
+    border-right: none !important;
+    background-color: #e7e7e7 !important;
+    margin-right: -2px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-bottom: 1px dashed #b7c2c5 !important;
+    margin-bottom: -1px !important;
+}
+
+div.superform li.element.fullwidth + li.element {
+    border-top: none;
+}
+
+/* Element badges. Order is imporant */
+div.superform div.elements > ol > li.required > .title {
+    background: url('superform/badge/required.png') no-repeat right center;
+}
+
+div.superform div.elements > ol > li.ok > .title {
+    background: url('superform/badge/ok.png') no-repeat right center;
+}
+
+div.superform div.elements > ol > li.error > .title  {
+    background: url('superform/badge/error.png') no-repeat right center !important;
+}
+
+div.superform div.elements > ol > li.busy > .title {
+    background: url('superform/badge/busy/cyan.gif') no-repeat right center;
+}
+
+div.superform li.element.hidden {
+    display: none;
+}
+
+/* Textboxes & Textarea */
+
+div.superform li.element.textbox > div.contents,
+div.superform li.element.textarea > div.contents {
+    padding-right: .6em;
+}
+
+div.superform li.element.textbox > div.contents > input[type="text"],
+div.superform li.element.textbox > div.contents > input[type="password"],
+div.superform li.element.textarea > div.contents > textarea {
+    display: block;
+    width: 99%;
+    min-width: 99%;
+    max-width: 99%;
+    margin: 0;    
+}
+
+/* Custom textboxes */
+
+div.superform div.elements li.element.textbox.facebook > div.contents,
+div.superform div.elements li.element.textbox.google > div.contents,
+div.superform div.elements li.element.textbox.twitter > div.contents,
+div.superform div.elements li.element.textbox.identica > div.contents,
+div.superform div.elements li.element.textbox.linkedin > div.contents {
+    padding-left: 39px;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+div.superform div.elements li.element.textbox.facebook > div.contents {
+    background-image: url('superform/facebook.png');
+}
+
+div.superform div.elements li.element.textbox.google > div.contents {
+    background-image: url('superform/google.png');
+}
+
+div.superform div.elements li.element.textbox.twitter > div.contents {
+    background-image: url('superform/twitter.png');
+}
+
+div.superform div.elements li.element.textbox.identica > div.contents {
+    background-image: url('superform/identica.png');
+}
+
+div.superform div.elements li.element.textbox.linkedin > div.contents {
+    background-image: url('superform/linkedin.png');
+}
+
+/* Checkboxes & radios */
+
+div.superform div.elements > ol > li.element.checkboxes,
+div.superform div.elements > ol > li.element.radios,
+div.superform div.elements > ol > li.element.slider {
+    padding-bottom: 0;
+}
+
+div.superform div.elements > ol > li.element.checkboxes > div.contents > ul,
+div.superform div.elements > ol > li.element.radios > div.contents > ul,
+div.superform div.elements > ol > li.element.slider > div.contents > ul {
+    padding: 0;
+    margin: 0;    
+    list-style: none;
+    overflow: hidden;
+    border-top: 1px dashed #bcbdbf;
+}
+
+div.superform div.elements > ol > li.element.checkboxes > div.contents > ul > li,
+div.superform div.elements > ol > li.element.radios > div.contents > ul > li,
+div.superform div.elements > ol > li.element.slider > div.contents > ul > li {
+/*    float: left;   width: 50%;    */
+    border-bottom: 1px dashed #bcbdbf;
+    border-right: 1px dashed #bcbdbf;
+/*    margin-left: -1px; */
+    margin-bottom: -1px;
+    padding: 0;
+}
+
+div.superform div.elements > ol > li.element.checkboxes.inline > div.contents > ul > li,
+div.superform div.elements > ol > li.element.radios.inline > div.contents > ul > li,
+div.superform div.elements > ol > li.element.slider.inline > div.contents > ul > li {
+    margin-bottom: 0;
+}
+
+div.superform div.elements > ol > li.radio > div.contents > label,
+div.superform div.elements > ol > li.element.checkboxes > div.contents > ul > li > label,
+div.superform div.elements > ol > li.element.radios > div.contents > ul > li > label,
+div.superform div.elements > ol > li.element.slider > div.contents > ul > li > label {
+    position: relative;
+    padding: .8em 1em;
+    display: block;    
+    cursor: pointer;
+}
+
+div.superform div.elements > ol > li.element.checkboxes.cols_1 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.radios.cols_1 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.slider.cols_1 > div.contents > ul > li {
+    width: 100%;
+}
+
+div.superform div.elements > ol > li.element.checkboxes.cols_2 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.radios.cols_2 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.slider.cols_2 > div.contents > ul > li {
+    width: 49.8%;
+    float:left;
+}
+
+div.superform div.elements > ol > li.element.checkboxes.cols_3 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.radios.cols_3 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.slider.cols_3 > div.contents > ul > li {
+    width: 33.16%;
+    float:left;
+}
+
+div.superform div.elements > ol > li.element.checkboxes.cols_4 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.radios.cols_4 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.slider.cols_4 > div.contents > ul > li {
+    width: 24.8%;
+    float:left;
+}
+
+div.superform div.elements > ol > li.element.checkboxes.cols_5 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.radios.cols_5 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.slider.cols_5 > div.contents > ul > li {
+    width: 20%;
+}
+
+div.superform div.elements > ol > li.element.checkboxes.cols_6 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.radios.cols_6 > div.contents > ul > li,
+div.superform div.elements > ol > li.element.slider.cols_6 > div.contents > ul > li {
+    width: 16.66%;
+}
+
+
+div.superform div.elements > ol > li.radio > div.contents > label > input[type="radio"],
+div.superform div.elements > ol > li.element.checkboxes > div.contents > ul > li > label > input[type="checkbox"],
+div.superform div.elements > ol > li.element.radios > div.contents > ul > li > label > input[type="radio"],
+div.superform div.elements > ol > li.element.slider > div.contents > ul > li > label > input[type="radio"] {
+    position: absolute;
+    right: .5em;
+    top: 50%;
+    margin-top: -.5em;
+    height: 1em;
+    cursor: pointer;
+}
+
+div.superform div.elements > ol > li.element.radio {
+    padding: 0px !important;
+}
+
+
+/* Feedback */
+div.superform li.element > div.feedback {
+    margin-top: 1em;
+    font-size: 14px;
+    z-index: 999;    
+    padding-top: 13px;    
+    background: url('superform/tooltip/beak/cyan/n.png') no-repeat 1em 0;
+    display: inline-block;
+}
+
+body.js div.superform li.element > div.feedback  {
+    /* Javascript-enabled */
+    right: -250px;
+    top: -.5em;
+    width: 250px;
+    padding-left: 13px;
+    display: none;
+    position: absolute;
+    background: transparent url('superform/tooltip/beak/cyan/w.png') no-repeat 0 1em;
+    padding-top: 0;
+}
+
+body.js div.superform div.children > div.elements > ol > li.element > div.feedback {
+    left: 100%;
+    margin-left: 1em;
+    margin-top: 0;
+}
+
+div.superform li.element > div.feedback > div {
+    padding: 20px;
+    margin: 0;
+    background-color: #def1f1;
+    color: #7f8183;    
+    box-shadow: 2px 3px 0 rgba(0,0,0,.2);    
+    -moz-box-shadow: 2px 3px 0 rgba(0,0,0,.2);    
+    -webkit-box-shadow: 2px 3px 0 rgba(0,0,0,.2);
+    position: relative;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    line-height: 16px !important;
+}
+
+div.superform li.element > div.feedback > div + div {
+    margin-top: -10px;
+    z-index: 9999;
+    padding-top: .5em;
+}
+
+div.superform li.element > div.feedback > div  blockquote {
+    padding: 0;
+    margin: 0;
+    font-size: 13px;    
+}
+
+div.superform li.element > div.feedback > div.error + div.hint > blockquote {
+    border-top: 1px dashed #b7c2C5;
+    padding-top: 1em;
+}
+
+div.superform li.element > div.feedback > div.error blockquote {
+    padding-left: 30px;
+    background: url("superform/feedback/error.png") no-repeat left .2em;
+}
+
+/* Additional color schemes */  
+div.superform.aqua li.element > div.feedback > div {
+    background-color: #35b8b8;
+    color: white;
+}
+
+div.superform.aqua li.element > div.feedback {
+    background-image: url('superform/tooltip/beak/aqua/n.png');    
+}
+
+body.js div.superform.aqua li.element > div.feedback  {    
+    background-image: url('superform/tooltip/beak/aqua/w.png');
+}
+
+div.superform.aqua div.elements > ol > li.busy > .title {
+    background: url('superform/badge/busy/aqua.gif') no-repeat right top;
+}
+
+div.superform.aqua li.element > div.feedback > div.error + div.hint > blockquote {
+    border-top-color: white;
+}
+
+div.superform.red li.element > div.feedback > div {
+    background-color: #e13028;
+    color: white;
+}
+
+div.superform.red li.element > div.feedback {    
+    background-image: url('superform/tooltip/beak/red/n.png');    
+}
+
+
+body.js div.superform.red li.element > div.feedback  {    
+    background-image: url('superform/tooltip/beak/red/w.png');
+}
+
+div.superform.red input[type="text"],
+div.superform.red input[type="password"],
+div.superform.red textarea {
+    background-color: #fdedec;
+    border-color: #ee4843;
+}
+
+div.superform.red > div.hint h4,
+div.superform.red > div.hint blockquote {    
+    background-color: #fdedec;    
+    color: #ee4843;
+}
+
+div.superform.red div.elements > ol > li.busy > .title {
+    background: url('superform/badge/busy/red.gif') no-repeat right top;
+}
+
+div.superform.red li.element > div.feedback > div.error + div.hint > blockquote {
+    border-top-color: white;
+}
+
+div.superform.green li.element > div.feedback > div {
+    background-color: #00b05b;
+    color: white;
+}
+
+div.superform.green li.element > div.feedback {    
+    background-image: url('superform/tooltip/beak/green/n.png');    
+}
+
+body.js div.superform.green li.element > div.feedback  {    
+    background-image: url('superform/tooltip/beak/green/w.png');
+}
+
+div.superform.green input[type="text"],
+div.superform.green input[type="password"],
+div.superform.green textarea {
+    background-color: #e7f3e8;
+    border-color: #00b05b;
+}
+
+div.superform.green > div.hint h4,
+div.superform.green > div.hint blockquote {    
+    background-color: #e7f3e8;    
+    color: #00b05b;
+}
+
+div.superform.green div.elements > ol > li.busy > .title {
+    background: url('superform/badge/busy/green.gif') no-repeat right top;
+}
+
+/* Estilos específicos*/
+/* botones */
+div.superform input[type="submit"] {
+    padding: 0.3em 1.2em !important;
+    font-weight: bold;
+    font-size: 12px !important;
+}
+
+div.superform button.image-remove {
+    position: absolute;
+    right: 5px;
+    top: -10px;
+    background: url("/view/css/button/cross.png") no-repeat center center !important;
+    width: 20px;
+    height: 20px;
+    padding: 0px !important;
+    margin: 0px 10px 0px 0px !important;
+}
+
+div.superform button.image-remove:hover {
+    background: url("/view/css/button/cross-active.png") no-repeat center center !important;
+}
+
+div.superform input.next,
+div.superform input.confirm,
+div.superform input.retry {
+    padding: 0.6em 1.6em !important;
+    font-size: 15px !important;
+}
+
+/* titulos */
+div.superform li#social_rewards h4.title,
+div.superform li#individual_rewards h4.title,
+div.superform li#supports h4.title,
+div.superform li#costs h4.title {
+    padding-left: 25px;
+}
+
+/* backgrounds */
+div.superform li#supports,
+div.superform li#social_rewards {
+    background-color: #f3f9f2 !important;
+}
+div.superform li#individual_rewards {
+    background-color: #f8e3e3 !important;
+}
+
+div.superform li.editcost {
+    background-color: #fdf3f4;
+}
+
+div.superform li.cost.required_cost-yes,
+div.superform li.editcost.required_cost-yes {
+    background-color: #f2e5f1 !important;
+}
+
+div.superform li.editcost li.required_cost-yes {
+    background-color: #e4c9e2 !important;
+}
+
+div.superform li.cost.required_cost-no,
+div.superform li.editcost.required_cost-no {
+    background-color: #f3f3f3 !important;
+}
+
+div.superform li.editcost li.required_cost-no {
+    background-color: #e2e2e2 !important;
+}
+
+/* Imágenes gallery */
+div.superform li#gallery div.elements li.gallery-image {
+    margin: 5px 25px !important;
+    display: inline-block !important;
+    width: 153px !important;
+}
+
+
+/* bordes */
+div.superform li#scope,
+div.superform li#supports,
+div.superform li#social_rewards,
+div.superform li#individual_rewards {
+    border-bottom: 1px dashed #b7c2c5;
+}

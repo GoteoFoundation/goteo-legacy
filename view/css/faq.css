@@ -1,0 +1,96 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+#faq-content {
+    width:620px;
+	margin: 0 20px 0 0;
+	float:left;
+}
+#faq-content h2 {
+	padding: 15px 0 0 20px;
+	background: white url('arrowH2-section.gif') no-repeat scroll -5px -2px;
+	font: bold 16px Helvetica, Arial, Geneva, sans-serif;
+	border-bottom: 2px solid #e7e7e7;
+	height: 30px;
+	margin: 0;
+}
+#faq-content h3 {
+	font: bold 16px Helvetica, Arial, Geneva, sans-serif;
+	margin: 5px 0 20px;
+}
+#faq-content h4 {
+	margin: 5px 0 0 0;
+}
+#faq-content ol{
+	margin-left:20px;
+	padding-left:0px;
+}
+#faq-content ol li{
+	margin: 0 0 20px 0;
+}
+#faq-content p{
+	margin: 5px 0;
+}
+#faq-sidebar {
+    width:300px;
+	float:right;
+}
+div.widget.faq-content-module,
+div.widget.faq-sidebar-module {
+    background-color: white;
+    line-height: 16px;
+    margin: 0 0 20px;
+}
+div.widget.faq-content-module ol li a.up{
+    margin-left: -15px !important;
+    margin-bottom: 0px !important;
+}
+div.widget.faq-sidebar-module .supertitle {
+    border-bottom: 1px solid #58595b;
+    font: normal 14px Helvetica, Arial, Geneva, sans-serif;
+    padding: 0 2px 0.4em;
+	margin: 0 0 1em;
+}
+div.widget.faq-sidebar-module .supertitle.ask {
+    border-bottom-color: #25a345;
+	margin-bottom: 12px;
+}
+div.widget.faq-sidebar-module ol {
+    margin-left: 20px;
+	padding-left:0px;
+}
+div.widget.faq-sidebar-module ol li {
+    margin:0 0 5px 0;
+}
+div.widget.faq-sidebar-module ol li a {
+	text-decoration:none;
+}
+div.widget.faq-sidebar-module ol li a:hover {
+	text-decoration:underline;
+}
+div.widget.faq-sidebar-module p.ask-content{
+	padding: 0 0 12px 24px;
+	margin: 8px 0 0 0;
+	border-bottom: 1px solid #25a345;
+}
+
+div.widget.faq-sidebar-module a.btn-ask{
+	margin: 12px 0px 0px 0px !important;
+    font-weight: bold;
+    font-size: 16px;
+}

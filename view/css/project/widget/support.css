@@ -1,0 +1,281 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.project-support {
+    position: relative;
+}
+
+/* Detalle de la linea roja (y otras cosillas) en el supertitle del termometro*/
+div.widget.project-support h4.supertitle {
+    border-bottom: 1px solid #96238F !important;
+}
+
+div.widget.project-support dl {
+    margin: 0;
+    padding: 0 0 0 20px;
+    float: left;
+    margin-left: 15px;
+}
+
+body.js div.widget.project-support dl {
+    padding-left: 0;
+}
+
+div.widget.project-support dl {
+    font-size: 16px;
+}
+
+div.widget.project-support dl dt {
+    margin-top: .8em;
+}
+
+div.widget.project-support dl dt,
+div.widget.project-support dl dd {
+    text-transform: uppercase;
+    font-size: 12px;
+    display: block;
+    min-height: 1.5em;
+    line-height: 1.5em;
+	margin-left: 5.5em;
+}
+
+div.widget.project-support dl dd * {   
+    font-weight: bold;
+    font-size: 16px;
+}
+
+div.widget.project-support dl dt.optimum{
+	color:#BB70B6;
+}
+
+div.widget.project-support dl dt.optimum,
+div.widget.project-support dl dt.minimum {
+    width: 5.5em;
+    float: left;
+    margin-left: 0;
+    line-height: 45px;
+    height: 45px;
+    margin-top: 0;
+    text-indent: 10px;
+    background: no-repeat left center;    
+}
+
+
+
+div.widget.project-support dl dt.optimum {
+    background-image: url('/view/css/project/widget/support/here-optimum.png');
+}
+
+div.widget.project-support dl dt.minimum {
+    background-image: url('/view/css/project/widget/support/here-minimum.png');
+    clear: left;
+}
+
+div.widget.project-support dl dd.optimum,
+div.widget.project-support dl dd.minimum {
+    float: left;
+    margin-left: 0;
+    line-height: 45px;    
+    height: 45px;
+    margin-top: 0;
+    padding-right: 28px;
+    background: url('/view/css/euro/light-violet/l.png') no-repeat right center;
+    display: inline-block;
+}
+
+div.widget.project-support dl dd.minimum {
+    background-image: url('/view/css/euro/violet/l.png');
+}
+
+div.widget.project-support dl dd.optimum strong{
+	color:#BB70B6;
+}
+
+div.widget.project-support dl dd.optimum strong,
+div.widget.project-support dl dd.minimum strong {
+    font-size: 30px;
+}
+
+div.widget.project-support dl dd.optimum span.euro,
+div.widget.project-support dl dd.minimum span.euro {
+    display: none;
+}
+
+div.widget.project-support dl dt.minimum,
+div.widget.project-support dl dd.minimum {
+    color: #96238F;
+}
+
+div.widget.project-support dl dt.reached {
+    clear: both;
+}
+
+div.widget.project-support dl dd.reached {        
+    padding-right: 20px;
+    background: url('/view/css/euro/violet/s.png') no-repeat right top;
+    display: inline-block;
+	color:#96238F;
+}
+
+div.widget.project-support dl dd.reached span.euro {
+    display: none;
+}
+
+div.widget.project-support dl dt.supporters,
+div.widget.project-support dl dd.supporters {
+    color: #313b96;
+}
+
+/* Animated/static meter */
+div.widget.project-support > div.meter {
+    overflow: visible;
+	margin-top: 20px;
+}
+
+body.project-show div#main > div.side > div.widget h3.title.ronda {
+	color:#20B3B2;
+	position:absolute;
+	top: 55px;
+	right:15px;
+    text-transform: lowercase;
+}
+
+div.widget.project-support div.graph {
+    background: url('/view/css/project/widget/support/over.png') no-repeat center top;
+    width: 26px;
+    overflow: visible;            
+    border-bottom: 2px solid #20B3B2;
+    font-size: 0;
+    margin-left: 14px;
+/*    margin-top: 22px; */
+    float: left;
+    padding-top: 22px;
+}
+
+div.widget.project-support div.graph > div.optimum,
+div.widget.project-support div.graph > div.minimum {
+    width: 26px;
+    overflow: visible;
+}
+
+div.widget.project-support div.graph > div.optimum {
+    background: url('/view/css/project/widget/support/optimum.png') no-repeat center top;
+    height: 45px;
+}
+
+div.widget.project-support div.graph > div.minimum {    
+    background: url('/view/css/project/widget/support/minimum.png') no-repeat center top;
+    position: relative;    
+    min-height: 145px !important;
+}
+
+div.widget.project-support div.graph > div.minimum > div.done {
+    background: url('/view/css/project/widget/support/done.png') no-repeat bottom;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    overflow: visible;
+}
+
+div.widget.project-support div.meter.ver div.graph .minimum .done {
+    max-height: 212px;
+}
+
+div.widget.project-support div.graph > div.minimum > div.done strong {
+    background: url('/view/css/project/widget/support/marker.png') no-repeat center center;
+    width: 30px;  
+    padding: 0 8px 0 4px;
+    height: 20px;    
+    margin-top: -9px;    
+    color: white;    
+    font-size: 9px;
+    font-weight: normal;    
+    line-height: 20px;
+    margin-left: -16px;    
+    text-align: center;
+	display: block;
+	letter-spacing: 0.2em;
+}
+
+div.widget.project-support div.buttons {
+    padding: 1em 0 0;
+    clear: both;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+}
+
+div.widget.project-support a.button {    
+    margin: 0;
+}
+
+div.widget.project-support a.more {
+    float: right;
+    text-decoration: none;
+	position: relative;
+	top: 16px;
+}
+
+/* Tagmark termometro */
+div.widget.project-support div.tagmark {
+    position: absolute;
+    z-index: 9999;
+    text-align: left;
+    color: #ffffff;
+    font-size: 1.2em;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin-left: -20px;
+    top: 0px;
+    width: 235px;
+    height: 40px;
+    padding: 0 30px 0px 38px;
+	font-style: normal;
+	letter-spacing: 1px;
+	line-height: 40px;
+}
+
+div.widget.project-support div.tagmark.green {
+    background:url('/view/css/project/long_tagmark_green.png') left top no-repeat;
+}
+
+div.widget.project-support div.tagmark.red {
+    background:url('/view/css/project/long_tagmark_red.png') left top no-repeat;
+}
+
+div.widget.project-support div.tagmark.violet {
+    background:url('/view/css/project/long_tagmark_violet.png') left top no-repeat;
+}
+
+div.widget.project-support div.tagmark.grey {
+    background:url('/view/css/project/long_tagmark_grey.png') left top no-repeat;
+}
+
+/* tipografia pequeña para que quepa todo */
+div.widget.project-support div.tagmark span.small {
+    font-size: 0.8em !important;
+    font-weight: normal !important;
+	line-height: normal;
+}
+
+/* Dos lineas para el en marcha y aun puedes */
+div.widget.project-support div.tagmark.twolines {
+    padding-top: 6px !important;
+}
+/** Fin tagmark **/

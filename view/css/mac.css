@@ -1,0 +1,25 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/* CSS Document */
+div.widget .title {font-size: 17px;}
+div.widget.project div.buttons{}
+div.widget.projects div.project div.buttons{overflow:visible;height:30px;}
+div.widget.projects div.project div.buttons a.button {padding: 0.3em 0.8em !important;margin:0;	margin-right:10px;float:left;}
+div.widget.projects div.project div.buttons a.button + a.button{margin-right:0;}
+

@@ -1,0 +1,618 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.project.active {
+    background-color: #f8f8f8 !important;
+}
+
+div.widget.project.active div.image {
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+}
+
+div.widget.project.active > .title a {
+    color: #20B3B2 !important;
+}
+
+div.widget.project {
+    overflow: visible;
+    position: relative;
+}
+
+div.widget.project > *  {
+    margin: 0;
+    padding: 12px;    
+}
+
+div.widget.project div.image {
+    height: 130px;
+    text-align: center;
+    background-color: #deddde;
+    margin: 12px 12px 10px;
+    padding: 0 !important;
+overflow: hidden;
+    position: relative;
+}
+
+div.widget.project div.image img {
+/*    width: 100%;
+    height: 100%; */
+}
+
+/** Tagmarks widget **/
+div.widget.project div.image div.tagmark {
+    position: absolute;
+    z-index: 899;
+    text-align: left;
+    color: #ffffff;
+    font-size: 1.0em;
+    font-weight: normal;
+    text-transform: uppercase;
+    width: 226px;
+    height: 31px;
+	font-style: normal;
+	letter-spacing: 1px;
+	margin-top: 8px;
+	line-height: 32px;
+	padding: 1px 0px 0px 30px;
+}
+
+div.widget.project div.image div.tagmark.green {
+    background:url('/view/css/project/tagmark_green.png') 0 0 no-repeat;
+}
+
+div.widget.project div.image div.tagmark.red {
+    background:url('/view/css/project/tagmark_red.png') 0 0 no-repeat;
+}
+
+div.widget.project div.image div.tagmark.violet {
+    background:url('/view/css/project/tagmark_violet.png') 0 0 no-repeat;
+}
+
+div.widget.project div.image div.tagmark.grey {
+    background:url('/view/css/project/tagmark_grey.png') 0 0 no-repeat;
+}
+
+/* tipografia peque�a para que quepa todo */
+div.widget.project div.image div.tagmark span.small {
+    font-size: 0.8em !important;
+	line-height: normal;
+}
+
+/* Dos lineas para el en marcha y aun puedes */
+div.widget.project div.image div.tagmark.twolines {
+    padding-top: 4px !important;
+	font-weight: normal;
+	font-style: normal;
+}
+/** Fin tagmarks **/
+
+div.widget.project div.image div.investor {
+    position: absolute;
+    z-index: 899;
+    background-color: #f3f3f3;
+    margin-top: 70px;
+    margin-left: 3px;
+}
+
+div.widget.project div.image div.investor img {
+    width: 34px !important;
+    height: 34px !important;
+    margin: 3px;
+    float: left;
+}
+
+div.widget.project div.image div.investor div.invest {
+    text-transform: uppercase;
+    text-align: left;
+    font-size: 9px;
+    line-height: 9px;
+    color: #58595B;
+    float: left;
+    padding-top: 12px;
+    padding-left: 2px;
+    padding-right: 4px;
+}
+
+div.widget.project div.image div.investor div.invest span.amount {
+    color: #96238f;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px !important;
+    background: url("/view/css/euro/violet/s.png") no-repeat right center;
+    padding-right: 19px;
+}
+
+div.widget.project div.image div.categories {
+    text-align: left;
+    color: #ffffff;
+    background-color: #19b5b3;
+    font-size: 0.8em;
+    text-transform: uppercase;    
+    padding: 2px 8px;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    cursor: default;
+    position: absolute;
+    bottom: 0;
+    right: 0;    
+    left: 0;
+}
+/*
+div.widget.project div.keepiton {
+    position: absolute;
+    z-index: 899;
+    display: inline-block;
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    overflow: visible;
+    background-color: #19b5b3;
+    color: #ffffff;
+    border-radius: 2px 4px;
+    width: 120px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    padding: 3px;
+    bottom: 25px;
+    left: 0;
+    cursor: default;
+}
+*/
+div.widget.project > .title {    
+    font-size: 14px !important;
+    height: 2em;
+    padding: 0px 12px !important;
+    margin: 0px !important;
+}
+
+div.widget.project .title {
+    background: none !important;
+	line-height:1em;
+	overflow:hidden;
+}
+
+div.widget.project > .title a {
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 152px 12px 12px 0;
+    z-index: 900;
+}
+
+div.widget.project.balloon > .title a {
+    padding-top: 267px;
+	position:relative;
+	z-index:99;
+}
+
+div.widget.project > .author {
+    padding: 2px 0px 0px 12px;
+	max-height:1.2em;
+	overflow:hidden	
+}
+
+div.widget.project > .author,
+div.widget.project > .author a {
+    font-weight: bold;
+    font-size: 11px;
+    text-decoration: none;
+    text-transform: none;
+	position:relative;
+	z-index:100;
+}
+
+div.widget.project > .title a:hover{
+    color: #20B3B2;
+}
+
+
+div.widget.project div.description {
+    padding: 2px 12px;
+    min-height: 42px;
+    font-size: 11px;
+}
+
+div.widget.project div.meter {
+    border-top: 1px solid #d1d3d4;    
+    padding: 4px 0 78px !important;
+    position: relative;
+    margin: 0 12px !important;
+    height: 55px;
+}
+
+div.widget.project div.meter h2,
+div.widget.project div.meter h3,
+div.widget.project div.meter h4,
+div.widget.project div.meter h5,
+div.widget.project div.meter h6,
+div.widget.project div.meter h7,
+div.widget.project div.meter h8 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 0 0;
+}
+
+
+div.widget.project div.meter div.graph {
+    background-color: #BB70B6;
+    height: 8px;
+    border-right: 40px solid #DFBDDD;
+    margin: 40px 5px 70px;    
+    position: relative;   
+}
+
+/* Toda la movida para lo del obtenido */
+div.widget.project div.meter.activable {
+    z-index: 999
+}
+div.widget.project div.meter.activable.active {
+    background-color: #EBEAEB;
+}
+div.widget.project div.meter div.obtained {
+    display: none;
+    position: relative;
+    top: -10px;
+    right: -25px;
+}
+div.widget.project div.meter h3.title.obtained {
+    padding-left: 5px;
+}
+div.widget.project div.meter div.obtained strong {
+    font-size: 26px;
+    font-weight: bold;
+    color: #96238F;
+    padding-right: 20px;
+    border-right: 1px solid #a7a9ac;
+}
+div.widget.project div.meter div.obtained span.euro {
+    width: 19px;
+    height: 19px;
+    line-height: 2000px;
+    overflow: hidden;
+    display: inline-block;
+    background:  url('/view/css/euro/violet/m.png') no-repeat center;
+    margin-bottom: -1px;
+}
+div.widget.project div.meter div.obtained span.percent {
+    font-size: 26px;
+    font-weight: bold;
+    color: #a7a9ac;
+    padding-left: 15px;
+}
+div.widget.project div.meter h3.title.obtained,
+div.widget.project div.meter.active dl > dd,
+div.widget.project div.meter.active dl > dt {
+    display:none;
+}
+div.widget.project div.meter.active h3.title.investment,
+div.widget.project div.meter.active h3.title.ronda,
+div.widget.project div.meter.active div.graph > div {
+    display:none;
+}
+div.widget.project div.meter.active div.graph {
+    background: none !important;
+    border: none !important;
+}
+div.widget.project div.meter.active h3.title.obtained, 
+div.widget.project div.meter.active div.obtained {
+    display: block !important;
+}
+div.widget.project div.meter.active dl .days {
+    display: block !important;
+    background-color: #f8f8f8 !important;
+}
+/* Hasta aqu� la movida de lo obtenido */
+
+div.widget.project div.meter div.graph  * strong,
+div.widget.project div.meter div.graph  * span {
+    display: none;
+}
+
+div.widget.project div.meter > h3.ronda{
+	color:#20B3B2;
+	position:absolute;
+	top:4px;
+	right:5px;
+    text-transform: lowercase;
+}
+
+div.widget.project div.meter div.graph .minimum {
+    background-color: #96238F;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+div.widget.project div.meter div.graph .minimum .done {
+    background-color: #20B3B2;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+div.widget.project div.meter.hor div.graph .minimum .done {
+    max-width: 215px;
+}
+
+div.widget.project div.meter div.graph .minimum .done strong {
+    background: url("project/marker.png") no-repeat;
+    display: block;
+    height: 16px;
+    line-height: 2000px;
+    margin-right: -10px;
+    margin-top: -4px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    text-indent: 2000px;
+    width: 17px;
+}
+
+div.widget.project div.meter div.graph .minimum .left {
+    float: right;
+    height: 19px;
+    border-right: 4px solid #96238F;
+    margin-right: -2px;
+    margin-top: -6px;
+}
+
+div.widget.project div.meter div.graph .optimum {
+    border-right: 4px solid #BB70B6;
+    height: 19px;
+    margin-right: -2px;
+    position: absolute;
+    right: 0;
+    margin-top: -6px;
+}
+
+div.widget.project div.meter dl {
+    margin: -78px 40px 0 0;
+    position: relative;        
+}
+
+div.widget.project div.meter dl * {
+    margin: 0;
+}
+
+div.widget.project div.meter dl .minimum {
+    min-width: 10%;
+}
+
+div.widget.project div.meter dl .optimum {
+	color:#BB70B6;
+}
+
+div.widget.project div.meter dl .optimum,
+div.widget.project div.meter dl .minimum {
+    line-height: 14px;
+    display: block;       
+    white-space: nowrap;
+}
+
+div.widget.project div.meter dl dt.optimum,
+div.widget.project div.meter dl dt.minimum {
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+div.widget.project div.meter dl dd.optimum,
+div.widget.project div.meter dl dd.minimum {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+div.widget.project div.meter dl dt.optimum {
+    margin-top: 18px;
+}
+
+div.widget.project div.meter dl .optimum {
+    width: 70px;
+    right: 12px;
+    top: 45px;  
+    float: right;    
+    clear: right;    
+    margin-right: -40px;
+}
+
+div.widget.project div.meter dl .minimum {
+    color: #96238F;
+    width: 80px;        
+    position: relative;
+}
+
+div.widget.project div.meter dl .minimum > * {
+    display: block;    
+    width: 60px;
+    position: absolute;
+    right: 0;
+    top: 21px;
+    width: 60px;
+    margin-right: -30px;
+}
+
+div.widget.project div.meter dl dt.minimum {
+    position: absolute;
+    top: -60px;
+}
+
+div.widget.project div.meter dl dd.minimum > * {
+    position: absolute;
+    top: -25px;
+}
+
+div.widget.project div.meter dl .reached,
+div.widget.project div.meter dl .supporters {
+    display:  none;    
+}
+
+div.widget.project div.meter dl span.euro {
+    width: 16px;
+    height: 16px;
+    line-height: 2000px;
+    overflow: hidden;
+    display: inline-block;
+    background:  url('/view/css/euro/light-violet/s.png') no-repeat center;
+    margin-bottom: -1px;
+}
+
+div.widget.project div.meter dl .minimum span.euro {
+    background-image: url('/view/css/euro/violet/s.png');
+}
+
+div.widget.project div.meter dl .days {
+    position: absolute;
+    border-top: 1px solid #d1d3d4;
+    top: 55px;
+    padding: .8em 0;    
+    font-size: 12px;
+    line-height: 1.5em;
+    font-weight: bold;
+}
+
+div.widget.project div.meter dl dt.days {    
+    width: 70px;
+    text-transform: uppercase;
+}
+
+div.widget.project div.meter dl dd.days {
+    left: 70px;
+    right: -40px;
+    color: #ee4843;
+    font-weight: bold;
+}
+
+div.widget.project div.rewards {
+    border-top: 1px solid #d1d3d4;    
+    padding: 4px 0 0 !important;
+    position: relative;    
+    margin: 10px 12px 8px !important;
+    height: 22px;
+    overflow: hidden;
+}
+
+div.widget.project div.rewards h2,
+div.widget.project div.rewards h3,
+div.widget.project div.rewards h4,
+div.widget.project div.rewards h5,
+div.widget.project div.rewards h6,
+div.widget.project div.rewards h7,
+div.widget.project div.rewards h8 {
+    margin: 0;
+    line-height: 22px;
+    float: left;
+    width: 70px;
+    font-size: 12px;
+}
+
+div.widget.project div.rewards ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    z-index: 910;
+}
+
+div.widget.project div.rewards ul li {
+    display: inline-block;
+    margin-right: 3px;
+    width: 22px;
+    height: 22px;
+    line-height: 2000px;
+    text-indent: 2000px;
+    overflow: hidden;
+    background-image: url('/view/css/icon/s/blank.png');
+    opacity:0.60;
+    filter:alpha(opacity=60);
+}
+
+div.widget.project div.rewards ul li.active {
+    opacity: 1 !important;
+    filter:alpha(opacity=100) !important;
+}
+
+div.widget.project div.rewards ul li a {
+    display: block;
+    width: 21px;
+    height: 21px;
+    line-height: 2000px;
+    text-indent: 2000px;
+    position: relative;
+    z-index: 910;
+}
+
+div.widget.project div.rewards ul li.file  {
+    background-image: url('/view/css/icon/s/file.png');
+}
+
+div.widget.project div.rewards ul li.money {
+    background-image: url('/view/css/icon/s/money.png');
+}
+
+div.widget.project div.rewards ul li.code {
+    background-image: url('/view/css/icon/s/code.png');
+}
+
+div.widget.project div.rewards ul li.service {
+    background-image: url('/view/css/icon/s/service.png');
+}
+
+div.widget.project div.rewards ul li.manual  {
+    background-image: url('/view/css/icon/s/manual.png');
+}
+
+div.widget.project div.rewards ul li.product {
+    background-image: url('/view/css/icon/s/product.png');
+}
+
+div.widget.project div.rewards ul li.design {
+    background-image: url('/view/css/icon/s/design.png');
+}
+
+div.widget.project div.rewards ul li.other {
+    background-image: url('/view/css/icon/s/other.png');
+}
+
+div.widget.project div.buttons {
+    padding-top: 10px !important;
+}
+
+div.widget.project div.buttons a.button {
+    margin: 0;
+    pading-top: 0 !important;
+    position: relative;
+    z-index: 900;
+}
+
+div.widget.project div.buttons .button + .button {
+    float: right;
+}
+
+
+h4.author:hover a{
+	color:#20b3b2;
+}

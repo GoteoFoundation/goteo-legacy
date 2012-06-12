@@ -1,0 +1,106 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+body.review div#main {
+    overflow: visible;
+}
+
+body.review div#sub-header {
+    padding-bottom: 4em;
+    margin-bottom: 0;
+    
+}
+
+body.review div#review-menu {
+    display: block;
+    max-width: 940px;
+    font-size: 13px;
+    margin: -2.6em auto 0;    
+    background-color: #78d1d1;
+    
+}
+
+body.review div#review-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+body.review div#review-menu ul li {
+    display: inline-block;
+}
+
+body.review div#review-menu ul li,
+body.review div#review-menu ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+body.review div#review-menu ul li a {
+    padding: .6em 1em;
+    height: 1.4em;
+    line-height: 1.4em;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+body.review div#review-menu ul li.section ul {
+    display: none;
+}
+
+body.review div#review-menu ul li.section.current ul {
+    display: block;
+}
+
+body.review div#review-menu ul li.section.active, 
+body.review div#review-menu ul li.section.current {
+    margin-bottom: 2.6em;
+}
+
+body.review div#review-menu ul li.section.current ul {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2.6em;
+    right: 0;
+    z-index: 0;
+}
+
+body.review div#review-menu ul li.section.active ul {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2.6em;
+    right: 0;
+    z-index: 9;
+}
+
+body.review div#review-menu ul li.section.active,
+body.review div#review-menu ul li.section.active ul,
+body.review div#review-menu ul li.section.current,
+body.review div#review-menu ul li.section.current ul {
+    background-color: #1db3b2;
+}
+
+body.review div#main div.widget {
+    margin-bottom: 20px;
+}
+

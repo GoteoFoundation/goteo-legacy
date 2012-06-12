@@ -1,0 +1,75 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+body.project-edit div#main div.project-preview {
+    overflow: hidden;
+}
+
+body.project-edit div#main div.project-preview > div > div.overlay {
+    cursor: default;
+}
+
+body.project-edit div#main div.project-preview > div > div {
+    
+}
+
+body.project-edit div#main div.project-preview div.widget {
+    margin-bottom: 20px;
+}
+
+body.project-edit div#main div.project-preview div.widget.project-support {
+    min-height: 340px;
+}
+
+body.project-edit div#main div.project-preview div.widget.project-support,
+body.project-edit div#main div.project-preview div.widget.project-collaborations,
+body.project-edit div#main div.project-preview div.widget.project-rewards, 
+body.project-edit div#main div.project-preview div.widget.user {
+    width: 260px;
+    float: right;
+    clear: right;    
+}
+
+body.project-edit div#main div.project-preview div.widget.project-summary,
+body.project-edit div#main div.project-preview div.widget.project-share,
+body.project-edit div#main div.project-preview div.widget.project-needs, 
+body.project-edit div#main div.project-preview div.widget.project-schedule {
+    max-width: 580px;
+    margin-right: 20px;
+}
+
+body.project-edit div#main div.project-preview div.widget.project-media {
+    padding: 0;
+    max-width: 620px;
+    height: 380px;
+    margin-right: 20px;
+}
+
+/* video motivacion */
+body.project-edit div#main div.project-preview div.project-motivation-video {
+    padding: 0;
+    margin-left: -20px;
+    max-width: 620px;
+    height: 380px;
+}
+
+/* Some hacks to the superform styles :S */
+body.project-edit div#main.preview div.superform > div.hint {
+    padding-right: 0;
+    border-right: none;
+}

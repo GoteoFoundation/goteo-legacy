@@ -1,0 +1,298 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/**
+ * Costs 
+ */
+ 
+body.project-edit div#main.costs div.superform li.element.cost-new > .title {
+    display: none;
+}
+
+/* Viendo */
+
+body.project-edit div#main.costs div.superform li.element.cost div.title {
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 70%;
+    float: left;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost div.cost {
+    padding-left: 55px;        
+    background: none no-repeat 10px center;
+    min-height: 32px;
+}
+body.project-edit div#main.costs div.superform li.element.cost div.task {
+    background-image: url('/view/css/icon/m/task.png');
+}
+
+body.project-edit div#main.costs div.superform li.element.cost div.structure {
+    background-image: url('/view/css/icon/m/structure.png');
+}
+
+body.project-edit div#main.costs div.superform li.element.cost div.material {
+    background-image: url('/view/css/icon/m/material.png');
+}
+
+body.project-edit div#main.costs div.superform li.element.cost div.description {
+/*    float: left; */
+    width: 70%;
+    margin: -10px 0px 0px;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost div.description p {
+    margin: .5em 0;
+}
+
+/*
+body.project-edit div#main.costs div.superform li.element.cost input.edit,
+body.project-edit div#main.costs div.superform li.element.cost input.remove {
+    width: 7em;
+}
+*/
+
+body.project-edit div#main.costs div.superform li.element.cost input.edit {
+    margin-top: -1em;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost input.remove {
+    margin-bottom: 1em;
+    margin-top: 0;
+}
+
+/* Editando */
+
+
+body.project-edit div#main.costs div.superform li.element.editcost > .children  ol {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost li.buttons div.contents,
+body.project-edit div#main.costs div.superform li.element.editcost li.buttons ol {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost li.buttons ol {
+    text-align: right;
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost li.buttons li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost li.buttons input {
+    width: auto;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-description textarea {
+    height: 4em;
+    min-height: 4em;
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost li.cost-type div.contents {
+    padding-left: 55px;        
+    background: none no-repeat 10px center;
+    min-height: 32px;
+    line-height: 32px;
+}
+body.project-edit div#main.costs div.superform li.element.editcost li.task div.contents {
+    background-image: url('/view/css/icon/m/task.png');
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost li.structure div.contents {
+    background-image: url('/view/css/icon/m/structure.png');
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost li.material div.contents {
+    background-image: url('/view/css/icon/m/material.png');
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-amount > div.contents > input {
+    width: 3em;
+    max-width: 3em;
+    min-width: 3em;
+    float: left;
+    padding-right: 2em;
+    background-image: url('/view/css/euro/m.png');    
+    background-repeat: no-repeat;
+    background-position: 3.7em center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-dates > div.children > div.elements > ol {
+    padding: 0;
+    margin: 0;
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-dates > div.children > div.elements > ol > li {
+    margin-top: -1em;
+}
+/* body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-dates > .title, */
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-dates > div.children > div.elements > ol > li.cost-from,
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-dates > div.children > div.elements > ol > li.cost-until {
+    float: left;
+    clear: none;
+    margin-right: 1em;
+    position: static;
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-dates > .title {
+    display: block;
+     /* margin-right: 2em; */
+}
+
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-dates > div.children > div.elements > ol > li.cost-from input,
+body.project-edit div#main.costs div.superform li.element.editcost div.children li.element.cost-dates > div.children > div.elements > ol > li.cost-until input {
+    width: 8em;
+    max-width: 8em;
+    min-width: 8em;
+}
+
+/* Termómetro */
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl,
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dt,
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dd {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl {
+    font-size: 28px;
+    padding: 75px;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dt {
+    font-size: 14px;
+    text-transform: uppercase;
+}   
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dt.minimum > span,
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dt.optimum > span {
+    display: block;
+    position: absolute;    
+    left: 100%;
+    width: 10em;    
+    padding-bottom: 41px;    
+    text-align: center;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dt.minimum > span {
+    margin-left: -63px;
+    bottom: 0;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dt.optimum > span {
+    margin-top: 20px;
+    margin-left: -63px;
+    top: 100%;
+	color:#BB70B6;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dt.minimum > span {
+    color: #96238F;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dd.minimum {
+    border-bottom: 10px solid #96238F;
+    z-index: 900;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dd.minimum > span {
+    display: block;
+    position: absolute;
+    left: 100%;
+    bottom: 100%;
+    width: 10em;
+    font-size: 28px;    
+    margin-left: -5em;
+    padding-left: 5px;
+    margin-bottom: 10px;        
+    text-align: center;   
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dd.minimum > span > strong {
+    background: url("/view/css/euro/violet/l.png") no-repeat right center;
+    color: #96238F;
+    padding-right: 31px;
+    padding-left: 5px;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dd.minimum > span > span.euro {
+    display: block;
+    overflow: hidden;    
+    position: absolute;
+    right: 5em;
+    width: 0;    
+    height: 20px;
+    margin-left: -5em;
+    margin-right: -5px;
+    z-index: 999;
+    border-left: 5px solid #96238F;
+    border-right: 5px solid #96238F;
+    font-weight: bold;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dt.optimum {
+    border-top: 10px solid #BB70B6;
+    margin-top: -10px;    
+    z-index: 0;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dd.optimum {
+    display: block;
+    position: absolute;
+    width: 10em;
+    left: 100%;
+    margin-left: -70px;
+    padding-top: 35px;    
+    text-align: center;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dd.optimum > strong {
+    margin-left: -270px;
+    padding-right: 31px;
+    background: url("/view/css/euro/light-violet/l.png") no-repeat right center;
+	color:#BB70B6;
+}
+
+body.project-edit div#main.costs div.superform li.element.cost-meter dl dd.optimum > span.euro {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    left: -5px;
+    top: 0;
+    width: 0;
+    height: 20px;
+    margin-top: -10px;
+    border-left: 10px solid #BB70B6;
+}
+
+    
+    

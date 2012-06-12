@@ -1,0 +1,150 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+@import url("project/widget/projects.css");
+
+body.home div#main div.learn {    
+    margin-bottom: 16px;
+    position: relative;
+}
+
+body.home div#main div.widget.projects h2.title {
+	margin-left:-47px;
+}
+body.home div#main div.widget.projects h3.title{
+	margin-left:3px;
+}
+
+body.home div#main div.widget.projects{
+	padding:15px 0 0 75px;	
+}
+
+body.home div#main div.widget.projects div.widget.project{
+	padding:0;
+	margin: 0 40px 42px 0;
+}
+
+body.home div#main div.learn ul.slderpag {
+    margin: 8px 0 0 0;
+	list-style:none;
+	padding:0px;
+	float:left;
+	height:auto;
+}
+
+body.home div#main div.learn ul.slderpag li {
+    cursor:pointer;
+    display: block;
+    float: left;
+    overflow: hidden;
+	margin: 0px 4px 5px 4px;
+}
+
+body.home div#main div.learn ul.slderpag li a {
+    width: 12px;
+    height: 6px;
+    margin-top: 2px;
+    background-color: #cdcdce;
+    color: #cdcdce;
+	display:block;
+}
+
+body.home div#main div.learn ul.slderpag li a:hover {
+    background-color: #20b3b2;
+    color: #20b3b2;
+}
+
+body.home div#main div.learn ul.slderpag li.current a {
+    background-color: #808184 !important;
+    color: #808184 !important;
+}
+
+body.home div#main div.learn a.next,
+body.home div#main div.learn a.prev {
+    width: 16px;
+    height: 16px;
+	line-height: 2000px;
+	overflow: hidden;
+	float:left;
+	margin: 9px 0 0 0;
+	cursor:pointer;
+/*	display: inline-block; */
+}
+
+body.home div#main div.learn a.prev {
+	background: url('small_arrowslider-sprt.png') scroll no-repeat 0 0;
+}
+
+body.home div#main div.learn a.prev:hover {
+	background: url('small_arrowslider-sprt.png') scroll no-repeat 0 -32px;
+}
+
+body.home div#main div.learn a.next{
+	background: url('small_arrowslider-sprt.png') scroll no-repeat 0 -16px;
+}
+
+body.home div#main div.learn a.next:hover {
+	background: url('small_arrowslider-sprt.png') scroll no-repeat 0 -48px;
+}
+
+body.home div#main div.learn div.slder_container {
+    width:900px;
+	height:290px;
+	display:none;
+}
+
+body.home div#main div.learn  div.slder_container div.slder_slide {
+    width:900px;
+	height:290px;
+	display:block;
+}
+
+body.home div#main div.learn  div.slder_container div.slder_slide . div.post {
+    position: relative;
+    min-height: 305px;
+    padding-left: 520px;
+    display: none;
+}
+
+body.home div#main div.learn div.slder_container div.slder_slide div.post div.read_more{
+    bottom: 10px;
+    right: 20px;
+    position: absolute;
+}
+
+body.home div#main div.learn div.slder_container div.slder_slide div.post h3,
+body.home div#main div.learn div.slder_container div.slder_slide div.post div.description {
+	float: left;
+    margin: 0 0 10px 20px;
+    width: 380px;
+	line-height: 18px;
+	text-transform:none;
+}
+
+body.home div#main div.learn div.slder_container div.slder_slide div.post div.embed,
+body.home div#main div.learn div.slder_container div.slder_slide div.post div.image {
+	float:left;
+    width: 500px;
+    height: 285px;
+}
+
+body.home div#main div.projects {
+    overflow: hidden;
+    margin-left: -3%;    
+    margin-bottom: 15px;
+}

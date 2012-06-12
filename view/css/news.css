@@ -1,0 +1,60 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/* Content syles */ 
+#news-content {
+    width:620px;
+	margin: 0 20px 0 0;
+	float:left;
+}
+#news-sidebar {
+    width:300px;
+	float:right;
+}
+div.widget.news-content-module,
+div.widget.news-sidebar-module{
+    background-color: white;
+    line-height: 18px;
+    margin: 0 0 20px;
+}
+div.widget.news-content-module  blockquote{
+	color: #58595B;
+	padding: 0 0 20px 0;
+	border-bottom: 1px solid #CABCBF;
+	margin: 18px 18px 12px 18px;
+}
+/* Sidebar styles */
+div.widget.news-sidebar-module h3.title {
+    border-bottom: 1px solid #20b3b2;
+	color: #20b3b2;
+    font: normal 15px Helvetica,Arial,Geneva,sans-serif;
+    margin: 0 0 1em;
+    padding: 0 2px 0.2em;
+}
+div.widget.news-sidebar-module ul#news-side-posts{
+    margin:0 25px;
+	padding: 0;
+}
+div.widget.news-sidebar-module ul#news-side-posts li{
+    margin:0 0 10px 0;
+}
+div.widget.news-sidebar-module ul#news-side-posts li a{
+	text-decoration:none;
+}
+/* end of Sidebar styles */
+

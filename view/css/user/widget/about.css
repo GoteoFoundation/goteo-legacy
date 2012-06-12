@@ -1,0 +1,111 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.user-about {
+    padding-bottom: 0;
+	line-height: 16px;
+}
+
+div.widget.user-about > div {
+    border-top: 1px solid #c9c9c9;
+    padding-top: 20px;
+    clear: both;
+}
+
+div.widget.user-about > div:nth-child(1) {
+    border-top: none;
+    padding-top: 0;
+}
+
+div.widget.user-about h4 {
+    font-size: 16px;
+    margin: 0 0 20px;
+}
+
+div.widget.user-about p {
+    margin: 0 0 20px;
+}
+
+div.widget.user-about > div.webs ul {
+    list-style: none;
+    overflow: visible;
+    margin: 0;
+    padding: 0 0 10px;
+}
+
+div.widget.user-about > div.webs ul li {
+    display: block;
+    padding-left: 30px;
+    min-height: 2em;
+    line-height: 2em;
+    background: url('/view/css/social/url.png') no-repeat left center;
+    margin: 0 0 10px;
+}
+
+div.widget.user-about > div.webs ul li a {
+    text-decoration: none;
+	font-size: 12px;
+}
+
+div.widget.user-about > div.webs ul li a:hover {
+	color: #20B3B2;
+}
+
+div.widget.user-about > div.location h4 {
+    display: none;
+}
+
+div.widget.user-about > div.location p {
+    padding-left: 28px;
+    line-height: 20px;
+    min-height: 22px;
+    background: url("/view/css/location/m.png") no-repeat left center;        
+}
+
+div.widget.user-about > div.location p,
+div.widget.user-about > div.location p * {
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: none;
+	font-style: normal;
+}
+
+div.widget.user-about > div.location p a:hover,
+div.widget.user-about > div.location p a:hover * {
+    color: #20B3B2;
+}
+
+div.widget.user-about > div.message p {
+    padding-left: 26px;
+    line-height: 22px;
+    min-height: 22px;
+    background: url("/view/css/bocadillo/s.png") no-repeat left center;
+}
+
+div.widget.user-about > div.message p a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    color: #28B258;
+}
+
+div.widget.user-about > div.message p a:hover {
+    text-decoration: underline;
+}
+
+

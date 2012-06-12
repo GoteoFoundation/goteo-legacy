@@ -1,0 +1,315 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/* status */
+body.dashboard div#main div.status {
+    float: left;
+    color: #bcbdbd;
+    border: none !important;
+    padding: 0px !important;
+    margin-right: 20px;
+}
+
+body.dashboard #project-status {
+    background-color: #ffffff;
+    padding: 20px 20px 30px 30px !important;
+	width:290px;
+}
+
+body.dashboard div#main div.status #project-status h3{
+	font-size:20px;
+}
+
+/* Estilos específicos para 
+Termometro horizontal grande  */
+
+/*
+body.dashboard div#meter-big {
+    border-top: 1px solid #d1d3d4;
+    padding: 4px 0 78px !important;
+    position: relative;
+    margin: 0 12px !important;
+    height: 55px;
+}
+*/
+body.dashboard div#meter-big {
+     height: 200px;
+     position: relative;
+}
+
+
+body.dashboard div#meter-big h3.title.ronda {
+	color:#20B3B2;
+	position:absolute;
+	top:20px;
+	right: 20px; 
+    text-transform: lowercase;
+    background: none !important;
+}
+
+/*
+body.dashboard div#meter-big h2,
+body.dashboard div#meter-big h3,
+body.dashboard div#meter-big h4,
+body.dashboard div#meter-big h5,
+body.dashboard div#meter-big h6,
+body.dashboard div#meter-big h7,
+body.dashboard div#meter-big h8 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 0 0;
+}
+*/
+
+body.dashboard div#meter-big div.graph {
+    background-color: #BB70B6;
+    height: 8px;
+    border-right: 40px solid #DFBDDD;
+    margin: 40px 5px 70px;
+    position: relative;
+}
+
+
+body.dashboard div#meter-big div.graph .minimum {
+    background-color: #96238F;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+body.dashboard div#meter-big div.graph .minimum .done {
+    background-color: #20B3B2;
+    height: 10px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+body.dashboard div#meter-big div.graph .minimum .done {
+    max-width: 580px;
+}
+
+/* Cambiar el marcador por uno grande con el strong del % dentro */
+body.dashboard div#meter-big div.graph .minimum .done strong {
+    background: url("marker.png") no-repeat;
+    display: block;
+    height: 21px;
+    margin-right: -13px;
+    margin-top: -11px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    width: 25px;
+    color: #ffffff;
+    font-size: 9px;
+    text-align: center;
+}
+
+body.dashboard div#meter-big div.graph .minimum .left {
+    float: right;
+    height: 19px;
+    border-right: 4px solid #96238F;
+    margin-right: -2px;
+    margin-top: -6px;
+}
+
+body.dashboard div#meter-big div.graph .optimum {
+    border-right: 4px solid #BB70B6;
+    height: 19px;
+    margin-right: -2px;
+    position: absolute;
+    right: 0;
+    margin-top: -6px;
+}
+
+body.dashboard div#meter-big dl {
+    margin: -78px 40px 0 0;
+    position: relative;
+}
+
+body.dashboard div#meter-big dl * {
+    margin: 0;
+}
+
+body.dashboard div#meter-big dl .minimum {
+    min-width: 10%;
+}
+
+body.dashboard div#meter-big dl .optimum {
+	color:#BB70B6;
+}
+
+body.dashboard div#meter-big dl .optimum,
+body.dashboard div#meter-big dl .minimum {
+    line-height: 14px;
+    display: block;
+    white-space: nowrap;
+}
+
+body.dashboard div#meter-big dl dt.optimum,
+body.dashboard div#meter-big dl dt.minimum {
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+body.dashboard div#meter-big dl dd.optimum,
+body.dashboard div#meter-big dl dd.minimum {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+body.dashboard div#meter-big dl dt.optimum {
+    margin-top: 18px;
+}
+
+body.dashboard div#meter-big dl .optimum {
+    width: 70px;
+    right: 12px;
+    top: 45px;
+    float: right;
+    clear: right;
+    margin-right: -40px;
+}
+
+body.dashboard div#meter-big dl .minimum {
+    color: #96238F;
+    width: 80px;
+    position: relative;
+}
+
+body.dashboard div#meter-big dl .minimum > * {
+    display: block;
+    width: 60px;
+    position: absolute;
+    right: 0;
+    top: 21px;
+    width: 60px;
+    margin-right: -30px;
+}
+
+body.dashboard div#meter-big dl dt.minimum {
+    position: absolute;
+    top: -60px;
+}
+
+body.dashboard div#meter-big dl dd.minimum > * {
+    position: absolute;
+    top: -25px;
+}
+
+/* Estilos de Obtenido, cofinanciadores, dias */
+body.dashboard div#meter-big dl .reached {
+	position: absolute;
+	top:55px;
+	padding: .8em 0;
+    font-size: 12px;
+    line-height: 1.5em;
+    font-weight: bold;
+}
+
+body.dashboard div#meter-big dl dt.reached {
+	margin-top: 6px;
+	text-transform: uppercase;
+}
+
+body.dashboard div#meter-big dl dd.reached {
+	left: 70px;
+	color: #96238F;
+	font-size: 16px;
+}
+
+body.dashboard div#meter-big dl .reached span.euro {
+    background-image: url('/view/css/euro/violet/s.png');
+}
+
+body.dashboard div#meter-big dl .supporters {
+    position: absolute;
+	top:55px;
+	padding: .8em 0;
+    font-size: 12px;
+    line-height: 1.5em;
+    font-weight: bold;
+    color: #1b5b9e;
+    left: 420px;
+}
+
+body.dashboard div#meter-big dl dt.supporters {
+	margin-top: 6px;
+	text-transform: uppercase;	
+}
+
+body.dashboard div#meter-big dl dd.supporters {
+	font-size: 16px;
+	left: 545px;	
+}
+
+body.dashboard div#meter-big dl span.euro {
+    width: 16px;
+    height: 16px;
+    line-height: 2000px;
+    overflow: hidden;
+    display: inline-block;
+    background:  url('/view/css/euro/light-violet/s.png') no-repeat center;
+    margin-bottom: -1px;
+}
+
+body.dashboard div#meter-big dl .minimum span.euro {
+    background-image: url('/view/css/euro/violet/s.png');
+}
+
+body.dashboard div#meter-big dl .days {
+    position: absolute;
+    top: 55px;
+    padding: .8em 0;
+    font-size: 12px;
+    line-height: 1.5em;
+    font-weight: bold;
+    left: 215px;
+}
+
+body.dashboard div#meter-big dl dt.days {
+    margin-top: 6px;
+    text-transform: uppercase;
+}
+
+body.dashboard div#meter-big dl dd.days {
+    left: 275px;
+    font-size: 16px;
+}
+
+body.dashboard div#meter-big div.keepiton {
+    background-color: #19B5B3;
+    border-radius: 3px 3px 3px 3px;
+    bottom: 20px;
+    color: #FFFFFF;
+    cursor: default;
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: bold;
+    left: 0;
+    overflow: visible;
+    padding: 3px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 120px;
+    z-index: 899;
+    left:20px;
+}

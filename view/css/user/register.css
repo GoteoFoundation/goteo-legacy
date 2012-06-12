@@ -1,0 +1,49 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+body.user-register div#main > div > * {
+    padding: 20px;
+    background-color: white;
+}
+
+body.user-register div#main > div h2 {
+    margin: 0 0 2em;
+    font-size: 16px;
+    font-weight: bold;    
+}
+
+body.user-register div#main > div form > div {
+    padding: 0 0 1em;
+}
+
+body.user-register div#main > div form > div label {
+    line-height: 2em;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+body.user-register div#main > div form > div input {
+    display: block;
+    background-color: #DFF2F3;
+    width: 18em;
+}
+
+body.user-register div#main form input[type="submit"] {
+    margin-bottom: 0;
+}

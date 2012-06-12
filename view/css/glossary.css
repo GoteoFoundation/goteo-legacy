@@ -1,0 +1,118 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+#glossary-content {
+    width:620px;
+	margin: 0 20px 0 0;
+	float:left;
+}
+#glossary-content h3.title {
+	margin: 0px 0px 20px;
+	padding: 15px 0 10px 30px;
+	background: white url('arrowH2-section.gif') no-repeat scroll -5px -2px;
+	font-size: 16px;
+    font-weight: bold;
+}
+#glossary-content div.glossary-page {
+    background-color: white;
+    margin-bottom: 20px;
+    margin-top: -20px;
+    padding: 10px 0px 1px;
+}
+#glossary-content h4.supertitle {
+	font-size: 16px;
+	margin: 0px 30px;
+    border-bottom: 1px solid black;
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+#glossary-content h5.aqua {
+    font-size: 14px;
+	margin: 10px 0;
+    color: #20B3B2;
+    text-transform: none !important;
+}
+#glossary-content .post {
+	margin: 0 30px 0;
+	line-height: 16px;
+}
+#glossary-content .post p{
+	margin-top: 10px;
+}
+#glossary-content .post .embed{
+    width: 500px;
+    height: 285px;
+	margin: 10px 18px;
+}
+#glossary-content .post .embed-legend{
+	border-left: 2px solid #58595B;
+	color: #9B9B9D;
+	font-size: 0.9em;
+	margin-left: 16px;
+	width: 495px;
+	padding-left: 10px;
+	margin-bottom:10px;
+	font-style:oblique
+}
+
+/* Gallery */
+/*
+#glossary-content .post .gallery-image{
+	text-align:left;
+}
+#glossary-content .post .gallery-image img{
+	margin: 10px 18px;
+}
+*/
+#glossary-sidebar {
+    width:300px;
+	float:right;
+}
+div.widget.glossary-content-module,
+div.widget.glossary-sidebar-module {
+    background-color: white;
+    line-height: 18px;
+    margin: 0 0 20px;
+}
+div.widget.glossary-content-module ol li a.up:hover{
+    color:#20b3b2;
+}
+div.widget.glossary-sidebar-module .supertitle {
+    border-bottom: 1px solid #58595b;
+    font: bold 14px Helvetica, Arial, Geneva, sans-serif;
+    margin: 0 0 3px;
+    padding: 5px;
+}
+div.widget.glossary-sidebar-module .supertitle.active {
+    background-color: #f3f3f3;
+}
+div.widget.glossary-sidebar-module ul {
+	padding-left:0px;
+    list-style: none;
+	margin-bottom: 20px;
+}
+div.widget.glossary-sidebar-module ul li {
+    margin:0 0 5px 0;
+}
+div.widget.glossary-sidebar-module ul li a {
+    color: #20b3b2;
+	text-decoration:none;
+}
+div.widget.glossary-sidebar-module ul li a:hover {
+	text-decoration:underline;
+}

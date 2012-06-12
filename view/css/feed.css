@@ -1,0 +1,75 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/* comunes
+************/
+div.feed a{text-decoration:none}
+div.feed h4, div.feed h5{margin:0}
+div.feed .light-blue{color:#1DB3B2}
+div.feed .blue{color:#0B4F99}
+div.feed .violet{color:#95268D}
+div.feed .red{color:#E22727}
+div.feed .grey{color:#CBBCBF}
+div.feed .green{color:#20A64B}
+
+div.subitem{height:auto;overflow:auto;border-bottom:#A7A8AC 1px dashed;padding:10px 5px 10px 0}
+div.subitem.odd{background:#F7F7F7}
+
+div.feed  div.block{border-right: 2px solid #EBEAEB;float: left;margin-right: 11px;overflow: hidden;
+width: 285px;}
+div.feed  div.block.last{border-right:none;padding-right:0;margin-right:0}
+div.feed  div.block > div.item{height:350px;}
+div.feed  div.block > div.item div.subitem{width:260px}
+div.subitem > div{height:auto;overflow:auto}
+div.feed  div.block > h4{color:#59595C; padding-bottom:5px;border-bottom:#E95C5C 1px solid;max-width:265px;margin-bottom:5px;}
+div.subitem h5{text-transform:none;margin-bottom:3px;}
+div.subitem h5 a{font-size:1.1em;}
+span.datepub{float:left;display:block;clear:right;color:#A7A8AC;font-size:0.9em;margin-bottom:2px}
+div.content-avatar{}
+div.content-title{height:auto;overflow:hidden !important}
+div.content-image{height:auto;overflow:hidden !important}
+div.content-pub{clear:both;margin-top:2px;color:#59595C;font-size:0.9em;}
+div.content-pub a{font-size:1em}
+div.subitem > div.content-avatar{margin-bottom:0;overflow:hidden;}
+div.subitem > div.content-avatar > a.avatar{float:left;display:block;margin-right:5px;}
+div.subitem > div.content-avatar > a.username{display:block;clear:right;font-size:1.1em;line-height:1.1em;font-weight:bold}
+div.subitem > div.content-image > a.image{float:left;height:60px;width:90px;margin-right:5px}
+div.subitem > div.content-image > a.project{display:block;clear:right;font-size:1em;line-height:1.1em;font-weight:600;margin-bottom:3px}
+
+/* solo admin widget lateral
+*****************************/
+body.admin div#main > div.side{width:300px}
+body.admin div#main > div.side > div.widget{margin-bottom:20px}
+body.admin div#main > div.side > div.widget.feed{}
+body.admin div#main > div.side > div.widget.feed > div.scroll-pane{height:670px;}
+body.admin div#main > div.side > div.widget.feed h3{margin-top:0;padding-bottom:10px;border-bottom:1px solid #E95C5C}
+body.admin div#main > div.side > div.widget.feed > p.categories > a{margin-right:15px;font-size:11px !important;text-transform:uppercase;}
+body.admin div#main > div.side > div.widget.feed > div.scroll-pane div.subitem{width:230px;padding-left:5px}
+body.admin div#main > div.side > div.widget.feed div.subitem span.datepub{margin-bottom:5px}
+
+
+/* solo admin widget central
+*****************************/
+body.admin div#main > div.widget.feed{padding-left:100px;padding-right:100px}
+body.admin div#main > div.widget.feed > h3.title{margin-left:-100px;margin-bottom:25px}
+body.admin div#main > div.widget.feed > p.categories > a{margin-right:15px;font-size:12px !important;text-transform:uppercase;}
+body.admin div#main > div.widget.feed > div.scroll-pane{height:800px}
+body.admin div#main > div.widget.feed div.subitem{padding-left:5px}
+body.admin div#main > div.widget.feed div.subitem > span.datepub{float:left;width:100px;margin-right:10px;clear:none;line-height:1.2em}
+body.admin div#main > div.widget.feed div.subitem > div.content-pub{float:left;width:600px;clear:none;margin-top:0;}
+

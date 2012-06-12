@@ -1,0 +1,169 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/* Form navigator (*steps*) */
+
+body.project-edit div#main #project-steps {
+    padding: 30px 0 45px;
+    text-align: center;    
+    font-size: 0;
+    clear: both;
+}
+
+body.project-edit div#main #project-steps fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+body.project-edit div#main #project-steps fieldset legend {
+    display: none;     
+}
+
+body.project-edit div#main #project-steps div.steps {    
+    display: inline-block;        
+}
+
+body.project-edit div#main #project-steps span.step {
+    display: inline-block;
+    padding: 0 1em;
+    height: 100%;    
+    background: #e7e7e7 no-repeat bottom center;
+    position: relative;    
+}
+
+/* Lines */
+body.project-edit div#main #project-steps span.step.first-off {
+    background-image: url('steps/line-first-off.png');
+}
+
+body.project-edit div#main #project-steps span.step.first-on {
+    background-image: url('steps/line-first-on.png');
+}
+
+body.project-edit div#main #project-steps span.step.on-on {
+    background-image: url('steps/line-on-on.png');
+}
+
+body.project-edit div#main #project-steps span.step.on-off {
+    background-image: url('steps/line-on-off.png');
+}
+
+body.project-edit div#main #project-steps span.step.on-last {
+    background-image: url('steps/line-on-off.png');
+}
+
+body.project-edit div#main #project-steps span.step.off-off {
+    background-image: url('steps/line-off-off.png');
+}
+
+body.project-edit div#main #project-steps span.step.off-on {
+    background-image: url('steps/line-off-on.png');
+}
+
+body.project-edit div#main #project-steps span.step.off-last {
+    background-image: url('steps/line-off-last.png');
+}
+
+/* Balloons */
+
+body.project-edit div#main #project-steps span.step > button {
+    font-size: 12px;    
+    font-weight: normal;
+    height: 100%;
+    margin: 10px 15px 0;    
+    padding: 0 0 10px;
+    border: none;
+    background: none;
+    color: #20b2b1;
+    padding-bottom: 50px;
+    background: url('steps/balloon-on.png') no-repeat bottom center;
+    min-width: 46px;
+    max-width: 10em;
+}
+
+body.project-edit div#main #project-steps span.step.off > button {
+    background-image: url('steps/balloon-off.png');
+    color: #b2b2b2;
+}
+
+body.project-edit div#main #project-steps span.step.active > button {
+    background-image: url('steps/balloon-on-active.png');    
+}
+
+body.project-edit div#main #project-steps span.step.off.active > button {
+    background-image: url('steps/balloon-off-active.png');    
+}
+
+body.project-edit div#main #project-steps span.step.error > button {
+    background-image: url('steps/balloon-error.png');
+}
+
+body.project-edit div#main #project-steps span.step.error.active > button {
+    background-image: url('steps/balloon-error-active.png');
+}
+
+/* Errors badge */
+body.project-edit div#main #project-steps span.step > button > strong.number {
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 10px;    
+    color: white;
+    font-style: normal;
+    text-align: center;
+}
+
+body.project-edit div#main #project-steps span.step.active > button > strong.number {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+/* Project fieldset */
+
+body.project-edit div#main #project-steps fieldset fieldset {
+    border: 1px solid #e13028;
+    border-top: none;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+body.project-edit div#main #project-steps fieldset fieldset span.step {
+    margin-left: -1px;
+}
+
+body.project-edit div#main #project-steps fieldset fieldset span.step + span.step {
+    margin-right: -1px;
+}
+
+body.project-edit div#main #project-steps fieldset fieldset > legend {
+    top: 100%;
+    color: #e13028;
+    display: block;
+    font-size: 10px;
+    margin-top: 1.4em;
+    left: 0;
+    position: absolute;
+    text-transform: uppercase;
+    width: 100%;
+}

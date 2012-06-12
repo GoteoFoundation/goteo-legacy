@@ -1,0 +1,242 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+@import url('widget/summary.css');
+@import url('widget/media.css');
+@import url('widget/share.css');
+@import url('widget/message.css');
+@import url('widget/support.css');
+@import url('widget/needs.css');
+@import url('widget/collaborations.css');
+@import url('widget/supporters.css');
+@import url('widget/rewards.css');
+@import url('widget/messages.css');
+@import url('widget/updates.css');
+@import url('widget/invest.css');
+@import url('widget/schedule.css');
+@import url('../user/widget/user.css');
+@import url('../worth/base.css');
+@import url('../worth/legend.css');
+
+
+body.project-show div#main {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/**
+ * Menu
+*/
+
+body.project-show div#sub-header {
+	/*height:120px;*/
+	height:auto;
+	min-height:120px;
+    padding-bottom: 0;
+	background:#faf8f8;
+}
+
+body.project-show div#sub-header div.project-header{
+    min-height: 75px;
+	position:relative;
+	top:10px;
+}
+
+body.project-show div#sub-header div.project-header img{
+    float: left;
+	margin: 2px 20px 0 0;
+}
+
+body.project-show div#sub-header div.project-header h2{
+	font-size:2em;
+	max-width:700px;
+}
+
+body.project-show div#sub-header div.project-header h2 > span{
+	display: block;
+	line-height: 1em;
+}
+
+body.project-show div#sub-header div.project-subtitle {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 3px 0;
+	max-width:620px;
+	font-style: normal;
+}
+
+body.project-show div#sub-header div.project-by {
+    color: #20B3B2;
+    font-size: 12px;
+    margin: 0 0 .5em;
+}
+
+body.project-show div#sub-header div.project-by a {
+    font-weight: normal;
+    color: #20B3B2;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+body.project-show div#sub-header div.project-by a:hover {
+    color: #58595B;
+}
+
+body.project-show div#sub-header div.categories {
+	position: absolute;
+    right: 10px;
+    text-align: right;
+	max-width:240px;
+	top: 0;
+}
+
+body.project-show div#sub-header div.categories h3 {
+    font-weight: normal;
+    color: #20B3B2;   
+    margin: 0;
+}
+
+body.project-show div#sub-header div.categories * {
+    font-size: 12px;
+}
+
+body.project-show div#sub-header div.categories a {
+    color: #58595B;
+    text-decoration: none;
+}
+
+body.project-show div#sub-header div.categories a:hover {
+    color: #20B3B2;
+}
+
+body.project-show div.project-menu {
+	margin:18px 0 0 0;
+}
+
+body.project-show div.project-menu div.sub-menu{
+    max-width: 940px;
+    margin: 0;
+}
+
+body.project-show div.project-menu ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 0;
+    height: 28px;
+}
+
+body.project-show div.project-menu ul li {
+    display: inline-block;
+    margin-right: 1px;    
+	height:30px;
+}
+
+body.project-show div.project-menu ul li span.digits{
+	display:inline-block;
+	width:30px;
+	text-align:center;
+}
+
+body.project-show div.project-menu ul li a {
+    display: inline-block;
+/*    padding: .6em 2em .2em .6em; */
+    padding: 8px 8px 1px 8px;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    height: 28px;
+    background-image: url('/view/css/project/view/menu/regular_menu.png');
+    background-position: left top !important;
+    background-repeat: repeat-x;
+	font-size:11px;	
+}
+
+body.project-show div.project-menu ul li.active a {
+    background-image: url('/view/css/project/view/menu/hover_menu.png');
+}
+
+body.project-show div.project-menu ul li.show a {
+    background-image: url('/view/css/project/view/menu/active_menu.png') !important;
+    background-repeat: no-repeat !important;
+}
+
+body.project-show div.project-menu ul li.messages a {
+    background-color: #00b05b;
+}
+
+body.project-show div.project-menu ul li.home a {
+    background-color: #1fb0b0;
+	padding-right:45px;
+} 
+
+body.project-show div.project-menu ul li.needs a {
+    background-color: #96238F;
+	padding-right:35px;
+} 
+
+body.project-show div.project-menu ul li.supporters a {
+    background-color: #313b96;
+}
+
+body.project-show div.project-menu ul li.updates a {
+    background-color: #c8babc;
+}
+
+body.project-show div#main div.widget {
+    margin-bottom: 20px;
+}
+
+body.project-show div#main div.widget.project-support {
+    min-height: 350px;
+}
+
+body.project-show div#main > div.side > div.widget {
+    width: 260px;
+    float: right;
+    clear: right;
+}
+
+body.project-show div#main > div.center > div.widget {
+    max-width: 580px;
+    margin-right: 20px;
+    clear: left;
+	padding-bottom: 20px;
+}
+
+body.project-show div#main > div.side > div.widget .title {
+    background: none !important;
+}
+
+/* ayuda a difundir este proyecto */
+div.widget.project-spread > h3.title{padding-left:46px;}
+div.widget.project-spread > div.widget.projects > div.left{float:left;width:280px;border-right:#000 1px solid;}
+div.widget.project-spread > div.widget.projects > div.right{float:left;width:245px;margin-left:12px;}
+div.widget.project-spread div.subtitle{width:245px;text-transform:uppercase;margin:0 0 10px 7px;}
+	div.widget.project-spread div.subtitle#s1{}
+	div.widget.project-spread div.subtitle#s2{}	
+	div.widget.project-spread div.subtitle > span{display:block;}
+	div.widget.project-spread div.subtitle > span.primero{margin-bottom:3px;}	
+	div.widget.project-spread div.subtitle > span.segundo{color:#28ACAB;font-weight:bold;}		
+	
+/* envía mensaje al autor - widget embed code */
+div.widget.projects #widget-code{	width:350px;	float:left; margin: 0 0 0 20px;}
+div.widget.projects  #widget-code .wc-embed{background: url("/view/css/social/embed.png") no-repeat; min-height:20px;text-transform:uppercase;padding: 3px 0 0 25px;}
+div.widget.projects  #widget-code textarea{width:200px;	margin: 10px 0;	padding:10px;	background:#E7E7E7;border:none;font-size:11px;resize:none;}
+
+

@@ -1,0 +1,144 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.project-summary h1,
+div.widget.project-summary h2,
+div.widget.project-summary h3,
+div.widget.project-summary h4,
+div.widget.project-summary h5,
+div.widget.project-summary h6 {
+    text-transform: none;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+div.widget.project-summary h1,
+div.widget.project-summary h2,
+div.widget.project-summary h3 {
+    font-size: 24px;
+}
+
+div.widget.project-summary h4 {
+    font-size: 18px;
+}
+
+div.widget.project-summary h5,
+div.widget.project-summary h6,
+div.widget.project-summary h7,
+div.widget.project-summary h8 {
+    font-size: 16px;
+}
+
+div.widget.project-summary > div {
+    margin-bottom: 2em;
+}
+
+div.widget.project-summary div.prjct-gallery-container {
+	width:580px;
+	height:380px;
+	display:none;
+}
+
+div.widget.project-summary div.prjct-gallery-container div.gallery-image {
+    text-align: center;
+	width:580px;
+	height:380px;
+	display:block;
+}
+
+div.widget.project-summary div#prjct-gallery  {
+	float:left;
+}
+
+div.widget.project-summary div#prjct-gallery  ul.slderpag {
+    margin: 8px 0 0 0;
+	list-style:none;
+	padding:0px;
+	float:left;
+	height:auto;
+}
+
+div.widget.project-summary div#prjct-gallery  ul.slderpag li {
+    cursor:pointer;
+    display: block;
+    float: left;
+    overflow: hidden;
+	margin: 0px 4px 5px 4px;
+}
+
+div.widget.project-summary div#prjct-gallery  ul.slderpag li a {
+    width: 12px;
+    height: 12px;
+    margin-top: 2px;
+    background-color: #cdcdce;
+    color: #cdcdce;
+	display:block;
+}
+
+div.widget.project-summary div#prjct-gallery  ul.slderpag li a:hover {
+    background-color: #20b3b2;
+    color: #20b3b2;
+}
+
+div.widget.project-summary div#prjct-gallery  ul.slderpag li.current a {
+    background-color: #808184 !important;
+    color: #808184 !important;
+}
+
+div.widget.project-summary div#prjct-gallery  a.next,
+div.widget.project-summary div#prjct-gallery  a.prev {
+    width: 16px;
+    height: 16px;
+	line-height: 2000px;
+	overflow: hidden;
+	float:left;
+	margin: 8px 0 0 0;
+	cursor:pointer;
+/*	display: inline-block; */
+}
+
+div.widget.project-summary div#prjct-gallery  a.prev {
+	background: url('/view/css/small_arrowslider-sprt.png') scroll no-repeat 0 0;
+}
+
+div.widget.project-summary div#prjct-gallery  a.prev:hover {
+	background: url('/view/css/small_arrowslider-sprt.png') scroll no-repeat 0 -32px;
+}
+
+div.widget.project-summary div#prjct-gallery  a.next{
+	background: url('/view/css/small_arrowslider-sprt.png') scroll no-repeat 0 -16px;
+}
+
+div.widget.project-summary div#prjct-gallery  a.next:hover {
+	background: url('/view/css/small_arrowslider-sprt.png') scroll no-repeat 0 -48px;
+}
+
+/* Video motivacional */
+div.widget.project-summary div.project-motivation-video {
+    margin-left: -20px;
+    padding: 0;
+    width: 620px !important;
+    height: 380px;
+}
+
+div.widget.project-media > iframe,
+div.widget.project-media > object,
+div.widget.project-media > embed {
+    width: 580px !important;
+    height: 380px !important;
+}

@@ -1,0 +1,368 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+
+/**
+ * Rewards
+ */
+ 
+body.project-edit div#main.rewards div.superform li.element.reward-new > .title {
+    display: none;
+}
+
+/* Viendo */
+
+body.project-edit div#main.rewards div.superform li.element.reward div.title {
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 70%;
+    float: left;
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.reward {
+    padding-left: 55px;
+    background: none no-repeat 10px center;
+    min-height: 32px;
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.file {
+    background-image: url('/view/css/icon/m/file.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.money {
+    background-image: url('/view/css/icon/m/money.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.code {
+    background-image: url('/view/css/icon/m/code.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.service {
+    background-image: url('/view/css/icon/m/service.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.manual {
+    background-image: url('/view/css/icon/m/manual.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.product {
+    background-image: url('/view/css/icon/m/product.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.design {
+    background-image: url('/view/css/icon/m/design.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.other {
+    background-image: url('/view/css/icon/m/other.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.description {
+    float: left;
+    width: 70%;
+    margin: .5em 0;
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.description span.left {
+    color: #EE4843;
+    font-weight: bold;
+}
+
+
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license {
+    padding-left: 110px !important;
+    background: none no-repeat 10px center;
+    min-height: 32px;
+    line-height: 32px;
+}
+
+/*
+body.project-edit div#main.rewards div.superform li.element.reward input.edit,
+body.project-edit div#main.rewards div.superform li.element.reward input.remove {
+    width: 6em;
+}
+*/
+
+body.project-edit div#main.rewards div.superform li.element.reward input.edit {
+    margin-top: -1em;
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward input.remove {
+    margin-bottom: 1em;
+    margin-top: 0;
+}
+
+/* Editando */
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward > .children  ol,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward > .children  ol {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.buttons div.contents,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.buttons ol,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.buttons div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.buttons ol {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.buttons li,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.buttons li {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.buttons ol,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.buttons ol {
+    text-align: right;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.buttons input,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.buttons input {
+    width: auto;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward div.children li.element.reward-description textarea,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward div.children li.element.reward-description textarea {
+    height: 4em;
+    min-height: 4em;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.other div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.other div.contents {
+    padding-left: 0px !important;
+    background-image: none !important;
+    min-height: 32px;
+    line-height: 32px;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward-type div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward-type div.contents {
+    padding-left: 55px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    min-height: 32px;
+    line-height: 32px;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward_file div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward_file div.contents {
+    background-image: url('/view/css/icon/m/file.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward_money div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward_money div.contents {
+    background-image: url('/view/css/icon/m/money.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward_code div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward_code div.contents {
+    background-image: url('/view/css/icon/m/code.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward_service div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward_service div.contents {
+    background-image: url('/view/css/icon/m/service.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward_manual div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward_manual div.contents {
+    background-image: url('/view/css/icon/m/manual.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward_product div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward_product div.contents {
+    background-image: url('/view/css/icon/m/product.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward_design div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward_design div.contents {
+    background-image: url('/view/css/icon/m/design.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.reward_other div.contents,
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward li.reward_other div.contents {
+    background-image: url('/view/css/icon/m/other.png');
+}
+
+/* Licencias */
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward .license {
+    margin-left: 18px;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward .license div.contents {
+    padding-left: 110px !important;
+    background: none no-repeat 10px center;
+    min-height: 32px;
+    line-height: 32px;
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_agpl ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_agpl div.contents {
+    background-image: url('/view/css/license/agpl.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_apache ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_apache div.contents {
+    background-image: url('/view/css/license/apache.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_balloon ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_balloon div.contents {
+    background-image: url('/view/css/license/balloon.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_bsd ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_bsd div.contents {
+    background-image: url('/view/css/license/bsd.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_cc0 ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_cc0 div.contents {
+    background-image: url('/view/css/license/cc0.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_ccby ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_ccby div.contents {
+    background-image: url('/view/css/license/ccby.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_ccbync ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_ccbync div.contents {
+    background-image: url('/view/css/license/ccbync.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_ccbyncnd ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_ccbyncnd div.contents {
+    background-image: url('/view/css/license/ccbyncnd.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_ccbyncsa ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_ccbyncsa div.contents {
+    background-image: url('/view/css/license/ccbyncsa.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_ccbynd ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_ccbynd div.contents {
+    background-image: url('/view/css/license/ccbynd.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_ccbysa ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_ccbysa div.contents {
+    background-image: url('/view/css/license/ccbysa.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_fal ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_fal div.contents {
+    background-image: url('/view/css/license/fal.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_fdl ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_fdl div.contents {
+    background-image: url('/view/css/license/fdl.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_freebsd ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_freebsd div.contents {
+    background-image: url('/view/css/license/freebsd.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_gpl ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_gpl div.contents {
+    background-image: url('/view/css/license/gpl.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_gpl2 ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_gpl2 div.contents {
+    background-image: url('/view/css/license/gpl2.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_lgpl ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_lgpl div.contents {
+    background-image: url('/view/css/license/lgpl.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_mit ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_mit div.contents {
+    background-image: url('/view/css/license/mit.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_mpl ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_mpl div.contents {
+    background-image: url('/view/css/license/mpl.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_odbl ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_odbl div.contents {
+    background-image: url('/view/css/license/odbl.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_odcby ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_odcby div.contents {
+    background-image: url('/view/css/license/odcby.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_oshw ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_oshw div.contents {
+    background-image: url('/view/css/license/oshw.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_pd ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_pd div.contents {
+    background-image: url('/view/css/license/pd.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_php ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_php div.contents {
+    background-image: url('/view/css/license/php.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_tapr ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_tapr div.contents {
+    background-image: url('/view/css/license/tapr.png');
+}
+
+body.project-edit div#main.rewards div.superform li.element.reward div.license_xoln ,
+body.project-edit div#main.rewards div.superform li.element.editsocial_reward li.license_xoln div.contents {
+    background-image: url('/view/css/license/xoln.png');
+}/* Fin licencias */
+
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward div.children li.element.reward-amount > div.contents > input {
+    width: 3em;
+    max-width: 3em;
+    min-width: 3em;
+    float: left;
+    padding-right: 2em;
+    background-image: url('/view/css/euro/s.png');    
+    background-repeat: no-repeat;
+    background-position: 3.7em center;
+    font-weight: bold;
+}
+
+body.project-edit div#main.rewards div.superform li.element.editindividual_reward div.children li.element.reward-units > div.contents > input {
+    width: 4.6em;
+    max-width: 4.6em;
+    min-width: 4.6em;
+}

@@ -1,0 +1,232 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+body.discover div#main div.widget {
+    overflow: hidden;
+	margin-bottom: 24px;
+}
+
+body.discover div#main div.searcher {
+	background-color: transparent;
+	padding-bottom: 0;
+	border-bottom: 1px solid #d1d3d4;
+}
+
+/* Buscador */
+div.searcher form {
+	/*padding-left:75px !important;*/
+}
+
+.searcher .text-filter{
+	display: block;
+	margin-bottom: 20px;
+}
+
+.searcher .text-filter label{
+	/*color: #FFFFFF;*/
+	font-weight: bold;
+	/*padding: 5px 90px 6px 15px;*/
+	text-transform:uppercase;
+	/*background:url('triangulo-lateral.png') right no-repeat #656566;*/
+	font-size: 14px;
+	float: left;
+	padding-top: 9px;
+}
+
+.searcher #text-query {
+	/*background-color:#8f8f8f;
+	color:#ffffff;*/
+	background-color: #ffffff;
+	border: 1px solid #808184;
+	color: #808184;
+	padding: 4px 5px 4px 10px;
+	/*border:none;*/
+	width: 740px;
+    /*font-size: 0.9em;*/
+    font-size: 16px;
+    float: right;
+}
+
+/*
+.searcher input[type="text"]:focus {
+	background-color:#e7e7e7 !important;
+    color: #656566 !important;
+}
+*/
+
+.searcher .filter{
+	float:left;
+	width:238px;
+	margin-right:35px;
+	position:relative;
+}
+
+.searcher .filter label{
+	color: #58595B;
+	display: block;
+	font-weight: bold;
+	padding: 5px 5px 6px 0px;
+	text-transform: uppercase;
+	border-bottom: 1px solid #58595B;
+	font-size: 14px;
+	/*background:url('triangulo.png') right no-repeat #656566;*/
+}
+
+.searcher .filter select{
+	color:#58595B;
+	width:100%;
+    font-size: 0.9em;
+    background-color: #e7e7e7;
+	border-style: none;
+	padding-top: 10px;
+	margin: 0;
+}
+
+.searcher .filter select option{
+	color:#58595B;	
+}
+
+.searcher .filter select option[selected="selected"] {
+	color:#58595B;
+	background-color:#d5d5d6;
+}
+
+.searcher .filter select option.all{
+	color:#58595B;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+#searcher{
+	background:url('lupa.png') no-repeat;
+	height:33px;
+	width:80px;
+	text-indent:-9999px;
+	margin-top:-1px;
+}
+/* // Buscador */
+div.discover-group div.widget.project {
+    margin: 0px 0px 0px 25px;
+}
+/*
+div.discover-group div.widget.project + div.widget.project {
+    margin-left: 30px;
+}
+*/
+div.discover-group {
+    display: none;
+}
+
+div.navi-bar ul.navi {
+    list-style: none;
+    height: 10px;
+    z-index: 900;
+    margin: 0px;
+    padding: 10px;
+}
+
+div.navi-bar ul.navi li {
+    display: block;
+    float: left;
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+    margin-right: .5em;
+}
+
+div.navi-bar ul.navi li > * {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-indent: 2000px;
+    line-height: 2000px;
+}
+
+div.navi-bar ul.navi li > a {
+    background-color: #cdcdce;
+}
+
+div.navi-bar ul.navi li > a:hover {
+    background-color: #20b3b2;
+}
+
+div.navi-bar ul.navi li > a.active {
+    background-color: #808184;
+}
+
+div.navi-bar {
+    clear: both;
+    display: block;
+	height: 30px;
+}
+
+div.navi-bar a.all{
+    text-decoration: none;
+    text-transform: uppercase;
+    position:relative;
+    top: -20px;
+    right: -825px;
+}
+
+div.navi-bar a.all:hover{
+    color: #20B3B2;
+}
+
+a.discover-arrow {
+    position:relative;
+    top: 200px;
+    color: white;
+    line-height: 24px;
+    text-indent: 24px;
+}
+
+div.discover-arrow-left,
+div.discover-arrow-right {
+    width: 24px;
+}
+
+div.discover-arrow-left {
+    float: left;
+}
+
+div.discover-arrow-right {
+    float: right;
+}
+
+div.discover-arrow-left a.discover-arrow {
+	background: url('arrowslider-sprt.png') scroll no-repeat 0 0;
+}
+
+div.discover-arrow-left a.discover-arrow:hover {
+	background: url('arrowslider-sprt.png') scroll no-repeat 0 -48px;
+}
+
+div.discover-arrow-right a.discover-arrow {
+	background: url('arrowslider-sprt.png') scroll no-repeat 0 -24px;
+}
+
+div.discover-arrow-right a.discover-arrow:hover {
+	background: url('arrowslider-sprt.png') scroll no-repeat 0 -72px;
+}
+
+
+
+a.discover-arrow {
+    display: inline-block;
+    vertical-align: middle;
+}

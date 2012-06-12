@@ -1,0 +1,144 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.user-mates{padding-top: 15px;padding-bottom:0;
+}
+div.widget.user-mates h3.supertitle{margin-bottom:8px}
+
+div.widget.user-mates div.users,div.widget.user-mates div.categories{height:auto;overflow:visible;}
+div.widget.user-mates div.users ul,div.widget.user-mates div.categories ul {list-style: none;margin: 0;padding: 0;height:auto;overflow:auto;}
+div.widget.user-mates div.categories{height: auto;padding-bottom: 10px;line-height:1em;overflow:hidden}	
+div.widget.user-mates div.categories ul{overflow:hidden}
+div.widget.user-mates div.categories ul li{display:inline-block;margin-right:5px;
+	margin-bottom: 5px;
+}
+div.widget.user-mates div.categories ul li a{color:#636466;text-transform:uppercase;text-decoration:none;font-size:11px;
+}
+div.widget.user-mates div.categories ul li a:hover{color:#20B3B2}
+
+div.widget.user-mates div.users{clear:both;};
+div.widget.user-mates div.users h3.supertitle{border-top: 1px solid #808285;border-bottom:1px dashed #818284;padding:5px 0 5px 5px;color:#20B3B2;font-size:12px;margin-bottom:8px}
+div.widget.user-mates .users ul > li {        
+float: left;
+height: 62px;
+margin-bottom: 8px;
+margin-right: 3px;
+overflow: hidden;
+padding-top: 5px;
+position: relative;
+width: 127px;		
+}
+
+div.widget.user-mates .users ul > li.nomarginright{margin-right:0}
+div.widget.user-mates .users ul > li:hover > div.user > h4 > a{color:#19B4B2;}
+
+
+
+div.widget.user-mates .users ul > li.active {
+    background-color:  #f3f3f3 !important;}
+
+div.widget.user-mates .users ul > li .user {
+    padding: 3px 6px 3px 57px;
+	position:relative;
+}
+
+div.widget.user-mates .users ul > li .user > a.expand{
+	position:absolute;
+	top:0;bottom:0;left:0;right:0;
+	z-index:99;	
+}
+
+div.widget.user-mates .users ul > li .avatar {
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    width: 50px;
+    height: 50px;    
+    text-align: center;
+}
+
+div.widget.user-mates .users ul > li h3,
+div.widget.user-mates .users ul > li h4,
+div.widget.user-mates .users ul > li h5,
+div.widget.user-mates .users ul > li h6 {
+    margin: 0;
+    font-size: 11px;
+	line-height:1em;
+}
+
+div.widget.user-mates .users ul li a {
+    font-size: 11px !important;
+    text-transform: none !important;
+    text-decoration: none;
+}
+
+div.widget.user-mates .users ul li a:hover {
+    color: #20B3B2;
+}
+
+div.widget.user-mates .users ul > li h3 a,
+div.widget.user-mates .users ul > li h4 a,
+div.widget.user-mates .users ul > li h5 a,
+div.widget.user-mates .users ul > li h6 a {
+    font-size: 11px !important;
+    font-weight: normal;
+}
+
+div.widget.user-mates .users ul li div.user h4{margin-top:4px;}
+div.widget.user-mates .users ul li div.user h4 a{font-weight:bold;display:inline-block;}
+
+div.widget.user-mates .users ul > li span {
+    font-size: 9px;
+	padding-top: 4px;
+}
+
+div.widget.user-mates .users ul > li span.projects {
+    color: #20b3b2;
+}
+
+div.widget.user-mates .users ul > li span.invests {
+    color: #313b96;
+}
+
+
+div.widget.user-mates a.more  {    
+    color: #58595b;
+    font-size: 11px !important;
+    text-transform: uppercase;
+    float: right;
+    clear: both;
+    text-decoration: none;
+	line-height:1em;
+	height:1em;
+	margin-bottom:15px;   
+	margin-top: 15px;
+}
+
+div.widget.user-mates a:hover.more  {    
+    color: #20b3b2;
+}
+
+
+
+/* only center widget
+**********************/
+div.center div.widget.user-mates .users ul > li{
+	width:276px !important; 
+	max-width:276px !important;
+	margin-bottom:0
+	}

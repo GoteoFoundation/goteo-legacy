@@ -1,0 +1,71 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+body.project-edit div#main.overview div.superform li.element.media,
+body.project-edit div#main.updates div.superform li.element.media {
+    position: relative;
+}
+
+body.project-edit div#main.overview div.superform li.element.media > div.contents,
+body.project-edit div#main.updates div.superform li.element.media > div.contents {
+    margin-right: 270px;
+}
+
+body.project-edit div#main.overview div.superform li.element.media > div.contents iframe,
+body.project-edit div#main.updates div.superform li.element.media > div.contents iframe {
+    width: 380px !important;
+    height: 220px !important;
+}
+
+body.project-edit div#main.overview div.superform li.element.media textarea {    
+    min-height: 170px;
+    max-height: 170px;
+    height: 170px;
+}
+
+body.project-edit div#main.overview div.superform li.element.media > div.children * {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body.project-edit div#main.overview div.superform li.element.media > div.children {
+    position: absolute;
+    right: 16px; /* 1em + 2px */
+    bottom: 26px; /* 2em of 13px */
+    width: 250px;
+    height: 170px;
+    padding: .4em;
+    font-size: 14px;
+    background-color: #f3f3f3;
+    border: 1px solid #f3f3f3;
+    z-index: 45;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    
+}
+
+body.project-edit div#main.overview div.superform li.element.media-preview > div {
+    background-color: white;
+}
+
+body.project-edit div#main.overview div.superform li.element.media-preview .title {
+    display: none;
+}

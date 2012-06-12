@@ -1,0 +1,62 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.user-social .title {
+    display: none;
+}
+
+div.widget.user-social ul {
+    list-style: none;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+}
+
+div.widget.user-social li {
+    display: block;
+    padding-left: 30px;
+    float: left;    
+    min-height: 2em;
+    line-height: 2em;
+    background: no-repeat left center;
+    min-width: 20%;
+}
+
+div.widget.user-social li a {
+    text-decoration: none;
+}
+
+div.widget.user-social li.facebook {
+    background-image: url('/view/css/social/facebook.png');
+}
+
+div.widget.user-social li.google {
+    background-image: url('/view/css/social/google.png');
+}
+
+div.widget.user-social li.twitter {
+    background-image: url('/view/css/social/twitter.png');    
+}
+
+div.widget.user-social li.identica {
+    background-image: url('/view/css/social/identica.png');
+}
+
+div.widget.user-social li.linkedin {
+    background-image: url('/view/css/social/linkedin.png');
+}

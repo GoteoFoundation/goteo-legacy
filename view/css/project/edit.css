@@ -1,0 +1,210 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+/**
+ * Project edit form
+ */
+ 
+@import url('edit/steps.css');
+@import url('edit/profile.css');
+@import url('edit/overview.css');
+@import url('edit/costs.css');
+@import url('edit/rewards.css');
+@import url('edit/supports.css');
+@import url('edit/preview.css');
+
+body.project-edit div#sub-header {
+    padding-bottom: 0;
+}
+
+body.project-edit div#sub-header div.project-header{
+    min-height: 75px;
+}
+
+body.project-edit div#sub-header img{
+    float: left;
+    margin-right: 20px;
+}
+
+body.project-edit div#sub-header div.project-subtitle {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 .5em;
+}
+
+body.project-edit div#sub-header div.project-by {
+    color: #20B3B2;
+    font-size: 12px;
+    margin: 0 0 .5em;
+}
+
+body.project-edit div#sub-header div.project-by a {
+    font-weight: normal;
+    color: #20B3B2;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+body.project-edit div#sub-header div.project-by a:hover {
+    color: #58595B;
+}
+
+body.project-edit div#main div.status {
+    color: #bcbdbd;
+    padding-bottom: 30px;
+    padding-top: 20px;
+    border-bottom: 3px solid #cfd0d2; 
+}
+
+body.project-edit div#main .status #project-status,
+body.project-edit div#main .status #project-score{
+    display: table-cell;
+    width: 50%;     
+    padding: 0 30px;
+}
+
+body.project-edit div#main .status #project-status {
+    padding-right: 50px;     
+}
+
+body.project-edit div#main .status #project-score {
+    border-left: 1px dashed #bcbdbf;
+    padding-left: 50px;
+}
+
+body.project-edit div#main .status h3 {
+    font-size: 26px;
+    font-weight: normal;
+    color: #9B9B9D;
+    text-transform: uppercase;
+    margin: 0 0 .6em;
+}
+
+body.project-edit div#main .status #project-status ul {
+    padding: 0 0 0 16px;
+    margin: 0 0  0 6px;
+    list-style: none;
+    font-size: 16px;     
+    line-height: 1.5em;
+    border-left: 1px solid #bcbcbd;
+}
+
+body.project-edit div#main .status #project-status ul li strong {
+    font-size: 22px;
+    color: #58595b;
+    font-weight: bold;
+    line-height: 1.6em;
+    padding-left: 20px;
+    display: block;
+    background: url('statusmarker.png') no-repeat left center;
+    margin-left: -22px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+    
+}
+
+body.project-edit div#main .status #project-score p {
+    margin-top: 0;
+    width: 80%;
+    font-size: 12px;
+    color: #8A8B8C;
+}
+
+body.project-edit div#main .status #project-score .meter {
+    height: 117px;
+    width: 369px;    
+    margin-top: -2em;
+    position: relative;
+}
+
+body.project-edit div#main .status #project-score .meter .done {
+    background: url('scoremeter.png') no-repeat left top;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+body.project-edit div#main .status #project-score .meter .left {
+    background: url('scoremeter.png') no-repeat right bottom;
+    position: absolute;
+    right: 0;        
+    top: 0;
+    bottom: 0;
+}
+
+body.project-edit div.superform {
+    border: solid #0a0a0a;
+    border-width: 3px 0;     
+}
+
+
+body.project-edit div.superform > .elements > ol > li#errors {
+    border: none;
+    position: absolute;
+    top: 100%;
+    margin-top: 54px;
+    padding: 10px;
+}
+
+/* Footer  */
+
+body.project-edit div.superform li.element#footer {
+    background-color: #e7e7e7;
+    border-top: 3px solid #0a0a0a;
+    padding: 20px;
+    position: relative;
+    z-index: 900;
+    margin: 46px -5px 0 0;
+    overflow: hidden;
+}
+
+body.project-edit div.superform li.element#footer div,
+body.project-edit div.superform li.element#footer ol,
+body.project-edit div.superform li.element#footer li,
+body.project-edit div.superform li.element#footer ul {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+body.project-edit div.superform li.element#footer li#errors {
+    width: 70%;
+    float: left;
+}
+
+body.project-edit div.superform li.element#footer li#buttons {
+    width: 30%;
+    float: left;    
+    clear: none;
+    text-align: right;
+}
+
+body.project-edit div.superform li.element#footer li#buttons input,
+body.project-edit div.superform li.element#footer li#buttons button {
+    padding-left: 4em;
+    padding-right: 4em;
+    box-shadow: 2px 2px 0 rgba(0,0,0,.2);    
+    -moz-box-shadow: 2px 2px 0 rgba(0,0,0,.2);    
+    -webkit-box-shadow: 2px 2px 0 rgba(0,0,0,.2);
+}
+
+
+/* = lista de errores
+************************************************/
+ul.sf-footer-errors{}
+ul.sf-footer-errors li{ list-style-image:url('/view/css/project/bg-li-error.png');}

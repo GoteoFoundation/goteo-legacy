@@ -1,0 +1,249 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.widget.user-supporters .supporters ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.widget.user-supporters .supporters > ul > li {
+    background-color:  white;
+    /*padding: 10px 10px 10px 60px;*/
+    height: 4em;
+    position: relative;
+}
+
+div.widget.user-supporters .supporters ul  li.active {
+    background-color:  #f3f3f3;
+}
+
+div.widget.user-supporters .supporters > ul > li div.supporterContainer {
+	padding: 10px 10px 10px 60px;	
+	height: 4em;
+}
+
+div.widget.user-supporters .supporters > ul > li div.supporterContainer a.expand {
+	bottom: 0px;
+	left: 0px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	text-decoration: none;
+	z-index: 999;
+}
+
+div.widget.user-supporters .supporters ul li .avatar {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    display: block;
+}
+
+div.widget.user-supporters .supporters ul li .avatar img {
+    background-color: white;
+}
+
+div.widget.user-supporters .supporters ul li h3,
+div.widget.user-supporters .supporters ul li h4,
+div.widget.user-supporters .supporters ul li h5,
+div.widget.user-supporters .supporters ul li h6 {    
+    font-size: 11px;
+    font-weight: bold;
+    margin: 0 0 .5em;
+    height: 13px;
+    text-transform: none;
+}
+
+div.widget.user-supporters .supporters ul li.active h3,
+div.widget.user-supporters .supporters ul li.active h4,
+div.widget.user-supporters .supporters ul li.active h5,
+div.widget.user-supporters .supporters ul li.active h6 {    
+	color: #20B3B2;
+}
+
+div.widget.user-supporters .supporters ul li h3 a,
+div.widget.user-supporters .supporters ul li h4 a,
+div.widget.user-supporters .supporters ul li h5 a,
+div.widget.user-supporters .supporters ul li h6 a {
+    font-size: 11px !important;
+    text-transform: none !important;
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 10px 10px 60px;
+    z-index: 9999;
+    display: block;
+}
+
+div.widget.user-supporters .supporters ul li h4 {
+    overflow: hidden;
+}
+
+div.widget.user-supporters .supporters ul li a:hover {
+    color: #20B3B2;
+}
+
+div.widget.user-supporters .supporters ul li dl,
+div.widget.user-supporters .supporters ul li dl dt,
+div.widget.user-supporters .supporters ul li dl dd {
+    margin: 0;
+    font-size: 11px;
+}
+
+div.widget.user-supporters .supporters ul li dl dt {
+    float: left;
+    margin-right: .5em;
+    clear: left;
+}
+
+div.widget.user-supporters .supporters ul li dl dt.amount {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    margin: 0;
+    font-size: 9px;
+    color: #313B96;
+}
+
+div.widget.user-supporters .supporters ul li dl dt.projects,
+div.widget.user-supporters .supporters ul li dl dd.projects
+{color:#313B96}
+
+div.widget.user-supporters .supporters ul li dl dd.amount {
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    font-size: 18px;
+    font-weight: normal;
+    color: #96238f;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.amount {
+    background: url("/view/css/euro/violet/s.png") no-repeat scroll right center transparent;        
+    height: 20px;    
+    line-height: 21px;
+    padding-right: 18px;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.amount .euro {
+    display: none;
+}
+
+div.widget.user-supporters .supporters ul li dl dt.date {
+    display: none;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.date {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    color: #a6a8ab;
+    font-size: 11px;
+	margin-top: 5px;
+}
+
+div.widget.user-supporters .supporters ul li dl dt.worthcracy {
+    display: none;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul li {
+    display: inline-block;
+    width: 18px;
+    height: 6px;
+    overflow: visible;
+    background-color: #e7e7e7;
+    position: relative;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul li > * {
+    display: none;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul li.done.worth-1 {
+    background-color: #B6CAE0;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul li.done.worth-2 {
+    background-color: #92AFD1;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul li.done.worth-3 {
+    background-color: #799EC7;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul li.done.worth-4 {
+    background-color: #3C71AE;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul li.done.worth-5 {
+    background-color: #0C4E99;
+}
+
+div.widget.user-supporters .supporters ul li dl dd.worthcracy ul li > strong {
+    display: block;
+    position: absolute;
+    top: 7px;
+    font-weight: normal;
+    width: 200px;
+    left: 50%;
+    margin-left: -100px;
+    text-align: center;
+    background: url('/view/css/worth/beak.png') no-repeat center top;
+    padding-top: 6px;
+}
+
+div.widget.user-supporters a.more  {
+    color: #58595b;
+    font-size: 11px !important;
+    text-transform: uppercase;
+    float: right;
+    clear: both;
+    text-decoration: none;  
+	margin-top: 15px;
+}
+
+div.widget.user-supporters a:hover.more  {
+    color: #20b3b2;
+}
+
+
+/* = solo widget lateral
+************************/
+div.widget.user-supporters .supporters > ul > li{height:80px}
+div.widget.user-supporters .supporters > ul > li > div.supporter h4{padding-bottom:3px;border-bottom:#D5D5D6 1px solid;overflow:hidden;margin-bottom:6px}
+div.widget.user-supporters .supporters > ul > li > div.supporter h4 > a{
+max-height: 6px;max-width: 175px;overflow: hidden;}
+div.widget.user-supporters .supporters > ul > li .avatar{left:6px}
+div.widget.user-supporters .supporters > ul > li dl dt.amount{top:20px}
+div.widget.user-supporters .supporters > ul > li dl dd.amount{top:32px}
+div.widget.user-supporters .supporters > ul > li dl dt.projects, div.widget.user-supporters .supporters > ul > li dl dd.projects{font-size:0.8em}
+div.widget.user-supporters .supporters ul li dl dd.worthcracy{margin-top:5px}
+div.widget.user-supporters .supporters ul li dl dd.date{top:55px}

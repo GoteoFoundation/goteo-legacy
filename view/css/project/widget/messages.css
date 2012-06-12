@@ -1,0 +1,99 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+div.project-messages div.message {
+    background: #e7e7e7 url('/view/css/message/beak/1.png') no-repeat left top;
+    margin-left: 60px;
+    overflow: visible;
+    position: relative;
+	padding: .8em 1em .5em 1.5em;
+}
+
+div.project-messages div.child{
+    background: #e7e7e7 url('/view/css/message/beak/1.png') no-repeat left top;
+    margin-left: 130px;
+    padding: .8em 1em .8em 1.5em;
+    overflow: visible;
+    position: relative;
+}
+
+div.project-messages div.owner {
+    background: #e9f4ea url('/view/css/message/beak/2.png') no-repeat left top !important;
+}
+
+div.project-messages div.message + div.message,
+div.project-messages div.child + div.message,
+div.project-messages div.child {
+    margin-top: 20px;
+}
+
+div.project-messages div.message .avatar,
+div.project-messages div.child .avatar {
+    position: absolute;
+    left: -60px;
+    top: 0;
+    display: block;
+    width: 50px;
+    height: 50px;
+}
+
+div.project-messages div.message .user,
+div.project-messages div.child .user {
+    text-transform: none;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 1em;
+    float: left;
+}
+
+div.project-messages div.message .date,
+div.project-messages div.child .date {
+    float: right;
+    color: #808080;
+    font-size: 11px;
+}
+
+div.project-messages div.message blockquote,
+div.project-messages div.child blockquote {
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+
+div.project-messages div.message .actions,
+div.project-messages div.child .actions {
+    margin-top: 1em;
+    border-top: 1px solid #c8c8c8;
+    padding-top: .4em;
+}
+
+div.project-messages div.message .actions a,
+div.project-messages div.child .actions a {
+    color: #808080;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+div.project-messages div.message .actions a:hover,
+div.project-messages div.child .actions a:hover {
+    color: #58595b;
+}
+
+
+div.project-messages div.message h3.user a,div.project-messages div.child h3.user a{text-decoration:none;}
+div.project-messages div.message h3.user a:hover,div.project-messages div.child h3.user a:hover{color:#20B3B2;}

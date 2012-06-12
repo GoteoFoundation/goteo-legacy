@@ -1,0 +1,322 @@
+/*
+ *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *	This file is part of Goteo.
+ *
+ *  Goteo is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Goteo is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with Goteo.  If not, see <http://www.gnu.org/licenses/agpl.txt>.
+ *
+ */
+body.about div#main div.widget {
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+body.about div#sub-header {
+    min-height: 100px;
+}
+
+div.field {
+    margin-top: 10px;
+}
+
+/* pagina Info */
+#about-content {
+    width:620px;
+	margin: 0 20px 0 0;
+	float:left;
+}
+#about-content h3.title {
+	margin: 0px;
+	padding: 16px 0 10px 30px;
+	background: white url('arrowH2-section.gif') no-repeat scroll -5px 0;
+	height:37px;
+	font-size: 20px;
+    font-weight: bold;
+}
+#about-content div.about-page {
+    background-color: white;
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding: 0 0px 1px;
+	line-height: 18px;
+}
+#about-content .post {
+	margin: 0px 30px 10px;
+}
+#about-content .post h4 {
+    font: 20px "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+    margin: 0 0 5px 0;
+	text-transform:none;
+	color:#535353;
+	text-decoration:none;
+}
+#about-content .post .embed{
+    width: 500px;
+    height: 285px;
+	margin: 10px 0px;
+}
+#about-content .post .embed-legend{
+	border-left: 2px solid #c0c0c0;
+	color: #9B9B9D;
+	font-size: 0.9em;
+	width: 495px;
+	padding-left: 10px;
+	margin-bottom:10px;
+	font-style:oblique
+}
+
+/* Gallery 
+#about-content .post .gallery{
+	margin-bottom: 10px !important;
+}
+#about-content .post .gallery ul{
+	margin-left: -14px !important;
+}
+#about-content .post .gallery-image{
+	text-align:left !important;
+}
+#about-content .post .gallery-image img{
+	margin: 10px 0px !important;
+}
+*/
+
+#about-sidebar {
+    width:300px;
+	float:right;
+}
+div.widget.about-sidebar-module {
+    background-color: white;
+    line-height: 18px;
+    margin: 0 0 20px;
+}
+div.widget.about-sidebar-module .supertitle {
+	  border-bottom: 1px solid #20b3b2;
+	color: #58595b;
+    font: normal 14px "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+    margin: 0 0 1em;
+    padding: 0 2px 0.5em;
+}
+div.widget.about-sidebar-module ul {
+	padding-left: 20px;
+    list-style: decimal;
+}
+div.widget.about-sidebar-module ul li {
+    margin:0 0 5px 0;
+}
+div.widget.about-sidebar-module ul li a {
+    color: #808285;
+	text-decoration:none;
+}
+div.widget.about-sidebar-module ul li a:hover {
+	text-decoration:underline;
+}
+/* fin pagina Info*/
+
+/* Cuadro de mensaje */
+div.widget.contact-message label {
+    margin-left: 1px;
+}
+
+div.widget.contact-message input {
+    display: block;
+    background-color: #dceedf;
+    width: 350px;
+    margin: -1px;
+    padding: .3em 0;
+}
+
+div.widget.contact-message textarea {
+    display: block;
+    background-color: #dceedf;
+    width: 350px;
+    margin: -1px;
+    padding: .3em 0;
+}
+
+div.widget.contact-message .button {
+    float: right;
+    margin: 1em 0 0;
+}
+
+
+/* fin Cuadro de mensaje */
+
+/* estilos-estaticas */
+
+.estatic-blue-green {
+	color: #1fb3b2;
+}
+
+.estatic-txt0 {
+	width:430px; 
+	float: left; 
+	padding-right:16px; 
+	margin-top:16px; 
+	font-size: 13px; 
+	line-height:19px;
+}
+
+.estatic-txt0 a {
+	font-size: 13px;
+}
+
+.estatic-txt0 a:hover {
+	color: #1fb3b2;
+}
+
+.estatic-txt1 {
+	width:430px; 
+	float: right; 
+	padding-right:16px; 
+	margin-top:16px; 
+	font-size: 13px; 
+	line-height:19px;
+}
+
+.estatic-txt1 a {
+	font-size: 13px; 
+}
+
+.estatic-txt1 a:hover {
+	color: #1fb3b2; 
+}
+
+.estatic-txt2 {
+	margin-top:16px; 
+	font-size: 13px; 
+	line-height:19px;
+}
+
+.estatic-txt2 a {
+	font-size: 13px; 
+}
+
+.estatic-txt2 a:hover {
+	color: #1fb3b2; 
+}
+
+.box-round {
+	width:400px;
+	color: #f1edea;
+	background-color: #1fb3b2;
+	
+    -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	behavior:url(border-radius.htc);
+	-khtml-border-radius: 5px;
+    
+	font-size: 20px;
+	text-align: left;
+	padding: 13px;
+	line-height: 28px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	clear: left;
+	float: left;
+}
+
+.box-round a {
+	color: #f1edea;
+	font-size: 20px;
+}
+
+.box-round a:hover {
+	color: white;
+}
+
+.box-round2 {
+	width:400px;
+	color: #f1edea;
+	background-color: #1fb3b2;
+	
+    -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	behavior:url(border-radius.htc);
+	-khtml-border-radius: 5px;
+    
+	font-size: 20px;
+	text-align: left;
+	padding: 13px;
+	line-height: 28px;
+	margin-bottom: 20px;
+}
+
+.box-round2 a {
+	color: #f1edea;
+	font-size: 20px;
+}
+
+.box-round2 a:hover {
+	color: white;
+}
+
+.footnote {
+	width:430px;
+	font-size:10px;
+	line-height:16px;
+	color:#999;
+	clear:both;
+}
+
+.footnote a:link {
+	font-size:10px;
+	color:#999;
+}
+
+.footnote a:hover {
+	color:#20b3b2;
+}
+
+.caja1-press {
+	width: 545px; 
+	float: left; 
+	padding-right: 10px; 
+	margin-top:16px; 
+	font-size: 13px; 
+	line-height:19px;
+	border-right: 1px solid #b0b2b7;
+}
+
+.caja1-press a {
+	font-size: 13px;
+}
+
+.caja1-press a:hover {
+	color: #1fb3b2;
+}
+
+.caja2-press {
+	width:305px; 
+	float: right; 
+	padding-right:16px; 
+	margin-top:16px; 
+	font-size: 11px; 
+	line-height: 17px;
+}
+
+.caja2-press a {
+	font-size: 11px; 
+}
+
+.caja2-press a:hover {
+	color: #1fb3b2; 
+}
+
+.destacado { 
+	color:#20B3B2;
+	font-size:16px; 
+	line-height:21px;
+}
+
