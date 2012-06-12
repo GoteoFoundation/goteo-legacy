@@ -1,0 +1,30 @@
+AddDefaultCharset UTF-8
+Options +FollowSymLinks
+ServerSignature Off
+
+<Files .*>
+    Order Deny,Allow
+    Deny From All
+</Files>
+
+# <Files *.php>
+#     Order Deny,Allow
+#     Deny From All
+# </Files>
+
+<IfModule mod_php5.c>
+  php_value  magic_quotes_runtime   "0"
+  php_value  magic_quotes_gpc       "0"
+  php_value  register_globals       "Off"
+  php_value  register_long_arrays   "Off"
+  php_value  session.auto_start     "0"
+  php_value  display_startup_errors "On"
+</IfModule>
+
+<IfModule mod_rewrite.c>  
+  # TODO: prohibir el acceso directo a index.php
+  RewriteEngine On  
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule .* index.php?%{QUERY_STRING}
+</IfModule>
