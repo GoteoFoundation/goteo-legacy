@@ -24,12 +24,13 @@ Traducción de interface y textos
 Catalán: Mireia Pui y Enric Senabre
 Inglés: Liz Castro y Chris Pinchen
 
+Asesoría legal y privacidad de datos: Jorge Campanillas y Alfonso Pacheco
 
-
+Other code writers:
+  Jaume Alemany, Philipp Keweloh, Susanna Kosic, Marc Hortelano, Pedro Medina
+  
 Developed with usage of:
 	html, css, xml, javascript
 	php, php PEAR packages, various licensed php classes,
 	jquery and licensed jquery plugins (SlideJS, CKeditor, Tipsy, MouseWheel, jScrollPane, FancyBox, DatePicker )
 
-Other code writers:
-  Jaume Alemany, Philipp Keweloh, Susanna Kosic, Marc Hortelano, Pedro Medina
