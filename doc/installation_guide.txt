@@ -1,0 +1,37 @@
+INSTALLATION GUIDE
+==================
+
+Have a server with:
+	- Apache 2.2 ( with mod_rewrite )
+	- PHP 5.3	 ( ensure you can see phpinfo() )
+	- MySql 5.5  ( ensure you can create and manage a database )
+
+Prepare a htdocs folder on your server that can be accessed with a browser. Maybe you have to modify the virtualhost file on your server.
+
+Uncompress source files from github into that folder (you dont need to have the /db and /doc folders published)
+
+Execute the /db/goteo.sql script on the database, then the /db/pages.sql 
+
+Modify /config.php file with database credentials:
+	· GOTEO_DB_SCHEMA is the name of your database
+	· GOTEO_DB_USERNAME is the user you created for your database
+	· GOTEO_DB_PASSWORD is the password you setted for that user
+
+Set the email and pasword for the goteo root user with the following SQL sentence:
+	UPDATE user SET password = SHA1('yourpassword') AND email = 'youremail' WHERE id = 'root';
+
+Modify /config.php file with the access point to the htdocs folder
+	· SITE_URL is 'http://your.intallation.site'
+	· SRC_URL is (for you and now) the same 'http://your.intallation.site'
+
+Every thing should be working fine at http://your.intallation.site 
+
+You manage the contents at http://your.intallation.site/admin
+	
+If you want to modify the code for your own purposses, better you read /doc/plataforma_goteo.doc (it's in spanish, apologies)
+
+
+Notes
+-----
+Github user 'blackhold' did a very good sideline guide. 
+Check it out at  http://blackhold.nusepas.com/2012/07/instalar-plataforma-goteo-en-nuestro-server/
