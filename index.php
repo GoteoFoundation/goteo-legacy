@@ -77,7 +77,14 @@ session_start();
 Lang::set();
 
 // cambiamos el locale
-\setlocale(\LC_TIME, Lang::locale());
+$locale = Lang::locale();
+\setlocale(\LC_TIME, $locale);
+\putenv("LC_ALL=$locale");
+\setlocale(LC_ALL, $locale);
+// configure settext domain
+\bindtextdomain("messages", "locale");
+\bind_textdomain_codeset('messages', 'UTF-8');
+\textdomain("messages");
 
 // Get URI without query string
 $uri = strtok($_SERVER['REQUEST_URI'], '?');
