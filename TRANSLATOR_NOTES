@@ -1,0 +1,35 @@
+NOTES OF A FRUSTRATED TRANSLATOR
+Zilog <dropmeaword@gmail.com>
+
+It's wonderful that Goteo is multilingual from the get go. Most texts 
+are saved in the database in several languages and Goteo features a 
+text lookup library to fetch the correct text.
+
+However for some reason this system is not used in the administration
+pages. So no matter which language you set on the selector, the 
+administration panel appears to be in Spanish only. 
+(and the log message too)
+
+For deployments in non-spanish speaking teams this is not so handy.
+
+I have decided to implement translation of the admin panel using gettext
+beccause it is a reasonably well understood approach and because it 
+doesn't use the database. Also, having a standard way of tagging 
+language dependant texts directly in the source code has the positive 
+effect of being almost sellf documenting.
+
+The index.php file is the global dispatcher and I have also made it
+language aware so that the correct env variables are set for gettext to 
+function correctly. This is the bit of code that does the magic.
+
+$lang = "en_EN";
+if (isset($_GET['lang'])) 
+	$lang = $_GET['lang'];
+putenv("LC_ALL=$lang");
+setlocale(LC_ALL, $lang);
+bindtextdomain("messages", "locale");
+bind_textdomain_codeset('messages', 'UTF-8');
+textdomain("messages");
+
+See http://www.codeforest.net/translate-and-localize-your-web-application-with-php-and-gettext
+for further details on how to make your PHP web app multilingual.

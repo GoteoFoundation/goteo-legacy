@@ -77,7 +77,10 @@ session_start();
 Lang::set();
 
 // cambiamos el locale
-\setlocale(\LC_TIME, Lang::locale());
+$locale = Lang::locale();
+Lang::gettext( $locale, "messages" );
+
+/*echo "<h1>$locale</h1>";*/
 
 // Get URI without query string
 $uri = strtok($_SERVER['REQUEST_URI'], '?');
