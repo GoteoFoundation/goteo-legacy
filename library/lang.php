@@ -128,11 +128,26 @@ namespace Goteo\Library {
 		}
 
 		static public function locale () {
-            $sql = "SELECT locale FROM lang WHERE id = :id";
+			$sql = "SELECT locale FROM lang WHERE id = :id";
 			$query = Model::query($sql, array(':id' => \LANG));
 			return $query->fetchColumn();
-        }
+    }
 
-	}
+		/**
+		 * Set gettext configuration to be used by PHP.
+		 *
+		 * @param $locale the string that determines the current locale (e.g. en_GB)
+		 * @param $domain the filename for the .po file used by gettext to load messages from
+		 */
+		static public function gettext($locale, $domain) {
+			\setlocale(\LC_TIME, $locale);
+			\putenv("LC_ALL=$locale");
+			\setlocale(LC_ALL, $locale);
+			// configure settext domain
+			\bindtextdomain($domain, "locale");
+			\bind_textdomain_codeset($domain, 'UTF-8');
+			\textdomain($domain);
+		}
+	} // class
 	
-}
+} // ns

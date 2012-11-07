@@ -61,8 +61,8 @@ define('GOTEO_DB_HOST', 'localhost');
 define('GOTEO_DB_PORT', 3306);
 define('GOTEO_DB_CHARSET', 'UTF-8');
 define('GOTEO_DB_SCHEMA', 'goteo');
-define('GOTEO_DB_USERNAME', '');
-define('GOTEO_DB_PASSWORD', '');
+define('GOTEO_DB_USERNAME', 'root');
+define('GOTEO_DB_PASSWORD', 'root');
 
 //Uploads i catxe
 define('GOTEO_DATA_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR);
@@ -81,11 +81,13 @@ define('GOTEO_MAIL_SMTP_PASSWORD', '');
 define('GOTEO_MAIL', 'hola@goteo.org');
 
 // Language
-define('GOTEO_DEFAULT_LANG', 'es');
+define('GOTEO_DEFAULT_LANG', 'en');
+// name of the gettext .po file (used for admin only texts at the moment)
+define('GOTEO_GETTEXT_DOMAIN', 'messages');
 
 // url
-define('SITE_URL', 'http://free.goteo.org');
-define('SRC_URL', 'http://free.goteo.org');
+define('SITE_URL', 'http://localhost:8888/');
+define('SRC_URL', 'http://localhost:8888/');
 
 // Cron params
 define('CRON_PARAM', '');
