@@ -590,11 +590,11 @@ div#header div#menu > ul > li.home > a {
     top: 50%;
     margin-left: -45px;
     margin-top: -18px;
-    background: url('header/goteo.png') no-repeat left center;        
+    background: url('header/main-logo.png') no-repeat left center;        
 }
 
 div#header div#menu > ul > li.home > a:hover {
-    background: url('header/goteo.png') no-repeat right center;
+    background: url('header/main-logo.png') no-repeat right center;
 }
 
 div#header div#menu > ul > li.explore,

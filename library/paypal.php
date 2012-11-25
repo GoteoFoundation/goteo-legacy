@@ -28,8 +28,48 @@ namespace Goteo\Library {
 
 	/*
 	 * Clase para usar los adaptive payments de paypal
+         * Reference used: https://www.x.com/adaptive-payments-2
 	 */
     class Paypal {
+
+	/*
+	*******************************************************************
+	PayPal API Credentials
+	Replace <API_USERNAME> with your API Username
+	Replace <API_PASSWORD> with your API Password
+	Replace <API_SIGNATURE> with your Signature
+	*******************************************************************
+	*/
+        public $main = array(
+		'api_endpoint' => '', 
+		'wsdl' => '',
+		'API_UserName' => 'sbapi_1287090601_biz_api1.paypal.com', //replace with values from Goteo
+		'API_Password' => '1287090610', //replace with values from Goteo
+		'API_Signature' => 'ANFgtzcGWolmjcm5vfrf07xVQ6B9AsoDvVryVxEQqezY85hChCfdBMvY', //replace with values from Goteo
+		'API_AppID' => 'APP-80W284485P519543T', //replace with values from Goteo
+		'API_MessageProtocol' => 'SOAP11',
+	);
+	public $RequestEnvelope = array(
+		'detailLevel' => '',
+		'errorLanguage' => '',
+	);
+	public $PreapprovalRequest = array(
+		'cancelUrl' => '',
+		'currencyCode' => '',
+		'dateOfMonth' => '',
+		'dayofWeek' => '',
+		'endingDate' => '',
+		'ipnNotificationUrl' => '',
+		'maxAmountPerPayment' => '',
+		'maxNumberOfPayments' => '',
+		'maxNumberOfPaymentsPerPeriod' => '',
+		'maxTotalAmountOfAllPayments' => '',
+		'memo' => '', 
+		'paymentPeriod' => '',
+		'pinType' => '',
+		'returnUrl' => '',
+		'startingDate' => '',
+	);
 
         /**
          * @param object invest instancia del aporte: id, usuario, proyecto, cuenta, cantidad
@@ -40,9 +80,37 @@ namespace Goteo\Library {
          * @TODO poner límite máximo de dias a lo que falte para los 40/80 dias para evitar las cancelaciones
          */
         public static function preapproval($invest, &$errors = array()) {
-            if (\GOTEO_FREE) {
-                return false;
-            }
+		error_log(print_r($invest,1));
+		$this->$PreapprovalRequest['cancelUrl'] = 'http://www.ebay.com'; //replace with values from Goteo
+		$this->$PreapprovalRequest['currencyCode'] = 'EUR'; //replace with values from Goteo
+		$this->$PreapprovalRequest['returnUrl'] = 'http://www.ebay.com'; //replace with values from Goteo
+		$this->$PreapprovalRequest['endingDate'] = '2012-12-30T08:00:00'; //replace with values from Goteo
+		$this->$PreapprovalRequest['maxTotalAmountOfAllPayments'] = '500.0'; //replace with values from Goteo
+		$this->$PreapprovalRequest['memo'] = 'preapproval';
+		$this->$PreapprovalRequest['startingDate'] = '2012-11-20T08:00:00'; //replace with values from Goteo
+		$http_headers = "X-PAYPAL-SECURITY-USERID: " . $this->main['API_UserName'] . "\r\n" .
+                    "X-PAYPAL-SECURITY-SIGNATURE: " . $this->main['API_Signature'] . "\r\n" .
+                 	"X-PAYPAL-SECURITY-PASSWORD: " . $this->main['API_Password'] . "\r\n" .
+                   	"X-PAYPAL-APPLICATION-ID: " . $this->main['API_AppID'] . "\r\n" .
+   	                "X-PAYPAL-MESSAGE-PROTOCOL: " .$this->main['API_MessageProtocol']. "\r\n";
+		$opts = array('http' => array('method' => 'POST', 'header' => $http_headers));
+		$ctx = stream_context_create($opts);
+		try {
+			$soapClient = new SoapClient($wsdl,
+				array('location' => $this->main['api_endpoint'],
+					'uri' => 'urn:Preapproval',
+					'soap_version' => SOAP_1_1,
+					'trace' => 1,
+					'stream_context' => $ctx));
+		} catch (SoapFault $e) {
+			   echo "Error Id : ||" . $e->detail->FaultMessage->error->errorId. "<br/>";
+			   echo "Error Message : ||" . $e->detail->FaultMessage->error->message;	
+		}
+		$response = $soapClient->Preapproval($params);
+		$preapprovalKey = $response->preapprovalKey;
+		$ackCode = $response->responseEnvelope->ack;
+		$paypalURL = "https://www.sandbox.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey=" .$preapprovalKey;
+		echo '<p><a href="' . $paypalURL . '" target="_blank">' . $paypalURL . '</a></p>';
         }
 
 
