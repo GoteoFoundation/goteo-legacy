@@ -1616,13 +1616,13 @@ namespace Goteo\Model {
                             return false;
                         }
                     } else {
-                        throw new Goteo\Core\Exception('Fallo al iniciar transaccion rebase. ' . \trace($e));
+                        throw new \Goteo\Core\Exception('Fallo al iniciar transaccion rebase. ' . \trace($e));
                     }
                 }
 
                 return true;
             } catch (\PDOException $e) {
-                throw new Goteo\Core\Exception('Fallo rebase id temporal. ' . \trace($e));
+                throw new \Goteo\Core\Exception('Fallo rebase id temporal. ' . \trace($e));
             }
 
         }
@@ -1648,7 +1648,7 @@ namespace Goteo\Model {
                 return $id;
             }
             catch (\PDOException $e) {
-                throw new Goteo\Core\Exception('Fallo al verificar id única para el proyecto. ' . $e->getMessage());
+                throw new \Goteo\Core\Exception('Fallo al verificar id única para el proyecto. ' . $e->getMessage());
             }
         }
 
