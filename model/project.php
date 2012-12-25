@@ -312,7 +312,7 @@ namespace Goteo\Model {
 				return $project;
 
 			} catch(\PDOException $e) {
-				throw \Goteo\Core\Exception($e->getMessage());
+				throw new \Goteo\Core\Exception($e->getMessage());
 			} catch(\Goteo\Core\Error $e) {
                 throw new \Goteo\Core\Error('404', Text::html('fatal-error-project'));
 			}
@@ -334,7 +334,7 @@ namespace Goteo\Model {
 				return $project;
 
 			} catch(\PDOException $e) {
-				throw \Goteo\Core\Exception($e->getMessage());
+				throw new \Goteo\Core\Exception($e->getMessage());
 			}
 		}
 
@@ -414,7 +414,7 @@ namespace Goteo\Model {
 				return $project;
 
 			} catch(\PDOException $e) {
-				throw \Goteo\Core\Exception($e->getMessage());
+				throw new \Goteo\Core\Exception($e->getMessage());
 			}
 		}
 
