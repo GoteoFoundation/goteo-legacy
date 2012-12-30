@@ -100,8 +100,8 @@ namespace Goteo\Library {
          * Establece el idioma de visualización de la web
          */
 		static public function set () {
-            echo 'Session: ' . $_SESSION['lang'] . '<br />';
-						echo 'Get: ' . $_GET['lang'] . '<br />'; 
+						//             echo 'Session: ' . $_SESSION['lang'] . '<br />';
+						// echo 'Get: ' . $_GET['lang'] . '<br />'; 
 
             // si lo estan cambiando, ponemos el que llega
             if (isset($_GET['lang'])) {
@@ -126,8 +126,8 @@ namespace Goteo\Library {
             define('LANG', $_SESSION['lang']);
 						define($_SESSION['lang'], LANG);
 
-            echo 'New Session: ' . $_SESSION['lang'] . '<br />';
-            echo 'Const: ' . LANG . '<br />';
+            // echo 'New Session: ' . $_SESSION['lang'] . '<br />';
+            // echo 'Const: ' . LANG . '<br />';
 						// die;
 		}
 
@@ -143,6 +143,10 @@ namespace Goteo\Library {
 		
 		static protected function localeExists($locale, $domain) {
 			return \file_exists("locale/{$locale}/LC_MESSAGES/{$domain}.po");
+		}
+		
+		static public function gettextSupported() {
+			return function_exists("gettext");
 		}
 
 		/**
@@ -183,12 +187,15 @@ namespace Goteo\Library {
 		static public function gettext($locale, $domain) {
 			// echo "LOCALE = {$locale} + DOMAIN = {$domain}";
 			// die;
+			
+			if( !Lang::gettextSupported() ) { error_log("GETTEXT not supported on this server, everything will appar in spanish"); return; }
+			
 			\setlocale(\LC_TIME, $locale);
 			\putenv("LC_ALL={$locale}");
 			\putenv("LANG={$locale}");
 			\setlocale(LC_ALL, $locale);
 			
-			if( Lang::localeExists() ) {
+			if( Lang::localeExists($locale, $domain) ) {
 				// determine if the language binary file exists, if not try to generate it automatically
 				if( !Lang::gettextBinaryExists($locale, $domain) ) {
 					Lang::compileLanguageFile($locale, $domain);
