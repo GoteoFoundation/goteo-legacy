@@ -180,7 +180,7 @@ namespace Goteo\Library {
 		 */
 		static public function gettext($locale, $domain) {
 			if( !Lang::gettextSupported() ) { 
-				error_log("ERROR - GETTEXT not supported on this server, everything will appar in spanish"); 
+				error_log("ERROR - GETTEXT not supported on this server, all texts will appear in spanish"); 
 				return; 
 			}
 			
