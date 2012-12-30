@@ -21,6 +21,8 @@
 
 namespace Goteo\Library {
 
+  require_once 'library/php-mo/php-mo.php';  // Libreria para creacion de rss
+
 	use Goteo\Core\Model;
 	/*
 	 * Clase para sacar textos estáticos de la tabla text
@@ -98,8 +100,9 @@ namespace Goteo\Library {
          * Establece el idioma de visualización de la web
          */
 		static public function set () {
-            //echo 'Session: ' . $_SESSION['lang'] . '<br />';
-            //echo 'Get: ' . $_GET['lang'] . '<br />';
+						//             echo 'Session: ' . $_SESSION['lang'] . '<br />';
+						//             echo 'Get: ' . $_GET['lang'] . '<br />'; 
+						// die;
 
             // si lo estan cambiando, ponemos el que llega
             if (isset($_GET['lang'])) {
@@ -133,6 +136,39 @@ namespace Goteo\Library {
 			return $query->fetchColumn();
     }
 
+		static protected function gettextBinaryExists($locale, $domain) {
+			return \file_exists("locale/{$locale}/LC_MESSAGES/{$domain}.mo");
+		}
+
+		/**
+		 * Use the php.mo library to compile gettext .po files if the binary doesn't exist.
+		 *
+		 * @return true/false on success/failure
+		 */
+		static private function compileLanguageFile($locale, $domain) {
+				return \phpmo_convert( "locale/{$locale}/LC_MESSAGES/{$domain}.po" );
+		}
+
+		/**
+		 * bypass gettext caching by using a clever file-renaming 
+		 * mechanism described in http://blog.ghost3k.net/articles/php/11/gettext-caching-in-php
+		 */
+		static protected function spawnUncachedDomain($locale, $domain) {
+			// path to the .MO file that we should monitor
+			$filename = "locale/{$locale}/LC_MESSAGES/{$domain}.mo";
+			$mtime = \filemtime($filename); // check its modification time
+			// our new unique .MO file
+			$filename_new = "locale/{$locale}/LC_MESSAGES/{$domain}_{$mtime}.mo"; 
+
+			if (!\file_exists($filename_new)) {  // check if we have created it before
+	      // if not, create it now, by copying the original
+	      \copy($filename,$filename_new);
+				error_log("creating new domain {$filename_new}");
+			}
+			// compute the new domain name
+			$domain_new = "{$domain}_{$mtime}";
+		} 
+		
 		/**
 		 * Set gettext configuration to be used by PHP.
 		 *
@@ -140,14 +176,62 @@ namespace Goteo\Library {
 		 * @param $domain the filename for the .po file used by gettext to load messages from
 		 */
 		static public function gettext($locale, $domain) {
+			// echo "LOCALE = {$locale} + DOMAIN = {$domain}";
+			// die;
 			\setlocale(\LC_TIME, $locale);
-			\putenv("LC_ALL=$locale");
+			\putenv("LC_ALL={$locale}");
+			\putenv("LANG={$locale}");
 			\setlocale(LC_ALL, $locale);
+
+			// determine if the language binary file exists, if not try to generate it automatically
+			if( !Lang::gettextBinaryExists($locale, $domain) ) {
+				Lang::compileLanguageFile($locale, $domain);
+				error_log("compiling missing language file binary");
+			}
+
+			// generate a new uncached domain file if caching bypass featured is enabled
+			if(true == \GOTEO_GETTEXT_BYPASS_CACHING) {	
+				$domain = Lang::spawnUncachedDomain($locale, $domain);
+				error_log("bypassing gettext caching");
+			}
+			
 			// configure settext domain
 			\bindtextdomain($domain, "locale");
 			\bind_textdomain_codeset($domain, 'UTF-8');
 			\textdomain($domain);
+			/*echo "<h1>$locale - $domain</h1>";*/
 		}
 	} // class
-	
+
+/*
+http://blog.ghost3k.net/articles/php/11/gettext-caching-in-php
+
+	// settings you may want to change
+	$locale = "en_US";  // the locale you want
+	$locales_root = "locales";  // locales directory
+	$domain = "default"; // the domain you're using, this is the .PO/.MO file name without the extension
+
+	// activate the locale setting
+	setlocale(LC_ALL, $locale);
+	setlocale(LC_TIME, $locale);
+	putenv("LANG=$locale");
+	// path to the .MO file that we should monitor
+	$filename = "$locales_root/$locale/LC_MESSAGES/$domain.mo";
+	$mtime = filemtime($filename); // check its modification time
+	// our new unique .MO file
+	$filename_new = "$locales_root/$locale/LC_MESSAGES/{$domain}_{$mtime}.mo"; 
+
+	if (!file_exists($filename_new)) {  // check if we have created it before
+	      // if not, create it now, by copying the original
+	      copy($filename,$filename_new);
+	}
+	// compute the new domain name
+	$domain_new = "{$domain}_{$mtime}";
+	// bind it
+	bindtextdomain($domain_new,$locales_root);
+	// then activate it
+	textdomain($domain_new);
+	// all done
+*/
+
 } // ns

@@ -63,10 +63,10 @@ namespace Goteo\Library {
 
         static public function getAdmin ($id) {
 
-            $lang = 'es';
+            //$lang = 'es';
 
 			// buscamos el texto en la tabla, si no está sacamos el propósito
-            $values = array(':id'=>$id, ':lang' => $lang);
+            $values = array(':id'=>$id, ':lang' => LANG);
 
             $sql = "SELECT
                         IFNULL(text.text,purpose.purpose) as `text`

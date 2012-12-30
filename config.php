@@ -84,6 +84,10 @@ define('GOTEO_MAIL', 'hola@goteo.org');
 define('GOTEO_DEFAULT_LANG', 'en');
 // name of the gettext .po file (used for admin only texts at the moment)
 define('GOTEO_GETTEXT_DOMAIN', 'messages');
+// gettext files are cached, to reload a new one requires to restart Apache which is stupid (and annoying while 
+//	developing) this setting tells the langueage code to bypass caching by using a clever file-renaming 
+// mechanism described in http://blog.ghost3k.net/articles/php/11/gettext-caching-in-php
+define('GOTEO_GETTEXT_BYPASS_CACHING', true);
 
 // url
 define('SITE_URL', 'http://localhost:8888/');

@@ -73,12 +73,18 @@ set_error_handler (
 session_name('goteo');
 session_start();
 
+//echo "GET lang = {$_GET['lang']}<br/>";
+//echo "SESSION lang = {$_SESSION['lang']}</br>";
+//die;
+
 // set Lang
 Lang::set();
 
 // cambiamos el locale
 $locale = Lang::locale();
-Lang::gettext( $locale, "messages" );
+//echo "LOCALE: {$locale}"; 
+//die;
+Lang::gettext( $locale, \GOTEO_GETTEXT_DOMAIN );
 
 /*echo "<h1>$locale</h1>";*/
 
