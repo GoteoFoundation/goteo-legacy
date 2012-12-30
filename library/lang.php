@@ -21,7 +21,7 @@
 
 namespace Goteo\Library {
 
-  require_once 'library/php-mo/php-mo.php';  // Libreria para creacion de rss
+  require_once 'library/php-mo/php-mo.php';  // external library to compile .po gettext files on the fly
 
 	use Goteo\Core\Model;
 	/*
