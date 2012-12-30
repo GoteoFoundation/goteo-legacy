@@ -73,20 +73,11 @@ set_error_handler (
 session_name('goteo');
 session_start();
 
-//echo "GET lang = {$_GET['lang']}<br/>";
-//echo "SESSION lang = {$_SESSION['lang']}</br>";
-//die;
-
 // set Lang
 Lang::set();
-
-// cambiamos el locale
+// change current locale
 $locale = Lang::locale();
-//echo "LOCALE: {$locale}"; 
-//die;
 Lang::gettext( $locale, \GOTEO_GETTEXT_DOMAIN );
-
-/*echo "<h1>$locale</h1>";*/
 
 // Get URI without query string
 $uri = strtok($_SERVER['REQUEST_URI'], '?');
