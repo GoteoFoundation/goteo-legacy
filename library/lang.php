@@ -100,9 +100,8 @@ namespace Goteo\Library {
          * Establece el idioma de visualización de la web
          */
 		static public function set () {
-						//             echo 'Session: ' . $_SESSION['lang'] . '<br />';
-						//             echo 'Get: ' . $_GET['lang'] . '<br />'; 
-						// die;
+            echo 'Session: ' . $_SESSION['lang'] . '<br />';
+						echo 'Get: ' . $_GET['lang'] . '<br />'; 
 
             // si lo estan cambiando, ponemos el que llega
             if (isset($_GET['lang'])) {
@@ -125,9 +124,11 @@ namespace Goteo\Library {
             }
             // establecemos la constante
             define('LANG', $_SESSION['lang']);
+						define($_SESSION['lang'], LANG);
 
-            //echo 'New Session: ' . $_SESSION['lang'] . '<br />';
-            //echo 'Const: ' . LANG . '<br />';
+            echo 'New Session: ' . $_SESSION['lang'] . '<br />';
+            echo 'Const: ' . LANG . '<br />';
+						// die;
 		}
 
 		static public function locale () {
@@ -138,6 +139,10 @@ namespace Goteo\Library {
 
 		static protected function gettextBinaryExists($locale, $domain) {
 			return \file_exists("locale/{$locale}/LC_MESSAGES/{$domain}.mo");
+		}
+		
+		static protected function localeExists($locale, $domain) {
+			return \file_exists("locale/{$locale}/LC_MESSAGES/{$domain}.po");
 		}
 
 		/**
@@ -182,24 +187,28 @@ namespace Goteo\Library {
 			\putenv("LC_ALL={$locale}");
 			\putenv("LANG={$locale}");
 			\setlocale(LC_ALL, $locale);
-
-			// determine if the language binary file exists, if not try to generate it automatically
-			if( !Lang::gettextBinaryExists($locale, $domain) ) {
-				Lang::compileLanguageFile($locale, $domain);
-				error_log("compiling missing language file binary");
-			}
-
-			// generate a new uncached domain file if caching bypass featured is enabled
-			if(true == \GOTEO_GETTEXT_BYPASS_CACHING) {	
-				$domain = Lang::spawnUncachedDomain($locale, $domain);
-				error_log("bypassing gettext caching");
-			}
 			
-			// configure settext domain
-			\bindtextdomain($domain, "locale");
-			\bind_textdomain_codeset($domain, 'UTF-8');
-			\textdomain($domain);
-			/*echo "<h1>$locale - $domain</h1>";*/
+			if( Lang::localeExists() ) {
+				// determine if the language binary file exists, if not try to generate it automatically
+				if( !Lang::gettextBinaryExists($locale, $domain) ) {
+					Lang::compileLanguageFile($locale, $domain);
+					error_log("compiling missing language file binary");
+				}
+
+				// generate a new uncached domain file if caching bypass featured is enabled
+				if(true == \GOTEO_GETTEXT_BYPASS_CACHING) {	
+					$domain = Lang::spawnUncachedDomain($locale, $domain);
+					error_log("bypassing gettext caching");
+				}
+			
+				// configure settext domain
+				\bindtextdomain($domain, "locale");
+				\bind_textdomain_codeset($domain, 'UTF-8');
+				\textdomain($domain);
+				/*echo "<h1>$locale - $domain</h1>";*/
+			} else {
+				error_log("Locale is not installed ${locale}");
+			}
 		}
 	} // class
 
