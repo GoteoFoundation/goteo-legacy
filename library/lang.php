@@ -121,7 +121,6 @@ namespace Goteo\Library {
             }
             // establecemos la constante
             define('LANG', $_SESSION['lang']);
-						define($_SESSION['lang'], LANG);
 		}
 
 		static public function locale () {
