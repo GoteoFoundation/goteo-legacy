@@ -1,0 +1,4 @@
+data/
+
+# translation binary files
+*.mo
