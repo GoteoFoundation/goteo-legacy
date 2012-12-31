@@ -23,9 +23,11 @@ use Goteo\Library\Text,
     Goteo\Core\ACL,
     Goteo\Library\Feed;
 
+/*
 if (LANG != 'es') {
     header('Location: /admin/?lang=es');
 }
+*/
 
 $allowed_contents = array(
     'base',
