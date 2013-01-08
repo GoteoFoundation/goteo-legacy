@@ -1,0 +1,1494 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Goteo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-07 10:07+0100\n"
+"PO-Revision-Date: 2012-11-07 11:05+0100\n"
+"Last-Translator: zilog <dropmeaword@gmail.com>\n"
+"Language-Team: Goteo translations\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: /home/zilog/development/webapps/Goteo\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: /home/zilog/development/webapps/Goteo\n"
+
+#: /home/zilog/development/webapps/Goteo/view/admin/index.html.php:67
+#: /home/zilog/development/webapps/Goteo/view/admin/feed.html.php:38
+msgid "Panel principal de administración"
+msgstr "Main administration panel"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:193
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:269
+msgid "Texto"
+msgstr "Text"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:194
+msgid "Agrupación"
+msgstr "Group"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:199
+msgid "Filtrar por tipo:"
+msgstr "Filter by type:"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:205
+msgid "Filtrar por agrupación:"
+msgstr "Filter by group:"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:211
+msgid "Buscar texto:"
+msgstr "Search text:"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:258
+msgid "Aplicar"
+msgstr "Apply"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:406
+#, php-format
+msgid "El admin %s ha <span class=\"red\">tocado las fechas</span> del proyecto %s"
+msgstr "Admin %s has <span class=\"red\">changed the dates</span> for project %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:408
+#, php-format
+msgid "Al admin %s le ha <span class=\"red\">fallado al tocar las fechas</span> del proyecto %s"
+msgstr "Admin %s has <span class=\"red\">failed to change the dates</span> for project %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:411
+msgid "No se ha guardado correctamente. "
+msgstr "Was not correctly saved"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:419
+msgid "Se han actualizado las cuentas del proyecto "
+msgstr "Project accounts have been updated"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:439
+#, php-format
+msgid "El admin %s ha pasado el proyecto %s al estado <span class=\"red\">Revisión</span>"
+msgstr "Admin %s has set the project %s to state <span class=\"red\">Review</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:441
+#, php-format
+msgid "Al admin %s le ha fallado al pasar el proyecto %s al estado <span class=\"red\">Revisión</span>"
+msgstr "Failed for admin %s when trying to set the project %s to state <span class=\"red\">Review</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:447
+#, php-format
+msgid "El admin %s ha pasado el proyecto %s al estado <span class=\"red\">en Campaña</span>"
+msgstr "Admin %s has set the project %s to state <span class=\"red\">in Campaign</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:449
+#, php-format
+msgid "Al admin %s le ha fallado al pasar el proyecto %s al estado <span class=\"red\">en Campaña</span>"
+msgstr "Failed for admin %s when trying to set the project %s to state <span class=\"red\">in Campaign</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:455
+#, php-format
+msgid "El admin %s ha pasado el proyecto %s al estado <span class=\"red\">Descartado</span>"
+msgstr "Admin %s has set the project %s to state <span class=\"red\">Discarded</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:457
+#, php-format
+msgid "Al admin %s le ha fallado al pasar el proyecto %s al estado <span class=\"red\">Descartado</span>"
+msgstr "Failed for admin %s when trying to set the project %s to state <span class=\"red\">Discarded</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:463
+#, php-format
+msgid "El admin %s ha pasado el proyecto %s al estado <span class=\"red\">Edición</span>"
+msgstr "Admin %s has set the project %s to state <span class=\"red\">Edit</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:465
+#, php-format
+msgid "Al admin %s le ha fallado al pasar el proyecto %s al estado <span class=\"red\">Edición</span>"
+msgstr "Failed for admin %s when trying to set the project %s to state <span class=\"red\">Edit</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:471
+#, php-format
+msgid "El admin %s ha pasado el proyecto %s al estado <span class=\"red\">Financiado</span>"
+msgstr "Admin %s has set the project %s to state <span class=\"red\">Financed</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:473
+#, php-format
+msgid "Al admin %s le ha fallado al pasar el proyecto %s al estado <span class=\"red\">Financiado</span>"
+msgstr "Failed for admin %s when trying to set the project %s to state <span class=\"red\">Financed</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:479
+#, php-format
+msgid "El admin %s ha pasado el proyecto %s al estado <span class=\"red\">Retorno cumplido</span>"
+msgstr "Admin %s has set the project %s to state <span class=\"red\">Return fulfilled</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:481
+#, php-format
+msgid "Al admin %s le ha fallado al pasar el proyecto %s al estado <span class=\"red\">Retorno cumplido</span>"
+msgstr "Failed for admin %s when trying to set the project %s to state <span class=\"red\">Return fulfilled</span>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:491
+msgid "Cambio estado/fechas de un proyecto desde el admin"
+msgstr "State/date has been changed from the admin console for a project"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:557
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2725
+msgid "Nombre"
+msgstr "Name"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:558
+msgid "Enviado a revision"
+msgstr "Sent to review"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:624
+msgid "Revisión iniciada correctamente"
+msgstr "Review started correctly"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:630
+msgid "valoración iniciada (admin)"
+msgstr "assessment began (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:633
+#, php-format
+msgid "El admin %s ha %s la valoración de %s"
+msgstr "Admin %s has valued %s with %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:646
+msgid "Datos editados correctamente"
+msgstr "Information was edited correctly"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:674
+msgid "La revisión se ha cerrado"
+msgstr "Review is now closed"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:680
+msgid "valoración finalizada (admin)"
+msgstr "assessment is finished (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:683
+#, php-format
+msgid "El admin %s ha dado por %s la valoración de %s"
+msgstr "Admin %s has valued %s for %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:686
+msgid "Finalizada"
+msgstr "Finished"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:728
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:765
+msgid "asignar revision (admin)"
+msgstr "assign review (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:731
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:768
+#, php-format
+msgid "El admin %s ha %s a %s la revisión de %s"
+msgstr "Admin %s has %s to %s the valuation of %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:734
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:893
+msgid "Asignado"
+msgstr "Assigned"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:771
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:897
+msgid "Desasignado"
+msgstr "Unassigned"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:810
+msgid "Abiertas"
+msgstr "Opened"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:811
+msgid "Cerradas"
+msgstr "Closed"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:874
+msgid "No hay proyecto sobre el que operar"
+msgstr "There's no project to apply to"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:906
+msgid " traduccion (admin)"
+msgstr "translation (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:909
+#, php-format
+msgid "El admin %s ha %s a %s la traducción del proyecto %s"
+msgstr "Admin %s has %s to %s the translation of project %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:936
+msgid "El proyecto "
+msgstr "The project"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:936
+msgid " se ha habilitado para traducir"
+msgstr " is available for translation"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:936
+msgid "Datos de traducción actualizados"
+msgstr "Translation details were updated"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:943
+msgid "proyecto habilitado para traducirse (admin)"
+msgstr "project is available for translation (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:946
+#, php-format
+msgid "El admin %s ha %s la traducción del proyecto %s"
+msgstr "Admin %s has %s the translation of project %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:949
+msgid "Habilitado"
+msgstr "Enabled"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:960
+msgid "Ha fallado al habilitar la traducción del proyecto "
+msgstr "Failed to enable translation for project"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:984
+msgid "Se ha enviado un email a"
+msgstr "An email has been send to"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:984
+msgid "a la dirección"
+msgstr "to the address"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:986
+msgid "Ha fallado informar a"
+msgstr "Failed to report to"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:986
+msgid "de la posibilidad de traducción de su proyecto"
+msgstr "of the possibility to translate your project"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1020
+msgid "La traducción del proyecto "
+msgstr "Translation of this project"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1020
+msgid " se ha finalizado"
+msgstr " is complete"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1028
+msgid "traducción finalizada (admin)"
+msgstr "translation complete (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1031
+#, php-format
+msgid "El admin %s ha dado por %s la traducción de %s"
+msgstr "Admin %s has set as %s the translation of %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1042
+msgid "Falló al finalizar la traducción"
+msgstr "Failed to finalize translation"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1098
+msgid "Proyecto destacado correctamente"
+msgstr "Project has been featured correctly"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1106
+msgid "nuevo proyecto destacado en portada (admin)"
+msgstr "new project featured on front page (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1109
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1189
+#, php-format
+msgid "El admin %s ha %s el proyecto %s"
+msgstr "Admin %s has %s project %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1112
+msgid "Destacado en portada"
+msgstr "Featured on frontpage"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1122
+msgid "Destacado actualizado correctamente"
+msgstr "Featured was updated correctly"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1186
+msgid "proyecto quitado portada (admin)"
+msgstr "project was removed from front page (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1192
+msgid "Quitado de la portada"
+msgstr "Removed from frontpage"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1200
+msgid "Proyecto quitado correctamente"
+msgstr "Project removed correctly"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1281
+msgid "Datos guardados"
+msgstr "Data saved"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1290
+msgid "nuevo banner de proyecto destacado en portada (admin)"
+msgstr "new project banner featured on front page (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1293
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1355
+#, php-format
+msgid "El admin %s ha %s del proyecto %s"
+msgstr "Admin %s has %s in project %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1296
+msgid "Publicado un banner"
+msgstr "Published a banner"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1352
+msgid "banner de proyecto quitado portada (admin)"
+msgstr "project banner removed from front page (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1358
+msgid "Quitado el banner"
+msgstr "Removed a banner"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1454
+msgid "Pregunta añadida correctamente"
+msgstr "Question added successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1457
+msgid "Pregunta editado correctamente"
+msgstr "Question has been edited successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1579
+msgid "Criterio añadido correctamente"
+msgstr "Criterium added successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1582
+msgid "Criterio editado correctamente"
+msgstr "Criterium edited successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1703
+msgid "Nuevo tipo añadido correctamente"
+msgstr "New type added successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1706
+msgid "Tipo editado correctamente"
+msgstr "Type edited successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1712
+msgid "modificacion de tipo de retorno/recompensa (admin)"
+msgstr "altered the type of return/reward (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1715
+#, php-format
+msgid "El admin %s ha %s el tipo de retorno/recompensa %s"
+msgstr "Admin %s has %s the type of return/rewards %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1851
+msgid "Licencia añadida correctamente"
+msgstr "License added successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1854
+msgid "Licencia editada correctamente"
+msgstr "License edited successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1860
+msgid "modificacion de licencia (admin)"
+msgstr "edit license (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1863
+#, php-format
+msgid "El admin %s ha %s la licencia %s"
+msgstr "Admin %s has %s license %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:1982
+msgid "Entrada colocada en la portada correctamente"
+msgstr "Entry was successfully placed on front page"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2069
+msgid "Entrada colocada en el footer correctamente"
+msgstr "Entry was successfully placed on footer"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2161
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2320
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4045
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4265
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4453
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4596
+msgid "Añadir"
+msgstr "Add"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2171
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2230
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2272
+msgid "Categoría"
+msgstr "Category"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2176
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2235
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4468
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4526
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4611
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4669
+msgid "Descripción"
+msgstr "Description"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2268
+msgid "Nueva categoría"
+msgstr "New category"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2273
+msgid "Proyectos"
+msgstr "Projects"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2274
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4733
+msgid "Usuarios"
+msgstr "Users"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2275
+msgid "Prioridad"
+msgstr "Priority"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2330
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2382
+msgid "Tag"
+msgstr "Tag"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2407
+msgid "Nuevo tag"
+msgstr "New tag"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2509
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2623
+msgid "Operación sobre usuario (admin)"
+msgstr "Perform task on user (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2512
+#, php-format
+msgid "El admin %s ha %s del usuario %s"
+msgstr "Admin %s has %s of user %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2525
+msgid "Datos actualizados"
+msgstr "Data updated"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2556
+msgid "Desactivado"
+msgstr "Disabled"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2560
+msgid "Activado"
+msgstr "Enabled"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2564
+msgid "Mostrado"
+msgstr "Shown"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2568
+msgid "Ocultado"
+msgstr "Hidden"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2572
+msgid "Hecho revisor"
+msgstr "Made into a reviewer"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2576
+msgid "Quitado de revisor"
+msgstr "Removed as reviewer"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2580
+msgid "Hecho traductor"
+msgstr "Added as translator"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2584
+msgid "Quitado de traductor"
+msgstr "Removed as translator"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2588
+msgid "Hecho admin"
+msgstr "Added as admin"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2592
+msgid "Quitado de admin"
+msgstr "Removed as admin"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2604
+#, php-format
+msgid "Ha <strong>%s</strong> al usuario <strong>%s</strong> CORRECTAMENTE"
+msgstr "Has <strong>%s</strong> to user <strong>%s</strong> CORRECTLY"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2607
+#, php-format
+msgid "El admin %s ha %s al usuario %s"
+msgstr "Admin %s has %s to user %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2612
+#, php-format
+msgid "Ha FALLADO cuando ha <strong>%s</strong> al usuario <strong>%s</strong>"
+msgstr "FAILED when <strong>%s</strong> to user <strong>%s</strong>"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2615
+#, php-format
+msgid "Al admin %s le ha <strong>FALLADO</strong> cuando ha %s al usuario %s"
+msgstr "Admin %s <strong>FAILED</strong> when %s to user %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2714
+msgid "Activo"
+msgstr "Active"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2715
+msgid "Inactivo"
+msgstr "Inactive"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2719
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4736
+msgid "Administrador"
+msgstr "Administrator"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2720
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4737
+msgid "Revisor"
+msgstr "Reviewer"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2721
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4738
+msgid "Traductor"
+msgstr "Translator"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2724
+msgid "Fecha de alta"
+msgstr "Date of creation"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2773
+msgid "No se puede reubicar este aporte!"
+msgstr "This contribution can not be relocated!"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2825
+msgid "Aporte reubicado"
+msgstr "Contribution relocated"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2828
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2909
+#, php-format
+msgid "%s ha aportado %s al proyecto %s en nombre de %s"
+msgstr "%s has contributed %s to project %s in the name of %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2839
+msgid "Aporte reubicado correctamente"
+msgstr "Contribution relocated successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2842
+#, php-format
+msgid "A fallado al cambiar el estado del aporte original (%s)"
+msgstr "Failed to change the original state of the contribution (%s)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2846
+msgid "Ha fallado algo al reubicar el aporte"
+msgstr "Has failed to relocate the contribution"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2906
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5383
+msgid "Aporte manual"
+msgstr "Manual contribution"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2920
+msgid "Aporte manual creado correctamente"
+msgstr "Manual contribution created correctly"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2923
+msgid "Ha fallado algo al crear el aporte manual"
+msgstr "Something (indeterminate) has failed when creating the manual contribution"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2971
+msgid "Solo los donativos"
+msgstr "Only donations"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2972
+msgid "Solo los anónimos"
+msgstr "Only anonymous"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2973
+msgid "Solo los manuales"
+msgstr "Only manual"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2974
+msgid "Solo los de Bolsa"
+msgstr "Only those from \"Market\""
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:2984
+msgid "Instancia de proyecto no valida"
+msgstr "Project instance isn't valid"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3018
+msgid "No debería poderse cancelar un aporte cuando el proyecto ya está financiado. Si es imprescindible, hacerlo desde el panel de paypal o tpv"
+msgstr "It shouldn't be possible to cancel a contribution once the project is fully financed. If you absolutely must, do it from the PayPal panel or the TPV."
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3026
+msgid "Preaproval paypal cancelado."
+msgstr "Cancelled PayPal pre-approval."
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3027
+#, php-format
+msgid "El admin %s ha cancelado aporte y preapproval de %s de %s mediante PayPal (id: %s) al proyecto %s del dia %s"
+msgstr "Admin %s has cancelled the contribution and preapproval of %s of %s via PayPal (id: %s) to project %s on date %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3030
+msgid "Fallo al cancelar el preapproval en paypal: "
+msgstr "Failed to cancel preapproval in PayPal:"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3031
+#, php-format
+msgid "El admin %s ha fallado al cancelar el aporte de %s de %s mediante PayPal (id: %s) al proyecto %s del dia %s. <br />Se han dado los siguientes errores: "
+msgstr "Admin %s has failed to cancel contribution %s for %s via PayPal (id: %s) to project %s on date %s. <br/>Has the following errors:"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3033
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3054
+msgid "Aporte cancelado"
+msgstr "Cancelled contribution"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3035
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3057
+msgid "Fallo al cancelar el aporte"
+msgstr "Failed to cancel contribution"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3043
+msgid "Aporte cancelado correctamente. "
+msgstr "Contribution cancelled successfully."
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3044
+#, php-format
+msgid "El admin %s ha anulado el cargo tpv de %s de %s mediante TPV (id: %s) al proyecto %s del dia %s"
+msgstr "Admin %s has cancelled a TPV charge of %s of %s via TPV (id: %s) to projecct %s on date %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3047
+msgid "Fallo en la operación. "
+msgstr "Task failed."
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3053
+#, php-format
+msgid "El admin %s ha cancelado aporte manual de %s de %s (id: %s) al proyecto %s del dia %s"
+msgstr "Admin %s has cancelled a manual contribution of %s of %s (id: %s) to project %s on date %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3056
+#, php-format
+msgid "El admin %s ha fallado al cancelar el aporte manual de %s de %s (id: %s) al proyecto %s del dia %s. "
+msgstr "Admin %s has failed to cancel a manual contribution of %s to %s (id: %s) to project %s on date %s."
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3066
+msgid "Cargo cancelado (admin)"
+msgstr "Charges cancelled (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3091
+msgid "El proyecto no tiene cuenta paypal!!, ponersela en la seccion Contrato del dashboard del autor"
+msgstr "Project doesn't have a PayPal account!!! add it to the Contract section of the author's dashboard."
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3098
+msgid "proyecto sin cuenta paypal (admin)"
+msgstr "Project without PayPal account (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3101
+#, php-format
+msgid "El proyecto %s aun no ha puesto su %s !!!"
+msgstr "Project %s has not yet set %s!!!"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3104
+msgid "cuenta PayPal"
+msgstr "PayPal account"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3116
+msgid "Cargo paypal correcto"
+msgstr "PayPal was charged correctly"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3117
+#, php-format
+msgid "El admin %s ha ejecutado el cargo a %s por su aporte de %s mediante PayPal (id: %s) al proyecto %s del dia %s"
+msgstr "Admin %s has executed a charge to %s for its contribution of %s via PayPal (id: %s) to project %s on date %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3121
+msgid "Fallo al ejecutar cargo paypal: "
+msgstr "Failed to charge PayPal:"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3127
+msgid "Cargo sermepa correcto"
+msgstr "SERPEMA (Servicaixa) charge was correct"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3128
+#, php-format
+msgid "El admin %s ha ejecutado el cargo a %s por su aporte de %s mediante TPV (id: %s) al proyecto %s del dia %s"
+msgstr "Admin %s has executed charge to %s for its contribution of %s via TPV (id: %s) to project %s on date %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3132
+msgid "Fallo al ejecutar cargo sermepa: "
+msgstr "Failed to execute SERPEMA (Servicaixa) charge: "
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3138
+msgid "Aporte al contado, nada que ejecutar."
+msgstr "Cash contribution, nothing to execute."
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3139
+#, php-format
+msgid "El admin %s ha dado por ejecutado el aporte manual a nombre de %s por la cantidad de %s (id: %s) al proyecto %s del dia %s"
+msgstr "Admin %s has set manual contribution to the name of %s as executed, amount %s (id: %s) to project %s on date %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3149
+msgid "Cargo ejecutado (admin)"
+msgstr "Charges executed (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3271
+msgid "Recaudado"
+msgstr "Collected"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3272
+msgid "Rev. PayPal"
+msgstr "Rev. PayPal"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3273
+msgid "Rev. TPV"
+msgstr "Rev. TPV"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3274
+msgid "Pagos Online"
+msgstr "Online payments"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3372
+msgid "Pendiente"
+msgstr "Pending"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3373
+msgid "Cumplido"
+msgstr "Accomplished"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3406
+msgid "No tiene espacio de blog, Contacte con nosotros"
+msgstr "You don't have any blog space, please contact us"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3410
+msgid "Lo sentimos, el blog para este nodo esta desactivado"
+msgstr "We are sorry but the blog is disabled for this node"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3417
+msgid "No se ha encontrado ningún blog para este nodo"
+msgstr "We couldn't find any blog for this node"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3482
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3863
+msgid "La entrada se ha actualizado correctamente"
+msgstr "Entry has been updated successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3485
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3872
+msgid "Se ha añadido una nueva entrada"
+msgstr "A new entry was added sucessfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3496
+msgid "nueva entrada blog Goteo (admin)"
+msgstr "new entry at Goteo blog (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3499
+#, php-format
+msgid "El admin %s ha %s en el blog Goteo la entrada \"%s\""
+msgstr "Admin %s has %s the entry \"%s\" in the Goteo blog"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3525
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3714
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3896
+msgid "Ha habido algun problema al guardar los datos"
+msgstr "Some problem (indeterminate) occurred while saving data"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3548
+msgid "entrada quitada (admin)"
+msgstr "entry removed (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3551
+#, php-format
+msgid "El admin %s ha %s la entrada \"%s\" del blog de Goteo"
+msgstr "Admin %s has %s entry \"%s\" from the Goteo blog"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3554
+msgid "Quitado"
+msgstr "Removed"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3563
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3920
+msgid "Entrada eliminada"
+msgstr "Entry was deleted"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3565
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3940
+msgid "No se ha podido eliminar la entrada"
+msgstr "Could not delete entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3597
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3950
+msgid "Añadiendo una nueva entrada"
+msgstr "Adding a new entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3624
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3764
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3973
+msgid "La entrada esta corrupta, contacte con nosotros."
+msgstr "This entry is corrupt, please get in contact with us."
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3631
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3980
+msgid "Editando una entrada existente"
+msgstr "Editing an existing entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3707
+msgid "El término se ha actualizado correctamente"
+msgstr "Term was updated successfully"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3709
+msgid "Se ha añadido un nuevo término"
+msgstr "A new term has been added"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3731
+msgid "Término eliminado"
+msgstr "Term removed"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3733
+msgid "No se ha podido eliminar el término"
+msgstr "Term could not be removed"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3741
+msgid "Añadiendo un nuevo término"
+msgstr "Adding a new term"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3771
+msgid "Editando un término existente"
+msgstr "Editing an existing term"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3866
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4113
+msgid "Publicado"
+msgstr "Published"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3868
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5090
+msgid "Modificado"
+msgstr "Modified"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3874
+msgid "Añadido"
+msgstr "Added"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3882
+msgid "modificacion de idea about (admin)"
+msgstr "edit Idea About  (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3885
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3929
+#, php-format
+msgid "El admin %s ha %s la Idea de fuerza \"%s\""
+msgstr "Admin %s has %s the idea of strength \"%s\""
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3926
+msgid "quitar de idea about (admin)"
+msgstr "remove Idea About (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:3932
+msgid "Eliminado"
+msgstr "Removed"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4055
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4148
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4220
+msgid "Noticia"
+msgstr "News item"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4061
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4154
+msgid "Entradilla"
+msgstr "Excerpt"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4067
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4160
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4221
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4280
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4363
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4409
+msgid "Enlace"
+msgstr "Link"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4073
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4166
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4222
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4291
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4374
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4411
+msgid "Posición"
+msgstr "Position"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4107
+msgid "nueva micronoticia (admin)"
+msgstr "new microblog (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4110
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4194
+#, php-format
+msgid "El admin %s ha %s la micronoticia \"%s\""
+msgstr "Admin %s has %s the microblog \"%s\""
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4191
+msgid "micronoticia quitada (admin)"
+msgstr "microblog entry removed (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4216
+msgid "Nueva noticia"
+msgstr "Add news item"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4275
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4358
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4408
+msgid "Patrocinador"
+msgstr "Sponsor"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4286
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4369
+msgid "Logo"
+msgstr "Logo"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4404
+msgid "Nuevo patrocinador"
+msgstr "New sponsor"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4410
+msgid "Imagen"
+msgstr "Image"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4463
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4521
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4555
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4606
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4664
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4698
+msgid "Campaña"
+msgstr "Campaign"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4551
+msgid "Nueva campaña"
+msgstr "New campaign"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4556
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4699
+msgid "Aportes"
+msgstr "Contributions"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4694
+msgid "Nuevo nodo"
+msgstr "New node"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4731
+msgid "Cofinanciadores"
+msgstr "Co-financiers"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4732
+msgid "Autores"
+msgstr "Authors"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4805
+msgid "de proyectos que su nombre contenga"
+msgstr "project whose name contain"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4807
+msgid "de cualquier proyecto"
+msgstr "of any project"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4813
+msgid "en estado"
+msgstr "in state"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4815
+msgid "en cualquier estado"
+msgstr "in any state"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4822
+msgid "mediante"
+msgstr "via"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4824
+msgid "mediante cualquier metodo"
+msgstr "via any method"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4834
+msgid "interesados en fin"
+msgstr "interested in end"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4843
+msgid "que sean"
+msgstr "that are"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4849
+msgid "que su nombre o email contenga"
+msgstr "whose name or email contain"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4854
+msgid "que su contraseña sea igual que su email"
+msgstr "whose password is identical to its email"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4878
+msgid "Fallo el SQL!!!!!"
+msgstr "SQL failure!!!"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:4883
+msgid "No se han encontrado destinatarios para "
+msgstr "We could not fin recipients for"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5078
+msgid "Nivel de meritocracia modificado"
+msgstr "Level of meritocracy has been updated"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5084
+msgid "modificacion de meritocracia (admin)"
+msgstr "Edit meritocracy (admin)"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5087
+#, php-format
+msgid "El admin %s ha %s el nivel de meritocrácia %s"
+msgstr "Admin %s has %s the level of meritocracy %s"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5180
+msgid "Gestión de Textos y Traducciones"
+msgstr "Manage Texts and Translations"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5183
+msgid "Blog"
+msgstr "Blog"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5185
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5194
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5202
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5211
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5219
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5228
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5236
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5244
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5253
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5262
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5270
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5278
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5286
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5297
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5305
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5314
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5322
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5333
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5343
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5382
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5394
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5416
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5425
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5441
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5457
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5468
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5476
+msgid "Listando"
+msgstr "Listing"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5186
+msgid "Nueva Entrada"
+msgstr "New Entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5187
+msgid "Editando Entrada"
+msgstr "Editing Entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5188
+msgid "Traduciendo Entrada"
+msgstr "Translating Entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5192
+msgid "Textos interficie"
+msgstr "Interface texts"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5195
+msgid "Editando Original"
+msgstr "Editing Original"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5196
+msgid "Traduciendo Texto"
+msgstr "Translating Text"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5200
+msgid "FAQs"
+msgstr "FAQs"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5203
+msgid "Nueva Pregunta"
+msgstr "New Question"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5204
+msgid "Editando Pregunta"
+msgstr "Editing Question"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5205
+msgid "Traduciendo Pregunta"
+msgstr "Translating Question"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5209
+msgid "Páginas institucionales"
+msgstr "Institutional pages"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5212
+msgid "Editando Página"
+msgstr "Editing Page"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5213
+msgid "Traduciendo Página"
+msgstr "Translating Page"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5217
+msgid "Categorias e Intereses"
+msgstr "Categories and Interests"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5220
+msgid "Nueva Categoría"
+msgstr "New Category"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5221
+msgid "Editando Categoría"
+msgstr "Editing Category"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5222
+msgid "Traduciendo Categoría"
+msgstr "Translating Category"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5226
+msgid "Licencias"
+msgstr "Licenses"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5229
+msgid "Editando Licencia"
+msgstr "Editing License"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5230
+msgid "Traduciendo Licencia"
+msgstr "Translating License"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5234
+msgid "Tipos de Retorno"
+msgstr "Types of Return"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5237
+msgid "Editando Tipo"
+msgstr "Editing Type"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5238
+msgid "Traduciendo Tipo"
+msgstr "Translating Type"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5242
+msgid "Tags de blog"
+msgstr "Blog tags"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5245
+msgid "Nuevo Tag"
+msgstr "New Tag"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5246
+msgid "Editando Tag"
+msgstr "Editing Tag"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5247
+msgid "Traduciendo Tag"
+msgstr "Translating Tag"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5251
+msgid "Criterios de revisión"
+msgstr "Review criteria"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5254
+msgid "Nuevo Criterio"
+msgstr "New Criterium"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5255
+msgid "Editando Criterio"
+msgstr "Editing Criterium"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5256
+msgid "Traduciendo Criterio"
+msgstr "Translating Criterium"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5260
+msgid "Plantillas de email"
+msgstr "Email templates"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5263
+msgid "Editando Plantilla"
+msgstr "Editing template"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5264
+msgid "Traduciendo Plantilla"
+msgstr "Translating Template"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5268
+msgid "Glosario"
+msgstr "Glossary"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5271
+msgid "Editando Término"
+msgstr "Editing Term"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5272
+msgid "Traduciendo Término"
+msgstr "Translating Term"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5276
+msgid "Ideas about"
+msgstr "Ideas about"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5279
+msgid "Editando Idea"
+msgstr "Editing Idea"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5280
+msgid "Traduciendo Idea"
+msgstr "Translate Idea"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5284
+msgid "Conteo de palabras"
+msgstr "Word Count"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5292
+msgid "Gestión de proyectos"
+msgstr "Project administration"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5295
+msgid "Listado de proyectos"
+msgstr "Project listing"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5298
+msgid "Cambiando las fechas del proyecto "
+msgstr "Changed project dates"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5299
+msgid "Gestionando las cuentas del proyecto "
+msgstr "Manage project accounts"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5303
+msgid "Revisiones"
+msgstr "Reviews"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5306
+msgid "Iniciando briefing"
+msgstr "Initializing briefing"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5307
+msgid "Editando briefing"
+msgstr "Editing briefing"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5308
+msgid "Informe"
+msgstr "Report"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5312
+msgid "Traducciones"
+msgstr "Translations"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5315
+msgid "Habilitando traducción"
+msgstr "Enabling translation"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5316
+msgid "Asignando traducción"
+msgstr "Assigning translation"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5320
+msgid "Gestión de retornos colectivos cumplidos"
+msgstr "Management of fulfilled collective returns"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5328
+msgid "Gestión de usuarios"
+msgstr "Manage users"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5331
+msgid "Listado de usuarios"
+msgstr "User listing"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5334
+msgid "Creando Usuario"
+msgstr "Creating User"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5335
+msgid "Editando Usuario"
+msgstr "Editing User"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5336
+msgid "Gestionando Usuario"
+msgstr "Managing User"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5337
+msgid "Suplantando al Usuario"
+msgstr "Impersonating User"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5341
+msgid "Niveles de meritocracia"
+msgstr "Levels of meritocracy"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5344
+msgid "Editando Nivel"
+msgstr "Editing Level"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5348
+msgid "Comunicaciones"
+msgstr "Communications"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5350
+msgid "Seleccionando destinatarios"
+msgstr "Selecting recipients"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5351
+msgid "Escribiendo contenido"
+msgstr "Writing Content"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5352
+msgid "Comunicación enviada"
+msgstr "Communication submitted"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5356
+msgid "Historial envios"
+msgstr "History of dispatches"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5358
+msgid "Emails enviados"
+msgstr "Emails dispatched"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5377
+msgid "Gestión de aportes y transacciones"
+msgstr "Management of Contributions and Transactions"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5380
+msgid "Aportes a Proyectos"
+msgstr "Contributions to Projects"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5384
+msgid "Reubicando el aporte"
+msgstr "Relocating a contribution"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5385
+msgid "Detalles del aporte"
+msgstr "Contribution details"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5386
+msgid "Ejecución del cargo ahora mismo"
+msgstr "Execute the charges inmediately"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5387
+msgid "Cancelando aporte"
+msgstr "Cancelling contribution"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5388
+msgid "Informe de proyecto"
+msgstr "Project report"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5392
+msgid "Transacciones económicas"
+msgstr "Monetary transactions"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5395
+msgid "Detalles de la transacción"
+msgstr "Transaction details"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5396
+msgid "Viendo logs"
+msgstr "Viewing logs"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5411
+msgid "Portada"
+msgstr "Frontpage"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5414
+msgid "Micronoticias"
+msgstr "Micronews"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5417
+msgid "Nueva Micronoticia"
+msgstr "New Microblog Entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5418
+msgid "Editando Micronoticia"
+msgstr "Editing Microblog Entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5419
+msgid "Traduciendo Micronoticia"
+msgstr "Translating Microblog Entry"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5423
+msgid "Banners"
+msgstr "Banners"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5426
+msgid "Nuevo Banner"
+msgstr "New Banner"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5427
+msgid "Editando Banner"
+msgstr "Editing Banner"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5428
+msgid "Traduciendo Banner"
+msgstr "Translating Banner"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5432
+msgid "Carrusel de blog"
+msgstr "Blog Carroussel"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5434
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5450
+msgid "Ordenando"
+msgstr "Sorting"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5435
+msgid "Colocando Entrada en la portada"
+msgstr "Placing Entry on Front Page"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5439
+msgid "Proyectos destacados"
+msgstr "Featured Projects"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5442
+msgid "Nuevo Destacado"
+msgstr "New Feature"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5443
+msgid "Editando Destacado"
+msgstr "Editing Feature"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5444
+msgid "Traduciendo Destacado"
+msgstr "Translating Feature"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5448
+msgid "Entradas en el footer"
+msgstr "Entries in Footer"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5451
+msgid "Colocando Entrada en el footer"
+msgstr "Placing Entry in Footer"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5455
+msgid "Actividad reciente"
+msgstr "Recent Activity"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5463
+msgid "Convocatorias de patrocinadores"
+msgstr "Calls for Sponsors"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5466
+msgid "Apoyos institucionales"
+msgstr "Institutional Supports"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5469
+msgid "Nuevo Patrocinador"
+msgstr "New Sponsor"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5470
+msgid "Editando Patrocinador"
+msgstr "Editing Sponsor"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5474
+msgid "Gestión de campañas"
+msgstr "Campaign Management"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5477
+msgid "Nueva Campaña"
+msgstr "New Campaign"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5478
+msgid "Editando Campaña"
+msgstr "Editing Campaign"
+
+#: /home/zilog/development/webapps/Goteo/controller/admin.php:5479
+msgid "Informe de estado de la Campaña"
+msgstr "Report on the state of Campaign"
+

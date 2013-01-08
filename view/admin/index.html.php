@@ -23,9 +23,11 @@ use Goteo\Library\Text,
     Goteo\Core\ACL,
     Goteo\Library\Feed;
 
+/*
 if (LANG != 'es') {
     header('Location: /admin/?lang=es');
 }
+*/
 
 $allowed_contents = array(
     'base',
@@ -64,7 +66,7 @@ include 'view/prologue.html.php';
 
         <div id="sub-header">
             <div>
-                <h2>Panel principal de administración</h2>
+                <h2><?= _("Panel principal de administración"); ?></h2>
                 <?php if (defined('ADMIN_BCPATH')) : ?>
                 <blockquote><?php echo ADMIN_BCPATH; ?></blockquote>
                 <?php endif; ?>

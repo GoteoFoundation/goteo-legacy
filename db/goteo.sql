@@ -808,10 +808,13 @@ INSERT INTO `lang` VALUES('de', 'Deutsch', 0, NULL, NULL);
 INSERT INTO `lang` VALUES('en', 'English', 1, 'ENG', 'en_GB');
 INSERT INTO `lang` VALUES('es', 'Español', 1, 'ES', 'es_ES');
 INSERT INTO `lang` VALUES('eu', 'Euskara', 0, 'EUSK', 'eu_ES');
-INSERT INTO `lang` VALUES('fr', 'Français', 0, NULL, NULL);
+INSERT INTO `lang` VALUES('fr', 'Français', 0, 'FRA', 'fr_FR');
 INSERT INTO `lang` VALUES('gl', 'Galego', 0, NULL, NULL);
 INSERT INTO `lang` VALUES('it', 'Italiano', 0, 'ITA', 'it_IT');
 INSERT INTO `lang` VALUES('pt', 'Português', 0, NULL, NULL);
+INSERT INTO `lang` VALUES('nl', 'Dutch', 1, 'NL', 'nl_NL');
+INSERT INTO `lang` VALUES('el', 'Greek', 0, 'ελληνικά', 'el_GR');
+
 
 -- --------------------------------------------------------
 
