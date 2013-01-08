@@ -17,17 +17,17 @@ Los detalles técnicos se encuentran en el archivo /doc/plataforma_goteo.doc
 
 
 CREDITOS
-Desarrollo herramienta (conceptualización, arquitectura de la información, textos, programación y diseño de interface) 
+Desarrollo herramienta (conceptualización, arquitectura de la información, textos, programación y diseño de interface):
 Susana Noguero, Olivier Schulbaum, Enric Senabre, Diego Bustamante, Julián Cánaves, Iván Vergés
 
 Traducción de interface y textos
 Catalán: Mireia Pui y Enric Senabre
 Inglés: Liz Castro y Chris Pinchen
+Francés: Charlotte Rautureau, Julien Bellanger, Thomas Bernardi, Marie-Paule Uwase, Olivier Heinry, Christophe Moille, Olivier Schulbaum, Salah Malouli, Roland Kossigan Assilevi
 
 Asesoría legal y privacidad de datos: Jorge Campanillas y Alfonso Pacheco
 
-Other code writers:
-  Jaume Alemany, Philipp Keweloh, Susanna Kosic, Marc Hortelano, Pedro Medina
+Other code writers: Jaume Alemany, Philipp Keweloh, Susanna Kosic, Marc Hortelano, Pedro Medina
   
 Developed with usage of:
 	html, css, xml, javascript
