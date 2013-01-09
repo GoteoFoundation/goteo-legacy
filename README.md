@@ -1,36 +1,35 @@
-El código licenciado aquí con la licencia especificada para el mismo ha sido desarrollado por el equipo de Goteo bajo la dirección de Platoniq y cedido posteriormente a la Fundación Fuentes Abiertas, tal como se detalla en http://www.goteo.org/about#info6
+The code licensed here under the GNU Affero General Public License, version 3 [AGPL-3.0](http://www.gnu.org/licenses/agpl-3.0.html) has been developed by the Goteo team led by Platoniq and subsequently transferred to the Fundación Fuentes Abiertas, as detailed in http://www.goteo.org/about#info6
 
-Se trata de una herramienta web que permite la recepción, revisión y publicación de campañas para su financiación colectiva y recepción de colaboraciones, así como la visualización dinámica de los apoyos recibidos, clasificación de iniciativas y seguimiento de campañas. Mediante el sistema también se permite gestionar la comunicación segura y distribuida con los usuarios y entre estos, administración de proyectos destacados en portada y creación de publicaciones periódiocas tipo blog, sección de FAQs y páginas estáticas. 
+This is a web tool that allows the receipt, review and publishing of collective campaigns for their collective funding and the receiving of collaborations as well as the dynamic visualization of the support received, classification of initiatives and campaign tracking. The system also permits secure and distributed communication with users and between users, administration of highlighted projects on the home page and the creation of periodical publications such as blogs, a FAQ section and static pages.
 
-Es una versión standard de Goteo, exceptuando los módulos propios de pasarela de pago por TPV y PayPal, cuyo desarrollo y adaptación deben llevarse a cabo por parte de quien lo implemente, en correspondencia con la licencia especificada y sin responsabilidad de mantenimiento, jurídica o de ningún otro tipo por parte de la Fundación Fuentes Abiertas. 
+It is a standard version of Goteo, except for the payment gateway and PayPal modules, whose development and adaptation should be undertaken by those who implement it, corresponding to the specified license and without maintenance, legal or any other responsibility of the Fundación Fuentes Abiertas.
 
-Esta primera versión se facilita según es accesible desde este repositorio sin documentación adicional más allá de los requerimientos técnicos, sin posibilidad actualmente de asesoramiento en su instalación o personalización ni dedicación a la resolución de incidencias técnicas por parte del equipo desarrollador de Goteo.
+This first version is provided as is accessible from this repository without additional documentation beyond the technical requirements, currently without possibility of advice   or customization in your installation nor dedication to solving technical problems by the Goteo development team.
 
-Para la implementación de subdominios funcionales de la plataforma en modalidad de nodo autónomo de Goteo (esto es, alojados en servidor de la Fundación Fuentes Abiertas y adaptados para gestión independiente por parte de otras entidades o colectivos, que puedan garantizar la articulación mínima de recursos para su correcto funcionamiento) recomendamos contactar mediante la siguiente dirección de correo electrónico: info[arroba]goteo.org
+To implement functional subdomains of the platform in Goteo autonomous node mode (ie,  hosted on the Fundación Fuentes Abiertas server and adapted to independently run by other organizations or groups that can ensure minimum joint resource correct operation) we recommend contacting us by the following e-mail: info [at] goteo.org
 
-Instrucciones para la implementación:
-- Subir al alojamiento los archivos del repositorio (excepto .sql y .doc)
-- Crear una base de datos y ejecutar en ella el script /db/goteo.sql
-- Especificar los credenciales de conexión a la base de datos en el archivo /config.php (contantes GOTEO_DB_*)
+Implementation instructions:
+- Upload repository files (except .sql and .doc)
+- Create a database and run the script /db/goteo.sql
+- Specify login credentials to the database in /config.php (GOTEO_DB_ constants *)
 
-Los detalles técnicos se encuentran en el archivo /doc/plataforma_goteo.doc
+The technical details are in the /doc/plataforma_goteo.doc file
 
 
-CREDITOS
-Desarrollo herramienta (conceptualización, arquitectura de la información, textos, programación y diseño de interface):
-Susana Noguero, Olivier Schulbaum, Enric Senabre, Diego Bustamante, Julián Cánaves, Iván Vergés
+CREDITS 
+Development (conceptualization, information architecture, text, programming and interface design): 
+Susana Noguero, Olivier Schulbaum, Enric Senabre, Diego Bustamante, Julian Canaves, Ivan Verges
 
-Traducción de interface y textos
-Catalán: Mireia Pui y Enric Senabre
-Inglés: Liz Castro y Chris Pinchen
-Francés: Charlotte Rautureau, Julien Bellanger, Thomas Bernardi, Marie-Paule Uwase, Olivier Heinry, Christophe Moille, Olivier Schulbaum, Salah Malouli, Roland Kossigan Assilevi
+Translation of interface and texts
+Catalan: Mireia Pui and Enric Senabre 
+English: Liz Castro and Chris Pinchen 
+French: Charlotte Rautureau, Julien Bellanger, Thomas Bernardi, Marie-Paule Uwase, Olivier Heinry, Christophe Moille, Olivier Schulbaum, Salah Malouli, Roland Kossigan Assilevi
 
-Asesoría legal y privacidad de datos: Jorge Campanillas y Alfonso Pacheco
+Legal advice and data privacy: Jorge Campanillas and Alfonso Jorge Pacheco
 
 Other code writers: Jaume Alemany, Philipp Keweloh, Susanna Kosic, Marc Hortelano, Pedro Medina
-  
-Developed with usage of:
-	html, css, xml, javascript
-	php, php PEAR packages, various licensed php classes,
-	jquery and licensed jquery plugins (SlideJS, CKeditor, Tipsy, MouseWheel, jScrollPane, FancyBox, DatePicker )
 
+Developed with usage of: 
+	html, css, xml, 
+	javascript php, php PEAR packages, various licensed php classes, 
+	jquery and licensed jquery plugins (SlideJS, CKeditor, Tipsy, MouseWheel, jScrollPane, FancyBox, DatePicker )
