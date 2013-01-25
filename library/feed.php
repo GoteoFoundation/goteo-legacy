@@ -225,7 +225,7 @@ namespace Goteo\Library {
 		public function add() {
 
             if (empty($this->html)) {
-                @mail('goteo_fail@doukeshi.org',
+                @mail(\GOTEO_MAIL,
                     'Evento feed sin html: ' . SITE_URL,
                     "Feed sin contenido html<hr /><pre>" . print_r($this, 1) . "</pre>");
                 return false;
@@ -263,14 +263,14 @@ namespace Goteo\Library {
 				if (Model::query($sql, $values)) {
                     return true;
                 } else {
-                    @mail('goteo_fail@doukeshi.org',
+                    @mail(\GOTEO_MAIL,
                         'Fallo al hacer evento feed: ' . SITE_URL,
                         "Ha fallado Feed<br /> {$sql} con <pre>" . print_r($values, 1) . "</pre><hr /><pre>" . print_r($this, 1) . "</pre>");
                     return false;
                 }
                 
 			} catch(\PDOException $e) {
-                    @mail('goteo_fail@doukeshi.org',
+                    @mail(\GOTEO_MAIL,
                         'PDO Exception evento feed: ' . SITE_URL,
                         "Ha fallado Feed PDO Exception<br /> {$sql} con " . $e->getMessage() . "<hr /><pre>" . print_r($this, 1) . "</pre>");
                 return false;
