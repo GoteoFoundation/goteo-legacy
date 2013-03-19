@@ -21,8 +21,6 @@
 use Goteo\Core\View,
     Goteo\Library\Text;
 
-$currentPost = $this['posts'][$this['post']];
-
 $bodyClass = 'home';
 // para que el prologue ponga el código js para botón facebook en el bannerside
 $fbCode = Text::widget(Text::get('social-account-facebook'), 'fb');
