@@ -18,7 +18,7 @@
  *
  */
 
- use Goteo\Library\Lang;
+ use Goteo\Library\i18n\Lang;
 
 $langs = Lang::getAll(true);
 ?>
