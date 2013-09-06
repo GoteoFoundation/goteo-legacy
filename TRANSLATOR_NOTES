@@ -1,5 +1,4 @@
-NOTES OF A FRUSTRATED TRANSLATOR
-Zilog <dropmeaword@gmail.com>
+== Notes about the i18n work
 
 It's wonderful that Goteo is multilingual from the get go. Most texts 
 are saved in the database in several languages and Goteo features a 
@@ -7,29 +6,44 @@ text lookup library to fetch the correct text.
 
 However for some reason this system is not used in the administration
 pages. So no matter which language you set on the selector, the 
-administration panel appears to be in Spanish only. 
-(and the log message too)
+administration panel appears to be in Spanish only. This is far from ideal if
+you want to have a non-spanish instance.
 
-For deployments in non-spanish speaking teams this is not so handy.
-
-I have decided to implement translation of the admin panel using gettext
-beccause it is a reasonably well understood approach and because it 
+I have decided to implement translation of the admin panel using a gettext
+derivative because it is a reasonably well understood approach and because it
 doesn't use the database. Also, having a standard way of tagging 
 language dependant texts directly in the source code has the positive 
-effect of being almost sellf documenting.
+effect of being almost self documenting.
 
-The index.php file is the global dispatcher and I have also made it
-language aware so that the correct env variables are set for gettext to 
-function correctly. This is the bit of code that does the magic.
+At the moment Goteo has two approaches to fetch language specific texts:
 
-$lang = "en_EN";
-if (isset($_GET['lang'])) 
-	$lang = $_GET['lang'];
-putenv("LC_ALL=$lang");
-setlocale(LC_ALL, $lang);
-bindtextdomain("messages", "locale");
-bind_textdomain_codeset('messages', 'UTF-8');
-textdomain("messages");
+1. Through Text::get('text_id') which fetches the text from the database.
+This is used pretty widely in Goteo and uses the built-in translation mechanism
+accessible through the admin panel.
 
-See http://www.codeforest.net/translate-and-localize-your-web-application-with-php-and-gettext
-for further details on how to make your PHP web app multilingual.
+2.Through Text::_("Text to fetch") which is an implementation based on gettext .po
+files, which is a widely standard. Provides more direct understanding of the code
+(messages are looked up by content, not by a reference id).
+
+Having two systems is far from ideal, but while a decission is made which way to
+go at least the current implementation includes an admin panel that is not only
+in Spanish.
+
+If you want to create your own translation of the admin panel you can start
+by editing the file in locale/en_GB/messages.po with PoEdit (or similar tool
+for translators). And saving it under the correct locale for your language. For
+example if you translate the messages.po file to Greek. The resulting file should
+be saved to locale/el_GR/messages.po
+
+To have your language available in the language selector on the top right you
+have to add it and enable it in the database. For example, if you want to add
+Greek, you can do so by running the following query in your database.
+
+INSERT INTO `lang` VALUES('el', 'Greek', 1, 'ελληνικά', 'el_GR');
+
+That's all there is to it.
+
+You can contribute to the full internationalization of Goteo in several ways.
+The simplest is by translating the current .po file into your language. But an
+even better way of helping out is by tagging all the hardcoded-spanish text you
+encounter with the Text::_() call.

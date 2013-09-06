@@ -20,14 +20,26 @@
 
 use Goteo\Core\Resource,
     Goteo\Core\Error,
+	Goteo\Core\Registry,
     Goteo\Core\Redirection,
     Goteo\Core\ACL,
     Goteo\Library\Text,
     Goteo\Library\Message,
-    Goteo\Library\Lang;
+	Goteo\Library\i18n\Locale,
+    Goteo\Library\i18n\Lang;
+
+
+if( !file_exists("config.php") ) {
+	$msg = "This instance of Goteo doesn't seem to be configured, please read the deployment guide, configure and try again.";
+	error_log($msg);
+	echo "<div id='failure'><h1>{$msg}</h1></div>";
+	die;
+}
 
 require_once 'config.php';
 require_once 'core/common.php';
+require_once 'library/i18n/Locale.php';
+require_once 'library/i18n/Lang.php';
 
 // Include path
 //set_include_path(GOTEO_PATH . PATH_SEPARATOR . '.');
@@ -36,7 +48,7 @@ require_once 'core/common.php';
 spl_autoload_register(
 
     function ($cls) {
-
+		//echo "Trying to autoload {$cls}...";
         $file = __DIR__ . '/' . implode('/', explode('\\', strtolower(substr($cls, 6)))) . '.php';
         $file = realpath($file);
 
@@ -49,6 +61,7 @@ spl_autoload_register(
         }
 
         if ($file !== false) {
+			//echo "Autoloading {$file}...";
             include $file;
         }
 
@@ -76,8 +89,11 @@ session_start();
 // set Lang
 Lang::set();
 // change current locale
-$locale = Lang::locale();
-Lang::gettext( $locale, \GOTEO_GETTEXT_DOMAIN );
+$locale_name = Lang::locale();
+$locale = new Locale($config['locale']);
+$locale->set($locale_name);
+Registry::set('locale', $locale);
+
 
 // Get URI without query string
 $uri = strtok($_SERVER['REQUEST_URI'], '?');

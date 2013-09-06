@@ -1,4 +1,12 @@
+*~
+
+# ignore local config file, only check-in config.sample.php
+# each deployment is supposed to customize their own config.php
+config.php
+
 data/
 
 # translation binary files
 *.mo
+# IDE project folder
+nbproject/
