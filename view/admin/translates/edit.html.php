@@ -19,7 +19,7 @@
  */
 
 use Goteo\Library\Text,
-    Goteo\Library\Lang;
+    Goteo\Library\i18n\Lang;
 
 $project = $this['project'];
 $langs = Lang::getAll();
