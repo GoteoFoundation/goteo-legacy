@@ -91,7 +91,11 @@ Lang::set();
 // change current locale
 $locale_name = Lang::locale();
 $locale = new Locale($config['locale']);
-$locale->set($locale_name);
+// avoid Fatal Error if $local_name is empty.
+if ($locale_name)
+	$locale->set($locale_name);
+else
+	$locale->set('en_GB');
 Registry::set('locale', $locale);
 
 

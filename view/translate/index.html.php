@@ -20,7 +20,7 @@
 
 use Goteo\Library\Text,
     Goteo\Core\View,
-    Goteo\Library\Lang;
+    Goteo\Library\i18n\Lang;
 
 $langs = Lang::getAll();
 
