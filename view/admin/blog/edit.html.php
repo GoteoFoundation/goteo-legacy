@@ -46,11 +46,11 @@ if (!$post instanceof Model\Blog\Post) {
     $allow = array(
         array(
             'value'     => 1,
-            'label'     => 'Sí'
+            'label'     => Text::_("Sí")
             ),
         array(
             'value'     => 0,
-            'label'     => 'No'
+            'label'     => Text::_("No")
             )
     );
 
@@ -61,7 +61,7 @@ if (!$post instanceof Model\Blog\Post) {
             'type'  => 'html',
             'class' => 'inline gallery-image',
             'html'  => is_object($image) ?
-                       $image . '<img src="'.SRC_URL.'/image/'.$image->id.'/128/128" alt="Imagen" /><button class="image-remove weak" type="submit" name="gallery-'.$image->id.'-remove" title="Quitar imagen" value="remove"></button>' :
+                       $image . '<img src="'.SRC_URL.'/image/'.$image->id.'/128/128" alt="'.Text::_("Imagen").'" /><button class="image-remove weak" type="submit" name="gallery-'.$image->id.'-remove" title="'.Text::_("Quitar imagen").'" value="remove"></button>' :
                        ''
         );
 
@@ -124,7 +124,7 @@ $(document).ready(function(){
                 'type'      => 'textbox',
                 'required'  => true,
                 'size'      => 20,
-                'title'     => 'Título',
+                'title'     => Text::_("Título"),
                 'hint'      => Text::get('tooltip-updates-title'),
                 'errors'    => !empty($errors['title']) ? array($errors['title']) : array(),
                 'value'     => $post->title,
@@ -134,13 +134,13 @@ $(document).ready(function(){
                 'required'  => true,
                 'cols'      => 40,
                 'rows'      => 4,
-                'title'     => 'Texto de la entrada',
+                'title'     => Text::_("Texto de la entrada"),
                 'hint'      => Text::get('tooltip-updates-text'),
                 'errors'    => !empty($errors['text']) ? array($errors['text']) : array(),
                 'value'     => $post->text
             ),
             'image' => array(
-                'title'     => 'Imagen',
+                'title'     => Text::_("Imagen"),
                 'type'      => 'group',
                 'hint'      => Text::get('tooltip-updates-image'),
                 'errors'    => !empty($errors['image']) ? array($errors['image']) : array(),
@@ -164,7 +164,7 @@ $(document).ready(function(){
 
             'media' => array(
                 'type'      => 'textbox',
-                'title'     => 'Vídeo',
+                'title'     => Text::_("Vídeo"),
                 'class'     => 'media',
                 'hint'      => Text::get('tooltip-updates-media'),
                 'errors'    => !empty($errors['media']) ? array($errors['media']) : array(),
@@ -187,7 +187,7 @@ $(document).ready(function(){
             'tags' => array(
                 'type'      => 'checkboxes',
                 'name'      => 'tags[]',
-                'title'     => 'Tags',
+                'title'     => Text::_("Tags"),
                 'options'   => $tags,
                 'hint'      => Text::get('tooltip-updates-tags'),
                 'errors'    => !empty($errors['tags']) ? array($errors['tags']) : array(),
@@ -196,13 +196,13 @@ $(document).ready(function(){
             'date' => array(
                 'type'      => 'datebox',
                 'required'  => true,
-                'title'     => 'Fecha de publicación',
+                'title'     => Text::_("Fecha de publicación"),
                 'hint'      => Text::get('tooltip-updates-date'),
                 'size'      => 8,
                 'value'     => $post->date
             ),
             'allow' => array(
-                'title'     => 'Permite comentarios',
+                'title'     => Text::_("Permite comentarios"),
                 'type'      => 'slider',
                 'options'   => $allow,
                 'class'     => 'currently cols_' . count($allow),
@@ -211,7 +211,7 @@ $(document).ready(function(){
                 'value'     => (int) $post->allow
             ),
             'publish' => array(
-                'title'     => 'Publicado',
+                'title'     => Text::_("Publicado"),
                 'type'      => 'slider',
                 'options'   => $allow,
                 'class'     => 'currently cols_' . count($allow),
@@ -220,7 +220,7 @@ $(document).ready(function(){
                 'value'     => (int) $post->publish
             ),
             'home' => array(
-                'title'     => 'En portada',
+                'title'     => Text::_("En portada"),
                 'type'      => 'slider',
                 'options'   => $allow,
                 'class'     => 'currently cols_' . count($allow),
@@ -229,7 +229,7 @@ $(document).ready(function(){
                 'value'     => (int) $post->home
             ),
             'footer' => array(
-                'title'     => 'Enlace en footer',
+                'title'     => Text::_("Enlace en footer"),
                 'type'      => 'slider',
                 'options'   => $allow,
                 'class'     => 'currently cols_' . count($allow),

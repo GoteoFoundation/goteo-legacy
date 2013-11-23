@@ -28,9 +28,9 @@ use Goteo\Library\Text;
         <input type="hidden" name="id" value="<?php echo $this['license']->id; ?>" />
         <input type="hidden" name="order" value="<?php echo $this['license']->order; ?>" />
 
-        <label for="license-group">Grupo:</label><br />
+        <label for="license-group"><?php echo Text::_("Grupo:"); ?></label><br />
         <select id="license-group" name="group">
-            <option value="">Ninguno</option>
+            <option value=""><?php echo Text::_("Ninguno"); ?></option>
             <?php foreach ($this['groups'] as $id=>$name) : ?>
             <option value="<?php echo $id; ?>"<?php if ($id == $this['license']->group) echo ' selected="selected"'; ?>><?php echo $name; ?></option>
             <?php endforeach; ?>
@@ -53,7 +53,7 @@ use Goteo\Library\Text;
         </select>
 
 
-        <input type="submit" name="save" value="Guardar" />
+        <input type="submit" name="save" value="<?php echo Text::_("Guardar"); ?>" />
     </form>
 
 </div>

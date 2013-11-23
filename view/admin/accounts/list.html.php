@@ -26,30 +26,27 @@ $filters = $this['filters'];
 <!-- filtros -->
 <?php $the_filters = array(
     'projects' => array (
-        'label' => 'Proyecto',
-        'first' => 'Todos los proyectos'),
+        'label' => Text::_("Proyecto"),
+        'first' => Text::_("Todos los proyectos")),
     'users' => array (
-        'label' => 'Usuario',
-        'first' => 'Todos los usuarios'),
+        'label' => Text::_("Usuario"),
+        'first' => Text::_("Todos los usuarios")),
     'methods' => array (
-        'label' => 'Método de pago',
-        'first' => 'Todos los tipos'),
+        'label' => Text::_("Método de pago"),
+        'first' => Text::_("Todos los tipos")),
     'investStatus' => array (
-        'label' => 'Estado del aporte',
-        'first' => 'Todos los estados'),
+        'label' => Text::_("Estado del aporte"),
+        'first' => Text::_("Todos los estados")),
     'campaigns' => array (
-        'label' => 'Campaña',
-        'first' => 'Todas las campañas'),
+        'label' => Text::_("Campaña"),
+        'first' => Text::_("Todas las campañas")),
     'review' => array (
-        'label' => 'Para revisión',
-        'first' => 'Todos'),
+        'label' => Text::_("Para revisión"),
+        'first' => Text::_("Todos")),
 ); ?>
-<a href="http://ppcalc.com/es" target="_blank" class="button">Calculadora PayPal</a>&nbsp;&nbsp;&nbsp;
-<!-- <a href="/cron/execute" target="_blank" class="button red">Ejecutar cargos</a>&nbsp;&nbsp;&nbsp; -->
-<!-- <a href="/cron/verify" target="_blank" class="button red">Verificar preapprovals</a>&nbsp;&nbsp;&nbsp; -->
-<a href="/admin/accounts/viewer" class="button">Visor de logs</a>&nbsp;&nbsp;&nbsp;
+<a href="/admin/accounts/viewer" class="button"><?php echo Text::_("Visor de logs"); ?></a>&nbsp;&nbsp;&nbsp;
 <div class="widget board">
-    <h3 class="title">Filtros</h3>
+    <h3 class="title"><?php echo Text::_("Filtros"); ?></h3>
     <form id="filter-form" action="/admin/accounts" method="get">
         <input type="hidden" name="filtered" value="yes" />
         <input type="hidden" name="status" value="all" />
@@ -82,31 +79,31 @@ $filters = $this['filters'];
 
 <div class="widget board">
 <?php if ($filters['filtered'] != 'yes') : ?>
-    <p>Es necesario poner algun filtro, hay demasiados registros!</p>
+    <p><?php echo Text::_("Es necesario poner algun filtro, hay demasiados registros!"); ?></p>
 <?php elseif (!empty($this['list'])) : ?>
 <?php $Total = 0; foreach ($this['list'] as $invest) { $Total += $invest->amount; } ?>
-    <p><strong>TOTAL:</strong>  <?php echo number_format($Total, 0, '', '.') ?> &euro;</p>
+    <p><strong><?php echo Text::_("TOTAL"); ?>:</strong>  <?php echo number_format($Total, 0, '', '.') ?> &euro;</p>
     
     <table width="100%">
         <thead>
             <tr>
                 <th></th>
-                <th>Aporte ID</th>
-                <th>Fecha</th>
-                <th>Cofinanciador</th>
-                <th>Proyecto</th>
-                <th>Estado</th>
-                <th>Metodo</th>
-                <th>Estado aporte</th>
-                <th>Importe</th>
-                <th>Extra</th>
+                <th><?php echo Text::_("Aporte ID"); ?></th>
+                <th><?php echo Text::_("Fecha"); ?></th>
+                <th><?php echo Text::_("Cofinanciador"); ?></th>
+                <th><?php echo Text::_("Proyecto"); ?></th>
+                <th><?php echo Text::_("Estado"); ?></th>
+                <th><?php echo Text::_("Metodo"); ?></th>
+                <th><?php echo Text::_("Estado aporte"); ?></th>
+                <th><?php echo Text::_("Importe"); ?></th>
+                <th><?php echo Text::_("Extra"); ?></th>
             </tr>
         </thead>
 
         <tbody>
             <?php foreach ($this['list'] as $invest) : ?>
             <tr>
-                <td><a href="/admin/accounts/details/<?php echo $invest->id ?>">[Detalles]</a></td>
+                <td><a href="/admin/accounts/details/<?php echo $invest->id ?>">[<?php echo Text::_("Detalles"); ?>]</a></td>
                 <td><?php echo $invest->id ?></td>
                 <td><?php echo $invest->invested ?></td>
                 <td><?php echo $this['users'][$invest->user] ?></td>
@@ -118,9 +115,9 @@ $filters = $this['filters'];
                 <td><?php echo $invest->charged ?></td>
                 <td><?php echo $invest->returned ?></td>
                 <td>
-                    <?php if ($invest->anonymous == 1)  echo 'Anónimo ' ?>
-                    <?php if ($invest->resign == 1)  echo 'Donativo ' ?>
-                    <?php if (!empty($invest->admin)) echo 'Manual' ?>
+                    <?php if ($invest->anonymous == 1)  echo Text::_("Anónimo ") ?>
+                    <?php if ($invest->resign == 1)  echo Text::_("Donativo ") ?>
+                    <?php if (!empty($invest->admin)) echo Text::_("Manual") ?>
                 </td>
             </tr>
             <?php endforeach; ?>

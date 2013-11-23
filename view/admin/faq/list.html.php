@@ -23,11 +23,11 @@ use Goteo\Library\Text,
 
 $translator = ACL::check('/translate') ? true : false;
 ?>
-<a href="/admin/faq/add/?filter=<?php echo $this['filter']; ?>" class="button red">Añadir pregunta</a>
+<a href="/admin/faq/add/?filter=<?php echo $this['filter']; ?>" class="button red"><?php echo("Añadir pregunta");?></a>
 
 <div class="widget board">
     <form id="sectionfilter-form" action="/admin/faq" method="get">
-        <label for="section-filter">Mostrar las preguntas de:</label>
+        <label for="section-filter"><?php echo("Mostrar las preguntas de:");?></label>
         <select id="section-filter" name="filter" onchange="document.getElementById('sectionfilter-form').submit();">
         <?php foreach ($this['sections'] as $sectionId=>$sectionName) : ?>
             <option value="<?php echo $sectionId; ?>"<?php if ($this['filter'] == $sectionId) echo ' selected="selected"';?>><?php echo $sectionName; ?></option>
@@ -42,8 +42,8 @@ $translator = ACL::check('/translate') ? true : false;
         <thead>
             <tr>
                 <td><!-- Edit --></td>
-                <th>Título</th> <!-- title -->
-                <th>Posición</th> <!-- order -->
+                <th><?php echo("Título");?></th> <!-- title -->
+                <th><?php echo("Posición");?></th> <!-- order -->
                 <td><!-- Move up --></td>
                 <td><!-- Move down --></td>
                 <td><!-- Traducir--></td>

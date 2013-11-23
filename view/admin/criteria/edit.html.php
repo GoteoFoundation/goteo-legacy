@@ -43,9 +43,9 @@ jQuery(document).ready(function ($) {
 
         <p>
         <?php if ($this['action'] == 'add') : ?>
-            <label for="criteria-section">Sección:</label><br />
+            <label for="criteria-section"><?php echo Text::_('Sección:'); ?></label><br />
             <select id="criteria-section" name="section">
-                <option value="" disabled>Elige la sección</option>
+                <option value="" disabled><?php echo Text::_('Elige la sección'); ?></option>
                 <?php foreach ($this['sections'] as $id=>$name) : ?>
                 <option value="<?php echo $id; ?>"<?php if ($id == $this['criteria']->section) echo ' selected="selected"'; ?>><?php echo $name; ?></option>
                 <?php endforeach; ?>
@@ -57,21 +57,21 @@ jQuery(document).ready(function ($) {
         </p>
 
         <p>
-            <label for="criteria-title">Título:</label><br />
+            <label for="criteria-title"><?php echo Text::_('Título:'); ?></label><br />
             <input type="text" name="title" id="criteria-title" value="<?php echo $this['criteria']->title; ?>" />
         </p>
 
         <p>
-            <label for="criteria-description">Descripción:</label><br />
+            <label for="criteria-description"><?php echo Text::_('Descripción:'); ?></label><br />
             <textarea name="description" id="criteria-description" cols="60" rows="10"><?php echo $this['criteria']->description; ?></textarea>
         </p>
 
         <p>
-            <label for="criteria-order">Posición:</label><br />
+            <label for="criteria-order"><?php echo Text::_('Posición:'); ?></label><br />
             <select name="move">
-                <option value="same" selected="selected" disabled>Tal cual</option>
-                <option value="up">Antes de </option>
-                <option value="down">Después de </option>
+                <option value="same" selected="selected" disabled><?php echo Text::_('Tal cual'); ?></option>
+                <option value="up"><?php echo Text::_('Antes de '); ?></option>
+                <option value="down"><?php echo Text::_('Después de '); ?></option>
             </select>&nbsp;
             <input type="text" name="order" id="criteria-order" value="<?php echo $this['criteria']->order; ?>" size="4" />
             &nbsp;de&nbsp;<span id="criteria-num"><?php echo $this['criteria']->cuantos; ?></span>

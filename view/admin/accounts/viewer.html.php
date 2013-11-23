@@ -40,20 +40,20 @@ if (!empty($_GET['date']) && !empty($_GET['type'])) {
 }
 ?>
 <div class="widget">
-    <h3>Seleccionar log por tipo y fecha</h3>
+    <h3><?php echo Text::_("Seleccionar log por tipo y fecha"); ?></h3>
     <form id="filter-form" action="/admin/accounts/viewer" method="get">
         <div style="float:left;margin:5px;">
-            <label for="type-filter">Tipo de proceso:</label><br />
+            <label for="type-filter"><?php echo Text::_("Tipo de proceso"); ?>:</label><br />
             <select id="type-filter" name="type">
-                <option value="invest"<?php if ($type == 'invest') echo ' selected="selected"';?>>Aportes</option>
-                <option value="execute"<?php if ($type == 'execute') echo ' selected="selected"';?>>Cargos</option>
-                <option value="verify"<?php if ($type == 'verify') echo ' selected="selected"';?>>Verificaciones</option>
-                <option value="daily"<?php if ($type == 'daily') echo ' selected="selected"';?>>Avisos</option>
-                <option value="dopay"<?php if ($type == 'dopay') echo ' selected="selected"';?>>Pagos</option>
+                <option value="invest"<?php if ($type == 'invest') echo ' selected="selected"';?>><?php echo Text::_("Aportes"); ?></option>
+                <option value="execute"<?php if ($type == 'execute') echo ' selected="selected"';?>><?php echo Text::_("Cargos"); ?></option>
+                <option value="verify"<?php if ($type == 'verify') echo ' selected="selected"';?>><?php echo Text::_("Verificaciones"); ?></option>
+                <option value="daily"<?php if ($type == 'daily') echo ' selected="selected"';?>><?php echo Text::_("Avisos"); ?></option>
+                <option value="dopay"<?php if ($type == 'dopay') echo ' selected="selected"';?>><?php echo Text::_("Pagos"); ?></option>
             </select>
         </div>
         <div style="float:left;margin:5px;" id="hdate">
-            <label for="hdate">Fecha del log:</label><br />
+            <label for="hdate"><?php echo Text::_("Fecha del log"); ?>:</label><br />
             <?php echo new View('library/superform/view/element/datebox.html.php', array('value'=>$date, 'id'=>'hdate', 'name'=>'date')); ?>
         </div>
         <div style="float:left;margin:5px;">
@@ -62,6 +62,6 @@ if (!empty($_GET['date']) && !empty($_GET['type'])) {
     </form>
 </div>
 
-<?php if ($showlog) echo '<strong>archivo:</strong> ' . $file . '<br /><br />';
-if (!empty($content)) echo nl2br($content); else echo 'No encontrado'; ?>
+<?php if ($showlog) echo '<strong>'.Text::_("archivo").':</strong> ' . $file . '<br /><br />';
+if (!empty($content)) echo nl2br($content); else echo Text::_("No encontrado"); ?>
 <br /><br /><br />

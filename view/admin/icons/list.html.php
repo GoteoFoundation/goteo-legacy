@@ -27,9 +27,9 @@ $translator = ACL::check('/translate') ? true : false;
 
 <div class="widget board">
     <form id="groupfilter-form" action="/admin/icons" method="get">
-        <label for="group-filter">Mostrar los tipos para:</label>
+        <label for="group-filter"> <?php echo Text::_("Mostrar los tipos para:"); ?></label>
         <select id="group-filter" name="filter" onchange="document.getElementById('groupfilter-form').submit();">
-            <option value="">Todo</option>
+            <option value=""><?php echo Text::_("Todo"); ?></option>
         <?php foreach ($this['groups'] as $groupId=>$groupName) : ?>
             <option value="<?php echo $groupId; ?>"<?php if ($this['filter'] == $groupId) echo ' selected="selected"';?>><?php echo $groupName; ?></option>
         <?php endforeach; ?>
@@ -43,9 +43,9 @@ $translator = ACL::check('/translate') ? true : false;
         <thead>
             <tr>
                 <th><!-- Editar --></th>
-                <th>Nombre</th> <!-- name -->
+                <th> <?php echo Text::_("Nombre"); ?></th> <!-- name -->
                 <th>Tooltip</th> <!-- descripcion -->
-                <th>Agrupación</th> <!-- group -->
+                <th><?php echo Text::_("Agrupación"); ?></th> <!-- group -->
                 <th><!-- Traducir--></th>
 <!--                        <th> Remove </th>  -->
             </tr>
@@ -54,12 +54,12 @@ $translator = ACL::check('/translate') ? true : false;
         <tbody>
             <?php foreach ($this['icons'] as $icon) : ?>
             <tr>
-                <td><a href="/admin/icons/edit/<?php echo $icon->id; ?>/?filter=<?php echo $this['filter']; ?>">[Editar]</a></td>
+                <td><a href="/admin/icons/edit/<?php echo $icon->id; ?>/?filter=<?php echo $this['filter']; ?>"><?php echo Text::_("[Editar]"); ?></a></td>
                 <td><?php echo $icon->name; ?></td>
                 <td><?php echo $icon->description; ?></td>
-                <td><?php echo !empty($icon->group) ? $this['groups'][$icon->group] : 'Ambas'; ?></td>
+                <td><?php echo !empty($icon->group) ? $this['groups'][$icon->group] : Text::_('Ambas'); ?></td>
                 <?php if ($translator) : ?>
-                <td><a href="/translate/icon/edit/<?php echo $icon->id; ?>" >[Traducir]</a></td>
+                <td><a href="/translate/icon/edit/<?php echo $icon->id; ?>" ><?php echo Text::_("[Traducir]"); ?></a></td>
                 <?php endif; ?>
                 <!-- <td><a href="/admin/icons/remove/<?php echo $icon->id; ?>/?filter=<?php echo $this['filter']; ?>" onclick="return confirm('Seguro que deseas eliminar este registro?');">[Quitar]</a></td> -->
             </tr>
@@ -68,6 +68,6 @@ $translator = ACL::check('/translate') ? true : false;
 
     </table>
     <?php else : ?>
-    <p>No se han encontrado registros</p>
+    <p><?php echo Text::_("No se han encontrado registros"); ?></p>
     <?php endif; ?>
 </div>

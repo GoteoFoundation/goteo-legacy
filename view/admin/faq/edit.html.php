@@ -42,35 +42,35 @@ jQuery(document).ready(function ($) {
 
         <p>
         <?php if ($this['action'] == 'add') : ?>
-            <label for="faq-section">Sección:</label><br />
+            <label for="faq-section"><?php echo Text::_("Sección");?>:</label><br />
             <select id="faq-section" name="section">
-                <option value="" disabled>Elige la sección</option>
+                <option value="" disabled><?php echo Text::_("Elige la sección");?></option>
                 <?php foreach ($this['sections'] as $id=>$name) : ?>
                 <option value="<?php echo $id; ?>"<?php if ($id == $this['faq']->section) echo ' selected="selected"'; ?>><?php echo $name; ?></option>
                 <?php endforeach; ?>
             </select>
         <?php else : ?>
-            <label for="faq-section">Sección: <?php echo $this['sections'][$this['faq']->section]; ?></label><br />
+            <label for="faq-section"><?php echo Text::_("Sección");?>: <?php echo $this['sections'][$this['faq']->section]; ?></label><br />
             <input type="hidden" name="section" value="<?php echo $this['faq']->section; ?>" />
         <?php endif; ?>
         </p>
 
         <p>
-            <label for="faq-title">Título:</label><br />
+            <label for="faq-title"><?php echo Text::_("Título");?>:</label><br />
             <input type="text" name="title" id="faq-title" value="<?php echo $this['faq']->title; ?>" />
         </p>
 
         <p>
-            <label for="faq-description">Descripción:</label><br />
+            <label for="faq-description"><?php echo Text::_("Descripción");?>:</label><br />
             <textarea name="description" id="faq-description" cols="60" rows="10"><?php echo $this['faq']->description; ?></textarea>
         </p>
 
         <p>
-            <label for="faq-order">Posición:</label><br />
+            <label for="faq-order"><?php echo Text::_("Posición");?>:</label><br />
             <select name="move">
-                <option value="same" selected="selected" disabled>Tal cual</option>
-                <option value="up">Antes de </option>
-                <option value="down">Después de </option>
+                <option value="same" selected="selected" disabled><?php echo Text::_("Tal cual");?></option>
+                <option value="up"><?php echo Text::_("Antes de ");?></option>
+                <option value="down"><?php echo Text::_("Después de ");?></option>
             </select>&nbsp;
             <input type="text" name="order" id="faq-order" value="<?php echo $this['faq']->order; ?>" size="4" />
             &nbsp;de&nbsp;<span id="faq-num"><?php echo $this['faq']->cuantos; ?></span>

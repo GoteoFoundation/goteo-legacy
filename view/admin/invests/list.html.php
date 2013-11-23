@@ -26,32 +26,32 @@ $filters = $this['filters'];
 <!-- filtros -->
 <?php $the_filters = array(
     'projects' => array (
-        'label' => 'Proyecto',
-        'first' => 'Todos los proyectos'),
+        'label' =>  Text::_("Proyecto"),
+        'first' =>  Text::_("Todos los proyectos")),
     'users' => array (
-        'label' => 'Usuario',
-        'first' => 'Todos los usuarios'),
+        'label' =>  Text::_("Usuario"),
+        'first' =>  Text::_("Todos los usuarios")),
     'methods' => array (
-        'label' => 'Método de pago',
-        'first' => 'Todos los métodos'),
+        'label' =>  Text::_("Método de pago"),
+        'first' =>  Text::_("Todos los métodos")),
     'status' => array (
-        'label' => 'Estado de proyecto',
-        'first' => 'Todos los estados'),
+        'label' =>  Text::_("Estado de proyecto"),
+        'first' =>  Text::_("Todos los estados")),
     'investStatus' => array (
-        'label' => 'Estado de aporte',
-        'first' => 'Todos los estados'),
+        'label' =>  Text::_("Estado de aporte"),
+        'first' =>  Text::_("Todos los estados")),
     'campaigns' => array (
-        'label' => 'Convocatoria',
-        'first' => 'Todas las convocatorias'),
+        'label' =>  Text::_("Convocatoria"),
+        'first' =>  Text::_("Todas las convocatorias")),
     'types' => array (
-        'label' => 'Extra',
-        'first' => 'Todos')
+        'label' =>  Text::_("Extra"),
+        'first' =>  Text::_("Todos"))
 ); ?>
-<a href="/admin/invests/add" class="button red">Generar aportes manuales</a>
+<a href="/admin/invests/add" class="button red"><?php echo Text::_("Generar aportes manuales"); ?></a>
 <?php if (!empty($filters['projects'])) : ?>
     <br />
-    <a href="/admin/invests/report/<?php echo $filters['projects'] ?>" class="button red" target="_blank">Informe financiero de <?php echo $this['projects'][$filters['projects']] ?></a>&nbsp;&nbsp;&nbsp;
-    <a href="/cron/dopay/<?php echo $filters['projects'] ?>" target="_blank" class="button red" onclick="return confirm('No hay vuelta atrás, ok?');">Realizar pagos secundarios a <?php echo $this['projects'][$filters['projects']] ?></a>
+    <a href="/admin/invests/report/<?php echo $filters['projects'] ?>" class="button red" target="_blank"><?php echo Text::_("Informe financiero de "); ?><?php echo $this['projects'][$filters['projects']] ?></a>&nbsp;&nbsp;&nbsp;
+    <a href="/cron/dopay/<?php echo $filters['projects'] ?>" target="_blank" class="button red" onclick="return confirm(Text::_("No hay vuelta atrás, ok?"));"><?php echo Text::_("Realizar pagos secundarios a "); ?><?php echo $this['projects'][$filters['projects']] ?></a>
 <?php endif ?>
 <div class="widget board">
     <h3 class="title">Filtros</h3>
@@ -70,25 +70,25 @@ $filters = $this['filters'];
         <?php endforeach; ?>
     </form>
     <br clear="both" />
-    <a href="/admin/invests">Quitar filtros</a>
+    <a href="/admin/invests"><?php echo Text::_("Quitar filtros"); ?></a>
 </div>
 
 <div class="widget board">
 <?php if ($filters['filtered'] != 'yes') : ?>
-    <p>Es necesario poner algun filtro, hay demasiados registros!</p>
+    <p><?php echo Text::_("Es necesario poner algun filtro, hay demasiados registros!"); ?></p>
 <?php elseif (!empty($this['list'])) : ?>
     <table width="100%">
         <thead>
             <tr>
                 <th></th>
-                <th>Aporte ID</th>
-                <th>Fecha</th>
-                <th>Cofinanciador</th>
-                <th>Proyecto</th>
-                <th>Estado</th>
-                <th>Metodo</th>
-                <th>Estado aporte</th>
-                <th>Importe</th>
+                <th><?php echo Text::_("Aporte ID"); ?></th>
+                <th><?php echo Text::_("Fecha"); ?></th>
+                <th><?php echo Text::_("Cofinanciador"); ?></th>
+                <th><?php echo Text::_("Proyecto"); ?></th>
+                <th><?php echo Text::_("Estado"); ?></th>
+                <th><?php echo Text::_("Metodo"); ?></th>
+                <th><?php echo Text::_("Estado aporte"); ?></th>
+                <th><?php echo Text::_("Importe"); ?></th>
                 <th>Extra</th>
             </tr>
         </thead>
@@ -108,9 +108,9 @@ $filters = $this['filters'];
                 <td><?php echo $invest->charged ?></td>
                 <td><?php echo $invest->returned ?></td>
                 <td>
-                    <?php if ($invest->anonymous == 1)  echo 'Anónimo ' ?>
-                    <?php if ($invest->resign == 1)  echo 'Donativo ' ?>
-                    <?php if (!empty($invest->admin)) echo 'Manual' ?>
+                    <?php if ($invest->anonymous == 1)  echo Text::_("Anónimo").' ' ?>
+                    <?php if ($invest->resign == 1)  echo Text::_("Donativo").' ' ?>
+                    <?php if (!empty($invest->admin)) echo Text::_("Manual") ?>
                 </td>
             </tr>
             <?php endforeach; ?>

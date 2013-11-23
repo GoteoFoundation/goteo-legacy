@@ -23,16 +23,16 @@ use Goteo\Library\Text,
 
 $translator = ACL::check('/translate') ? true : false;
 ?>
-<a href="/admin/glossary/add" class="button red">Nuevo término</a>
+<a href="/admin/glossary/add" class="button red"><?php echo Text::_("Nuevo término"); ?></a>
 
 <div class="widget board">
     <?php if (!empty($this['posts'])) : ?>
     <table>
         <thead>
             <tr>
-                <td><!-- Edit --></td>
-                <th>Título</th> <!-- title -->
-                <th><!-- Traducir--></th>
+                <td><!-- <?php echo Text::_("Edit"); ?> --></td>
+                <th><?php echo Text::_("Título"); ?></th> <!-- title -->
+                <th><!-- <?php echo Text::_("Traducir"); ?>--></th>
                 <td><!-- Remove --></td>
             </tr>
         </thead>
@@ -40,18 +40,18 @@ $translator = ACL::check('/translate') ? true : false;
         <tbody>
             <?php foreach ($this['posts'] as $post) : ?>
             <tr>
-                <td><a href="/admin/glossary/edit/<?php echo $post->id; ?>">[Editar]</a></td>
+                <td><a href="/admin/glossary/edit/<?php echo $post->id; ?>">[<?php echo Text::_("Editar"); ?>]</a></td>
                 <td><?php echo $post->title; ?></td>
                 <?php if ($translator) : ?>
-                <td><a href="/translate/glossary/edit/<?php echo $post->id; ?>" >[Traducir]</a></td>
+                <td><a href="/translate/glossary/edit/<?php echo $post->id; ?>" >[<?php echo Text::_("Traducir"); ?>]</a></td>
                 <?php endif; ?>
-                <td><a href="/admin/glossary/remove/<?php echo $post->id; ?>" onclick="return confirm('Seguro que deseas eliminar este registro?');">[Quitar]</a></td>
+                <td><a href="/admin/glossary/remove/<?php echo $post->id; ?>" onclick="return confirm('<?php echo Text::_("Seguro que deseas eliminar este registro?"); ?>');">[<?php echo Text::_("Quitar"); ?>]</a></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
 
     </table>
     <?php else : ?>
-    <p>No se han encontrado registros</p>
+    <p><?php echo Text::_("No se han encontrado registros"); ?></p>
     <?php endif; ?>
 </div>

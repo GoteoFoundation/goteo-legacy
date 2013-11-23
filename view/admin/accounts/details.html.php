@@ -40,8 +40,8 @@ array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
 <?php endif; ?>
 <div class="widget">
     <p>
-        <strong>Proyecto:</strong> <?php echo $project->name ?> (<?php echo $this['status'][$project->status] ?>)
-        <strong>Usuario: </strong><?php echo $user->name ?> [<?php echo $user->email ?>]
+        <strong><?php echo Text::_("Proyecto"); ?>:</strong> <?php echo $project->name ?> (<?php echo $this['status'][$project->status] ?>)
+        <strong><?php echo Text::_("Usuario"); ?>: </strong><?php echo $user->name ?> [<?php echo $user->email ?>]
     </p>
     <p>
         <?php if ($invest->status < 1 || ($invest->method == 'tpv' && $invest->status < 2) ||($invest->method == 'cash' && $invest->status < 2)) : ?>
@@ -65,63 +65,63 @@ array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
         <?php endif; ?>
     </p>
     
-    <h3>Detalles de la transaccion</h3>
+    <h3><?php echo Text::_("Detalles de la transaccion"); ?></h3>
     <dl>
-        <dt>Cantidad aportada:</dt>
+        <dt><?php echo Text::_("Cantidad aportada"); ?>:</dt>
         <dd><?php echo $invest->amount ?> &euro;
             <?php
                 if (!empty($invest->campaign))
-                    echo 'Campaña: ' . $campaign->name;
+                    echo Text::_("Campaña: ") . $campaign->name;
             ?>
         </dd>
     </dl>
 
     <dl>
-        <dt>Estado:</dt>
+        <dt><?php echo Text::_("Estado"); ?>:</dt>
         <dd><?php echo $this['investStatus'][$invest->status]; if ($invest->status < 0) echo ' <span style="font-weight:bold; color:red;">OJO! que este aporte no fue confirmado.<span>'; if ($invest->issue) echo ' <span style="font-weight:bold; color:red;">INCIDENCIA!<span>'; ?></dd>
     </dl>
 
     <dl>
-        <dt>Fecha del aporte:</dt>
+        <dt><?php echo Text::_("Fecha del aporte"); ?>:</dt>
         <dd><?php echo $invest->invested . '  '; ?>
             <?php
                 if (!empty($invest->charged))
-                    echo 'Cargo ejecutado el: ' . $invest->charged;
+                    echo Text::_("Cargo ejecutado el: ") . $invest->charged;
 
                 if (!empty($invest->returned))
-                    echo 'Dinero devuelto el: ' . $invest->returned;
+                    echo Text::_("Dinero devuelto el: ") . $invest->returned;
             ?>
         </dd>
     </dl>
 
     <dl>
-        <dt>Donativo:</dt>
+        <dt><?php echo Text::_("Donativo"); ?>:</dt>
         <dd>
-            <?php echo ($invest->resign) ? 'SI' : 'NO'; ?>
+            <?php echo ($invest->resign) ? Text::_('SI') : Text::_('NO'); ?>
         </dd>
     </dl>
 
     <dl>
-        <dt>Método de pago:</dt>
+        <dt><?php echo Text::_("Método de pago"); ?>:</dt>
         <dd><?php echo $invest->method . '   '; ?>
             <?php
                 if (!empty($invest->campaign))
-                    echo '<br />Capital riego';
+                    echo '<br />'.Text::_('Capital riego');
 
                 if (!empty($invest->anonymous))
-                    echo '<br />Aporte anónimo';
+                    echo '<br />'.Text::_(Aporte anónimo');
 
                 if (!empty($invest->resign))
-                    echo "<br />Donativo de: {$invest->address->name} [{$invest->address->nif}]";
+                    echo "<br />".Text::_('Donativo de').": {$invest->address->name} [{$invest->address->nif}]";
 
                 if (!empty($invest->admin))
-                    echo '<br />Manual generado por admin: '.$invest->admin;
+                    echo '<br />'.Text::_('Manual generado por admin').': '.$invest->admin;
             ?>
         </dd>
     </dl>
 
     <dl>
-        <dt>Códigos de seguimiento:</dt>
+        <dt><?php echo Text::_("Códigos de seguimiento"); ?>: <a href="/admin/invests/details/<?php echo $invest->id ?>"><?php echo Text::_("Ir al aporte"); ?></a></dt>
         <dd><?php
                 if (!empty($invest->preapproval)) {
                     echo 'Preapproval: '.$invest->preapproval . '   ';
@@ -136,7 +136,7 @@ array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
 
     <?php if (!empty($invest->rewards)) : ?>
     <dl>
-        <dt>Recompensas elegidas:</dt>
+        <dt><?php echo Text::_("Recompensas elegidas"); ?>:</dt>
         <dd>
             <?php echo implode(', ', $rewards); ?>
         </dd>
@@ -144,7 +144,7 @@ array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
     <?php endif; ?>
 
     <dl>
-        <dt>Dirección:</dt>
+        <dt><?php echo Text::_("Dirección"); ?>:</dt>
         <dd>
             <?php echo $invest->address->address; ?>,
             <?php echo $invest->address->location; ?>,
@@ -156,29 +156,29 @@ array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
     <?php if ($invest->method == 'paypal') : ?>
         <?php if (!isset($_GET['full'])) : ?>
         <p>
-            <a href="/admin/accounts/details/<?php echo $invest->id; ?>/?full=show">Mostrar detalles técnicos</a>
+            <a href="/admin/accounts/details/<?php echo $invest->id; ?>/?full=show"><?php echo Text::_("Mostrar detalles técnicos"); ?></a>
         </p>
         <?php endif; ?>
 
         <?php if (!empty($invest->transaction)) : ?>
         <dl>
-            <dt><strong>Detalles de la devolución:</strong></dt>
-            <dd>Hay que ir al panel de paypal para ver los detalles de una devolución</dd>
+            <dt><strong><?php echo Text::_("Detalles de la devolución"); ?>:</strong></dt>
+            <dd><?php echo Text::_("Hay que ir al panel de paypal para ver los detalles de una devolución"); ?></dd>
         </dl>
         <?php endif ?>
     <?php elseif ($invest->method == 'tpv') : ?>
-        <p>Hay que ir al panel del banco para ver los detalles de los aportes mediante TPV.</p>
+        <p><?php echo Text::_("Hay que ir al panel del banco para ver los detalles de los aportes mediante TPV."); ?></p>
     <?php else : ?>
-        <p>No hay nada que hacer con los aportes manuales.</p>
+        <p><?php echo Text::_("No hay nada que hacer con los aportes manuales."); ?></p>
     <?php endif ?>
 
     <?php if (!empty($droped)) : ?>
-    <h3>Capital riego asociado</h3>
+    <h3><?php echo Text::_("Capital riego asociado"); ?></h3>
     <dl>
-        <dt>Convocatoria:</dt>
+        <dt><?php echo Text::_("Convocatoria"); ?>:</dt>
         <dd><?php echo $calls[$droped->call] ?></dd>
     </dl>
-    <a href="/admin/invests/details/<?php echo $droped->id ?>" target="_blank">Ver aporte completo de riego</a>
+    <a href="/admin/invests/details/<?php echo $droped->id ?>" target="_blank"><?php echo Text::_("Ver aporte completo de riego"); ?></a>
     <?php endif; ?>
 
 </div>
@@ -192,12 +192,12 @@ array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
 
 <?php if (isset($_GET['full']) && $_GET['full'] == 'show') : ?>
 <div class="widget">
-    <h3>Detalles técnicos de la transaccion</h3>
+    <h3><?php echo Text::_("Detalles técnicos de la transaccion"); ?></h3>
     <?php if (!empty($invest->preapproval)) :
         $details = Paypal::preapprovalDetails($invest->preapproval);
         ?>
     <dl>
-        <dt><strong>Detalles del preapproval:</strong></dt>
+        <dt><strong><?php echo Text::_("Detalles del preapproval"); ?>:</strong></dt>
         <dd><?php echo \trace($details); ?></dd>
     </dl>
     <?php endif ?>
@@ -206,7 +206,7 @@ array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
         $details = Paypal::paymentDetails($invest->payment);
         ?>
     <dl>
-        <dt><strong>Detalles del cargo:</strong></dt>
+        <dt><strong><?php echo Text::_("Detalles del cargo"); ?>:</strong></dt>
         <dd><?php echo \trace($details); ?></dd>
     </dl>
     <?php endif; ?>

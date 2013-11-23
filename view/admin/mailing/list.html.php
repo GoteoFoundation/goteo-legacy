@@ -29,7 +29,7 @@ $filters = $_SESSION['mailing']['filters'];
         <table>
             <tr>
                 <td>
-                    <label for="type-filter">A los</label><br />
+                    <label for="type-filter"><?php echo Text::_("A los"); ?></label><br />
                     <select id="type-filter" name="type">
                     <?php foreach ($this['types'] as $typeId=>$typeName) : ?>
                         <option value="<?php echo $typeId; ?>"<?php if ($filters['type'] == $typeId) echo ' selected="selected"';?>><?php echo $typeName; ?></option>
@@ -37,11 +37,11 @@ $filters = $_SESSION['mailing']['filters'];
                     </select>
                 </td>
                 <td>
-                    <label for="project-filter">De proyectos que el nombre contenga</label><br />
+                    <label for="project-filter"><?php echo Text::_("De proyectos que el nombre contenga"); ?></label><br />
                     <input id="project-filter" name="project" value="<?php echo $filters['project']?>" style="width:300px;" />
                 </td>
                 <td>
-                    <label for="status-filter">En estado</label><br />
+                    <label for="status-filter"><?php echo Text::_("En estado"); ?></label><br />
                     <select id="status-filter" name="status">
                         <option value="-1"<?php if ($filters['status'] == -1) echo ' selected="selected"';?>>Cualquier estado</option>
                     <?php foreach ($this['status'] as $statusId=>$statusName) : ?>
@@ -50,9 +50,9 @@ $filters = $_SESSION['mailing']['filters'];
                     </select>
                 </td>
                 <td>
-                    <label for="method-filter">Aportado mediante</label><br />
+                    <label for="method-filter"><?php echo Text::_("Aportado mediante"); ?></label><br />
                     <select id="method-filter" name="method">
-                        <option value="">Cualquier metodo</option>
+                        <option value=""><?php echo Text::_("Cualquier metodo"); ?></option>
                     <?php foreach ($this['methods'] as $methodId=>$methodName) : ?>
                         <option value="<?php echo $methodId; ?>"<?php if ($filters['methods'] == $methodId) echo ' selected="selected"';?>><?php echo $methodName; ?></option>
                     <?php endforeach; ?>
@@ -61,22 +61,22 @@ $filters = $_SESSION['mailing']['filters'];
             </tr>
             <tr>
                 <td>
-                    <label for="interest-filter">Interesados en fin</label><br />
+                    <label for="interest-filter"><?php echo Text::_("Interesados en fin"); ?></label><br />
                     <select id="interest-filter" name="interest">
-                        <option value="">Cualquiera</option>
+                        <option value=""><?php echo Text::_("Cualquiera"); ?></option>
                     <?php foreach ($this['interests'] as $interestId=>$interestName) : ?>
                         <option value="<?php echo $interestId; ?>"<?php if ($filters['interest'] == $interestId) echo ' selected="selected"';?>><?php echo $interestName; ?></option>
                     <?php endforeach; ?>
                     </select>
                 </td>
                 <td>
-                    <label for="name-filter">Que el nombre o email contenga</label><br />
+                    <label for="name-filter"><?php echo Text::_("Que el nombre o email contenga"); ?></label><br />
                     <input id="name-filter" name="name" value="<?php echo $filters['name']?>" style="width:300px;" />
                 </td>
                 <td>
-                    <label for="role-filter">Que sean</label><br />
+                    <label for="role-filter"><?php echo Text::_("Que sean"); ?></label><br />
                     <select id="role-filter" name="role">
-                        <option value="">Cualquiera</option>
+                        <option value=""><?php echo Text::_("Cualquiera"); ?></option>
                     <?php foreach ($this['roles'] as $roleId=>$roleName) : ?>
                         <option value="<?php echo $roleId; ?>"<?php if ($filters['role'] == $roleId) echo ' selected="selected"';?>><?php echo $roleName; ?></option>
                     <?php endforeach; ?>
@@ -88,7 +88,7 @@ $filters = $_SESSION['mailing']['filters'];
                 </td>
             </tr>
             <tr>
-                <td colspan="3"><input type="submit" name="select" value="Buscar destinatarios"></td>
+                <td colspan="3"><input type="submit" name="select" value="<?php echo Text::_("Buscar destinatarios"); ?>"></td>
             </tr>
         </table>
 

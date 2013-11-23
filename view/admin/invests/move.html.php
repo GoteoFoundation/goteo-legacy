@@ -50,7 +50,7 @@ foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
         <p>
             <label for="invest-project">Al proyecto:</label><br />
             <select id="invest-project" name="project">
-                <option value="">Seleccionar el proyecto al que se mueve el aporte</option>
+                <option value=""><?php echo Text::_("Seleccionar el proyecto al que se mueve el aporte"); ?></option>
             <?php foreach ($projects as $projectId=>$projectName) :
                 if ($projectId == $original->project) continue; ?>
                 <option value="<?php echo $projectId; ?>"><?php echo $projectName; ?></option>
@@ -58,8 +58,8 @@ foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
             </select>
         </p>
 
-        <input type="submit" name="move" value="Reubicar"
-            onclick="return confirm('El aporte original va a desaparecer de los cofinanciadores y no se va a tratar automaticamente al final de ronda, ¿Seguimos?');" />
+        <input type="submit" name="move" value="<?php echo Text::_("Reubicar"); ?>"
+            onclick="return confirm(<?php echo Text::_("El aporte original va a desaparecer de los cofinanciadores y no se va a tratar automaticamente al final de ronda, ¿Seguimos?");?>);" />
 
     </form>
 </div>

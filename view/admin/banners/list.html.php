@@ -22,20 +22,20 @@
 use Goteo\Library\Text;
 
 ?>
-<a href="/admin/banners/add" class="button red">Nuevo banner</a>
+<a href="/admin/banners/add" class="button red"><?php echo Text::_("Nuevo banner"); ?></a>
 
 <div class="widget board">
     <?php if (!empty($this['bannered'])) : ?>
     <table>
         <thead>
             <tr>
-                <th>Proyecto</th> <!-- preview -->
-                <th>Estado</th> <!-- status -->
-                <th>Posición</th> <!-- order -->
-                <th><!-- Subir --></th>
-                <th><!-- Bajar --></th>
-                <th><!-- Editar--></th>
-                <th><!-- Quitar--></th>
+                <th><?php echo Text::_("Proyecto"); ?></th> <!-- preview -->
+                <th><?php echo Text::_("Estado"); ?></th> <!-- status -->
+                <th><?php echo Text::_("Posición"); ?></th> <!-- order -->
+                <th><!-- <?php echo Text::_("Subir"); ?> --></th>
+                <th><!-- <?php echo Text::_("Bajar"); ?> --></th>
+                <th><!-- <?php echo Text::_("Editar"); ?>--></th>
+                <th><!-- <?php echo Text::_("Quitar"); ?>--></th>
             </tr>
         </thead>
 
@@ -47,8 +47,8 @@ use Goteo\Library\Text;
                 <td><?php echo $banner->order; ?></td>
                 <td><a href="/admin/banners/up/<?php echo $banner->project; ?>">[&uarr;]</a></td>
                 <td><a href="/admin/banners/down/<?php echo $banner->project; ?>">[&darr;]</a></td>
-                <td><a href="/admin/banners/edit/<?php echo $banner->project; ?>">[Editar]</a></td>
-                <td><a href="/admin/banners/remove/<?php echo $banner->project; ?>">[Quitar]</a></td>
+                <td><a href="/admin/banners/edit/<?php echo $banner->project; ?>">[<?php echo Text::_("Editar"); ?>]</a></td>
+                <td><a href="/admin/banners/remove/<?php echo $banner->project; ?>">[<?php echo Text::_("Quitar"); ?>]</a></td>
             </tr>
             <?php endforeach; ?>
         </tbody>

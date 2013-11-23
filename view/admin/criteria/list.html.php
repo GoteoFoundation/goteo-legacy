@@ -23,11 +23,11 @@ use Goteo\Library\Text,
 
 $translator = ACL::check('/translate') ? true : false;
 ?>
-<a href="/admin/criteria/add/?filter=<?php echo $this['filter']; ?>" class="button red">Añadir criterio</a>
+<a href="/admin/criteria/add/?filter=<?php echo $this['filter']; ?>" class="button red"><?php echo Text::_('Añadir criterio'); ?></a>
 
 <div class="widget board">
     <form id="sectionfilter-form" action="/admin/criteria" method="get">
-        <label for="section-filter">Mostrar los criterios de la sección:</label>
+        <label for="section-filter"><?php echo Text::_('Mostrar los criterios de la sección:'); ?></label>
         <select id="section-filter" name="filter" onchange="document.getElementById('sectionfilter-form').submit();">
         <?php foreach ($this['sections'] as $sectionId=>$sectionName) : ?>
             <option value="<?php echo $sectionId; ?>"<?php if ($this['filter'] == $sectionId) echo ' selected="selected"';?>><?php echo $sectionName; ?></option>
@@ -42,8 +42,8 @@ $translator = ACL::check('/translate') ? true : false;
         <thead>
             <tr>
                 <td><!-- Edit --></td>
-                <th>Título</th> <!-- title -->
-                <th>Posición</th> <!-- order -->
+                <th><?php echo Text::_('Título'); ?></th> <!-- title -->
+                <th><?php echo Text::_('Posición'); ?></th> <!-- order -->
                 <td><!-- Move up --></td>
                 <td><!-- Move down --></td>
                 <th><!-- Traducir--></th>
@@ -69,6 +69,6 @@ $translator = ACL::check('/translate') ? true : false;
 
     </table>
     <?php else : ?>
-    <p>No se han encontrado registros</p>
+    <p><?php echo Text::_('No se han encontrado registros'); ?></p>
     <?php endif; ?>
 </div>

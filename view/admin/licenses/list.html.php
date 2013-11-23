@@ -29,17 +29,17 @@ $filters = $this['filters'];
 
 <div class="widget board">
     <form id="filter-form" action="/admin/licenses" method="get">
-        <label for="group-filter">Mostrar por grupo:</label>
+        <label for="group-filter"><?php echo Text::_("Mostrar por grupo:"); ?></label>
         <select id="group-filter" name="group" onchange="document.getElementById('filter-form').submit();">
-            <option value="">Todos los grupos</option>
+            <option value=""><?php echo Text::_("Todos los grupos"); ?></option>
         <?php foreach ($this['groups'] as $groupId=>$groupName) : ?>
             <option value="<?php echo $groupId; ?>"<?php if ($filters['group'] == $groupId) echo ' selected="selected"';?>><?php echo $groupName; ?></option>
         <?php endforeach; ?>
         </select>
 
-        <label for="icon-filter">Mostrar por tipo de retorno:</label>
+        <label for="icon-filter"><?php echo Text::_("Mostrar por tipo de retorno:"); ?></label>
         <select id="icon-filter" name="icon" onchange="document.getElementById('filter-form').submit();">
-            <option value="">Todos los tipos</option>
+            <option value=""><?php echo Text::_("Todos los tipos"); ?></option>
         <?php foreach ($this['icons'] as $icon) : ?>
             <option value="<?php echo $icon->id; ?>"<?php if ($filters['icon'] == $icon->id) echo ' selected="selected"';?>><?php echo $icon->name; ?></option>
         <?php endforeach; ?>
@@ -53,11 +53,11 @@ $filters = $this['filters'];
         <thead>
             <tr>
                 <th><!-- Edit --></th>
-                <th>Nombre</th> <!-- name -->
+                <th><?php echo Text::_("Nombre"); ?></th> <!-- name -->
                 <th><!-- Icon --></th>
-                <th>Tooltip</th> <!-- description -->
-                <th>Agrupación</th> <!-- group -->
-                <th>Posición</th> <!-- order -->
+                <th><?php echo Text::_("Tooltip"); ?></th> <!-- description -->
+                <th><?php echo Text::_("Agrupación"); ?></th> <!-- group -->
+                <th><?php echo Text::_("Posición"); ?></th> <!-- order -->
                 <th><!-- Move up --></th>
                 <th><!-- Move down --></th>
                 <th><!-- Traducir--></th>
@@ -68,7 +68,7 @@ $filters = $this['filters'];
         <tbody>
             <?php foreach ($this['licenses'] as $license) : ?>
             <tr>
-                <td><a href="/admin/licenses/edit/<?php echo $license->id; ?>/?filter=<?php echo $filters['group']; ?>">[Editar]</a></td>
+                <td><a href="/admin/licenses/edit/<?php echo $license->id; ?>/?filter=<?php echo $filters['group']; ?>">[<?php echo Text::_("Editar"); ?>]</a></td>
                 <td><?php echo $license->name; ?></td>
                 <td><img src="/view/css/license/<?php echo $license->id; ?>.png" alt="<?php echo $license->id; ?>" title="<?php echo $license->name; ?>" /></td>
                 <td><?php echo $license->description; ?></td>
@@ -77,9 +77,9 @@ $filters = $this['filters'];
                 <td><a href="/admin/licenses/up/<?php echo $license->id; ?>/?filter=<?php echo $filters['group']; ?>">[&uarr;]</a></td>
                 <td><a href="/admin/licenses/down/<?php echo $license->id; ?>/?filter=<?php echo $filters['group']; ?>">[&darr;]</a></td>
                 <?php if ($translator) : ?>
-                <td><a href="/translate/license/edit/<?php echo $license->id; ?>" >[Traducir]</a></td>
+                <td><a href="/translate/license/edit/<?php echo $license->id; ?>" >[<?php echo Text::_("Traducir"); ?>]</a></td>
                 <?php endif; ?>
-<!--                                <td><a href="/admin/licenses/remove=<?php echo $license->id; ?>/?filter=<?php echo $filters['group']; ?>" onclick="return confirm('Seguro que deseas eliminar este registro?');">[Quitar]</a></td>  -->
+<!--                                <td><a href="/admin/licenses/remove=<?php echo $license->id; ?>/?filter=<?php echo $filters['group']; ?>" onclick="return confirm('<?php echo Text::_("Seguro que deseas eliminar este registro?"); ?>');">[<?php echo Text::_("Quitar"); ?>]</a></td>  -->
             </tr>
             <?php endforeach; ?>
         </tbody>

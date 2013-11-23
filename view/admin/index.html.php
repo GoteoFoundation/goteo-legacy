@@ -44,14 +44,6 @@ $allowed_contents = array(
     'info'
 );
 
-// piñoncete para Diego
-if ($_SESSION['user']->id == 'diegobus'
-    && !empty($this['folder'])
-    && !in_array($this['folder'], $allowed_contents)) {
-
-    header('Location: /admin/');
-}
-
 
 $bodyClass = 'admin';
 

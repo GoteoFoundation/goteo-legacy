@@ -24,8 +24,8 @@ use Goteo\Library\Text,
 
 //$templates = Template::getAllMini();
 $templates = array(
-    '11' => 'Base',
-    '27' => 'Aviso a los talleristas'
+    '11' => Text::_("Base"),
+    '27' => Text::_("Aviso a los talleristas")
 );
 // lista de destinatarios segun filtros recibidos, todos marcados por defecto
 ?>
@@ -33,7 +33,7 @@ $templates = array(
 jQuery(document).ready(function ($) {
 
     $('#template_load').click(function () {
-       if (confirm('El asunto y el contenido actual se substiruira por el que hay en la plantilla. Seguimos?')) {
+       if (confirm(Text::_("El asunto y el contenido actual se substiruira por el que hay en la plantilla. Seguimos?"))) {
 
            if ($('#template').val() == '0') {
             $('#mail_subject').val('');
@@ -49,48 +49,48 @@ jQuery(document).ready(function ($) {
 });
 </script>
 <div class="widget">
-    <p>Las siguientes variables se sustituir&aacute;n en el contenido:</p>
+    <p><?php echo Text::_("Las siguientes variables se sustituir&aacute;n en el contenido:"); ?></p>
     <ul>
-        <li><strong>%USERID%</strong> Para el id de acceso del destinatario</li>
-        <li><strong>%USEREMAIL%</strong> Para el email del destinatario</li>
-        <li><strong>%USERNAME%</strong> Para el nombre del destinatario</li>
-        <li><strong>%SITEURL%</strong> Para la url de esta plataforma (<?php echo SITE_URL ?>)</li>
+        <li><strong>%USERID%</strong><?php echo Text::_(" Para el id de acceso del destinatario"); ?></li>
+        <li><strong>%USEREMAIL%</strong><?php echo Text::_(" Para el email del destinatario"); ?></li>
+        <li><strong>%USERNAME%</strong><?php echo Text::_(" Para el nombre del destinatario"); ?></li>
+        <li><strong>%SITEURL%</strong><?php echo Text::_(" Para la url de esta plataforma "); ?>(<?php echo SITE_URL ?>)</li>
         <?php if ($this['filters']['type'] == 'owner' || $this['filters']['type'] == 'investor') : ?>
-            <li><strong>%PROJECTID%</strong> Para el id del proyecto</li>
-            <li><strong>%PROJECTNAME%</strong> Para el nombre del proyecto</li>
-            <li><strong>%PROJECTURL%</strong> Para la url del proyecto</li>
+            <li><strong>%PROJECTID%</strong><?php echo Text::_(" Para el id del proyecto"); ?></li>
+            <li><strong>%PROJECTNAME%</strong><?php echo Text::_(" Para el nombre del proyecto"); ?></li>
+            <li><strong>%PROJECTURL%</strong><?php echo Text::_(" Para la url del proyecto"); ?></li>
         <?php endif; ?>
     </ul>
 </div>
 <div class="widget">
-    <p><?php echo 'Vamos a comunicarnos con ' . $_SESSION['mailing']['filters_txt']; ?></p>
+    <p><?php echo Text::_("Vamos a comunicarnos con ") . $_SESSION['mailing']['filters_txt']; ?></p>
     <form action="/admin/mailing/send" method="post">
     <dl>
-        <dt>Seleccionar plantilla:</dt>
+        <dt><?php echo Text::_("Seleccionar plantilla:"); ?></dt>
         <dd>
             <select id="template" name="template" >
-                <option value="0">Sin plantilla</option>
+                <option value="0"><?php echo Text::_("Sin plantilla"); ?></option>
             <?php foreach ($templates as $templateId=>$templateName) : ?>
                 <option value="<?php echo $templateId; ?>"><?php echo $templateName; ?></option>
             <?php endforeach; ?>
             </select>
-            <input type="button" id="template_load" value="Cargar" />
+            <input type="button" id="template_load" value="<?php echo Text::_("Cargar"); ?>" />
         </dd>
     </dl>
     <dl>
-        <dt>Asunto:</dt>
+        <dt><?php echo Text::_("Asunto:"); ?></dt>
         <dd>
             <input id="mail_subject" name="subject" value="<?php echo $_SESSION['mailing']['subject']?>" style="width:500px;"/>
         </dd>
     </dl>
     <dl>
-        <dt>Contenido: (en c&oacute;digo html; los saltos de linea deben ser con &lt;br /&gt;)</dt>
+        <dt><?php echo Text::_("Contenido: (en c&oacute;digo html; los saltos de linea deben ser con &lt;br /&gt;)"); ?></dt>
         <dd>
             <textarea id="mail_content" name="content" cols="100" rows="10"></textarea>
         </dd>
     </dl>
     <dl>
-        <dt>Lista destinatarios:</dt>
+        <dt><?php echo Text::_("Lista destinatarios:"); ?></dt>
         <dd>
             <ul>
                 <?php foreach ($_SESSION['mailing']['receivers'] as $usrid=>$usr) : ?>
@@ -107,7 +107,7 @@ jQuery(document).ready(function ($) {
         </dd>
     </dl>
 
-    <input type="submit" name="send" value="Enviar"  onclick="return confirm('Has revisado el contenido y comprobado los destinatarios?');"/>
+    <input type="submit" name="send" value="Enviar"  onclick="return confirm(Text::_("Has revisado el contenido y comprobado los destinatarios?"));"/>
 
     </form>
 </div>
