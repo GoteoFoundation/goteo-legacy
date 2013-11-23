@@ -25,16 +25,6 @@ $translator = ACL::check('/translate') ? true : false;
 
 $filters = $this['filters'];
 
-// si hay filtro lo arrastramos
-if (!empty($filters)) {
-    $filter = "?";
-    foreach ($filters as $key => $fil) {
-        $filter .= "$key={$fil['value']}&";
-    }
-} else {
-    $filter = '';
-}
-
 $botones = array(
     'edit' => '[Editar]',
     'remove' => '[Quitar]',
@@ -49,7 +39,10 @@ $per = 100 / $cols;
 
 ?>
 <?php if (!empty($this['addbutton'])) : ?>
-<a href="<?php echo $this['url'] ?>/add" class="button red"><?php echo $this['addbutton'] ?></a>
+<a href="<?php echo $this['url'] ?>/add" class="button"><?php echo $this['addbutton'] ?></a>
+<?php endif; ?>
+<?php if (!empty($this['otherbutton'])) : ?>
+<?php echo $this['otherbutton'] ?>
 <?php endif; ?>
 <!-- Filtro -->
 <?php if (!empty($filters)) : ?>

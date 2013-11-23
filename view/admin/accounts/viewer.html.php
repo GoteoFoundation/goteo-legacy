@@ -53,7 +53,7 @@ if (!empty($_GET['date']) && !empty($_GET['type'])) {
             </select>
         </div>
         <div style="float:left;margin:5px;" id="hdate">
-            <label for="date-filter">Fecha del log:</label><br />
+            <label for="hdate">Fecha del log:</label><br />
             <?php echo new View('library/superform/view/element/datebox.html.php', array('value'=>$date, 'id'=>'hdate', 'name'=>'date')); ?>
         </div>
         <div style="float:left;margin:5px;">
