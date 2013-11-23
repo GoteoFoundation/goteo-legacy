@@ -54,248 +54,248 @@ namespace Goteo\Controller {
         // Array de los gestores que existen
         static public $options = array(
             'accounts' => array(
-                'label' => _('Gestión de aportes'),
+                'label' => Text::_('Gestión de aportes'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'details' => array('label' => _('Detalles del aporte'), 'item' => true),
-                    'update' => array('label' => _('Cambiando el estado al aporte'), 'item' => true),
-                    'add' => array('label' => _('Aporte manual'), 'item' => false),
-                    'move' => array('label' => _('Reubicando el aporte'), 'item' => true),
-                    'execute' => array('label' => _('Ejecución del cargo'), 'item' => true),
-                    'cancel' => array('label' => _('Cancelando aporte'), 'item' => true),
-                    'report' => array('label' => _('Informe de proyecto'), 'item' => true),
-                    'viewer' => array('label' => _('Viendo logs'), 'item' => false)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'details' => array('label' => Text::_('Detalles del aporte'), 'item' => true),
+                    'update' => array('label' => Text::_('Cambiando el estado al aporte'), 'item' => true),
+                    'add' => array('label' => Text::_('Aporte manual'), 'item' => false),
+                    'move' => array('label' => Text::_('Reubicando el aporte'), 'item' => true),
+                    'execute' => array('label' => Text::_('Ejecución del cargo'), 'item' => true),
+                    'cancel' => array('label' => Text::_('Cancelando aporte'), 'item' => true),
+                    'report' => array('label' => Text::_('Informe de proyecto'), 'item' => true),
+                    'viewer' => array('label' => Text::_('Viendo logs'), 'item' => false)
                 ),
                 'filters' => array('id' => '', 'methods' => '', 'investStatus' => 'all', 'projects' => '', 'name' => '', 'calls' => '', 'review' => '', 'types' => '', 'date_from' => '', 'date_until' => '', 'issue' => 'all', 'procStatus' => 'all', 'amount' => '')
             ),
             'banners' => array(
-                'label' => _('Banners'),
+                'label' => Text::_('Banners'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nuevo Banner'), 'item' => false),
-                    'edit' => array('label' => _('Editando Banner'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Banner'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nuevo Banner'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Banner'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Banner'), 'item' => true)
                 )
             ),
             'blog' => array(
-                'label' => _('Blog'),
+                'label' => Text::_('Blog'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nueva Entrada'), 'item' => false),
-                    'edit' => array('label' => _('Editando Entrada'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Entrada'), 'item' => true),
-                    'reorder' => array('label' => _('Ordenando las entradas en Portada'), 'item' => false),
-                    'footer' => array('label' => _('Ordenando las entradas en el Footer'), 'item' => false)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nueva Entrada'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Entrada'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Entrada'), 'item' => true),
+                    'reorder' => array('label' => Text::_('Ordenando las entradas en Portada'), 'item' => false),
+                    'footer' => array('label' => Text::_('Ordenando las entradas en el Footer'), 'item' => false)
                 ),
                 'filters' => array('show' => 'owned', 'blog' => '')
             ),
             'categories' => array(
-                'label' => _('Categorías'),
+                'label' => Text::_('Categorías'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nueva Categoría'), 'item' => false),
-                    'edit' => array('label' => _('Editando Categoría'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Categoría'), 'item' => true),
-                    'keywords' => array('label' => _('Palabras clave'), 'item' => false)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nueva Categoría'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Categoría'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Categoría'), 'item' => true),
+                    'keywords' => array('label' => Text::_('Palabras clave'), 'item' => false)
                 )
             ),
             'criteria' => array(
-                'label' => _('Criterios de revisión'),
+                'label' => Text::_('Criterios de revisión'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nuevo Criterio'), 'item' => false),
-                    'edit' => array('label' => _('Editando Criterio'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Criterio'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nuevo Criterio'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Criterio'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Criterio'), 'item' => true)
                 ),
                 'filters' => array('section' => 'project')
             ),
             'faq' => array(
-                'label' => _('FAQs'),
+                'label' => Text::_('FAQs'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nueva Pregunta'), 'item' => false),
-                    'edit' => array('label' => _('Editando Pregunta'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Pregunta'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nueva Pregunta'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Pregunta'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Pregunta'), 'item' => true)
                 ),
                 'filters' => array('section' => 'node')
             ),
             'glossary' => array(
-                'label' => _('Glosario'),
+                'label' => Text::_('Glosario'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'edit' => array('label' => _('Editando Término'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Término'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Término'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Término'), 'item' => true)
                 )
             ),
             'icons' => array(
-                'label' => _('Tipos de Retorno'),
+                'label' => Text::_('Tipos de Retorno'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'edit' => array('label' => _('Editando Tipo'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Tipo'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Tipo'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Tipo'), 'item' => true)
                 ),
                 'filters' => array('group' => '')
             ),
             'invests' => array(
-                'label' => _('Aportes'),
+                'label' => Text::_('Aportes'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'details' => array('label' => _('Detalles del aporte'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'details' => array('label' => Text::_('Detalles del aporte'), 'item' => true)
                 ),
                 'filters' => array('methods' => '', 'status' => 'all', 'investStatus' => 'all', 'projects' => '', 'name' => '', 'calls' => '', 'types' => '')
             ),
             'licenses' => array(
-                'label' => _('Licencias'),
+                'label' => Text::_('Licencias'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'edit' => array('label' => _('Editando Licencia'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Licencia'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Licencia'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Licencia'), 'item' => true)
                 ),
                 'filters' => array('group' => '', 'icon' => '')
             ),
             'mailing' => array(
-                'label' => _('Comunicaciones'),
+                'label' => Text::_('Comunicaciones'),
                 'actions' => array(
-                    'list' => array('label' => _('Seleccionando destinatarios'), 'item' => false),
-                    'edit' => array('label' => _('Escribiendo contenido'), 'item' => false),
-                    'send' => array('label' => _('Comunicación enviada'), 'item' => false)
+                    'list' => array('label' => Text::_('Seleccionando destinatarios'), 'item' => false),
+                    'edit' => array('label' => Text::_('Escribiendo contenido'), 'item' => false),
+                    'send' => array('label' => Text::_('Comunicación enviada'), 'item' => false)
                 ),
                 'filters' => array('project' => '', 'type' => '', 'status' => '-1', 'method' => '', 'interest' => '', 'role' => '', 'name' => '', 'donant' => '',
                 )
             ),
             'news' => array(
-                'label' => _('Micronoticias'),
+                'label' => Text::_('Micronoticias'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nueva Micronoticia'), 'item' => false),
-                    'edit' => array('label' => _('Editando Micronoticia'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Micronoticia'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nueva Micronoticia'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Micronoticia'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Micronoticia'), 'item' => true)
                 )
             ),
             'pages' => array(
-                'label' => _('Páginas'),
+                'label' => Text::_('Páginas'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'edit' => array('label' => _('Editando Página'), 'item' => true),
-                    'add' => array('label' => _('Nueva Página'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Página'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Página'), 'item' => true),
+                    'add' => array('label' => Text::_('Nueva Página'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Página'), 'item' => true)
                 )
             ),
             'projects' => array(
-                'label' => _('Gestión de proyectos'),
+                'label' => Text::_('Gestión de proyectos'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'dates' => array('label' => _('Fechas del proyecto'), 'item' => true),
-                    'accounts' => array('label' => _('Cuentas del proyecto'), 'item' => true),
-                    'images' => array('label' => _('Imágenes del proyecto'), 'item' => true),
-                    'move' => array('label' => _('Moviendo a otro Nodo el proyecto'), 'item' => true),
-                    'assign' => array('label' => _('Asignando a una Convocatoria el proyecto'), 'item' => true),
-                    'report' => array('label' => _('Informe Financiero del proyecto'), 'item' => true),
-                    'rebase' => array('label' => _('Cambiando Id de proyecto'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'dates' => array('label' => Text::_('Fechas del proyecto'), 'item' => true),
+                    'accounts' => array('label' => Text::_('Cuentas del proyecto'), 'item' => true),
+                    'images' => array('label' => Text::_('Imágenes del proyecto'), 'item' => true),
+                    'move' => array('label' => Text::_('Moviendo a otro Nodo el proyecto'), 'item' => true),
+                    'assign' => array('label' => Text::_('Asignando a una Convocatoria el proyecto'), 'item' => true),
+                    'report' => array('label' => Text::_('Informe Financiero del proyecto'), 'item' => true),
+                    'rebase' => array('label' => Text::_('Cambiando Id de proyecto'), 'item' => true)
                 ),
                 'filters' => array('status' => '-1', 'category' => '', 'proj_name' => '', 'name' => '', 'node' => '', 'called' => '', 'order' => '')
             ),
             'promote' => array(
-                'label' => _('Proyectos destacados'),
+                'label' => Text::_('Proyectos destacados'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nuevo Destacado'), 'item' => false),
-                    'edit' => array('label' => _('Editando Destacado'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Destacado'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nuevo Destacado'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Destacado'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Destacado'), 'item' => true)
                 )
             ),
             'recent' => array(
-                'label' => _('Actividad reciente'),
+                'label' => Text::_('Actividad reciente'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false)
                 )
             ),
             'reviews' => array(
-                'label' => _('Revisiones'),
+                'label' => Text::_('Revisiones'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Iniciando briefing'), 'item' => false),
-                    'edit' => array('label' => _('Editando briefing'), 'item' => true),
-                    'report' => array('label' => _('Informe'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Iniciando briefing'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando briefing'), 'item' => true),
+                    'report' => array('label' => Text::_('Informe'), 'item' => true)
                 ),
                 'filters' => array('project' => '', 'status' => 'open', 'checker' => '')
             ),
             'rewards' => array(
-                'label' => _('Recompensas'),
+                'label' => Text::_('Recompensas'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'edit' => array('label' => _('Gestionando recompensa'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'edit' => array('label' => Text::_('Gestionando recompensa'), 'item' => true)
                 ),
                 'filters' => array('project' => '', 'name' => '', 'status' => '')
             ),
             'sended' => array(
-                'label' => _('Historial envíos'),
+                'label' => Text::_('Historial envíos'),
                 'actions' => array(
-                    'list' => array('label' => _('Emails enviados'), 'item' => false)
+                    'list' => array('label' => Text::_('Emails enviados'), 'item' => false)
                 ),
                 'filters' => array('user' => '', 'template' => '', 'node' => '', 'date_from' => '', 'date_until' => '')
             ),
             'sponsors' => array(
-                'label' => _('Apoyos institucionales'),
+                'label' => Text::_('Apoyos institucionales'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nuevo Patrocinador'), 'item' => false),
-                    'edit' => array('label' => _('Editando Patrocinador'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nuevo Patrocinador'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Patrocinador'), 'item' => true)
                 )
             ),
             'tags' => array(
-                'label' => _('Tags de blog'),
+                'label' => Text::_('Tags de blog'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Nuevo Tag'), 'item' => false),
-                    'edit' => array('label' => _('Editando Tag'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Tag'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Nuevo Tag'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Tag'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Tag'), 'item' => true)
                 )
             ),
             'templates' => array(
-                'label' => _('Plantillas de email'),
+                'label' => Text::_('Plantillas de email'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'edit' => array('label' => _('Editando Plantilla'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Plantilla'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Plantilla'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Plantilla'), 'item' => true)
                 ),
                 'filters' => array('group' => '', 'name' => '')
             ),
             'texts' => array(
-                'label' => _('Textos interficie'),
+                'label' => Text::_('Textos interficie'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'edit' => array('label' => _('Editando Original'), 'item' => true),
-                    'translate' => array('label' => _('Traduciendo Texto'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Original'), 'item' => true),
+                    'translate' => array('label' => Text::_('Traduciendo Texto'), 'item' => true)
                 ),
                 'filters' => array('group' => '', 'text' => '')
             ),
             'translates' => array(
-                'label' => _('Traducciones de proyectos'),
+                'label' => Text::_('Traducciones de proyectos'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Habilitando traducción'), 'item' => false),
-                    'edit' => array('label' => _('Asignando traducción'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Habilitando traducción'), 'item' => false),
+                    'edit' => array('label' => Text::_('Asignando traducción'), 'item' => true)
                 ),
                 'filters' => array('owner' => '', 'translator' => '')
             ),
             'users' => array(
-                'label' => _('Gestión de usuarios'),
+                'label' => Text::_('Gestión de usuarios'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'add' => array('label' => _('Creando Usuario'), 'item' => true),
-                    'edit' => array('label' => _('Editando Usuario'), 'item' => true),
-                    'manage' => array('label' => _('Gestionando Usuario'), 'item' => true),
-                    'impersonate' => array('label' => _('Suplantando al Usuario'), 'item' => true),
-                    'move' => array('label' => _('Moviendo a otro Nodo el usuario '), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'add' => array('label' => Text::_('Creando Usuario'), 'item' => true),
+                    'edit' => array('label' => Text::_('Editando Usuario'), 'item' => true),
+                    'manage' => array('label' => Text::_('Gestionando Usuario'), 'item' => true),
+                    'impersonate' => array('label' => Text::_('Suplantando al Usuario'), 'item' => true),
+                    'move' => array('label' => Text::_('Moviendo a otro Nodo el usuario '), 'item' => true)
                 ),
                 'filters' => array('interest' => '', 'role' => '', 'node' => '', 'id' => '', 'name' => '', 'order' => '', 'project' => '', 'type' => '')
             ),
             'worth' => array(
-                'label' => _('Niveles de meritocracia'),
+                'label' => Text::_('Niveles de meritocracia'),
                 'actions' => array(
-                    'list' => array('label' => _('Listando'), 'item' => false),
-                    'edit' => array('label' => _('Editando Nivel'), 'item' => true)
+                    'list' => array('label' => Text::_('Listando'), 'item' => false),
+                    'edit' => array('label' => Text::_('Editando Nivel'), 'item' => true)
                 )
             )
         );
@@ -320,7 +320,7 @@ namespace Goteo\Controller {
 
         public static function menu($BC = array()) {
 
-            $admin_label = _('Admin');
+            $admin_label = Text::_('Admin');
 
             $options = self::$options;
 
@@ -498,7 +498,7 @@ namespace Goteo\Controller {
                 case 'supervisor':
                     $menu = array(
                         'contents' => array(
-                            'label' => _('Gestores'),
+                            'label' => Text::_('Gestores'),
                             'options' => array()
                         )
                     );
@@ -511,7 +511,7 @@ namespace Goteo\Controller {
                 case 'admin':
                     $menu = array(
                         'contents' => array(
-                            'label' => _('Contenidos'),
+                            'label' => Text::_('Contenidos'),
                             'options' => array(
                                 'pages' => $options['pages'], // páginas institucionales del nodo
                                 'blog' => $options['blog'], // entradas del blog
@@ -519,7 +519,7 @@ namespace Goteo\Controller {
                             )
                         ),
                         'projects' => array(
-                            'label' => _('Proyectos'),
+                            'label' => Text::_('Proyectos'),
                             'options' => array(
                                 'projects' => $options['projects'], // proyectos del nodo
                                 'reviews' => $options['reviews'], // revisiones de proyectos del nodo
@@ -528,7 +528,7 @@ namespace Goteo\Controller {
                             )
                         ),
                         'users' => array(
-                            'label' => _('Usuarios'),
+                            'label' => Text::_('Usuarios'),
                             'options' => array(
                                 'users' => $options['users'], // usuarios asociados al nodo
                                 'mailing' => $options['mailing'], // comunicaciones del nodoc on sus usuarios / promotores
@@ -536,7 +536,7 @@ namespace Goteo\Controller {
                             )
                         ),
                         'home' => array(
-                            'label' => _('Portada'),
+                            'label' => Text::_('Portada'),
                             'options' => array(
                                 'promote' => $options['promote'], // seleccion de proyectos destacados
                                 'blog' => $options['blog'], // entradas de blog (en la gestion de blog)
@@ -550,7 +550,7 @@ namespace Goteo\Controller {
                 case 'superadmin':
                     $menu = array(
                         'contents' => array(
-                            'label' => _('Textos y Traducciones'),
+                            'label' => Text::_('Textos y Traducciones'),
                             'options' => array(
                                 'blog' => $options['blog'],
                                 'texts' => $options['texts'],
@@ -566,7 +566,7 @@ namespace Goteo\Controller {
                             )
                         ),
                         'projects' => array(
-                            'label' => _('Proyectos'),
+                            'label' => Text::_('Proyectos'),
                             'options' => array(
                                 'projects' => $options['projects'],
                                 'accounts' => $options['accounts'],
@@ -576,7 +576,7 @@ namespace Goteo\Controller {
                             )
                         ),
                         'users' => array(
-                            'label' => _('Usuarios'),
+                            'label' => Text::_('Usuarios'),
                             'options' => array(
                                 'users' => $options['users'],
                                 'worth' => $options['worth'],
@@ -585,7 +585,7 @@ namespace Goteo\Controller {
                             )
                         ),
                         'home' => array(
-                            'label' => _('Portada'),
+                            'label' => Text::_('Portada'),
                             'options' => array(
                                 'news' => $options['news'],
                                 'banners' => $options['banners'],
@@ -595,7 +595,7 @@ namespace Goteo\Controller {
                             )
                         ),
                         'sponsors' => array(
-                            'label' => _('Servicios'),
+                            'label' => Text::_('Servicios'),
                             'options' => array(
                                 'sponsors' => $options['sponsors'],
                             )

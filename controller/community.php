@@ -18,12 +18,12 @@
  *
  */
 
-
 namespace Goteo\Controller {
 
     use Goteo\Library\Page,
         Goteo\Library\Feed,
         Goteo\Core\View,
+        Goteo\Core\Redirection,
         Goteo\Model\User\Interest,
         Goteo\Model\Invest;
 
@@ -90,14 +90,14 @@ namespace Goteo\Controller {
 
                     break;
 
-                // feed p�blico
+                // feed público
                 case 'activity':
                     
                     $items = array();
 
-                    $items['goteo']     = Feed::getAll('goteo', 'public');
-                    $items['projects']  = Feed::getAll('projects', 'public');
-                    $items['community'] = Feed::getAll('community', 'public');
+                    $items['goteo']     = Feed::getAll('goteo', 'public', 50);
+                    $items['projects']  = Feed::getAll('projects', 'public', 50);
+                    $items['community'] = Feed::getAll('community', 'public', 50);
 
                     $viewData['items'] = $items;
 

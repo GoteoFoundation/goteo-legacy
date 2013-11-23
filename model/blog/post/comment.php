@@ -117,7 +117,7 @@ namespace Goteo\Model\Blog\Post {
                     ON  user.id = comment.user
                     AND (user.hide = 0 OR user.hide IS NULL)
                 WHERE comment.post IN (SELECT id FROM post WHERE blog = ?)
-                ORDER BY `date` DESC, comment.id DESC
+                ORDER BY comment.date DESC, comment.id DESC
                 ";
             if (!empty($limit)) {
                 $sql .= "LIMIT $limit";
@@ -195,7 +195,7 @@ namespace Goteo\Model\Blog\Post {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = "HA FALLADO!!! " . $e->getMessage();
                 return false;
             }
         }

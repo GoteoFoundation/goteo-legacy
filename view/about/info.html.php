@@ -38,6 +38,8 @@ $go_up = Text::get('regular-go_up');
 		</div>
 	</div>
 
+<?php if(isset($_SESSION['messages'])) { include 'view/header/message.html.php'; } ?>
+
 	<div id="main" class="threecols">
 		<div id="about-content">
             <h3 class="title"><?php echo Text::get('regular-header-about'); ?></h3>

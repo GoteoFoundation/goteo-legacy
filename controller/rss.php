@@ -18,7 +18,6 @@
  *
  */
 
-
 namespace Goteo\Controller {
 
     use Goteo\Model,

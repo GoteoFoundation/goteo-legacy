@@ -43,6 +43,8 @@ jQuery(document).ready(function($) {
         </div>
     </div>
 
+<?php if(isset($_SESSION['messages'])) { include 'view/header/message.html.php'; } ?>
+
     <div id="main">
 
         <div class="widget">

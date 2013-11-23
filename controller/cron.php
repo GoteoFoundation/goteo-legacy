@@ -18,23 +18,20 @@
  *
  */
 
-
 namespace Goteo\Controller {
 
     use Goteo\Model,
-        Goteo\Core\Redirection,
-        Goteo\Core\Error,
         Goteo\Library\Text,
-		Goteo\Library\Feed,
-		Goteo\Library\Template,
-		Goteo\Library\Mail,
+        Goteo\Library\Feed,
+        Goteo\Library\Template,
+        Goteo\Library\Mail,
         Goteo\Library\Paypal,
         Goteo\Library\Tpv;
 
     class Cron extends \Goteo\Core\Controller {
         
         public function index () {
-            throw new Redirection('/cron/execute');
+            die('bad request');
         }
 
         /*

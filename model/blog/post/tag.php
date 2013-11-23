@@ -18,15 +18,13 @@
  *
  */
 
-
 namespace Goteo\Model\Blog\Post {
 
     class Tag extends \Goteo\Core\Model {
 
         public
             $id,
-            $name,
-            $blog;
+            $name;
 
         /*
          *  Devuelve datos de una comentario
@@ -35,8 +33,7 @@ namespace Goteo\Model\Blog\Post {
                 $query = static::query("
                     SELECT
                         tag.id as id,
-                        IFNULL(tag_lang.name, tag.name) as name,
-                        tag.blog as blog
+                        IFNULL(tag_lang.name, tag.name) as name
                     FROM    tag
                     LEFT JOIN tag_lang
                         ON  tag_lang.id = tag.id
@@ -87,10 +84,9 @@ namespace Goteo\Model\Blog\Post {
         }
 
         /*
-         * Lista de tags para gestión
-         * de un post si recibe el parametro
+         * Lista simple de tags
          */
-        public static function getList ($blog) {
+        public static function getList () {
 
             $list = array();
 
@@ -107,7 +103,6 @@ namespace Goteo\Model\Blog\Post {
                 LEFT JOIN tag_lang
                     ON  tag_lang.id = tag.id
                     AND tag_lang.lang = :lang
-                WHERE tag.blog = $blog
                 ORDER BY tag.name ASC";
 
             $query = static::query($sql, array(':lang'=>\LANG));
@@ -137,8 +132,7 @@ namespace Goteo\Model\Blog\Post {
 
             $fields = array(
                 'id',
-                'name',
-                'blog'
+                'name'
                 );
 
             $set = '';
@@ -157,7 +151,7 @@ namespace Goteo\Model\Blog\Post {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = "HA FALLADO!!! " . $e->getMessage();
                 return false;
             }
         }
@@ -186,7 +180,7 @@ namespace Goteo\Model\Blog\Post {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = "HA FALLADO!!! " . $e->getMessage();
                 return false;
             }
         }

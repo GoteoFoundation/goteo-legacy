@@ -18,34 +18,18 @@
  *
  */
 
-
 namespace Goteo\Controller {
 
     use Goteo\Core\View,
         Goteo\Model,
         Goteo\Core\Redirection,
         Goteo\Library\Text,
+        Goteo\Library\Message,
         Goteo\Library\Listing;
 
     class Discover extends \Goteo\Core\Controller {
     
-        /*
-         * Descubre proyectos, página general
-         */
-        public function index () {
-
-            $viewData = array();
-            $viewData['title'] = array(
-                'popular' => Text::get('discover-group-popular-header'),
-                'outdate' => Text::get('discover-group-outdate-header'),
-                'recent'  => Text::get('discover-group-recent-header'),
-                'success' => Text::get('discover-group-success-header'),
-                'archive' => Text::get('discover-group-archive-header')
-            );
-
-            $viewData['lists'] = array();
-
-            $types = array(
+        public static $types = array(
                 'popular',
                 'recent',
                 'success',
@@ -53,9 +37,21 @@ namespace Goteo\Controller {
                 'archive'
             );
 
+        /*
+         * Descubre proyectos, página general
+         */
+        public function index () {
+
+            $types = self::$types;
+
+            $viewData = array(
+                'lists' => array()
+            );
+
+
             // cada tipo tiene sus grupos
             foreach ($types as $type) {
-                $projects = Model\Project::published($type);
+                $projects = Model\Project::published($type, $limit);
                 if (empty($projects)) continue;
                 $viewData['lists'][$type] = Listing::get($projects);
             }
@@ -79,7 +75,7 @@ namespace Goteo\Controller {
             if (!empty($category)) {
                 $_POST['category'][] = $category;
             }
-
+            
 			if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['query']) && !isset($category)) {
                 $errors = array();
 
@@ -128,7 +124,9 @@ namespace Goteo\Controller {
          */
         public function view ($type = 'all') {
 
-            if (!in_array($type, array('popular', 'outdate', 'recent', 'success', 'archive', 'all'))) {
+            $types = self::$types;
+            $types[] = 'all';
+            if (!in_array($type, $types)) {
                 throw new Redirection('/discover');
             }
 
@@ -138,15 +136,24 @@ namespace Goteo\Controller {
             $viewData['title'] = Text::get('discover-group-'.$type.'-header');
 
             // segun el tipo cargamos la lista
-            $viewData['list']  = Model\Project::published($type);
+            if (isset($_GET['list'])) {
+                $viewData['list']  = Model\Project::published($type, null, true);
 
+                return new View(
+                    'view/discover/list.html.php',
+                    $viewData
+                 );
+            } else {
 
-            return new View(
-                'view/discover/view.html.php',
-                $viewData
-             );
+                $projects = Model\Project::published($type);
+                $viewData['list'] = $projects;
 
-        }
+                return new View(
+                    'view/discover/view.html.php',
+                    $viewData
+                 );
+
+            }
 
     }
     

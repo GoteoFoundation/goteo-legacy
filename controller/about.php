@@ -35,15 +35,6 @@ namespace Goteo\Controller {
 
             if (empty($id)) {
                 $id = 'about';
-
-                $posts = Model\Info::getAll(true, \GOTEO_NODE);
-
-                return new View(
-                    'view/about/info.html.php',
-                    array(
-                        'posts' => $posts
-                    )
-                 );
             }
 
             if ($id == 'faq' || $id == 'contact') {
@@ -51,6 +42,17 @@ namespace Goteo\Controller {
             }
 
             $page = Page::get($id);
+
+            if ($id == 'about') {
+                return new View(
+                    'view/about/info.html.php',
+                    array(
+                        'name' => $page->name,
+                        'description' => $page->description,
+                        'content' => $page->content
+                    )
+                 );
+            }
 
             if ($id == 'howto') {
                 return new View(

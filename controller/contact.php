@@ -18,13 +18,14 @@
  *
  */
 
-
 namespace Goteo\Controller {
 
     use Goteo\Library\Page,
+        Goteo\Core\Error,
         Goteo\Core\Redirection,
         Goteo\Core\View,
         Goteo\Library\Text,
+        Goteo\Library\Message,
         Goteo\Library\Mail,
         Goteo\Library\Template;
 
@@ -56,8 +57,7 @@ namespace Goteo\Controller {
                     if(empty($_POST['message'])) {
                         $errors['message'] = Text::get('error-contact-message-empty');
                     } else {
-                        $msg_content = \strip_tags($_POST['message']);
-                        $msg_content = nl2br($msg_content);
+                    $msg_content = nl2br(\strip_tags($_POST['message']));
                     }
 
                     if (empty($errors)) {
@@ -72,32 +72,32 @@ namespace Goteo\Controller {
 
                 // Sustituimos los datos
                 $subject = str_replace('%SUBJECT%', $subject, $template->title);
+                        $to = \GOTEO_CONTACT_MAIL;
+                        $toName = \GOTEO_MAIL_NAME;
 
-                // En el contenido:
-                $search  = array('%TONAME%', '%MESSAGE%', '%USEREMAIL%');
-                $replace = array('Goteo', $msg_content, $email);
-                $content = \str_replace($search, $replace, $template->text);
+                    // En el contenido:
+                    $search  = array('%TONAME%', '%MESSAGE%', '%USEREMAIL%');
+                    $replace = array($toName, $msg_content, $name.' '.$email);
+                    $content = \str_replace($search, $replace, $template->text);
 
 
-                        $mailHandler = new Mail();
+                    $mailHandler = new Mail();
 
-                        $mailHandler->to = 'info@platoniq.net';
-                        $mailHandler->toName = 'Goteo';
-                        $mailHandler->subject = $subject;
-                        $mailHandler->content = $content;
-                        $mailHandler->fromName = '';
-                        $mailHandler->from = $email;
-                        $mailHandler->html = true;
-                        $mailHandler->template = $template->id;
-                        if ($mailHandler->send($errors)) {
-                            $message = 'Mensaje de contacto enviado correctamente.';
-                            $data = array();
-                        } else {
-                            $errors[] = 'Ha habido alg�n error al enviar el mensaje.';
-                        }
-
-                        unset($mailHandler);
+                    $mailHandler->to = $to;
+                    $mailHandler->toName = $toName;
+                    $mailHandler->subject = $subject;
+                    $mailHandler->content = $content;
+                    $mailHandler->reply = $email;
+                    $mailHandler->html = true;
+                    $mailHandler->template = $template->id;
+                    if ($mailHandler->send($errors)) {
+                        Message::Info('Mensaje de contacto enviado correctamente.');
+                        $data = array();
+                    } else {
+                        Message::Error('Ha fallado al enviar el mensaje.');
                     }
+
+                    unset($mailHandler);
                 }
 
                 return new View(
