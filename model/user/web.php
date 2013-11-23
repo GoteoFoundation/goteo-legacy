@@ -59,7 +59,7 @@ namespace Goteo\Model\User {
 				self::query($sql, $values);
 				return true;
 			} catch(\PDOException $e) {
-				$errors[] = "La web {$this->url} no se ha asignado correctamente. Por favor, revise los datos." . $e->getMessage();
+				$errors[] = Text::_("La web ") . $this->url . Text::_("no se ha asignado correctamente. Por favor, revise los datos.") . $e->getMessage();
 				return false;
 			}
 
@@ -83,8 +83,8 @@ namespace Goteo\Model\User {
                 self::query("DELETE FROM user_web WHERE id = :id AND user = :user", $values);
 				return true;
 			} catch(\PDOException $e) {
-                $errors[] = 'No se ha podido quitar la web ' . $this->id . ' del usuario ' . $this->user . ' ' . $e->getMessage();
-                //Text::get('remove-user_web-fail');
+                $errors[] = Text::_('No se ha podido quitar la web ') . $this->id . Text::_(' del usuario ') . $this->user . ' ' . $e->getMessage();
+                //;
                 return false;
 			}
 		}

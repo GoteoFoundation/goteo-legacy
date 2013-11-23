@@ -18,8 +18,36 @@
  *
  */
 
-
 namespace {
+
+	require_once("core/registry.php");
+
+
+	class GoteoLogLevel {
+		const DEBUG = 10;
+		const INFO = 20;
+		const NOTICE = 25;
+		const WARNING = 30;
+		const ERROR = 40;
+		const CRITICAL = 50;
+	};
+
+	class TinyLogger {
+		var $level_cutoff;
+
+		public function __construct($cutoff = GoteLogLevel::DEBUG) {
+			$this->level_cutoff = $cutoff;
+		}
+
+		public function log($msg, $level) {
+			if($level >= $this->level_cutoff) {
+				error_log($msg);
+			}
+		}
+	}
+
+	$logger = new TinyLogger(GoteoLogLevel::DEBUG);
+	Goteo\Core\Registry::set('log', $logger);
 
     /**
      * Traza información sobre el recurso especificado de forma legible.
@@ -38,6 +66,10 @@ namespace {
     function dump ($resource = null) {
         echo '<pre>' . var_dump($resource) . '</pre>';
     }
+
+	function _log($msg, $level = GoteoLogLevel::DEBUG) {
+		Goteo\Core\Registry::get('log')->log($msg, $level);
+	}
 
     /**
      * Genera un mktime (UNIX_TIMESTAMP) a partir de una fecha (DATE/DATETIME/TIMESTAMP)

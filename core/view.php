@@ -29,7 +29,7 @@ namespace Goteo\Core {
         public function __construct ($file, $vars = null) {
             
             if (!is_file($file)) {                
-                throw new View\Exception("La vista no exists: `{$file}`");            
+                throw new View\Exception(Text::_("La vista no exists:")." `{$file}`");            
             }
             
             $this->file = $file;

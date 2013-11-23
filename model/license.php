@@ -114,8 +114,7 @@ namespace Goteo\Model {
 
         public function validate (&$errors = array()) { 
             if (empty($this->name))
-                $errors[] = 'Falta nombre';
-                //Text::get('mandatory-license-name');
+                $errors[] = Text::_('Falta nombre');
 
             if (empty($errors))
                 return true;
@@ -159,7 +158,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }

@@ -96,12 +96,10 @@ namespace Goteo\Model\User {
 		public function validate(&$errors = array()) {
             // Estos son errores que no permiten continuar
             if (empty($this->id))
-                $errors[] = 'No hay ningun interes para guardar';
-                //Text::get('validate-interest-noid');
+                $errors[] = Text::_('No hay ningun interes para guardar');
 
             if (empty($this->user))
-                $errors[] = 'No hay ningun usuario al que asignar';
-                //Text::get('validate-interest-nouser');
+                $errors[] = Text::_('No hay ningun usuario al que asignar');
 
             //cualquiera de estos errores hace fallar la validación
             if (!empty($errors))
@@ -120,7 +118,7 @@ namespace Goteo\Model\User {
 				self::query($sql, $values);
 				return true;
 			} catch(\PDOException $e) {
-				$errors[] = "El interés {$this->id} no se ha asignado correctamente. Por favor, revise los datos." . $e->getMessage();
+				$errors[] = Text::_("El interés no se ha asignado correctamente. Por favor, revise los datos.") . $e->getMessage();
 				return false;
 			}
 

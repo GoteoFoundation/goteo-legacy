@@ -55,12 +55,10 @@ namespace Goteo\Model\User {
 		public function validate(&$errors = array()) {
             // Estos son errores que no permiten continuar
             if (empty($this->id))
-                $errors[] = 'No hay una revision para asignar';
-                //Text::get('validate-review-noid');
+                $errors[] = Text::_('No hay una revision para asignar');
 
             if (empty($this->user))
-                $errors[] = 'No hay ningun usuario al que asignar';
-                //Text::get('validate-review-nouser');
+                $errors[] = Text::_('No hay ningun usuario al que asignar');
 
             //cualquiera de estos errores hace fallar la validación
             if (!empty($errors))
@@ -79,7 +77,7 @@ namespace Goteo\Model\User {
 				self::query($sql, $values);
 				return true;
 			} catch(\PDOException $e) {
-				$errors[] = "La revisión {$this->id} no se ha asignado correctamente. Por favor, revise el metodo User\Review->save." . $e->getMessage();
+				$errors[] = Text::_("La revisión no se ha asignado correctamente. Por favor, revise el metodo User\Review->save.") . $e->getMessage();
 				return false;
 			}
 

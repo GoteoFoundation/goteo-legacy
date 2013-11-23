@@ -123,18 +123,11 @@ namespace Goteo\Model {
 
 
         public function validate (&$errors = array()) {
-            /*
-            if (empty($this->node))
-                $errors[] = 'Falta nodo';
-                //Text::get('mandatory-banner-node');
-*/
             if (empty($this->project))
-                $errors[] = 'Falta proyecto';
-                //Text::get('validate-banner-noproject');
+                $errors[] = Text::_('Falta proyecto');
 
             if (empty($this->image))
-                $errors[] = 'Falta imagen';
-                //Text::get('validate-banner-noproject');
+                $errors[] = Text::_('Falta imagen');
 
             if (empty($errors))
                 return true;
@@ -176,7 +169,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }

@@ -138,7 +138,7 @@ namespace Goteo\Model {
                     if(empty($this->id)) $this->id = self::insertId();
                     return true;
             	} catch(\PDOException $e) {
-                    $errors[] = "No se ha podido guardar el archivo en la base de datos: " . $e->getMessage();
+                    $errors[] = Text::_("No se ha podido guardar el archivo en la base de datos: ") . $e->getMessage();
                     return false;
     			}
             }

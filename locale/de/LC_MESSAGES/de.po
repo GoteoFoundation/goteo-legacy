@@ -1,0 +1,246 @@
+msgid "Comentarios"
+msgstr "Kommentare"
+
+msgid "Comentarios"
+msgstr "Kommentare"
+
+msgid "No hay comentarios en esta entrada"
+msgstr "Zu diesem Eintrag gibt es keine Kommentare"
+
+msgid "No hay comentarios en esta entrada"
+msgstr "Zu diesem Eintrag gibt es keine Kommentare"
+
+msgid "Sin comentarios"
+msgstr "Ohne Kommentare"
+
+msgid "Sin comentarios"
+msgstr "Ohne Kommentare"
+
+msgid "Sin comentarios"
+msgstr "Ohne Kommentare"
+
+msgid "Sin comentarios"
+msgstr "Ohne Kommentare"
+
+msgid "Escribe tu comentario"
+msgstr "Verfasse deinen Kommentar"
+
+msgid "Escribe tu comentario"
+msgstr "Verfasse deinen Kommentar"
+
+msgid "Enviar"
+msgstr "Senden"
+
+msgid "Enviar"
+msgstr "Senden"
+
+msgid "No se permiten comentarios en  esta entrada"
+msgstr "Zu diesem Eintrag sind keine Kommentare erlaubt"
+
+msgid "No se permiten comentarios en  esta entrada"
+msgstr "Zu diesem Eintrag sind keine Kommentare erlaubt"
+
+msgid "Últimas entradas"
+msgstr "Letzte Einträge"
+
+msgid "Últimas entradas"
+msgstr "Letzte Einträge"
+
+msgid "Categorías"
+msgstr "Kategorien"
+
+msgid "Categorías"
+msgstr "Kategorien"
+
+msgid "Últimos comentarios"
+msgstr "Letzte Kommentare"
+
+msgid "Últimos comentarios"
+msgstr "Letzte Kommentare"
+
+msgid "No se ha publicado ninguna entrada "
+msgstr "Es wurde kein Eintrag veröffentlicht"
+
+msgid "No se ha publicado ninguna entrada "
+msgstr "Es wurde kein Eintrag veröffentlicht"
+
+msgid "No se ha publicado ninguna entrada "
+msgstr "Es wurde kein Eintrag veröffentlicht"
+
+msgid "No se ha publicado ninguna entrada "
+msgstr "Es wurde kein Eintrag veröffentlicht"
+
+msgid "Una iniciativa de:"
+msgstr "Eine Initiative von:"
+
+msgid "Una iniciativa de:"
+msgstr "Eine Initiative von:"
+
+msgid "Categorías"
+msgstr "Kategorien"
+
+msgid "Categorías"
+msgstr "Kategorien"
+
+msgid "Proyectos"
+msgstr "Projekte"
+
+msgid "Proyectos"
+msgstr "Projekte"
+
+msgid "Destacados"
+msgstr "Ausgewählte Projekte"
+
+msgid "Destacados"
+msgstr "Ausgewählte Projekte"
+
+msgid "Recursos"
+msgstr "Ressourcen"
+
+msgid "Recursos"
+msgstr "Ressourcen"
+
+msgid "Glosario"
+msgstr "Glossar"
+
+msgid "Glosario"
+msgstr "Glossar"
+
+msgid "Prensa"
+msgstr "Presse"
+
+msgid "Prensa"
+msgstr "Presse"
+
+msgid "Apoyos institucionales"
+msgstr "Institutionelle Unterstützung"
+
+msgid "Apoyos institucionales"
+msgstr "Institutionelle Unterstützung"
+
+msgid "Servicios"
+msgstr "Dienstleistungen"
+
+msgid "Servicios"
+msgstr "Dienstleistungen"
+
+msgid "Capital riego"
+msgstr "Risikokapital"
+
+msgid "Capital riego"
+msgstr "Risikokapital"
+
+msgid "Campañas"
+msgstr "Kampagnen"
+
+msgid "Campañas"
+msgstr "Kampagnen"
+
+msgid "Consultoría"
+msgstr "Beratung"
+
+msgid "Consultoría"
+msgstr "Beratung"
+
+msgid "Talleres"
+msgstr "Workshops"
+
+msgid "Talleres"
+msgstr "Workshops"
+
+msgid "Síguenos"
+msgstr "Folge uns"
+
+msgid "Síguenos"
+msgstr "Folge uns"
+
+msgid "Contacto"
+msgstr "Kontakt"
+
+msgid "Contacto"
+msgstr "Kontakt"
+
+msgid "Términos legales"
+msgstr "Rechtliche Bestimmungen"
+
+msgid "Términos legales"
+msgstr "Rechtliche Bestimmungen"
+
+msgid "Condiciones de uso"
+msgstr "Nutzungsbedingungen"
+
+msgid "Condiciones de uso"
+msgstr "Nutzungsbedingungen"
+
+msgid "Política de privacidad"
+msgstr "Datenschutz"
+
+msgid "Política de privacidad"
+msgstr "Datenschutz"
+
+msgid "Una iniciativa de:"
+msgstr "Eine Initiative von:"
+
+msgid "Una iniciativa de:"
+msgstr "Eine Initiative von:"
+
+msgid "Glosario"
+msgstr "Glossar"
+
+msgid "Glosario"
+msgstr "Glossar"
+
+msgid "Comunidad"
+msgstr "Community"
+
+msgid "Comunidad"
+msgstr "Community"
+
+msgid "Actividad"
+msgstr "Aktivitäten"
+
+msgid "Actividad"
+msgstr "Aktivitäten"
+
+msgid "Compartiendo"
+msgstr "Teilen"
+
+msgid "Compartiendo"
+msgstr "Teilen"
+
+msgid "Comunidad"
+msgstr "Community"
+
+msgid "Comunidad"
+msgstr "Community"
+
+msgid "Mi panel"
+msgstr "Mein Menü"
+
+msgid "Mi panel"
+msgstr "Mein Menü"
+
+msgid "Destacados"
+msgstr "Ausgewählte Projekte"
+
+msgid "Destacados"
+msgstr "Ausgewählte Projekte"
+
+msgid "Últimas entradas"
+msgstr "Letzte Einträge"
+
+msgid "Últimas entradas"
+msgstr "Letzte Einträge"
+
+msgid "Sin comentarios"
+msgstr "Ohne Kommentare"
+
+msgid "Sin comentarios"
+msgstr "Ohne Kommentare"
+
+msgid "No se ha publicado ninguna entrada "
+msgstr "Es wurde kein Eintrag veröffentlicht"
+
+msgid "No se ha publicado ninguna entrada "
+msgstr "Es wurde kein Eintrag veröffentlicht"
+

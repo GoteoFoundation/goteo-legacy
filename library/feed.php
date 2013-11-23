@@ -289,11 +289,11 @@ namespace Goteo\Library {
             $per_id = array('sec', 'min', 'hour', 'day', 'week', 'month', 'year', 'dec');
 
             $per_txt = array();
-            foreach (\explode('_', Text::get('feed-timeago-periods')) as $key=>$grptxt) {
+            foreach (\explode('_', Text::_("segundo-segundos_minuto-minutos_hora-horas_día-días_semana-semanas_mes-meses_año-años_década-décadas")) as $key=>$grptxt) {
                 $per_txt[$per_id[$key]] = \explode('-', $grptxt);
             }
 
-            $justnow = Text::get('feed-timeago-justnow');
+            $justnow = Text::_("nada");
 
             $retval = '';
             $date = strtotime($date);

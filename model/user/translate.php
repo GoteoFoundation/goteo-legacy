@@ -76,10 +76,10 @@ namespace Goteo\Model\User {
 		public function validate(&$errors = array()) {
             // Estos son errores que no permiten continuar
             if (empty($this->id))
-                $errors[] = 'No hay una traducción para asignar';
+                $errors[] = Text::_('No hay una traducción para asignar');
 
             if (empty($this->user))
-                $errors[] = 'No hay ningun usuario al que asignar';
+                $errors[] = Text::_('No hay ningun usuario al que asignar');
 
             //cualquiera de estos errores hace fallar la validación
             if (!empty($errors))
@@ -98,7 +98,7 @@ namespace Goteo\Model\User {
 				self::query($sql, $values);
 				return true;
 			} catch(\PDOException $e) {
-				$errors[] = "La traducción {$this->id} no se ha asignado correctamente. Por favor, revise el metodo User\Translate->save." . $e->getMessage();
+				$errors[] = Text::_('La traducción no se ha asignado correctamente. Por favor, revise el metodo User\Translate->save.') .$e->getMessage();
 				return false;
 			}
 
@@ -122,8 +122,8 @@ namespace Goteo\Model\User {
                 self::query("DELETE FROM user_translate WHERE project = :project AND user = :user", $values);
 				return true;
 			} catch(\PDOException $e) {
-                $errors[] = 'No se ha podido desasignar la traduccion ' . $this->id . ' del usuario ' . $this->user . ' ' . $e->getMessage();
-                //Text::get('remove-review-fail');
+                $errors[] = Text::_('No se ha podido desasignar la traduccion ') . $this->id . Text::_(' del usuario ') . $this->user . ' ' . $e->getMessage();
+                //;
                 return false;
 			}
 		}
@@ -146,7 +146,7 @@ namespace Goteo\Model\User {
 				return true;
 			} catch(\PDOException $e) {
                 $errors[] = 'No se ha podido marcar la traduccion ' . $this->id . ' del usuario ' . $this->user . ' como lista. ' . $e->getMessage();
-                //Text::get('review-set_ready-fail');
+                //;
                 return false;
 			}
 		}
@@ -169,7 +169,7 @@ namespace Goteo\Model\User {
 				return true;
 			} catch(\PDOException $e) {
                 $errors[] = 'No se ha podido reabrir la revision ' . $this->id . ' del usuario ' . $this->user . '. ' . $e->getMessage();
-                //Text::get('review-set_unready-fail');
+                //;
                 return false;
 			}
 		}

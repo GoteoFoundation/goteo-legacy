@@ -87,12 +87,10 @@ namespace Goteo\Model {
 
         public function validate (&$errors = array()) { 
             if (empty($this->title))
-                $errors[] = 'Falta título';
-                //Text::get('mandatory-news-title');
+                $errors[] = Text::_('Falta título');
 
             if (empty($this->url))
-                $errors[] = 'Falta url';
-                //Text::get('mandatory-news-url');
+                $errors[] = Text::_('Falta url');
 
             if (empty($errors))
                 return true;
@@ -129,7 +127,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }

@@ -1,0 +1,1962 @@
+msgid "La entrada se ha actualizado correctamente"
+msgstr "L''entrée a été actualisée correctement."
+
+msgid "Se ha añadido una nueva entrada"
+msgstr "A été ajouté une nouvelle entrée"
+
+msgid "Ha habido algun problema al guardar los datos"
+msgstr "Problème pour sauvegarder les données"
+
+msgid "No se ha encontrado la entrada"
+msgstr "Pas d''entrées trouvées"
+
+msgid "La entrada está corrupta, contacta con nosotros"
+msgstr "L''entrée est corrompu, contactez-nous"
+
+msgid "La entrada está corrupta, contacta con nosotros"
+msgstr "L''entrée est corrompu, contactez-nous"
+
+msgid "La entrada está corrupta, contacta con nosotros"
+msgstr "L''entrée est corrompu, contactez-nous"
+
+msgid "Información de perfil actualizada"
+msgstr "Information de profil actualisé"
+
+msgid "Datos personales actualizados"
+msgstr "Données personnelles actualisées"
+
+msgid "Te hemos enviado un email para que confirmes el cambio de dirección electrónica"
+msgstr "Nous vous avons envoyé un email de confirmation de changement d''adresse électronique"
+
+msgid "Has cambiado tu contraseña"
+msgstr "Vous avez changer votre mot de passe"
+
+msgid "Ha habido algun problema al guardar los datos"
+msgstr "Problème pour sauvegarder les données."
+
+msgid "Tus preferencias de notificación se han guardado correctamente"
+msgstr "Vos préférences de notifications ont été sauvegardé correctement"
+
+msgid "Asegúrate de reestablecer tu contraseña"
+msgstr "Assurez-vous de réinitialiser votre mot de passe"
+
+msgid "Lo sentimos, aún no se pueden publicar novedades en este proyecto..."
+msgstr "Désolé nous ne pouvons pas publier de nouveautés à propos de ce projet..."
+
+msgid "Contacta con nosotr*s"
+msgstr "Contactez-nous"
+
+msgid "Lo sentimos, la publicación de novedades en este proyecto está desactivada"
+msgstr "Désolé, la publication de nouveautés sur ce projet a été desactivée"
+
+msgid "No se ha encontrado ningún blog para este proyecto"
+msgstr "Il n''y a pas de blog pour ce projet"
+
+msgid "Escribe el mensaje"
+msgstr "Ecrire le message"
+
+msgid "No se han encontrado destinatarios"
+msgstr "Il n''y pas de destinataires"
+
+msgid "La entrada se ha actualizado correctamente"
+msgstr "L''entrée a été actualisée correctement."
+
+msgid "Se ha añadido una nueva entrada"
+msgstr "A été ajouté une nouvelle entrée"
+
+msgid "Novedades"
+msgstr "Nouveautés"
+
+msgid "Novedades"
+msgstr "Nouveautés"
+
+msgid "Ha habido algun problema al guardar los datos"
+msgstr "Problème pour sauvegarder les données"
+
+msgid "No se ha encontrado la entrada"
+msgstr "Pas d''entrées trouvées"
+
+msgid "La entrada está corrupta, contacta con nosotros"
+msgstr "L''entrée est corrompu, contactez-nous"
+
+msgid "Entrada eliminada"
+msgstr "Entrée éliminée"
+
+msgid "Error al eliminar la entrada"
+msgstr "Erreur pour supprimer l''entrée"
+
+msgid "Mi actividad"
+msgstr "Mon activité"
+
+msgid "Resumen"
+msgstr "Résumé"
+
+msgid "Mi perfil"
+msgstr "Mon profil"
+
+msgid "Editar perfil"
+msgstr "Editer le profil"
+
+msgid "Datos personales"
+msgstr "Données personnelles"
+
+msgid "Datos de acceso"
+msgstr "Code d''accès"
+
+msgid "Preferencias"
+msgstr "Préférences"
+
+msgid "Perfil público"
+msgstr "Profil public"
+
+msgid "Mis proyectos"
+msgstr "Mes projets"
+
+msgid "Resumen"
+msgstr "Résumé"
+
+msgid "Novedades"
+msgstr "Nouveautés"
+
+msgid "Widget"
+msgstr "Widget"
+
+msgid "Cuenta bancaria"
+msgstr "Compte Bancaire"
+
+msgid "Gestión cofinanciadores"
+msgstr "Cofinanceurs"
+
+msgid "Colaboraciones"
+msgstr "Collaborations"
+
+msgid "Mis Traducciones"
+msgstr "Mes traductions"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Costes"
+msgstr "Coût"
+
+msgid "Colaboraciones"
+msgstr "Contributions"
+
+msgid "Novedades"
+msgstr "Nouveautés"
+
+msgid "Mis Traducciones"
+msgstr "Mes traductions"
+
+msgid "Administración"
+msgstr "Administration"
+
+msgid "Administración"
+msgstr "Administration"
+
+msgid "Revisión"
+msgstr "Révision"
+
+msgid "Revisión"
+msgstr "Révision"
+
+msgid "Traducción"
+msgstr "Traduction"
+
+msgid "Traducción"
+msgstr "Traduction"
+
+msgid "Más populares"
+msgstr "Populaires"
+
+msgid "A punto de ser archivado"
+msgstr "Sur le point d''etre archivés"
+
+msgid "Publicados recientemente"
+msgstr "Publiés récemment"
+
+msgid "Exitosos"
+msgstr "Réussis"
+
+msgid "Archivados"
+msgstr "Archivés"
+
+msgid "Anónimo"
+msgstr "Anonyme"
+
+msgid "Aun no se pueden enviar mensajes al proyecto"
+msgstr "vous ne pouvez pas encore envoyé des messages au projet "
+
+msgid "Mensajes"
+msgstr "Messages "
+
+msgid "Mensajes"
+msgstr "Messages "
+
+msgid "Mensajes"
+msgstr "Messages "
+
+msgid "Mensajes"
+msgstr "Messages "
+
+msgid "Previsualización"
+msgstr "Prévisualisation"
+
+msgid "Proyecto / Previsualización"
+msgstr "Projet / Prévisualisation"
+
+msgid "Promotor/a"
+msgstr "Porteur(se) du projet"
+
+msgid "Paso 2: Datos personales"
+msgstr "Etape 2: informations personnelles"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Costes"
+msgstr "Coût"
+
+msgid "Paso 4: Proyecto / Costes"
+msgstr "Étape 4 : Projet / Coûts"
+
+msgid "Colaboraciones"
+msgstr "Contributions"
+
+msgid "Paso 6: Proyecto / Colaboraciones"
+msgstr "Etape 6: Projet/ Contributions"
+
+msgid "Previsualización"
+msgstr "Prévisualisation"
+
+msgid "Proyecto / Previsualización"
+msgstr "Projet / Prévisualisation"
+
+msgid "Todos los campos obligatorios se han cumplimentado"
+msgstr "Tous les champs obligatoires sont remplis"
+
+msgid "Ha llegado al porcentaje mínimo"
+msgstr "Vous avez atteint le pourcentage minimum"
+
+msgid "Puede enviarse para revisión"
+msgstr "Vous pouvez envoyer votre projet pour être évalué"
+
+msgid "Aun no se pueden enviar mensajes al proyecto"
+msgstr "vous ne pouvez pas encore envoyé des messages au projet "
+
+msgid "Error de acceso"
+msgstr "Erreur d''accès"
+
+msgid "El email se ha cambiado con éxito ;)"
+msgstr "L''email a été changé avec succès :)"
+
+msgid "El código de recuperación de contraseña no es válido"
+msgstr "Le code de récupération du mot de passe n''est pas valide"
+
+msgid "El código para completar el proceso de baja no es válido"
+msgstr "Le code pour completer l´annulation de votre compte n''est pas valide"
+
+msgid "Una aproximación a Goteo"
+msgstr "à propos de Goteo"
+
+msgid "Anónimo"
+msgstr "Anonyme"
+
+msgid "Tarea"
+msgstr "Tâche"
+
+msgid "Infraestructura"
+msgstr "Infrastructure"
+
+msgid "Material"
+msgstr "Matériel"
+
+msgid "Tarea"
+msgstr "Tâche"
+
+msgid "Préstamo"
+msgstr "Prêt"
+
+msgid "El lugar de residencia del usuario no es válido"
+msgstr "Le lieu de résidence de l´utilisateur est invalide"
+
+msgid "Cuenta algo sobre ti, para mejorar la valoración del proyecto de cara a determinar si publicarlo en Goteo."
+msgstr "Racontez nous quelque chose sur vous, pour améliorer l''évaluation des projets afin de déterminer s''il seront publier sur Goteo."
+
+msgid "Es recomendable indicar alguna web"
+msgstr "Nous vous recommandons de mentionner au moins un site web personnel"
+
+msgid "Debes poner la dirección (URL) de la web"
+msgstr "Vous devez mettre l''adresse (URL) du site web"
+
+msgid "Es obligatorio poner el nombre de la/el responsable del proyecto"
+msgstr "Il est obligatoire de mettre le nom du responsable du projet"
+
+msgid "Es obligatorio poner el documento de identificación de la/el responsable del proyecto"
+msgstr "Il est obligatoire de mettre le justificatif d''identité du responsable de projet"
+
+msgid "El NIF no es correcto."
+msgstr "Le numéro fiscal n''est pas correct"
+
+msgid "Es obligatorio poner el email de la/el responsable del proyecto."
+msgstr "Il est obligatoire de mettre l''email du responsable de projet"
+
+msgid "Es obligatorio poner el cargo que tienes dentro la organización que vas a representar"
+msgstr "Il est obligatoire de renseigner votre rôle dans la structure que vous allez représenter"
+
+msgid "Es obligatorio poner el nombre de la organización"
+msgstr "Il est obligatoire de mettre le nom de la structure"
+
+msgid "Es obligatorio poner el CIF de la entidad jurídica"
+msgstr "Il est obligatoire de mettre le numéro de l''identité juridique"
+
+msgid "El CIF no es válido"
+msgstr "Numéro non valide"
+
+msgid "Es obligatorio poner la fecha de nacimiento del responsable del proyecto"
+msgstr "Il est obligatoire de mettre la date de naissance du responsable du projet"
+
+msgid "El teléfono de la/el responsable del proyecto es obligatorio"
+msgstr "Le téléphone du responsable de projet est obligatoire"
+
+msgid "El formato de número de teléfono no es correcto."
+msgstr "Le format du numéro de téléphone n''est pas correct"
+
+msgid "La dirección de la/el responsable del proyecto es obligatoria"
+msgstr "L''adresse du responsable du projet est obligatoire"
+
+msgid "El código postal de la/el responsable del proyecto es obligatorio"
+msgstr "Le code postal du responsable de projet est obligatoire"
+
+msgid "Es obligatorio poner el lugar de residencia de la/el responsable del proyecto"
+msgstr "Il est obligatoire de mettre le lieu de résidence du responsable de projet"
+
+msgid "El país de la/el responsable del proyecto es obligatorio"
+msgstr "Le pays du responsable de projet est obligatoire"
+
+msgid "Es obligatorio poner un nombre al proyecto"
+msgstr "Il est obligatoire de donner un nom au projet"
+
+msgid "Es obligatorio vincular una imagen como mínimo al proyecto. "
+msgstr "Il est obligatoire de mettre au moins une photo illustrant le projet"
+
+msgid "Es obligatorio resumir el proyecto"
+msgstr "Il est obligatoire de résumer le projet"
+
+msgid "La descripción del proyecto es demasiado corta"
+msgstr "La description du projet est trop courte"
+
+msgid "Es obligatorio explicar las características básicas del proyecto"
+msgstr "Il est obligatoire d''expliquer les caractéristiques de base du projet"
+
+msgid "La explicación del proyecto es demasiado corta"
+msgstr "L''explication du projet est trop courte"
+
+msgid "Es obligatorio explicar la motivación en la descripción del proyecto"
+msgstr "Il est obligatoire d''expliquer votre motivation dans la description du projet"
+
+msgid "Es obligatorio elegir al menos una categoria para el proyecto."
+msgstr "Il est obligatoire de choisir au moins une catégorie pour le projet. "
+
+msgid "Es obligatorio poner el alcance potencial del proyecto"
+msgstr "Il est obligatoire de renseigner les répercussions géographiques potentielles du projet"
+
+msgid "Es obligatorio ponerle un nombre al coste"
+msgstr "Il est obligatoire de nommer le coût"
+
+msgid "Es obligatorio poner alguna descripción a los costes"
+msgstr "Il est obligatoire d''écrire une description aux coûts"
+
+msgid "Es obligatorio asignar un importe a los costes"
+msgstr "Il est obligatoire d''attribuer un montant aux coûts"
+
+msgid "Es obligatorio especificar las fechas aproximadas de la tarea"
+msgstr "Il est obligatoire de préciser les dates approximatives de la tâche"
+
+msgid "Falta alguna información en el desglose de costes"
+msgstr "Il manque quelques informations sur le détail des coûts"
+
+msgid "Es obligatorio especificar algún coste"
+msgstr "Il est obligatoire de préciser un coût"
+
+msgid "Es obligatorio especificar si cuentas con otros recursos o no"
+msgstr "Il est obligatoire de préciser si vous avez d''autres ressources"
+
+msgid "Avanzado"
+msgstr "Avancé"
+
+msgid "Finalizado"
+msgstr "Finalisé"
+
+msgid "Global"
+msgstr "Global"
+
+msgid "Descartado"
+msgstr "Rejeté"
+
+msgid "Editándose"
+msgstr "En cours d´édition"
+
+msgid "Pendiente de valoración"
+msgstr "En cours de validation"
+
+msgid "En campaña"
+msgstr "En campagne"
+
+msgid "Financiado"
+msgstr "Cofinancé"
+
+msgid "Retorno cumplido"
+msgstr "Retombée effectuée"
+
+msgid "Archivado"
+msgstr "Archivé"
+
+msgid "Finalmente hemos desestimado la propuesta para publicarla en Goteo, te invitamos a intentarlo con otra idea o concepto."
+msgstr "Finalement, nous avons rejeté votre proposition de publication sur goteo, nous vous invitons à essayer avec une autre idée ou concept."
+
+msgid "Cuando lo tengas listo mándalo a revisión. Necesitas llegar a un mínimo de información sobre el proyecto en el formulario."
+msgstr "Quand il sera prêt, envoie-le pour qu''il se fasse évaluer. Vous devez mettre un minimum d''informations sur le projet dans ce formulaire."
+
+msgid "En breve nos pondremos en contacto contigo respecto al proyecto, una vez se lleve a cabo el proceso de revisión. A continuación lo publicaremos o bien te sugeriremos cosas para mejorarlo."
+msgstr "En bref, nous prendrons contact avec vous au sujet de ce projet, une fois terminé le processus d''évaluation. Pour la suite, nous le publierons ou vous solliciterons pour le modifier."
+
+msgid "Difunde tu proyecto, ayuda a que consiga el máximo de aportaciones!"
+msgstr "Diffusez votre projet, aidez à trouver un maximum d''apport"
+
+msgid "Has conseguido el mínimo o más en aportes de cofinanciación para el proyecto. Enseguida te contactaremos para hablar de dinero :)"
+msgstr "Vous avez réussi à obtenir le minimum ou plus d''apport de cofinancement pour ce projet. Nous vous contacterons pour parler argent :)"
+
+msgid "Has cumplido con los retornos :) Gracias por tu participación!"
+msgstr "Vous avez terminé vos retours. Merci de votre participation!"
+
+msgid "No lo conseguiste :( Trata de mejorarlo e inténtalo de nuevo!"
+msgstr "Vous n''avez pas réussi : essayer d''améliorer ou d''essayer de nouveau !"
+
+msgid "Es obligatorio escribir un nombre de acceso"
+msgstr "C''est d''écrire un nom pour accèder"
+
+msgid "Este nombre de usuario ya está registrado."
+msgstr "Le nom d''utilisateur choisi n''est pas disponible."
+
+msgid "El nombre público es obligatorio."
+msgstr "Le nom publique est obligatoire."
+
+msgid "El email introducido no es válido"
+msgstr "L''adresse email introduite n''est pas valide"
+
+msgid "Sobre Goteo"
+msgstr "a propos"
+
+msgid "Subir imagen"
+msgstr "Envoyer image"
+
+msgid "Imágenes actuales"
+msgstr "Images actuelles"
+
+msgid "Texto tooltip-updates-tags"
+msgstr "Texte tooltip-updates-tags"
+
+msgid "tooltip-updates-allow_comments"
+msgstr "tooltip-updates-allow_comments"
+
+msgid "Texto tooltip-updates-home"
+msgstr "Texte tooltip-updates-home"
+
+msgid "Imágenes actuales"
+msgstr "Images actuelles"
+
+msgid "Imágenes actuales"
+msgstr "Images actuelles"
+
+msgid "No se permiten comentarios en  esta entrada"
+msgstr "..."
+
+msgid "Categorías"
+msgstr "Categories"
+
+msgid "Actividad reciente"
+msgstr "Activité récente"
+
+msgid "Proyectos"
+msgstr "Projets"
+
+msgid "Comunidad"
+msgstr "Communauté"
+
+msgid "Compartiendo intereses"
+msgstr "Intérêts partagés "
+
+msgid "proyectos"
+msgstr "Projets"
+
+msgid "Aportando"
+msgstr "Apporté"
+
+msgid "Ver perfil"
+msgstr "Voir le profil"
+
+msgid "Mis proyectos"
+msgstr "Mes projets"
+
+msgid "Proyectos que apoyo"
+msgstr "Projets que j''appuie"
+
+msgid "CÓDIGO DIFUSIÓN SIMPLE"
+msgstr "Code diffusion simple"
+
+msgid "CÓDIGO CON IMAGEN DE COFINANCIADOR"
+msgstr "Code avec une image du cofinanceur"
+
+msgid "Mi panel"
+msgstr "Dashboard"
+
+msgid "Mi panel"
+msgstr "Dashboard"
+
+msgid "Contraseña actual"
+msgstr "Mot de passe actuel"
+
+msgid "Datos de acceso"
+msgstr "Code d''accès"
+
+msgid "Nombre de acceso"
+msgstr "login"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Cambiar email"
+msgstr "Changer l''email"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Confirmar email"
+msgstr "Confirmer l''email"
+
+msgid "Aplicar"
+msgstr "Valider"
+
+msgid "Cambiar contraseña"
+msgstr "Changer le mot de passe"
+
+msgid "Nueva contraseña"
+msgstr "Nouveau mot de passe"
+
+msgid "Confirmar nueva contraseña"
+msgstr "Confirmer ce nouveau mot de passe"
+
+msgid "Aplicar"
+msgstr "Valider"
+
+msgid "Cancelar la cuenta"
+msgstr "Annuler le compte"
+
+msgid "Aplicar"
+msgstr "Valider"
+
+msgid "Nombre y apellidos"
+msgstr "Nom et prénom "
+
+msgid "Deben ser tu nombre y apellidos reales. Ten en cuenta que figurarás como responsable del proyecto."
+msgstr "Indiquez vos véritables noms et prénoms. Notez que vous apparaîtrez comme responsable du projet. "
+
+msgid "Teléfono"
+msgstr "Téléphone"
+
+msgid "Número de teléfono móvil o fijo, con su prefijo de marcado."
+msgstr "Numéro de téléphone mobile ou fixe (indiquer le préfixe)"
+
+msgid "Dirección"
+msgstr "Adresse"
+
+msgid "Código postal"
+msgstr "Code postal"
+
+msgid "Localidad"
+msgstr "Localité"
+
+msgid "País"
+msgstr "Pays"
+
+msgid "Marca ''Sí'' en las notificaciones automáticas que quieras bloquear"
+msgstr "Cocher ''Oui'' sur les notifications automatiques que vous voulez bloquer"
+
+msgid "Aplicar"
+msgstr "Valider"
+
+msgid "Bloquear notificaciones de novedades sobre los proyectos que apoyo"
+msgstr "Bloquer les notifications de nouveautés sur les projets que je soutiens"
+
+msgid "Bloquear notificaciones de respuestas en los mensajes que yo inicio"
+msgstr "Bloquer les notifications de réponses aux messages que je lance"
+
+msgid "Bloquear notificaciones de progreso de los proyectos que apoyo"
+msgstr "Bloquer les notifications d''avancement sur les projets que je soutiens"
+
+msgid "Bloquear el envio de newsletter"
+msgstr "Bloquer l''envoi de la newsletter"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "Tanto si quieres presentar un proyecto como incorporarte como cofinanciador/a, para formar parte de la comunidad de Goteo te recomendamos que pongas atención en tu texto de presentación, que añadas links relevantes sobre lo que haces y subas una imagen de perfil con la que te identifiques."
+msgstr "Si vous voulez présenter un projet ou participer comme cofinanceur, pour faire partie de la communauté de Goteo, nous vous recommandons de porter attention à votre texte de présentation, que vous ajoutiez les liens pertinents sur vos activités et que vous ajoutiez une image permettant de vous identifier."
+
+msgid "Aplicar"
+msgstr "Valider"
+
+msgid "No es obligatorio que pongas una fotografía en tu perfil, pero ayuda a que los demás usuarios te identifiquen."
+msgstr "Il n''est pas obligatoire de mettre une photo sur votre profil, mais ça aide les autres utilisateurs à vous identifier "
+
+msgid "Subir imagen"
+msgstr "Envoyer image"
+
+msgid "No es obligatorio que pongas una fotografía en tu perfil, pero ayuda a que los demás usuarios te identifiquen."
+msgstr "Il n''est pas obligatoire de mettre une photo sur votre profil, mais ça aide les autres utilisateurs à vous identifier "
+
+msgid "Cuéntanos algo sobre ti"
+msgstr "Racontez nous quelque chose sur vous"
+
+msgid "Como red social, Goteo pretende ayudar a difundir y financiar proyectos interesantes entre el máximo de gente posible. Para eso es importante la información que puedas compartir sobre tus habilidades o experiencia (profesional, académica, aficiones, etc).\r\n"
+msgstr "En tant que réseau social Goteo aspire à être un facteur important dans la diffusion et financement des projets intéressants auprés d un maximaum de gens possible. De là l´importance de partager les informations sur vos compétences ou votre expérience (professionnelle, académique, loisirs, etc.)"
+
+msgid "A medida que introduzcas texto el sistema te sugerirá palabras clave que ya han escrito otros usuarios. Estas categorías ayudan a vincular tu perfil con otras personas y con proyectos concretos."
+msgstr "A mesure que vous introduisez le texte, le système suggère des mots clefs proposés par d''autres utilisateurs. Ces catégories participes à véhiculer le profil avec d''autres personnes et des projets concrets.\r\n"
+
+msgid "Explica brevemente tus habilidades o los ámbitos en que podrías ayudar a un proyecto (traduciendo, difundiendo, testeando, programando, enseñando, etc)."
+msgstr "Expliquez brièvement vos compétences ou les domaines dans les quels vous pouvez être utile dans un projet (traduction, diffusion, tests, programmation, enseignement, etc.)"
+
+msgid "Añadir"
+msgstr "Ajouter"
+
+msgid "Esta red social puede ayudar a que difundas proyectos de Goteo que te interesan entre amigos y familiares."
+msgstr "Ce réseau social peut contribuer à la diffusion des projets sur publier Goteo parmis vos amis et familles."
+
+msgid "Esta red social puede ayudar a que difundas proyectos de Goteo de manera ágil y viral."
+msgstr "Ce réseau social peut contribuer à la diffusion des projets sur publier Goteo d´une manière rapide et virale."
+
+msgid "Este canal puede ayudar a que difundas proyectos de Goteo entre la comunidad afín al software libre."
+msgstr "Ce canal peut aider à la difusion des projets publier sur Goteo parmi les communautés liés au logiciel libre."
+
+msgid "Esta red social puede ayudar a que difundas proyectos de Goteo que te interesan entre contactos profesionales."
+msgstr "Ce réseau social peut contribuer à la diffusion des projets sur publier Goteo qui vous interese parmi vos contacts profesionels."
+
+msgid "Aplicar"
+msgstr "Valider"
+
+msgid "Anónimo"
+msgstr "Anonyme"
+
+msgid "Ver perfil"
+msgstr "Voir le profil"
+
+msgid "Enviar"
+msgstr "Envoyer \r\n"
+
+msgid "Página pública"
+msgstr "Page publique"
+
+msgid "¿Seguro que deseas eliminar absoluta y definitivamente este proyecto?"
+msgstr "Vous voulez-vous vraiment supprimer définitivement ce projet ?"
+
+msgid "Estado del proyecto"
+msgstr "Stade du projet"
+
+msgid "Resumen"
+msgstr "Résumé"
+
+msgid "Título descriptivo sobre la colaboración necesaria."
+msgstr "Titre descriptif de la contribution recherchée"
+
+msgid "Tipo de ayuda"
+msgstr "Type d''aide"
+
+msgid "Selecciona si el proyecto necesita ayuda en tareas concretas  o bien préstamos (de material, infraestructura, etc).  "
+msgstr "Sélectionnez si le projet nécessite de l''aide sur des tâches concrètes ou via du prêt (de matériel, d''infrastructure, etc)"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Explica brevemente en qué consiste la ayuda que necesita el proyecto, para facilitar que la gente la reconozca y se anime a colaborar. \r\n"
+msgstr "Expliquez brièvement de quelle aide le projet a besoin pour aider les gens à l''identifier et leur donner envie de contribuer"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "<strong>En este apartado puedes especificar qué otras ayudas, aparte de financiación, se necesitan para llevar a cabo el proyecto.</strong><br><br> Pueden ser tareas o acciones a cargo de otras personas (traducciones, gestiones, difusión, etc), o bien préstamos específicos (de material, transporte, hardware, etc)."
+msgstr "<strong> Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. </strong><br><br> \r\nDans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. \r\nCes besoins peuvent prendre la forme de tâches ou d''actions réalisables par d''autres personnes (traduction, gestion, diffiusion, etc.), ou de prêts (de matériel informatique, pour le transport, etc.)"
+
+msgid "Colaboraciones"
+msgstr "Contributions"
+
+msgid "En Goteo los proyectos pueden recibir otro tipo de ayudas además de aportaciones monetarias. Hay gente que a lo mejor no puede ayudar económicamente pero sí con su talento, tiempo, energía, etc."
+msgstr "Dans Goteo, les projets peuvent recevoir d''autres formes d''aides en plus de soutiens financiers. Certaines personnes peuvent ne pas soutenir économiquement les projets mais les aider avec leur talent, temps, énergie etc..."
+
+msgid "Añadir"
+msgstr "Ajouter"
+
+msgid "<b>Es muy importante que los proyectos mantengan informados a sus cofinanciadores y el resto de personas potencialmente interesadas sobre cómo avanza su campaña. Desde este apartado puedes publicar mensajes de actualización sobre el proyecto, como una especie de blog público.</b>\r\n\r\nEn Goteo además, una vez se han logrado los fondos mínimos, para la segunda ronda de cofinanciación es crítico explicar regularmente cómo ha arrancado la producción, avances, problemas, etc que permitan la mayor transparencia posible y saber cómo evoluciona el inicio del proyecto, para así tratar de generar más interés y comunidad en torno al mismo."
+msgstr "<b>C''est très important que les projets maintiennent des informations aux cofinanceurs et au reste des personnes potentiellement intéressées sur l''avancée de la campagne. Depuis ce paragraphe, vous pouvez publier des messages actualisant votre projet , comme une sorte de blog public.</b> De plus, dans Goteo une fois les fonds mininums "
+
+msgid "Subir imagen"
+msgstr "Envoyer image"
+
+msgid "Imágenes actuales"
+msgstr "Images actuelles"
+
+msgid "Enviar"
+msgstr "Envoyer"
+
+msgid "tooltip-updates-allow_comments"
+msgstr "tooltip-updates-allow_comments"
+
+msgid "publica el widget del proyecto"
+msgstr "Publiez le widget du projet"
+
+msgid "Coste"
+msgstr "Coût"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Explica brevemente en qué consiste este coste."
+msgstr "Expliquez birèvement en quoi consiste ce coût."
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "<strong>En este apartado puedes especificar qué otras ayudas, aparte de financiación, se necesitan para llevar a cabo el proyecto.</strong><br><br> Pueden ser tareas o acciones a cargo de otras personas (traducciones, gestiones, difusión, etc), o bien préstamos específicos (de material, transporte, hardware, etc)."
+msgstr "<strong> Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. </strong><br><br> \r\nDans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. \r\nCes besoins peuvent prendre la forme de tâches ou d''actions réalisables par d''autres personnes (traduction, gestion, diffiusion, etc.), ou de prêts (de matériel informatique, pour le transport, etc.)"
+
+msgid "Desglose de costes"
+msgstr "Détail des coûts"
+
+msgid "Cuanto más precisión en el desglose mejor valorará Goteo la información general del proyecto. "
+msgstr "Plus les coûts sont détaillés est précise, mieux l''information générale du projet sera valorisé au sein de Goteo."
+
+msgid "<strong>Éste es el apartado donde explicar con detalle los aspectos conceptuales del proyecto. </strong><br><br>Es lo primero con lo que cualquier usuario de la red se encontrará, así que cuida la redacción y evita las faltas de ortografía. Verás que hay campos obligatorios como incluir un vídeo o subir imágenes. Esto es así porque los consideramos imprescindibles para empezar con éxito una campaña de recaudación de fondos mediante Goteo.<br><br>\r\nTen en cuenta que lo más valorado en Goteo es: la información o conocimiento libre de interés general que tu proyecto aportará a la comunidad,  la originalidad, aspirar a resolver una demanda social,  el potencial para atraer a una comunidad amplia de personas interesadas, dejar claro que el equipo promotor posee las capacidades y experiencia para poder llevarlo a buen puerto. Así que no pierdas de vista informar sobre esos aspectos."
+msgstr "<strong>Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet.</strong>\r\n<br><br>Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. \r\nCes besoins peuvent prendre la forme de tâches ou d''actions réalisables par d''autres personnes (traduction, gestion, diffiusion, etc.), ou de prêts (de matériel informatique, pour le transport, etc.)"
+
+msgid "Escribe un nombre para titular el proyecto. Cuanto más breve mejor, para hacerlo más descriptivo puedes ampliarlo en el siguiente apartado."
+msgstr "Donnez un nom au projet. Plus il est bref mieux c''est. Pour mieux le décrire, vous pouvez le préciser dans le cadre ci-après. "
+
+msgid "Frase de resumen"
+msgstr "Phrase de résumé"
+
+msgid "Define con una frase un subtítulo que acabe de explicar en qué consistirá la iniciativa, que permita hacerse una idea mínima de para qué sirve o en qué consiste. Aparecerá junto al título del proyecto."
+msgstr "Définissez en une phrase un sous-titre qui achève d''expliquer en quoi consistera l''initiative et qui permette de se faire une idée rapide de ce à quoi elle servira ou en quoi elle consiste. Cette phrase apparaîtra avec le titre du projet. "
+
+msgid "Breve descripción "
+msgstr "Courte description"
+
+msgid "Describe el proyecto con un mínimo de 80 palabras (con menos marcará error). Explícalo de modo que sea fácil de entender para cualquier persona. Intenta darle un enfoque atractivo y social, resumiendo sus puntos fuertes, qué lo hace único, innovador o especial."
+msgstr "Décrivez le projet avec au moins 80 mots (si moins, cela indiquera erreur). Expliquez-le afin qu''il soit facile à comprendre par n''importe qui. Essayez de le présenter de façon attractive, en résumant ses points forts, ce qui leur rend unique, socialement intéressant, innovant ou spécial.  "
+
+msgid "Describe brevemente el proyecto de modo conceptual, técnico o práctico. Por ejemplo detallando sus características de funcionamiento, o en qué partes consistirá. Piensa en cómo será una vez acabado y todo lo que la gente podrá hacer con él."
+msgstr "Décrivez brièvement le projet de façon conceptuelle, technique ou pratique. En détaillant par exemple ses caractéristiques de fonctionnement ou ses différentes étapes. Imaginez comment il sera une fois terminé et tout ce que les gens pourront faire grâce à lui.  "
+
+msgid "Explica qué motivos o circunstancias te han llevado a idear el proyecto, así como las comunidades o usuarios a las que va destinado. Te ayudará a conectar con personas movidas por ese mismo tipo de intereses, problemáticas o gustos."
+msgstr "Expliquez les raisons et circonstances qui sont à l''origine du projet, ainsi que les communautés ou utilisateurs auxquels il s''adresse. Cela vous aidera à vous mettre en relation avec des personnes mues par les mêmes centres d''intérêts, problématiques ou goûts."
+
+msgid "Considera aquí la posibilidad de publicar y enlazar un vídeo (en Youtube o Vimeo) donde expliques brevemente a la cámara el porqué de tu proyecto. Se trata de algo que pueda complementar el vídeo principal, con una persona que transmita su necesidad u originalidad, del modo más directo posible. Si te da corte hablar a la cámara, también puede ser alguna persona que conoces y sigue el proyecto o la idea y pueda hacer esta aportación como "fan". La empatía y necesidad de ver a alguien al otro lado del proyecto es muy importante para determinado tipo de cofinanciadores. "
+msgstr "Vous avez ici la possibilité de publier et embarquer une vidéo (via youtube ou vimeo) où vous expliquez brièvement à la caméra le pourquoi de votre projet. Il s''agit d''une vidéo d''une personne, qui complète la vidéo principale, et qui traduit vos besoins ou votre originalité, de la façon la plus directe possible. Si ça vous coûte de parler à la caméra, vous pouvez aussi demander à une personne que vous connaissez et qui suit le projet ou l''idée de le présenter en tant que "fan". L''empathie et la nécessité de voir un projet incarné est très importante pour certains type de cofinanceurs. "
+
+msgid "Enviar"
+msgstr "Envoyer"
+
+msgid "Objetivos de la campaña de crowdfunding"
+msgstr "Objectifs de la campagne de crowdfunding"
+
+msgid "Enumera las metas principales del proyecto, a corto y largo plazo, en todos los aspectos que consideres importante destacar. Se trata de otra oportunidad para contactar y conseguir el apoyo de gente que simpatice con esos objetivos."
+msgstr "Énumérez les objectifs principaux du projet, à court et long terme, sur tous les aspects que vous considérez important de traiter. Cela offre une nouvelle opportunité pour toucher les gens qui se retrouvent dans ces objectifs et obtenir leur soutien."
+
+msgid "Experiencia previa y equipo"
+msgstr "Expérience antérieure et équipe"
+
+msgid "A medida que introduzcas texto el sistema te sugerirá palabras clave que ya han escrito otros usuarios. Estas categorías ayudan a vincular tu proyecto con personas afines."
+msgstr "A mesure que vous mettez du texte dans le système, des mots clés déjà écrits par d''autres utilisateurs apparaîtront. Ces catégories aident à relier votre projet aux personnes partageant vos centres d''intérêts. "
+
+msgid "Copia y pega la dirección URL de un vídeo de presentación del proyecto, publicado previamente en Youtube o Vimeo. Esta parte es fundamental para atraer la atención de potenciales cofinanciadores y colaboradores, y cuanto más original sea mejor. Te recomendamos que tenga una duración de entre 2 y 4 minutos. "
+msgstr "Copiez/collez l''adresse URL d''une vidéo de présentation du projet, publiée auparavant sur Youtube ou Vimeo. Cette partie est fondamentale pour attirer l''attention de cofinanceurs et contributeurs potentiels, plus elle est originale, mieux c''est. Nous vous recommandons qu''elle dure entre 2 et 4 minutes. "
+
+msgid "Enviar"
+msgstr "Envoyer"
+
+msgid "<strong>En este apartado debes introducir los datos para la información pública de tu perfil de usuario. </strong><br><br>Tanto si quieres presentar un proyecto como incorporarte como cofinanciador/a, para formar parte de la comunidad de Goteo te recomendamos que pongas atención en tu texto de presentación, que añadas links relevantes sobre lo que haces y subas una imagen de perfil con la que te identifiques."
+msgstr "<strong>Dans ce paragraphe, introduisez les informations de votre profil public d''utilisateur</strong><br><br>\r\nDans ce paragraphe, introduisez les informations pour votre profil public d''utilisateur. Que ce soit pour présenter un projet, devenir cofinanceur, ou simplement rejoindre la communauté Goteo, nous vous recommandons de prêter attention à votre texte de présentation, à ajouter des liens significatifs de vos activités et à utiliser une image de profil qui permette de vous identifier."
+
+msgid "Cuéntanos algo sobre ti"
+msgstr "Racontez nous quelque chose sur vous"
+
+msgid "Como red social, Goteo pretende ayudar a difundir y financiar proyectos interesantes entre el máximo de gente posible. Para eso es importante la información que puedas compartir sobre tus habilidades o experiencia (profesional, académica, aficiones, etc).\r\n"
+msgstr "En tant que réseau social Goteo aspire à être un facteur important dans la diffusion et financement des projets intéressants auprés d un maximaum de gens possible. De là l´importance de partager les informations sur vos compétences ou votre expérience (professionnelle, académique, loisirs, etc.)"
+
+msgid "A medida que introduzcas texto el sistema te sugerirá palabras clave que ya han escrito otros usuarios. Estas categorías ayudan a vincular tu perfil con otras personas y con proyectos concretos."
+msgstr "A mesure que vous introduisez le texte, le système suggère des mots clefs proposés par d''autres utilisateurs. Ces catégories participes à véhiculer le profil avec d''autres personnes et des projets concrets.\r\n"
+
+msgid "Explica brevemente tus habilidades o los ámbitos en que podrías ayudar a un proyecto (traduciendo, difundiendo, testeando, programando, enseñando, etc)."
+msgstr "Expliquez brièvement vos compétences ou les domaines dans les quels vous pouvez être utile dans un projet (traduction, diffusion, tests, programmation, enseignement, etc.)"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "<strong>En este apartado puedes especificar qué otras ayudas, aparte de financiación, se necesitan para llevar a cabo el proyecto.</strong><br><br> Pueden ser tareas o acciones a cargo de otras personas (traducciones, gestiones, difusión, etc), o bien préstamos específicos (de material, transporte, hardware, etc)."
+msgstr "<strong> Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. </strong><br><br> \r\nDans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. \r\nCes besoins peuvent prendre la forme de tâches ou d''actions réalisables par d''autres personnes (traduction, gestion, diffiusion, etc.), ou de prêts (de matériel informatique, pour le transport, etc.)"
+
+msgid "Aquí debes especificar la recompensa para quien apoye el proyecto, vinculada a una cantidad de dinero concreta. Elige bien lo que ofreces, intenta que sean productos/servicios atractivos o ingeniosos pero que no generen gastos extra de producción. Si no hay más remedio que tener esos gastos extra, calcula lo que cuesta producir esa recompensa (tiempo, materiales, envíos, etc) y oferta un número limitado. Piensa que tendrás que cumplir con todos esos compromisos al final de la producción del proyecto. "
+msgstr "Vous devez spécifier ici la récompense pour laquelle on peut soutenir le projet, en liant une somme d''argent concrète. Choisissez bien ce que vous offrez en échange pour que cela se présente comme un produit/service attractif mais qui n''engendre pas de coût supplémentaire à la production. S''il n''y a pas d''autres solutions que d''apporter ces bonus, calculez ce que couterait la production de cette récompense ( temps, matériels, envois, ... ) et offrez un nombre limité. Pensez que vous aurez à gérer tout ces éléments pour la gestion finales de la projection finale."
+
+msgid "Resumen"
+msgstr "Résumé"
+
+msgid "Título descriptivo sobre la colaboración necesaria."
+msgstr "Titre descriptif de la contribution recherchée"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Explica brevemente en qué consiste la ayuda que necesita el proyecto, para facilitar que la gente la reconozca y se anime a colaborar. \r\n"
+msgstr "Expliquez brièvement de quelle aide le projet a besoin pour aider les gens à l''identifier et leur donner envie de contribuer"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "<strong>En este apartado puedes especificar qué otras ayudas, aparte de financiación, se necesitan para llevar a cabo el proyecto.</strong><br><br> Pueden ser tareas o acciones a cargo de otras personas (traducciones, gestiones, difusión, etc), o bien préstamos específicos (de material, transporte, hardware, etc)."
+msgstr "<strong> Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. </strong><br><br> \r\nDans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. \r\nCes besoins peuvent prendre la forme de tâches ou d''actions réalisables par d''autres personnes (traduction, gestion, diffiusion, etc.), ou de prêts (de matériel informatique, pour le transport, etc.)"
+
+msgid "Colaboraciones"
+msgstr "Contributions"
+
+msgid "En Goteo los proyectos pueden recibir otro tipo de ayudas además de aportaciones monetarias. Hay gente que a lo mejor no puede ayudar económicamente pero sí con su talento, tiempo, energía, etc."
+msgstr "Dans Goteo, les projets peuvent recevoir d''autres formes d''aides en plus de soutiens financiers. Certaines personnes peuvent ne pas soutenir économiquement les projets mais les aider avec leur talent, temps, énergie etc..."
+
+msgid "<b>Es muy importante que los proyectos mantengan informados a sus cofinanciadores y el resto de personas potencialmente interesadas sobre cómo avanza su campaña. Desde este apartado puedes publicar mensajes de actualización sobre el proyecto, como una especie de blog público.</b>\r\n\r\nEn Goteo además, una vez se han logrado los fondos mínimos, para la segunda ronda de cofinanciación es crítico explicar regularmente cómo ha arrancado la producción, avances, problemas, etc que permitan la mayor transparencia posible y saber cómo evoluciona el inicio del proyecto, para así tratar de generar más interés y comunidad en torno al mismo."
+msgstr "<b>C''est très important que les projets maintiennent des informations aux cofinanceurs et au reste des personnes potentiellement intéressées sur l''avancée de la campagne. Depuis ce paragraphe, vous pouvez publier des messages actualisant votre projet , comme une sorte de blog public.</b> De plus, dans Goteo une fois les fonds mininums "
+
+msgid "Enviar"
+msgstr "Envoyer"
+
+msgid "Descubre proyectos"
+msgstr "Voir les projets"
+
+msgid "Crea un proyecto"
+msgstr "Créer un projet"
+
+msgid "Una iniciativa de:"
+msgstr "Une initiative de"
+
+msgid "Categorías"
+msgstr "Categories"
+
+msgid "Proyectos"
+msgstr "Projets"
+
+msgid "Destacados"
+msgstr "Remarquables"
+
+msgid "Más populares"
+msgstr "Populaires"
+
+msgid "A punto de ser archivado"
+msgstr "Sur le point d''etre archivés"
+
+msgid "Publicados recientemente"
+msgstr "Publiés récemment"
+
+msgid "Exitosos"
+msgstr "Réussis"
+
+msgid "Archivados"
+msgstr "Archivés"
+
+msgid "Crea un proyecto"
+msgstr "Créer un projet"
+
+msgid "Recursos"
+msgstr "Resources"
+
+msgid "Apoyos institucionales"
+msgstr "Soutien institutionnel"
+
+msgid "Servicios"
+msgstr "Services"
+
+msgid "Talleres"
+msgstr "Ateliers"
+
+msgid "Síguenos"
+msgstr "Suivez nous"
+
+msgid "Sobre Goteo"
+msgstr "a propos"
+
+msgid "Accede"
+msgstr "Log in"
+
+msgid "Contacto"
+msgstr "Contact"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Condiciones de uso"
+msgstr "Conditions d''utilisation"
+
+msgid "Política de privacidad"
+msgstr "Politique de confidentialité"
+
+msgid "Una iniciativa de:"
+msgstr "Une initiative de"
+
+msgid "Retorno colectivo"
+msgstr "Récompenses collectives "
+
+msgid "Descubre proyectos"
+msgstr "Voir les projets"
+
+msgid "Crea un proyecto"
+msgstr "Créer un projet"
+
+msgid "Comunidad"
+msgstr "Communauté"
+
+msgid "Actividad"
+msgstr "Activité"
+
+msgid "Compartiendo"
+msgstr "Intérêts partagés"
+
+msgid "Comunidad"
+msgstr "Communauté"
+
+msgid "Mi panel"
+msgstr "Mon Compte"
+
+msgid "Mi actividad"
+msgstr "Mon activité"
+
+msgid "Mi perfil"
+msgstr "Mon profil"
+
+msgid "Mis proyectos"
+msgstr "Mes projets"
+
+msgid "Panel traductor"
+msgstr "Traduction"
+
+msgid "Cerrar sesión"
+msgstr "Fermer la session"
+
+msgid "Accede"
+msgstr "Log in"
+
+msgid "Síguenos en Twitter"
+msgstr "Suivez nous sur Twitter"
+
+msgid "Sobre Goteo"
+msgstr "a propos"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Destacados"
+msgstr "Remarquables"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "Imprescindible"
+msgstr "Essentiel"
+
+msgid "Adicional"
+msgstr "Opcional"
+
+msgid "Mínimo"
+msgstr "Minimal"
+
+msgid "Óptimo"
+msgstr "Optimal"
+
+msgid "Coste"
+msgstr "Coût"
+
+msgid "Introduce un título lo más descriptivo posible de este coste."
+msgstr "Saississez un titre le plus descriptif possible à propos de ce coût."
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Aquí debes especificar el tipo de coste: vinculado a una tarea (algo que requiere la habilidad o conocimientos de alguien), la obtención de material (consumibles, materias primas) o bien infraestructura (espacios, equipos, mobiliario)."
+msgstr "Ici vous devez préciser le type de coût : associé à une tâche (nécéssitant de l''habileté ou des connaissances), l''achat de matériaux (consommables, matières premières) ou bien infrastructurel (locaux, équipements, mobliers)."
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Explica brevemente en qué consiste este coste."
+msgstr "Expliquez birèvement en quoi consiste ce coût."
+
+msgid "Valor"
+msgstr "Valeur"
+
+msgid "Especifica el importe en euros de lo que consideras que implica este coste. No utilices puntos para las cifras de miles ok?"
+msgstr "Indiquez le montant en euros envisagé pour ce coût. N''utilisez pas de point pour écrire des milliers."
+
+msgid "Este coste es"
+msgstr "Le coût est de"
+
+msgid "Imprescindible"
+msgstr "Essentiel"
+
+msgid "Adicional"
+msgstr "Opcional"
+
+msgid "Este punto es muy importante: en cada coste que introduzcas tienes que marcar si es imprescindible o bien adicional. Todos los costes marcados como imprescindibles se sumarán dando el valor del importe de financiación mínimo para el proyecto. La suma de los costes adicionales, en cambio, se podrá obtener durante la segunda ronda de financiación, después de haber obtenido los fondos imprescindibles."
+msgstr "Ce point est très important : à chaque coût entré vous devez écrire si c''est indispensable ou bien supplémentaire. Tous les coûts marqués comme essentiel s''additionneront en affichant le montant de la valeur du financement minimum pour le projet. L''addition des coûts indispensables, en échange, pourront être obtenu durant le second tour de financement, après l''obtention des fonds indispensables."
+
+msgid "Fechas"
+msgstr "Dates"
+
+msgid "Indica entre qué fechas calculas que se va a llevar a cabo esa tarea o cubrir ese coste. Planifícalo empezando no antes de dos meses a partir de ahora, pues hay que considerar el plazo para revisar la propuesta, publicarla si es seleccionada y los 40 días de la primera financiación. No incluyas en este calendario la agenda de lo desarrollado anteriormente aunque es bueno que lo expliques en la descripción del proyecto. En la agenda sólo nos interesan las fases que quedan por hacer y buscan ser cofinanciadas."
+msgstr "Calculez les dates nécessaires pour terminer cette tâche ou couvrir ce coût. Débutez au plus tôt dans deux mois à compter de maintenant, afin d''inclure le temps de considération de la proposition, la publication et les 40 jours du premier tour de financement. N''incluez pas dans ce calendrier l''agenda de développement antérieur même s''il est bon de le détailler dans la description du projet. Sur l''agenda renseignez seulement les étapes liées au co-financement."
+
+msgid "Desde"
+msgstr "Depuis"
+
+msgid "Hasta"
+msgstr "Jusqu''à"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "Aspectos económicos"
+msgstr "Aspects économiques"
+
+msgid "<strong>En esta sección debes elaborar un pequeño presupuesto basado en los costes que calcules va a tener la realización del proyecto.</strong><br><br>\r\nDebes especificar según tareas, infraestructura o materiales. Intenta ser realista en los costes y explicar brevemente por qué necesitas cubrir cada uno de ellos. Ten en cuenta que por norma general, al menos un 80% del proyecto deberá ser realizado directamente por la persona o equipo que promueve el proyecto, y no subcontratado a terceros.<br><br>\r\n<strong>Muy importante</strong>: En Goteo diferenciamos entre costes imprescindibles y costes adicionales. Los primeros deben lograrse en su totalidad para poder obtener la financiación, mientras que los segundo se solicitan y obtienen directamente en una campaña posterior, una vez está en marcha el proyecto, para poder poder cubrir costes de optimización del mismo (difusión, diseño, alcance, más unidades, etc). Estos costes adicionales no pueden superar la mitad de los costes totales del proyecto."
+msgstr "<strong>Dans cette section vous devez définir un petit budget basé sur les coûts calculés que va nécessiter la réalisation du projet</strong><br><br>Vous devez spécifier chaque"
+
+msgid "Desglose de costes"
+msgstr "Détail des coûts"
+
+msgid "Cuanto más precisión en el desglose mejor valorará Goteo la información general del proyecto. "
+msgstr "Plus les coûts sont détaillés est précise, mieux l''information générale du projet sera valorisé au sein de Goteo."
+
+msgid "Añadir"
+msgstr "Ajouter"
+
+msgid "Visualización de costes"
+msgstr "Visualisation des coûts"
+
+msgid "Este gráfico muestra la suma de costes imprescindibles (mínimos para realizar el proyecto) y la suma de costes secundarios (importe óptimo) para las dos rondas de financiación. La primera ronda es de 40 días, para conseguir el importe mínimo imprescindible. Sólo si se consigue ese volumen de financiación se puede optar a la segunda ronda, de 40 días más, para llegar al presupuesto óptimo. A diferencia de la primera, en la segunda ronda se obtiene todo lo recaudado (aunque no se haya llegado al mínimo). "
+msgstr "Ce graphique montre la somme des coûts indispensables (minimum pour réaliser le projet) et la somme des coûts secondaires (idéal) pour les deux tours de financement. Le premier tour dure 40 jours pour obtenir la quantité minimum indispensable. Une fois ce minimum obtenu, le second tour de 40 jours sera lancé afin d''obtenir le coût idéal. À la différence du premier tour, le second tour distribue toutes les recettes."
+
+msgid "Otros recursos"
+msgstr "Autres ressources"
+
+msgid "Indica aquí si cuentas con recursos adicionales, aparte de los que solicitas, para llevar a cabo el proyecto: fuentes de financiación, recursos propios o bien ya has hecho acopio de materiales. Puede suponer un aliciente para los potenciales cofinanciadores del proyecto."
+msgstr "Indiquez si vous comptez avec des ressources supplémentaires, autre que ceux sollicités, pour mener a bien le projet : sources de financement, ressources personnelles ou stock de matériel déjà réalisé.  On peut supposer une motivation pour les potentiels cofinanceur du projet."
+
+msgid "Errores"
+msgstr "Erreurs"
+
+msgid "Siguiente"
+msgstr "Etape suivante"
+
+msgid "Descripción del proyecto"
+msgstr "Description du projet"
+
+msgid "<strong>Éste es el apartado donde explicar con detalle los aspectos conceptuales del proyecto. </strong><br><br>Es lo primero con lo que cualquier usuario de la red se encontrará, así que cuida la redacción y evita las faltas de ortografía. Verás que hay campos obligatorios como incluir un vídeo o subir imágenes. Esto es así porque los consideramos imprescindibles para empezar con éxito una campaña de recaudación de fondos mediante Goteo.<br><br>\r\nTen en cuenta que lo más valorado en Goteo es: la información o conocimiento libre de interés general que tu proyecto aportará a la comunidad,  la originalidad, aspirar a resolver una demanda social,  el potencial para atraer a una comunidad amplia de personas interesadas, dejar claro que el equipo promotor posee las capacidades y experiencia para poder llevarlo a buen puerto. Así que no pierdas de vista informar sobre esos aspectos."
+msgstr "<strong>Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet.</strong>\r\n<br><br>Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. \r\nCes besoins peuvent prendre la forme de tâches ou d''actions réalisables par d''autres personnes (traduction, gestion, diffiusion, etc.), ou de prêts (de matériel informatique, pour le transport, etc.)"
+
+msgid "Escribe un nombre para titular el proyecto. Cuanto más breve mejor, para hacerlo más descriptivo puedes ampliarlo en el siguiente apartado."
+msgstr "Donnez un nom au projet. Plus il est bref mieux c''est. Pour mieux le décrire, vous pouvez le préciser dans le cadre ci-après. "
+
+msgid "Frase de resumen"
+msgstr "Phrase de résumé"
+
+msgid "Define con una frase un subtítulo que acabe de explicar en qué consistirá la iniciativa, que permita hacerse una idea mínima de para qué sirve o en qué consiste. Aparecerá junto al título del proyecto."
+msgstr "Définissez en une phrase un sous-titre qui achève d''expliquer en quoi consistera l''initiative et qui permette de se faire une idée rapide de ce à quoi elle servira ou en quoi elle consiste. Cette phrase apparaîtra avec le titre du projet. "
+
+msgid "Imágenes del proyecto"
+msgstr "Images du projet"
+
+msgid "Subir imagen"
+msgstr "Envoyer image"
+
+msgid "Imágenes actuales"
+msgstr "Images actuelles"
+
+msgid "Breve descripción "
+msgstr "Courte description"
+
+msgid "Describe el proyecto con un mínimo de 80 palabras (con menos marcará error). Explícalo de modo que sea fácil de entender para cualquier persona. Intenta darle un enfoque atractivo y social, resumiendo sus puntos fuertes, qué lo hace único, innovador o especial."
+msgstr "Décrivez le projet avec au moins 80 mots (si moins, cela indiquera erreur). Expliquez-le afin qu''il soit facile à comprendre par n''importe qui. Essayez de le présenter de façon attractive, en résumant ses points forts, ce qui leur rend unique, socialement intéressant, innovant ou spécial.  "
+
+msgid "Describe brevemente el proyecto de modo conceptual, técnico o práctico. Por ejemplo detallando sus características de funcionamiento, o en qué partes consistirá. Piensa en cómo será una vez acabado y todo lo que la gente podrá hacer con él."
+msgstr "Décrivez brièvement le projet de façon conceptuelle, technique ou pratique. En détaillant par exemple ses caractéristiques de fonctionnement ou ses différentes étapes. Imaginez comment il sera une fois terminé et tout ce que les gens pourront faire grâce à lui.  "
+
+msgid "Explica qué motivos o circunstancias te han llevado a idear el proyecto, así como las comunidades o usuarios a las que va destinado. Te ayudará a conectar con personas movidas por ese mismo tipo de intereses, problemáticas o gustos."
+msgstr "Expliquez les raisons et circonstances qui sont à l''origine du projet, ainsi que les communautés ou utilisateurs auxquels il s''adresse. Cela vous aidera à vous mettre en relation avec des personnes mues par les mêmes centres d''intérêts, problématiques ou goûts."
+
+msgid "Considera aquí la posibilidad de publicar y enlazar un vídeo (en Youtube o Vimeo) donde expliques brevemente a la cámara el porqué de tu proyecto. Se trata de algo que pueda complementar el vídeo principal, con una persona que transmita su necesidad u originalidad, del modo más directo posible. Si te da corte hablar a la cámara, también puede ser alguna persona que conoces y sigue el proyecto o la idea y pueda hacer esta aportación como "fan". La empatía y necesidad de ver a alguien al otro lado del proyecto es muy importante para determinado tipo de cofinanciadores. "
+msgstr "Vous avez ici la possibilité de publier et embarquer une vidéo (via youtube ou vimeo) où vous expliquez brièvement à la caméra le pourquoi de votre projet. Il s''agit d''une vidéo d''une personne, qui complète la vidéo principale, et qui traduit vos besoins ou votre originalité, de la façon la plus directe possible. Si ça vous coûte de parler à la caméra, vous pouvez aussi demander à une personne que vous connaissez et qui suit le projet ou l''idée de le présenter en tant que "fan". L''empathie et la nécessité de voir un projet incarné est très importante pour certains type de cofinanceurs. "
+
+msgid "Enviar"
+msgstr "Envoyer"
+
+msgid "Cargar con Universal Subtitles"
+msgstr "Upload avec Universal Subtitles"
+
+msgid "Objetivos de la campaña de crowdfunding"
+msgstr "Objectifs de la campagne de crowdfunding"
+
+msgid "Enumera las metas principales del proyecto, a corto y largo plazo, en todos los aspectos que consideres importante destacar. Se trata de otra oportunidad para contactar y conseguir el apoyo de gente que simpatice con esos objetivos."
+msgstr "Énumérez les objectifs principaux du projet, à court et long terme, sur tous les aspects que vous considérez important de traiter. Cela offre une nouvelle opportunité pour toucher les gens qui se retrouvent dans ces objectifs et obtenir leur soutien."
+
+msgid "Experiencia previa y equipo"
+msgstr "Expérience antérieure et équipe"
+
+msgid "Categorías"
+msgstr "Categories"
+
+msgid "A medida que introduzcas texto el sistema te sugerirá palabras clave que ya han escrito otros usuarios. Estas categorías ayudan a vincular tu proyecto con personas afines."
+msgstr "A mesure que vous mettez du texte dans le système, des mots clés déjà écrits par d''autres utilisateurs apparaîtront. Ces catégories aident à relier votre projet aux personnes partageant vos centres d''intérêts. "
+
+msgid "Copia y pega la dirección URL de un vídeo de presentación del proyecto, publicado previamente en Youtube o Vimeo. Esta parte es fundamental para atraer la atención de potenciales cofinanciadores y colaboradores, y cuanto más original sea mejor. Te recomendamos que tenga una duración de entre 2 y 4 minutos. "
+msgstr "Copiez/collez l''adresse URL d''une vidéo de présentation du projet, publiée auparavant sur Youtube ou Vimeo. Cette partie est fondamentale pour attirer l''attention de cofinanceurs et contributeurs potentiels, plus elle est originale, mieux c''est. Nous vous recommandons qu''elle dure entre 2 et 4 minutes. "
+
+msgid "Enviar"
+msgstr "Envoyer"
+
+msgid "Cargar con Universal Subtitles"
+msgstr "Upload avec Universal Subtitles"
+
+msgid "Estado actual"
+msgstr "Etat actuel"
+
+msgid "Alcance del proyecto"
+msgstr "Répercussions du projet"
+
+msgid "Indica el impacto geográfico que aspira a tener el proyecto (cada categoría incluye la anterior). "
+msgstr "Indiquez l''impact géographique que souhaite avoir ce projet (chaque catégorie comprend la categorie précédente)."
+
+msgid "Errores"
+msgstr "Erreurs"
+
+msgid "Siguiente"
+msgstr "Etape suivante"
+
+msgid "Corregir"
+msgstr "Corriger"
+
+msgid "Enviar"
+msgstr "Envoyer"
+
+msgid "Enviar"
+msgstr "Envoyer"
+
+msgid "Notas adicionales para el administrador"
+msgstr "Notes complémentaires pour l''administrateur"
+
+msgid "¿Tienes dudas o comentarios para que las lea el administrador de Goteo? Éste es lugar para explicar alguna parte de lo que has escrito de la que no estás seguro,  para proponer mejoras, etc."
+msgstr "Ici c est l''endroit pour exposer vos doutes et commentaires à l administrateurs de Goteo et aussi où vous pouvez suggérer des améliorations, etc."
+
+msgid "Errores"
+msgstr "Erreurs"
+
+msgid "Previsualización de datos"
+msgstr "Prévisualisation des donnés"
+
+msgid "<strong>Éste es un resumen de toda la información sobre el proyecto.</strong><br><br> Repasa los puntos de cada apartado para ver si puedes mejorar algo, o bien envía el proyecto para su valoración (mediante el botón "Enviar" de la parte de abajo) si ya están cumplimentados todos los campos obligatorios, para que así pueda ser valorado por el equipo y la comunidad de Goteo. Una vez lo envíes ya no se podrán introducir cambios. <br><br>Ten en cuenta que sólo podemos seleccionar unos cuantos proyectos al mes para garantizar la atención y la difusión de las propuestas que se hacen públicas. Próximamente recibirás un mensaje con toda la información, que te indicará los pasos a seguir y recomendaciones para que tu proyecto pueda alcanzar la meta propuesta. "
+msgstr "<strong>Ceci est un résumé de toutes les informations sur le projet.</strong><br><br> Examinez les points de chaque section pour voir si vous pouvez améliorer quelque chose, ou bien si tous les champs obligatoire sont rempli envoyer le projet pour l''évaluation (en utilisant le bouton "Envoyer" en bas) de sorte qu il peut être examiner par l´equipe et la coommunauté de Goteo. Une fois votre projet envoyé, vous ne pourrez plus le modifier.<br><br> Notez que nous pouvons sélectionner que quelques projets par mois pour garantir le suivie et la diffusion des propositions qui seront publiées. Juste aprés vous recevrez un email avec toutes les informations, qui vous indiquera les prochaines étapes et les recommandations pour que votre projet puisse atteindre son objectif.\r\n"
+
+msgid "Recompensa limitada"
+msgstr "Récompense limité"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "<strong>En este apartado debes establecer qué ofrece el proyecto a cambio a sus cofinanciadores, y también sus retornos colectivos.</strong><br><br>\r\nAdemás de las recompensas individuales para cada importe de cofinanciación, aquí debes definir qué tipo de licencia asignar al proyecto, en función de su formato y/o del grado de abertura del mismo (o de alguna de sus partes). Esta parte es muy importante, ya que Goteo es una plataforma de crowdfunding para proyectos basados en la filosofía del código abierto y que fortalezcan el procomún.<br><br>\r\nEn caso de que además de una de las licencias aquí especificadas te interese adicionalmente registrar la propiedad intelectual de tu obra o idea, manteniendo su compatibilidad con los retornos colectivos, te recomendamos obtener una protección legal específica mediante el servicio <a href="http://www.safecreative.org/" target="new">Safe Creative</a>."
+msgstr "<strong>Dans cette partie, vous devez définir ce que vous proposez en échange à vos cofinanceurs, et aussi les récompenses collectives</strong><br><br>En plus des récompenses individuelles pour chaque personne apportant du cofinancement, vous devez définir quelle licence attribuée au projet, en fonction de son format et/ou du niveau d''ouverture de celui-ci. Cette partie est très importane, puisque Goteo est une plateforme de crowdfunding pour des projets basés sur la philosophie de la culture libre et favorise la notion de biens communs.<br><br> Au cas ou aux licences spécifiées ici vous voudriez ajouter un certificat d''auteur, nous vous recommandons d''obtenir une protection auprès de <a href="http://www.safecreative.org/" target="new">Safe Creative</a>."
+
+msgid "Añadir"
+msgstr "Ajouter"
+
+msgid "Aquí debes especificar la recompensa para quien apoye el proyecto, vinculada a una cantidad de dinero concreta. Elige bien lo que ofreces, intenta que sean productos/servicios atractivos o ingeniosos pero que no generen gastos extra de producción. Si no hay más remedio que tener esos gastos extra, calcula lo que cuesta producir esa recompensa (tiempo, materiales, envíos, etc) y oferta un número limitado. Piensa que tendrás que cumplir con todos esos compromisos al final de la producción del proyecto. "
+msgstr "Vous devez spécifier ici la récompense pour laquelle on peut soutenir le projet, en liant une somme d''argent concrète. Choisissez bien ce que vous offrez en échange pour que cela se présente comme un produit/service attractif mais qui n''engendre pas de coût supplémentaire à la production. S''il n''y a pas d''autres solutions que d''apporter ces bonus, calculez ce que couterait la production de cette récompense ( temps, matériels, envois, ... ) et offrez un nombre limité. Pensez que vous aurez à gérer tout ces éléments pour la gestion finales de la projection finale."
+
+msgid "Añadir"
+msgstr "Ajouter"
+
+msgid "Errores"
+msgstr "Erreurs"
+
+msgid "Siguiente"
+msgstr "Etape suivante"
+
+msgid "Estado del proyecto"
+msgstr "Stade du projet"
+
+msgid "Evaluación de datos"
+msgstr "Evaluation des données"
+
+msgid "Ir a"
+msgstr "Aller a"
+
+msgid "Promotor/a"
+msgstr "Porteur(se) du projet"
+
+msgid "Promotor/a"
+msgstr "Porteur(se) du projet"
+
+msgid "Proyecto nuevo"
+msgstr "Nouveau projet"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Costes"
+msgstr "Coût"
+
+msgid "Costes"
+msgstr "Coût"
+
+msgid "Colaboraciones"
+msgstr "Contributions"
+
+msgid "Colaboraciones"
+msgstr "Contributions"
+
+msgid "Previsualización"
+msgstr "Prévisualisation"
+
+msgid "Previsualización"
+msgstr "Prévisualisation"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "Resumen"
+msgstr "Résumé"
+
+msgid "Título descriptivo sobre la colaboración necesaria."
+msgstr "Titre descriptif de la contribution recherchée"
+
+msgid "Tipo de ayuda"
+msgstr "Type d''aide"
+
+msgid "Selecciona si el proyecto necesita ayuda en tareas concretas  o bien préstamos (de material, infraestructura, etc).  "
+msgstr "Sélectionnez si le projet nécessite de l''aide sur des tâches concrètes ou via du prêt (de matériel, d''infrastructure, etc)"
+
+msgid "Descripción"
+msgstr "Description"
+
+msgid "Explica brevemente en qué consiste la ayuda que necesita el proyecto, para facilitar que la gente la reconozca y se anime a colaborar. \r\n"
+msgstr "Expliquez brièvement de quelle aide le projet a besoin pour aider les gens à l''identifier et leur donner envie de contribuer"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "Solicitud de colaboraciones"
+msgstr "Demande de contributions"
+
+msgid "<strong>En este apartado puedes especificar qué otras ayudas, aparte de financiación, se necesitan para llevar a cabo el proyecto.</strong><br><br> Pueden ser tareas o acciones a cargo de otras personas (traducciones, gestiones, difusión, etc), o bien préstamos específicos (de material, transporte, hardware, etc)."
+msgstr "<strong> Dans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. </strong><br><br> \r\nDans ce paragraphe, précisez les besoins, hors financement, nécessaires à la réalisation de votre projet. \r\nCes besoins peuvent prendre la forme de tâches ou d''actions réalisables par d''autres personnes (traduction, gestion, diffiusion, etc.), ou de prêts (de matériel informatique, pour le transport, etc.)"
+
+msgid "Colaboraciones"
+msgstr "Contributions"
+
+msgid "En Goteo los proyectos pueden recibir otro tipo de ayudas además de aportaciones monetarias. Hay gente que a lo mejor no puede ayudar económicamente pero sí con su talento, tiempo, energía, etc."
+msgstr "Dans Goteo, les projets peuvent recevoir d''autres formes d''aides en plus de soutiens financiers. Certaines personnes peuvent ne pas soutenir économiquement les projets mais les aider avec leur talent, temps, énergie etc..."
+
+msgid "Añadir"
+msgstr "Ajouter"
+
+msgid "Errores"
+msgstr "Erreurs"
+
+msgid "Siguiente"
+msgstr "Etape suivante"
+
+msgid "Datos del promotor/a"
+msgstr "Informations sur le/la porteur(se) de projet"
+
+msgid "<strong>A partir de este paso sólo debes cumplimentar los datos si quieres que tu proyecto sea cofinanciado y apoyado mediante Goteo. </strong><br><br>La información de este apartado es necesaria para contactarte si obtienes la financiación requerida, y que así se pueda efectuar el ingreso. En el caso de entidades, se recomienda que quien represente a la organización pueda luego acreditarlo formalmente (por ejemplo a través de los estatutos o de un certificado del secretario con el visto bueno del presidente, en el caso de asociaciones)."
+msgstr "<strong>A partir de cette étape, vous devez remplir les données pour que votre projet soit cofinancé et soutenu sur goteo. \r\n</strong>\r\nLes informations de cette section sont nécessaires pour vous contacter si vous obtenez le financement nécessaire, et ainsi permettre le versement. Dans le cas d''une structure, nous vous recommandons que la personne qui représente l''organisation puisse plus tard être accrédité formellement.\r\n( par exemple au travers les statuts ou via un certificat du secrétaire avec agrément du président, dans le cas d''associations )"
+
+msgid "Promotor/a del proyecto"
+msgstr "Porteur(se) du projet"
+
+msgid "Selecciona "Persona física" en el caso de que tú seas el/la promotor/a del proyecto y te representes a ti mismo/a. Si el promotor es un grupo es necesario para elegir la segunda opción que tenga un CIF propio, en ese caso elige "Persona jurídica". "
+msgstr "Sélectionnez "Personne physique" dans le cas ou vous seriez le/la porteur(se) du projet et que vous vous représentiez. Si le/la porteur(se) de projet est un groupe, il est nécessaire pour choisir cette seconde option d''avoir un numéro d''identification officiel, dans ce cas choisir "Personne juridique"."
+
+msgid "Persona física"
+msgstr "Personne physique"
+
+msgid "Persona jurídica (asociaciones, fundaciones, empresas)"
+msgstr "Personnalité juridique (associations, fondations, entreprises)"
+
+msgid "Denominación social (nombre) de la entidad"
+msgstr "Raison sociale (nom) de la structure"
+
+msgid "Escribe el nombre de la organización tal como aparece en su CIF."
+msgstr "Ecrivez le nom de votre structure tel qu''il apparaît sur les formulaires officiels. "
+
+msgid "CIF de la entidad"
+msgstr "Numéro d''identité de la structure"
+
+msgid "Escribe el CIF (letra + número) de la organización."
+msgstr "Ecrivez le numéro d''identification de la structure (lettre + numéro)"
+
+msgid "Cargo en la organización"
+msgstr "Rôle dans la structure"
+
+msgid "Escribe el cargo con el que representas a la organización (secretario/a, presidente/a, vocal...). "
+msgstr "Ecrivez le rôle que vous avez dans l''organisation que vous représentez (secrétaire, président, membre d''honneur...)"
+
+msgid "Datos del/la responsable del proyecto"
+msgstr "Informations sur le/la responsable du projet"
+
+msgid "Ya sea como persona física o bien jurídica, es necesario que alguien figure como promotor/a del proyecto, y también para la interlocución con el equipo de Goteo. No tiene que coincidir necesariamente con el perfil de usuario del apartado anterior."
+msgstr "Que vous soyez une personne physique ou bien juridique, il est nécessaire qu''une personne apparaisse comme porteur(se) de projet, ceci notamment pour les relations avec l''équipe de Goteo. Cette personne n''est pas nécessairement la même que l''utilisateur inscrit auparavant.  "
+
+msgid "Nombre y apellidos"
+msgstr "Nom et prénom "
+
+msgid "Deben ser tu nombre y apellidos reales. Ten en cuenta que figurarás como responsable del proyecto."
+msgstr "Indiquez vos véritables noms et prénoms. Notez que vous apparaîtrez comme responsable du projet. "
+
+msgid "Teléfono"
+msgstr "Téléphone"
+
+msgid "Número de teléfono móvil o fijo, con su prefijo de marcado."
+msgstr "Numéro de téléphone mobile ou fixe (indiquer le préfixe)"
+
+msgid "Email vinculado al proyecto"
+msgstr "Email lié au projet"
+
+msgid "Dirección de correo electrónica principal asociada al proyecto. Aquí recibirás las notificaciones y mensajes del equipo de Goteo en relación al proyecto propuesto."
+msgstr "Adresse de courrier électronique principale liée au projet. Vous y recevrez les notifications et messages de l''équipe de Goteo relatifs au projet proposé"
+
+msgid "Fecha de nacimiento"
+msgstr "Date de naissance"
+
+msgid "Indica la fecha de tu nacimiento. No se hará pública en ningún caso, nos interesa por temas estadísticos."
+msgstr "Indiquez votre date de naissance. Elle ne sera à aucun moment rendue publique, elle nous intéresse pour des raisons statistiques. "
+
+msgid "Domicilio fiscal"
+msgstr "Domicile fiscal"
+
+msgid "Dirección fiscal de la persona u organización (según proceda)."
+msgstr "Adresse fiscale de la personne ou structure (selon indiqué)"
+
+msgid "Dirección"
+msgstr "Adresse"
+
+msgid "Dirección fiscal de la persona u organización (según proceda)."
+msgstr "Adresse fiscale de la personne ou structure (selon indiqué)"
+
+msgid "Código postal"
+msgstr "Code postal"
+
+msgid "Dirección fiscal de la persona u organización (según proceda)."
+msgstr "Adresse fiscale de la personne ou structure (selon indiqué)"
+
+msgid "Localidad"
+msgstr "Localité"
+
+msgid "Dirección fiscal de la persona u organización (según proceda)."
+msgstr "Adresse fiscale de la personne ou structure (selon indiqué)"
+
+msgid "País"
+msgstr "Pays"
+
+msgid "Dirección fiscal de la persona u organización (según proceda)."
+msgstr "Adresse fiscale de la personne ou structure (selon indiqué)"
+
+msgid "Domicilio postal"
+msgstr "Domicile postal"
+
+msgid "Indica en caso necesario una dirección postal detallada."
+msgstr "Indiquez si nécessaire une adresse postale détaillée"
+
+msgid "Igual"
+msgstr "Identique"
+
+msgid "Diferente"
+msgstr "Autres"
+
+msgid "Dirección"
+msgstr "Adresse"
+
+msgid "Indica en caso necesario una dirección postal detallada."
+msgstr "Indiquez si nécessaire une adresse postale détaillée"
+
+msgid "Código postal"
+msgstr "Code postal"
+
+msgid "Indica en caso necesario una dirección postal detallada."
+msgstr "Indiquez si nécessaire une adresse postale détaillée"
+
+msgid "Localidad"
+msgstr "Localité"
+
+msgid "Indica en caso necesario una dirección postal detallada."
+msgstr "Indiquez si nécessaire une adresse postale détaillée"
+
+msgid "País"
+msgstr "Pays"
+
+msgid "Indica en caso necesario una dirección postal detallada."
+msgstr "Indiquez si nécessaire une adresse postale détaillée"
+
+msgid "Errores"
+msgstr "Erreurs"
+
+msgid "Siguiente"
+msgstr "Etape suivante"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Aceptar"
+msgstr "Valider"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "Datos de perfil"
+msgstr "Mon profil"
+
+msgid "<strong>En este apartado debes introducir los datos para la información pública de tu perfil de usuario. </strong><br><br>Tanto si quieres presentar un proyecto como incorporarte como cofinanciador/a, para formar parte de la comunidad de Goteo te recomendamos que pongas atención en tu texto de presentación, que añadas links relevantes sobre lo que haces y subas una imagen de perfil con la que te identifiques."
+msgstr "<strong>Dans ce paragraphe, introduisez les informations de votre profil public d''utilisateur</strong><br><br>\r\nDans ce paragraphe, introduisez les informations pour votre profil public d''utilisateur. Que ce soit pour présenter un projet, devenir cofinanceur, ou simplement rejoindre la communauté Goteo, nous vous recommandons de prêter attention à votre texte de présentation, à ajouter des liens significatifs de vos activités et à utiliser une image de profil qui permette de vous identifier."
+
+msgid "No es obligatorio que pongas una fotografía en tu perfil, pero ayuda a que los demás usuarios te identifiquen."
+msgstr "Il n''est pas obligatoire de mettre une photo sur votre profil, mais ça aide les autres utilisateurs à vous identifier "
+
+msgid "Subir imagen"
+msgstr "Envoyer image"
+
+msgid "No es obligatorio que pongas una fotografía en tu perfil, pero ayuda a que los demás usuarios te identifiquen."
+msgstr "Il n''est pas obligatoire de mettre une photo sur votre profil, mais ça aide les autres utilisateurs à vous identifier "
+
+msgid "Cuéntanos algo sobre ti"
+msgstr "Racontez nous quelque chose sur vous"
+
+msgid "Como red social, Goteo pretende ayudar a difundir y financiar proyectos interesantes entre el máximo de gente posible. Para eso es importante la información que puedas compartir sobre tus habilidades o experiencia (profesional, académica, aficiones, etc).\r\n"
+msgstr "En tant que réseau social Goteo aspire à être un facteur important dans la diffusion et financement des projets intéressants auprés d un maximaum de gens possible. De là l´importance de partager les informations sur vos compétences ou votre expérience (professionnelle, académique, loisirs, etc.)"
+
+msgid "A medida que introduzcas texto el sistema te sugerirá palabras clave que ya han escrito otros usuarios. Estas categorías ayudan a vincular tu perfil con otras personas y con proyectos concretos."
+msgstr "A mesure que vous introduisez le texte, le système suggère des mots clefs proposés par d''autres utilisateurs. Ces catégories participes à véhiculer le profil avec d''autres personnes et des projets concrets.\r\n"
+
+msgid "Explica brevemente tus habilidades o los ámbitos en que podrías ayudar a un proyecto (traduciendo, difundiendo, testeando, programando, enseñando, etc)."
+msgstr "Expliquez brièvement vos compétences ou les domaines dans les quels vous pouvez être utile dans un projet (traduction, diffusion, tests, programmation, enseignement, etc.)"
+
+msgid "Añadir"
+msgstr "Ajouter"
+
+msgid "Esta red social puede ayudar a que difundas proyectos de Goteo que te interesan entre amigos y familiares."
+msgstr "Ce réseau social peut contribuer à la diffusion des projets sur publier Goteo parmis vos amis et familles."
+
+msgid "Esta red social puede ayudar a que difundas proyectos de Goteo de manera ágil y viral."
+msgstr "Ce réseau social peut contribuer à la diffusion des projets sur publier Goteo d´une manière rapide et virale."
+
+msgid "Este canal puede ayudar a que difundas proyectos de Goteo entre la comunidad afín al software libre."
+msgstr "Ce canal peut aider à la difusion des projets publier sur Goteo parmi les communautés liés au logiciel libre."
+
+msgid "Esta red social puede ayudar a que difundas proyectos de Goteo que te interesan entre contactos profesionales."
+msgstr "Ce réseau social peut contribuer à la diffusion des projets sur publier Goteo qui vous interese parmi vos contacts profesionels."
+
+msgid "Errores"
+msgstr "Erreurs"
+
+msgid "Siguiente"
+msgstr "Etape suivante"
+
+msgid "Quitar"
+msgstr "Effacer"
+
+msgid "El formulario de proyecto se va grabando segun pases por cada campo"
+msgstr "Le formulaire est sauvegardé automatiquement au fur et a mesure"
+
+msgid "Cofinanciación"
+msgstr "Cofinancement"
+
+msgid "Obtenido"
+msgstr "\r\nAccumulé"
+
+msgid "Óptimo"
+msgstr "Optimal"
+
+msgid "Mínimo"
+msgstr "Minimal"
+
+msgid "Obtenido"
+msgstr "\r\nAccumulé"
+
+msgid "Quedan"
+msgstr "Il reste "
+
+msgid "Cofinanciadores"
+msgstr "Cofinanceurs"
+
+msgid "Proyecto"
+msgstr "Projet"
+
+msgid "Necesidades"
+msgstr "Besoin"
+
+msgid "Cofinanciadores"
+msgstr "Cofinanceurs"
+
+msgid "Mensajes"
+msgstr "Messages "
+
+msgid "Novedades"
+msgstr "Nouveautés"
+
+msgid "Categorías"
+msgstr "Catégories"
+
+msgid "Necesidades no monetarias"
+msgstr "Besoins non monétaires"
+
+msgid "Se busca"
+msgstr "On recherche "
+
+msgid "Código Embed"
+msgstr "Code Embed"
+
+msgid "Recompensas individuales"
+msgstr "Récompenses individuelles"
+
+msgid "Retorno colectivo"
+msgstr "Récompenses collectives "
+
+msgid "Algo ha fallado, por favor inténtalo de nuevo"
+msgstr "Une erreur est survenue, s''il vous plaît, essayez à nouveau."
+
+msgid "Ya han aportado"
+msgstr "Ont deja cofinancé"
+
+msgid "Escribe tu mensaje"
+msgstr "Ecrivez votre message"
+
+msgid "Enviar"
+msgstr "Envoyer \r\n"
+
+msgid "Responder"
+msgstr "Répondre"
+
+msgid "Cofinanciación"
+msgstr "Cofinancement"
+
+msgid "Mínimo"
+msgstr "Minimal"
+
+msgid "Óptimo"
+msgstr "Optimal"
+
+msgid "Imprescindible"
+msgstr "Essentiel"
+
+msgid "Adicional"
+msgstr "Opcional"
+
+msgid "Se busca"
+msgstr "On recherche "
+
+msgid "En marcha!"
+msgstr "En marche!"
+
+msgid "En marcha!"
+msgstr "En marche!"
+
+msgid "En marcha!"
+msgstr "En marche!"
+
+msgid "Archivado..."
+msgstr "A archiver"
+
+msgid "Retorno"
+msgstr "Récompense"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Qué ofrece a cambio"
+msgstr "Qu´offrez vou en échange"
+
+msgid "Retorno colectivo"
+msgstr "Récompenses collectives "
+
+msgid "Recompensas individuales"
+msgstr "Récompenses individuelles"
+
+msgid "Aportando"
+msgstr "Apporté"
+
+msgid "Recompensa limitada"
+msgstr "Récompense limité"
+
+msgid "Cofinanciadores"
+msgstr "Cofinanceurs"
+
+msgid "Qué ofrece a cambio"
+msgstr "Qu´offrez vou en échange"
+
+msgid "Retorno colectivo"
+msgstr "Récompenses collectives "
+
+msgid "Recompensas individuales"
+msgstr "Récompenses individuelles"
+
+msgid "Aportando"
+msgstr "Apporté"
+
+msgid "Recompensa limitada"
+msgstr "Récompense limité"
+
+msgid "Cofinanciadores"
+msgstr "Cofinanceurs"
+
+msgid "Agenda de trabajo"
+msgstr "Agenda de travail"
+
+msgid "Envía un mensaje al impulsor/a del proyecto"
+msgstr "Envoyer un message au porteur du projet"
+
+msgid "Enviar"
+msgstr "Envoyer \r\n"
+
+msgid "Comparte este proyecto"
+msgstr "Partagez ce projet"
+
+msgid "Difunde este proyecto"
+msgstr "Promouvoir ce projet"
+
+msgid "Widget del proyecto"
+msgstr "Widget du projet"
+
+msgid "publica el widget del proyecto"
+msgstr "Publiez le widget du projet"
+
+msgid "Copia y pega el código en tu web o blog y ayuda a difundir este proyecto"
+msgstr "Copiez et collez le code dans votre site ou blog et aider à diffuser ce projet"
+
+msgid "Difunde este proyecto"
+msgstr "Promouvoir ce projet"
+
+msgid "Difunde este proyecto"
+msgstr "Promouvoir ce projet"
+
+msgid "Widget del proyecto"
+msgstr "Widget du projet"
+
+msgid "Código Embed"
+msgstr "Code Embed"
+
+msgid "Deja saber a tu red que"
+msgstr "Faites connaître a votre réseau que "
+
+msgid "Comparte este proyecto"
+msgstr "Partagez ce projet"
+
+msgid "Código Embed"
+msgstr "Code Embed"
+
+msgid "Breve descripción "
+msgstr "Courte description"
+
+msgid "Objetivos de la campaña de crowdfunding"
+msgstr "Objectifs de la campagne de crowdfunding"
+
+msgid "Experiencia previa y equipo"
+msgstr "Expérience antérieure et équipe"
+
+msgid "Necesidades económicas"
+msgstr "Besoins économiques"
+
+msgid "En marcha!"
+msgstr "En marche!"
+
+msgid "En marcha!"
+msgstr "En marche!"
+
+msgid "Archivado..."
+msgstr "A archiver"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Cofinanciadores"
+msgstr "Cofinanceurs"
+
+msgid "Cofinanciadores"
+msgstr "Cofinanceurs"
+
+msgid "Mi caudal en goteo"
+msgstr "Ma contribution sur goteo"
+
+msgid "Nuevo usuario"
+msgstr "Nouvel utilsateur"
+
+msgid "Bienvenido/a a Goteo! Comprueba tu nombre de usuario y email para finalizar el proceso. En caso de que no se haya podido importar el email o lo cambies por otro, recibirás un correo electrónico con un link de activación para comprovar su validez."
+msgstr "Bienvenu(e) s à Goteo ! Confirmez votre nom et adresse email pour finaliser le processus. Au cas où vous n''avez pas pu valider votre email ou vouliez le changer, vous recevrez un email avec le lien d''activation à valider."
+
+msgid "Nombre de acceso"
+msgstr "login"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Registrar"
+msgstr "Créer un utilisateur"
+
+msgid "También van a importarse estos datos, puedes cambiarlos una vez autentificado:"
+msgstr "Nous allons importer ces données, vous pourrez les changer une fois identifié."
+
+msgid "Vincular usuario existente"
+msgstr "Utilisateur existant"
+
+msgid "Contraseña"
+msgstr "Mot de passe"
+
+msgid "Entrar"
+msgstr "Entrer"
+
+msgid "Perfil de "
+msgstr "Profil de "
+
+msgid "Mis cofinanciadores"
+msgstr "Mes cofinanciateurs"
+
+msgid "Cofinanciadores"
+msgstr "Cofinanceurs"
+
+msgid "Cancelar la cuenta"
+msgstr "Annuler le compte"
+
+msgid "Email de la cuenta"
+msgstr "Email du compte"
+
+msgid "Déjanos un mensaje"
+msgstr "Nous laissez un message"
+
+msgid "Dar de baja"
+msgstr "Supprimer mon compte"
+
+msgid "Otro servidor Open ID"
+msgstr "Autre serveur OpenID"
+
+msgid "Otro servidor Open ID"
+msgstr "Autre serveur OpenID"
+
+msgid "Usuario registrado"
+msgstr "Utilisateur enregistré"
+
+msgid "Nombre de acceso"
+msgstr "login"
+
+msgid "Contraseña"
+msgstr "Mot de passe"
+
+msgid "Entrar"
+msgstr "Entrer"
+
+msgid "Recuperar contraseña"
+msgstr "Récupérer le mot de passe"
+
+msgid "Accede con un solo click"
+msgstr "Accès en un clic"
+
+msgid "Accede con Facebook"
+msgstr "Accès via facebook"
+
+msgid "Accede con Twitter"
+msgstr "Accès avec Twitter"
+
+msgid "Accede con Google"
+msgstr "Accès via Google"
+
+msgid "Accede con Yahoo"
+msgstr "Accès avec Yahoo"
+
+msgid "Accede con myOpenID"
+msgstr "Accès via myOpenID"
+
+msgid "Accede con LinkedIn"
+msgstr "Accès via LinkedIn"
+
+msgid "Otro servidor Open ID"
+msgstr "Autre serveur OpenID"
+
+msgid "Ir"
+msgstr "Aller"
+
+msgid "Mostrar más opciones de acceso"
+msgstr "Montrer plus d''options"
+
+msgid "Nuevo usuario"
+msgstr "Nouvel utilsateur"
+
+msgid "Nombre de acceso"
+msgstr "login"
+
+msgid "Nombre público"
+msgstr "Nom public"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Confirmar email"
+msgstr "Confirmer l''email"
+
+msgid "Contraseña"
+msgstr "Mot de passe"
+
+msgid "Mínimo 6 carácteres"
+msgstr "6 caractères minimum"
+
+msgid "Confirmar contraseña"
+msgstr "Confirmer le mot de passe"
+
+msgid "Registrar"
+msgstr "Créer un utilisateur"
+
+msgid "Perfil de "
+msgstr "Profil de "
+
+msgid "Envia un mensaje al usuario"
+msgstr "envoyer un message à l´utilisateur"
+
+msgid "Enviar"
+msgstr "Envoyer \r\n"
+
+msgid "Perfil de "
+msgstr "Profil de "
+
+msgid "Recuperar contraseña"
+msgstr "Remplissez au moins des champs demandés pour récupérer votre mot de passe"
+
+msgid "Nombre de acceso"
+msgstr "login"
+
+msgid "Email de la cuenta"
+msgstr "Email du compte"
+
+msgid "Recuperar"
+msgstr "Récupérer"
+
+msgid "Perfil de "
+msgstr "Profil de "
+
+msgid "Compartiendo intereses"
+msgstr "Intérêts partagés "
+
+msgid "proyectos"
+msgstr "Projets"
+
+msgid "Aportando"
+msgstr "Apporté"
+
+msgid "Ver perfil"
+msgstr "Voir le profil"
+
+msgid "Me interesan proyectos con fin..."
+msgstr "Je suis intéressé par les projets à vocation..."
+
+msgid "Mis palabras clave"
+msgstr "Mes mots clés "
+
+msgid "Mis webs"
+msgstr "Mes sites web "
+
+msgid "Mi ubicación"
+msgstr "Ma position "
+
+msgid "Mis cofinanciadores"
+msgstr "Mes cofinanciateurs"
+
+msgid "Compartiendo intereses"
+msgstr "Intérêts partagés "
+
+msgid "proyectos"
+msgstr "Projets"
+
+msgid "Aportando"
+msgstr "Apporté"
+
+msgid "Social"
+msgstr "Social "
+
+msgid "Cofinancia"
+msgstr "Cofinance"
+
+msgid "proyectos"
+msgstr "Projets"
+
+msgid "Posición"
+msgstr "Position "
+
+msgid "Aporta aquí:"
+msgstr "Apportez ici:"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Usuario"
+msgstr "Utilisateur "
+
+msgid "Mi ubicación"
+msgstr "Ma position "
+
+msgid "Mis webs"
+msgstr "Mes sites web "
+
+msgid "Ver perfil"
+msgstr "Voir le profil"
+
+msgid "Mi caudal en goteo"
+msgstr "Ma contribution sur goteo"
+

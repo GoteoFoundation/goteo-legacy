@@ -514,8 +514,7 @@ namespace Goteo\Model {
 
             // Estos son errores que no permiten continuar
             if (empty($this->id))
-                $errors[] = 'El proyecto no tiene id';
-                //Text::get('validate-project-noid');
+                $errors[] = Text::_('El proyecto no tiene id');
 
             if (empty($this->lang))
                 $this->lang = 'es';
@@ -527,8 +526,7 @@ namespace Goteo\Model {
                 $this->progress = 0;
 
             if (empty($this->owner))
-                $errors[] = 'El proyecto no tiene usuario creador';
-                //Text::get('validate-project-noowner');
+                $errors[] = Text::_('El proyecto no tiene usuario creador');
 
             if (empty($this->node))
                 $this->node = 'goteo';
@@ -780,8 +778,7 @@ namespace Goteo\Model {
                 //listo
                 return !$fail;
 			} catch(\PDOException $e) {
-                $errors[] = 'Error sql al grabar el proyecto.' . $e->getMessage();
-                //Text::get('save-project-fail');
+                $errors[] = Text::_('Error sql al grabar el proyecto.') . $e->getMessage();
                 return false;
 			}
 
@@ -824,8 +821,7 @@ namespace Goteo\Model {
                     return false;
                 }
 			} catch(\PDOException $e) {
-                $errors[] = 'Error sql al grabar el proyecto.' . $e->getMessage();
-                //Text::get('save-project-fail');
+                $errors[] = Text::_('Error sql al grabar el proyecto.') . $e->getMessage();
                 return false;
 			}
 
@@ -1413,8 +1409,7 @@ namespace Goteo\Model {
                 return true;
                 
             } catch (\PDOException $e) {
-                $errors[] = 'Fallo al habilitar para revisión. ' . $e->getMessage();
-                //Text::get('send-project-review-fail');
+                $errors[] = Text::_('Fallo al habilitar para revisión. ') . $e->getMessage();
                 return false;
             }
         }
@@ -1428,8 +1423,7 @@ namespace Goteo\Model {
 				self::query($sql, array(':status'=>1, ':id'=>$this->id));
                 return true;
             } catch (\PDOException $e) {
-                $errors[] = 'Fallo al habilitar para edición. ' . $e->getMessage();
-                //Text::get('send-project-reedit-fail');
+                $errors[] = Text::_('Fallo al habilitar para edición. ') . $e->getMessage();
                 return false;
             }
         }
@@ -1464,8 +1458,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch (\PDOException $e) {
-                $errors[] = 'Fallo al publicar el proyecto. ' . $e->getMessage();
-                //Text::get('send-project-publish-fail');
+                $errors[] = Text::_('Fallo al publicar el proyecto. ') . $e->getMessage();
                 return false;
             }
         }
@@ -1479,8 +1472,7 @@ namespace Goteo\Model {
 				self::query($sql, array(':status'=>0, ':closed'=>date('Y-m-d'), ':id'=>$this->id));
                 return true;
             } catch (\PDOException $e) {
-                $errors[] = 'Fallo al cerrar el proyecto. ' . $e->getMessage();
-                //Text::get('send-projecct-close-fail');
+                $errors[] = Text::_('Fallo al cerrar el proyecto. ') . $e->getMessage();
                 return false;
             }
         }
@@ -1494,8 +1486,7 @@ namespace Goteo\Model {
 				self::query($sql, array(':status'=>6, ':closed'=>date('Y-m-d'), ':id'=>$this->id));
                 return true;
             } catch (\PDOException $e) {
-                $errors[] = 'Fallo al cerrar el proyecto. ' . $e->getMessage();
-                //Text::get('send-projecct-close-fail');
+                $errors[] = Text::_('Fallo al cerrar el proyecto. ') . $e->getMessage();
                 return false;
             }
         }
@@ -1509,8 +1500,7 @@ namespace Goteo\Model {
 				self::query($sql, array(':status'=>4, ':success'=>date('Y-m-d'), ':id'=>$this->id));
                 return true;
             } catch (\PDOException $e) {
-                $errors[] = 'Fallo al dar por financiado el proyecto. ' . $e->getMessage();
-                //Text::get('send-project-success-fail');
+                $errors[] = Text::_('Fallo al dar por financiado el proyecto. ') . $e->getMessage();
                 return false;
             }
         }
@@ -1524,8 +1514,7 @@ namespace Goteo\Model {
 				self::query($sql, array(':passed'=>date('Y-m-d'), ':id'=>$this->id));
                 return true;
             } catch (\PDOException $e) {
-                $errors[] = 'Fallo SQL al marcar fecha de paso de ronda. ' . $e->getMessage();
-                //Text::get('send-project-success-fail');
+                $errors[] = Text::_('Fallo SQL al marcar fecha de paso de ronda. ') . $e->getMessage();
                 return false;
             }
         }
@@ -1539,8 +1528,7 @@ namespace Goteo\Model {
 				self::query($sql, array(':status'=>5, ':id'=>$this->id));
                 return true;
             } catch (\PDOException $e) {
-                $errors[] = 'Fallo al dar el retorno por cunplido para el proyecto. ' . $e->getMessage();
-                //Text::get('send-project-fulfill-fail');
+                $errors[] = Text::_('Fallo al dar el retorno por cunplido para el proyecto. ') . $e->getMessage();
                 return false;
             }
         }
@@ -1551,7 +1539,7 @@ namespace Goteo\Model {
         public function delete(&$errors = array()) {
 
             if ($this->status > 1) {
-                $errors[] = "El proyecto no esta descartado ni en edicion";
+                $errors[] = Text::_("El proyecto no esta descartado ni en edicion");
                 return false;
             }
 

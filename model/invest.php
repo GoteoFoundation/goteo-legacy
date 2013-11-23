@@ -105,11 +105,11 @@ namespace Goteo\Model {
              * Estos son los filtros
              */
             $filters = array(
-                'date'      => 'Fecha',
-                'user'      => 'Usuario',
-                'reward'    => 'Recompensa',
-                'pending'   => 'Pendientes',
-                'fulfilled' => 'Cumplidos'
+                'date'      => Text::_('Fecha'),
+                'user'      => Text::_('Usuario'),
+                'reward'    => Text::_('Recompensa'),
+                'pending'   => Text::_('Pendientes'),
+                'fulfilled' => Text::_('Cumplidos')
             );
 
 
@@ -269,20 +269,16 @@ namespace Goteo\Model {
 
         public function validate (&$errors = array()) { 
             if (!is_numeric($this->amount))
-                $errors[] = 'La cantidad no es correcta';
-                //Text::get('validate-invest-amount');
+                $errors[] = Text::_('La cantidad no es correcta');
 
             if (empty($this->method))
-                $errors[] = 'Falta metodo de pago';
-                //Text::get('mandatory-invest-method');
+                $errors[] = Text::_('Falta metodo de pago');
 
             if (empty($this->user))
-                $errors[] = 'Falta usuario';
-                //Text::get('mandatory-invest-user');
+                $errors[] = Text::_('Falta usuario');
 
             if (empty($this->project))
-                $errors[] = 'Falta proyecto';
-                //Text::get('mandatory-invest-project');
+                $errors[] = Text::_('Falta proyecto');
 
             if (empty($errors))
                 return true;
@@ -353,7 +349,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "El aporte no se ha grabado correctamente. Por favor, revise los datos." . $e->getMessage();
+                $errors[] = Text::_("El aporte no se ha grabado correctamente. Por favor, revise los datos.") . $e->getMessage();
                 return false;
             }
         }
@@ -511,7 +507,7 @@ namespace Goteo\Model {
 
                     $investors[] = (object) array(
                         'user' => 'anonymous',
-                        'name' => Text::get('regular-anonymous'),
+                        'name' => Text::_("Anónimo"),
                         'projects' => null,
                         'avatar' => Image::get(1),
                         'worth' => null,
@@ -778,13 +774,13 @@ namespace Goteo\Model {
          */
         public static function status ($id = null) {
             $array = array (
-                -1 => 'En proceso',
-                0  => 'Pendiente de cargo',
-                1  => 'Cargo ejecutado',
-                2  => 'Cancelado',
-                3  => 'Pagado al proyecto',
-                4  => 'Caducado',
-                5  => 'Reubicado'
+                -1 => Text::_('En proceso'),
+                0  => Text::_('Pendiente de cargo'),
+                1  => Text::_('Cargo ejecutado'),
+                2  => Text::_('Cancelado'),
+                3  => Text::_('Pagado al proyecto'),
+                4  => Text::_('Caducado'),
+                5  => Text::_('Reubicado')
             );
 
             if (isset($id)) {
@@ -800,9 +796,9 @@ namespace Goteo\Model {
          */
         public static function methods () {
             return array (
-                'paypal' => 'Paypal',
-                'tpv'    => 'Tarjeta',
-                'cash'   => 'Manual'
+                'paypal' => Text::_('Paypal'),
+                'tpv'    => Text::_('Tarjeta'),
+                'cash'   => Text::_('Manual')
             );
         }
 
@@ -836,7 +832,7 @@ namespace Goteo\Model {
                         'investStatus' => '1'
                     ));
                     if (!empty($inv_cash)) {
-                        $Data['note'][] = "Los aportes cash pueden venir de un taller y no son incidencias, solamente estan pendientes de reubicar";
+                        $Data['note'][] = Text::_("Los aportes cash pueden venir de un taller y no son incidencias, solamente estan pendientes de reubicar");
                         $Data['cash']['total']['fail'] = 0;
                         foreach ($inv_cash as $invId => $invest) {
                             $Data['cash']['total']['users'][$invest->user] = $invest->user;
@@ -844,7 +840,7 @@ namespace Goteo\Model {
                             $Data['cash']['total']['amount'] += $invest->amount;
                             if ($invest->campaign == 1) {
                                 $Data['cash']['total']['fail'] += $invest->amount;
-                                $Data['note'][] = "Aporte de capital riego {$invId} debería estar cancelado";
+                                $Data['note'][] = Text::_("Aporte de capital riego {$invId} debería estar cancelado");
                             }
                         }
                     }
@@ -860,7 +856,7 @@ namespace Goteo\Model {
                         foreach ($inv_paypal as $invId => $invest) {
                             if (in_array($invest->investStatus, array(0, 1, 3))) {
                                 $Data['paypal']['total']['fail'] += $invest->amount;
-                                $Data['note'][] = "El aporte PayPal {$invId} no debería estar en estado '" . self::status($invest->investStatus) . "'";
+                                $Data['note'][] = Text::_("El aporte PayPal"). " {$invId} ".Text::_("no debería estar en estado '") . self::status($invest->investStatus) . "'";
                             }
                         }
                     }
@@ -876,7 +872,7 @@ namespace Goteo\Model {
                         foreach ($inv_tpv as $invId => $invest) {
                             if ($invest->investStatus == 1) {
                                 $Data['tpv']['total']['fail'] += $invest->amount;
-                                $Data['note'][] = "El aporte TPV {$invId} no debería estar en estado '" . self::status($invest->investStatus) . "'";
+                                $Data['note'][] = Text::_("El aporte TPV"). " {$invId} ".Text::_("no debería estar en estado '") . self::status($invest->investStatus) . "'";
                             }
                         }
                     }
@@ -903,7 +899,7 @@ namespace Goteo\Model {
                     } else {
                         // si no tiene fecha de pase y esta en ronda 2: es un problema se trata como solo financiacion actual y paypal(0) no son incidencias
                         if ($round == 2) {
-                            $Data['note'][] = "ATENCION! En segunda ronda pero NO está marcada la fecha de pase a segunda ronda!!! Informe solamente actual=primera";
+                            $Data['note'][] = Text::_("ATENCION! En segunda ronda pero NO está marcada la fecha de pase a segunda ronda!!! Informe solamente actual=primera");
                             $act_eq = (string) 'first';
                         } else {
                             // ok, en primera ronda sin  fecha marcada, informe solo actual = primera
@@ -1095,7 +1091,7 @@ namespace Goteo\Model {
 
                         
                     } else {
-                        $Data['note'][] = 'No se ha calculado bien el parametro $act_eq';
+                        $Data['note'][] = Text::_('No se ha calculado bien el parametro $act_eq');
                     }
 
 

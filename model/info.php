@@ -124,10 +124,10 @@ namespace Goteo\Model {
 
         public function validate (&$errors = array()) { 
             if (empty($this->title))
-                $errors['title'] = 'Falta título';
+                $errors['title'] = Text::_('Falta título');
 
             if (empty($this->text))
-                $errors['text'] = 'Falta texto';
+                $errors['text'] = Text::_('Falta texto');
 
             if (empty($this->node))
                 $this->node = \GOTEO_NODE;
@@ -182,7 +182,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }

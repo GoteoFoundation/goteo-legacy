@@ -301,7 +301,7 @@ namespace Goteo\Model {
                     // Ejecuta SQL.
                     return self::query($query, $data);
             	} catch(\PDOException $e) {
-                    $errors[] = "Error al actualizar los datos del usuario: " . $e->getMessage();
+                    $errors[] = Text::_("Error al actualizar los datos del usuario: "). $e->getMessage();
                     return false;
     			}
             }
@@ -333,7 +333,7 @@ namespace Goteo\Model {
             	
 				return true;
 			} catch(\PDOException $e) {
-                $errors[] = "El usuario {$this->id} no se ha grabado correctamente. Por favor, revise los datos." . $e->getMessage();
+                $errors[] = Text::_("No se ha grabado correctamente. Por favor, revise los datos.") . $e->getMessage();
                 return false;
 			}
 		}
@@ -485,7 +485,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
 
@@ -894,10 +894,10 @@ namespace Goteo\Model {
                 // email a los de goteo
                 $mail = new Mail();
                 $mail->to = \GOTEO_MAIL;
-                $mail->toName = 'Admin Goteo';
-                $mail->subject = 'El usuario ' . $row->id . ' se da de baja';
-                $mail->content = '<p>Han solicitado la baja para el mail <strong>'.$email.'</strong> que corresponde al usuario <strong>'.$row->name.'</strong>';
-                if (!empty($message)) $mail->content .= 'y ha dejado el siguiente mensaje:</p><p> ' . $message;
+                $mail->toName = Text::_('Admin Goteo');
+                $mail->subject = Text::_('El usuario ') . $row->id . Text::_(' se da de baja');
+                $mail->content = '<p>'.Text::_('Han solicitado la baja para el mail').'<strong>'.$email.'</strong>'.Text::_('que corresponde al usuario').'<strong>'.$row->name.'</strong>';
+                if (!empty($message)) $mail->content .= Text::_('y ha dejado el siguiente mensaje:').'</p><p> ' . $message;
                 $mail->content .= '</p>';
                 $mail->fromName = "{$row->name}";
                 $mail->from = $row->email;
@@ -1063,7 +1063,7 @@ namespace Goteo\Model {
                     return true;
 
                 } catch (\PDOException $e) {
-                    $errors[] = "FALLO al gestionar el registro de datos personales " . $e->getMessage();
+                    $errors[] = Text::_("FALLO al gestionar el registro de datos personales ") . $e->getMessage();
                     return false;
                 }
             }
@@ -1115,7 +1115,7 @@ namespace Goteo\Model {
                     return true;
 
                 } catch (\PDOException $e) {
-                    $errors[] = "FALLO al gestionar las preferencias de notificación " . $e->getMessage();
+                    $errors[] = Text::_("FALLO al gestionar las preferencias de notificación ") . $e->getMessage();
                     return false;
                 }
             }

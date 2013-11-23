@@ -58,7 +58,7 @@ namespace Goteo\Model {
 
         public function validate (&$errors = array()) {
             if (empty($this->project))
-                $errors[] = 'Falta proyecto';
+                $errors[] = Text::_('Falta proyecto');
 
             if (empty($errors))
                 return true;
@@ -96,7 +96,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }
@@ -440,7 +440,7 @@ namespace Goteo\Model {
                 return true;
                 
             } catch(\PDOException $e) {
-                $errors[] = "No se ha aplicado la puntuacion. " . $e->getMessage();
+                $errors[] = Text::_("No se ha aplicado la puntuacion. ") . $e->getMessage();
                 return false;
             }
         }
@@ -459,7 +459,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha podido cerrar. " . $e->getMessage();
+                $errors[] = Text::_("No se ha podido cerrar. ") . $e->getMessage();
                 return false;
             }
         }

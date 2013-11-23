@@ -105,16 +105,13 @@ namespace Goteo\Model {
 
         public function validate (&$errors = array()) { 
             if (empty($this->node))
-                $errors[] = 'Falta nodo';
-                //Text::get('mandatory-faq-node');
+                $errors[] = Text::_('Falta nodo');
 
             if (empty($this->section))
-                $errors[] = 'Falta seccion';
-                //Text::get('mandatory-faq-section');
+                $errors[] = Text::_('Falta sección');
 
             if (empty($this->title))
-                $errors[] = 'Falta título';
-                //Text::get('mandatory-faq-title');
+                $errors[] = Text::_('Falta título');
 
             if (empty($errors))
                 return true;

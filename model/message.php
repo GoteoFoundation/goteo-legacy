@@ -136,16 +136,13 @@ namespace Goteo\Model {
 
         public function validate (&$errors = array()) { 
             if (empty($this->user))
-                $errors[] = 'Falta usuario';
-                //Text::get('mandatory-message-user');
+                $errors[] = Text::_('Falta usuario');
 
             if (empty($this->project))
-                $errors[] = 'Falta proyecto';
-                //Text::get('validate-message-noproject');
+                $errors[] = Text::_('Falta proyecto');
 
             if (empty($this->message))
-                $errors[] = 'Falta texto';
-                //Text::get('mandatory-message-text');
+                $errors[] = Text::_('Falta texto');
 
             if (empty($errors))
                 return true;
@@ -188,7 +185,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "El mensaje no se ha grabado correctamente. Por favor, inténtelo de nuevo." . $e->getMessage();
+                $errors[] = Text::_("El mensaje no se ha grabado correctamente. Por favor, inténtelo de nuevo.") . $e->getMessage();
                 return false;
             }
         }
@@ -217,7 +214,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "El mensaje no se ha grabado correctamente. Por favor, inténtelo de nuevo." . $e->getMessage();
+                $errors[] = Text::_("El mensaje no se ha grabado correctamente. Por favor, inténtelo de nuevo.") . $e->getMessage();
                 return false;
             }
         }

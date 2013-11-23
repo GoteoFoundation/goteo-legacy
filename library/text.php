@@ -22,6 +22,7 @@
 namespace Goteo\Library {
 
 	use Goteo\Core\Model,
+		Goteo\Core\Registry,
         Goteo\Core\Exception;
 	/*
 	 * Clase para sacar textos dinámicos de la tabla text
@@ -99,6 +100,16 @@ namespace Goteo\Library {
 
 			$query = Model::query($sql, $values);
             return $query->fetchObject()->text;
+		}
+
+		/**
+		 * Gettext-like interface for the i18n of interface strings.
+		 *
+		 * @param string $str string to translate
+		 * @return string translated version
+		 */
+		static public function _($str) {
+			return Registry::get('translate')->text($str);
 		}
 
         static public function get ($id) {

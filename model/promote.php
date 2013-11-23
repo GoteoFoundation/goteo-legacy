@@ -134,16 +134,13 @@ namespace Goteo\Model {
 
         public function validate (&$errors = array()) { 
             if (empty($this->node))
-                $errors[] = 'Falta nodo';
-                //Text::get('mandatory-promote-node');
+                $errors[] = Text::_('Falta nodo');
 
             if ($this->active && empty($this->project))
-                $errors[] = 'Se muestra y no tiene proyecto';
-                //Text::get('validate-promote-noproject');
+                $errors[] = Text::_('Se muestra y no tiene proyecto');
 
             if (empty($this->title))
-                $errors[] = 'Falta título';
-                //Text::get('mandatory-promote-title');
+                $errors[] = Text::_('Falta título');
 
             if (empty($errors))
                 return true;
@@ -180,7 +177,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }
