@@ -78,7 +78,9 @@ define('GOTEO_MAIL_SMTP_PORT', 465);
 define('GOTEO_MAIL_SMTP_USERNAME', '');
 define('GOTEO_MAIL_SMTP_PASSWORD', '');
 
-define('GOTEO_MAIL', 'hola@goteo.org');
+define('GOTEO_MAIL', 'dev@goteo.org');
+define('GOTEO_CONTACT_MAIL', 'dev@goteo.org');
+define('GOTEO_FAIL_MAIL', 'dev@goteo.org');
 
 // Language
 define('GOTEO_DEFAULT_LANG', 'en');
