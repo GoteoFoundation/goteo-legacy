@@ -18,12 +18,12 @@
  *
  */
 
-
 namespace Goteo\Model {
 
     use \Goteo\Model\Project\Media,
         \Goteo\Model\Image,
-        \Goteo\Library\Text;
+        \Goteo\Library\Text,
+        \Goteo\Library\Message;
 
     class Glossary extends \Goteo\Core\Model {
 
@@ -157,6 +157,8 @@ namespace Goteo\Model {
                         if(!empty($image->id)) {
                             self::query("REPLACE glossary_image (glossary, image) VALUES (:glossary, :image)", array(':glossary' => $this->id, ':image' => $image->id));
                         }
+                    } else {
+                        Message::Error(Text::get('image-upload-fail') . implode(', ', $errors));
                     }
                 }
 

@@ -62,42 +62,93 @@ namespace Goteo\Model {
          */
         public static function getAll ($section = 'node') {
 
-            $values = array(':section' => $section);
+            $values = array(':section' => $section, ':lang' => \LANG);
 
-            $sql = "
-                SELECT
-                    faq.id as id,
-                    faq.node as node,
-                    faq.section as section,";
+            // piñonaco para sacar alternativos mientras traducen
+            switch (\LANG) {
+                case 'es':
+                    // en español, sacar directamente el original
+                    $sql = "
+                        SELECT
+                            faq.id as id,
+                            faq.node as node,
+                            faq.section as section,
+                            faq.title as title,
+                            faq.description as description,
+                            faq.order as `order`
+                        FROM faq
+                        WHERE faq.section = :section
+                        ORDER BY `order` ASC
+                        ";
 
-            if (\LANG != 'es') {
-                $sql .= "
-                    faq_lang.title as title,
-                    faq_lang.description as description,";
-            } else {
-                $sql .= "
-                    faq.title as title,
-                    faq.description as description,";
+                    unset($values[':lang']);
+                    
+                    break;
+
+                case 'en':
+                    // en inglés hay menos preguntas, no sacar original
+                    $sql = "
+                        SELECT
+                            faq.id as id,
+                            faq.node as node,
+                            faq.section as section,
+                            faq_lang.title as title,
+                            faq_lang.description as description,
+                            faq.order as `order`
+                        FROM faq
+                        LEFT JOIN faq_lang
+                            ON  faq_lang.id = faq.id
+                            AND faq_lang.lang = :lang
+                        WHERE faq.section = :section
+                        ORDER BY `order` ASC
+                        ";
+
+                    break;
+
+                case 'fr':
+                    // en francés, sacar el ingles como original
+                    $sql = "
+                        SELECT
+                            faq.id as id,
+                            faq.node as node,
+                            faq.section as section,
+                            IFNULL(faq_lang.title, faq_en.title) as title,
+                            IFNULL(faq_lang.description, faq_en.description) as description,
+                            faq.order as `order`
+                        FROM faq
+                        LEFT JOIN faq_lang
+                            ON  faq_lang.id = faq.id
+                            AND faq_lang.lang = :lang
+                        LEFT JOIN faq_lang as faq_en
+                            ON  faq_en.id = faq.id
+                            AND faq_en.lang = 'en'
+                        WHERE faq.section = :section
+                        ORDER BY `order` ASC
+                        ";
+
+                    break;
+
+                default:
+                    // en catalan y por defecto, sacar los originales en español
+                    $sql = "
+                        SELECT
+                            faq.id as id,
+                            faq.node as node,
+                            faq.section as section,
+                            IFNULL(faq_lang.title, faq.title) as title,
+                            IFNULL(faq_lang.description, faq.description) as description,
+                            faq.order as `order`
+                        FROM faq
+                        LEFT JOIN faq_lang
+                            ON  faq_lang.id = faq.id
+                            AND faq_lang.lang = :lang
+                        WHERE faq.section = :section
+                        ORDER BY `order` ASC
+                        ";
+                    
+                    break;
             }
-
-            $sql .= "
-                    faq.order as `order`
-                FROM faq";
-
-            if (\LANG != 'es') {
-                $sql .= "
-                INNER JOIN faq_lang
-                    ON  faq_lang.id = faq.id
-                    AND faq_lang.lang = :lang
-                ";
-                $values[':lang'] = \LANG;
-            }
-
-            $sql .= "
-                WHERE faq.section = :section
-                ORDER BY `order` ASC, title ASC
-                ";
-
+            
             $query = static::query($sql, $values);
             
             return $query->fetchAll(\PDO::FETCH_CLASS, __CLASS__);
@@ -153,7 +204,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = "No se ha guardado correctamente. " . $e->getMessage();
+                $errors[] = Text::_('No se ha guardado correctamente. ') . $e->getMessage();
                 return false;
             }
         }

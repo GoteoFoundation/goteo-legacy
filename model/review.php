@@ -103,25 +103,71 @@ namespace Goteo\Model {
 
 
         /**
+         * saca una lista simple de los proycetos con revision o susceptibles de abrir revision
+         */
+        public static function getProjects($node = null) {
+            $projects = array();
+
+            $values = array();
+
+            $sqlFilter = "";
+            if (!empty($node) && $node != \GOTEO_NODE) {
+                $sqlFilter .= " AND project.node = :node";
+                $values[':node'] = $node;
+            }
+
+            $sql = "SELECT
+                        project.id as id,
+                        project.name as name
+                    FROM project
+                    LEFT JOIN review
+                        ON review.project = project.id
+                    WHERE (project.status = 2 OR review.id IS NOT NULL)
+                        $sqlFilter
+                    ORDER BY project.name ASC
+                    ";
+
+            $query = self::query($sql, $values);
+            foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $proj) {
+                $projects[$proj->id] = $proj->name;
+            }
+
+            return $projects;
+        }
+
+        /**
          * Saca una lista completa de proyectos con revision o susceptibles de abrir revision
          *
          * @param string node id
          * @return array of project instances
          */
-        public static function getList($filters = array(), $node = \GOTEO_NODE) {
+        public static function getList($filters = array(), $node = null) {
             $projects = array();
+
+            $values = array();
 
             $sqlFilter = "";
             if (!empty($filters['status'])) {
-                $status = $filters['status'] == 'open' ? '1' : '0';
-                $sqlFilter .= " AND review.status = " . $status;
+                if ($filters['status'] == 'unstarted') {
+                    $sqlFilter .= " AND review.id IS NULL";
+                } else {
+                    $status = $filters['status'] == 'open' ? '1' : '0';
+                    $sqlFilter .= " AND review.status = :status";
+                    $values[':status'] = $status;
+                }
             }
+            if (!empty($filters['project'])) {
+                $sqlFilter .= " AND project.id = :project";
+                $values[':project'] = $filters['project'];
+            }
+
             if (!empty($filters['checker'])) {
                 $sqlFilter .= " AND review.id IN (
                     SELECT review
                     FROM user_review
-                    WHERE user = '{$filters['checker']}'
+                    WHERE user = :checker
                     )";
+                $values[':checker'] = $filters['checker'];
             }
 
             $sql = "SELECT
@@ -140,13 +186,11 @@ namespace Goteo\Model {
                     LEFT JOIN review
                         ON review.project = project.id
                     WHERE (project.status = 2 OR review.id IS NOT NULL)
-                        AND project.node = ?
                         $sqlFilter
                     ORDER BY project.progress DESC
                     ";
 
-//            echo "$sql <br />";
-            $query = self::query($sql, array($node));
+            $query = self::query($sql, $values);
             foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $proj) {
 
                 $checkers = array();
@@ -440,7 +484,7 @@ namespace Goteo\Model {
                 return true;
                 
             } catch(\PDOException $e) {
-                $errors[] = Text::_("No se ha aplicado la puntuacion. ") . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }
@@ -459,7 +503,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = Text::_("No se ha podido cerrar. ") . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }

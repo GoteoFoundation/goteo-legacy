@@ -107,10 +107,6 @@ namespace Goteo\Model {
                         LEFT JOIN category_lang
                             ON  category_lang.id = category.id
                             AND category_lang.lang = :lang
-                        LEFT JOIN project_category
-                            ON category.id = project_category.category
-                        LEFT JOIN user_interest
-                            ON category.id = user_interest.interest
                         GROUP BY category.id
                         ORDER BY category.order ASC";
 
@@ -204,6 +200,55 @@ namespace Goteo\Model {
             return ++$order;
 
         }
+        
+        /**
+         * Get a list of used keywords
+         *
+         * can be of users, projects or  all
+         * 
+         */
+		public static function getKeyWords () {
+            $array = array ();
+            try {
+                
+                $sql = "SELECT 
+                            keywords
+                        FROM project
+                        WHERE status > 1
+                        AND keywords IS NOT NULL
+                        AND keywords != ''
+                        ";
+/*
+                     UNION
+                        SELECT 
+                            keywords
+                        FROM user
+                        WHERE keywords IS NOT NULL
+                        AND keywords != ''
+* 
+ */
+                $query = static::query($sql);
+                $keywords = $query->fetchAll(\PDO::FETCH_ASSOC);
+                foreach ($keywords as $keyw) {
+                    $kw = $keyw['keywords'];
+//                    $kw = str_replace('|', ',', $keyw['keywords']);
+//                    $kw = str_replace(array(' ','|'), ',', $keyw['keywords']);
+//                    $kw = str_replace(array('-','.'), '', $kw);
+                    $kwrds = explode(',', $kw);
+                    
+                    foreach ($kwrds as $word) {
+                        $array[] = strtolower(trim($word));
+                    }
+                }
+
+                asort($array);
+                
+                return $array;
+            } catch(\PDOException $e) {
+				throw new \Goteo\Core\Exception($e->getMessage());
+            }
+		}
+        
     }
     
 }

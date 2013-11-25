@@ -18,13 +18,13 @@
  *
  */
 
-
 namespace Goteo\Model {
 
     use \Goteo\Model\Project\Media,
         \Goteo\Model\Image,
         \Goteo\Library\Text,
-        Goteo\Library\Check;
+        \Goteo\Library\Message,
+        \Goteo\Library\Check;
 
     class Info extends \Goteo\Core\Model {
 
@@ -177,6 +177,8 @@ namespace Goteo\Model {
                         if(!empty($image->id)) {
                             self::query("REPLACE info_image (info, image) VALUES (:info, :image)", array(':info' => $this->id, ':image' => $image->id));
                         }
+                    } else {
+                        Message::Error(Text::get('image-upload-fail') . implode(', ', $errors));
                     }
                 }
 

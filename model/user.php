@@ -18,11 +18,9 @@
  *
  */
 
-
 namespace Goteo\Model {
 
-	use Goteo\Core\Redirection,
-        Goteo\Library\Text,
+	use Goteo\Library\Text,
         Goteo\Model\Image,
         Goteo\Library\Template,
         Goteo\Library\Mail,
@@ -33,6 +31,7 @@ namespace Goteo\Model {
 
         public
             $id = false,
+            $lang,
             $userid, // para el login name al registrarse
             $email,
             $password, // para gestion de super admin
@@ -85,6 +84,13 @@ namespace Goteo\Model {
 	        if($name == "worth") {
 	            return $this->getWorth();
 	        }
+	        if($name == "amount") {
+	            return $this->getAmount();
+	        }
+	        if($name == "projects") {
+	            return $this->getProjects();
+	        }
+	        }
             return $this->$name;
         }
 
@@ -111,14 +117,7 @@ namespace Goteo\Model {
                     $data[':created'] = date('Y-m-d H:i:s');
                     $data[':active'] = true;
                     $data[':confirmed'] = false;
-
-                    // Rol por defecto.
-                    if (!empty($this->id)) {
-                        static::query('REPLACE INTO user_role (user_id, role_id, node_id) VALUES (:user, :role, :node);', array(
-                            ':user' => $this->id,
-                            ':role' => 'user',
-                            ':node' => '*',
-                        ));
+                    $data[':lang'] = \LANG;
                     }
 
 					//active = 1 si no se quiere comprovar
@@ -163,7 +162,7 @@ namespace Goteo\Model {
                         else {
                             $query = self::query('SELECT email FROM user WHERE id = ?', array($this->id));
                             if($this->email !== $query->fetchColumn()) {
-                                $this->token = md5(uniqid()) . '¬' . $this->email;
+                                $this->token = md5(uniqid()).'¬'.$this->email.'¬'.date('Y-m-d');
                             }
                         }
                     }
@@ -189,14 +188,10 @@ namespace Goteo\Model {
                     // Avatar
                     if (is_array($this->avatar) && !empty($this->avatar['name'])) {
                         $image = new Image($this->avatar);
-                        $image->save();
-                        $data[':avatar'] = $image->id;
-
-                        /**
-                         * Guarda la relación NM en la tabla 'user_image'.
-                         */
-                        if(!empty($image->id)) {
-                            self::query("REPLACE user_image (user, image) VALUES (:user, :image)", array(':user' => $this->id, ':image' => $image->id));
+                        if ($image->save($errors)) {
+                            $data[':avatar'] = $image->id;
+                        } else {
+                            unset($data[':avatar']);
                         }
                     }
 
@@ -301,7 +296,7 @@ namespace Goteo\Model {
                     // Ejecuta SQL.
                     return self::query($query, $data);
             	} catch(\PDOException $e) {
-                    $errors[] = Text::_("Error al actualizar los datos del usuario: "). $e->getMessage();
+                $errors[] = Text::_("No se ha grabado correctamente. ") . $e->getMessage();
                     return false;
     			}
             }
@@ -333,7 +328,7 @@ namespace Goteo\Model {
             	
 				return true;
 			} catch(\PDOException $e) {
-                $errors[] = Text::_("No se ha grabado correctamente. Por favor, revise los datos.") . $e->getMessage();
+                $errors[] = Text::_("No se ha grabado correctamente. ") . $e->getMessage();
                 return false;
 			}
 		}
@@ -416,12 +411,6 @@ namespace Goteo\Model {
                     }
                 }
 
-                if (is_array($this->avatar) && !empty($this->avatar['name'])) {
-                    $image = new Image($this->avatar);
-                    $_err = array();
-                    $image->validate($_err);
-                    $errors['avatar'] = $_err['image'];
-                }
             }
 
             if (\str_replace(Text::get('regular-facebook-url'), '', $this->facebook) == '') $this->facebook = '';
@@ -491,6 +480,26 @@ namespace Goteo\Model {
 
         }
 
+        /**
+         * Este método actualiza directamente el campo de idioma preferido
+         */
+        public function updateLang (&$errors = array()) {
+
+            $values = array(':id'=>$this->id, ':lang'=>$this->lang);
+
+            try {
+                $sql = "UPDATE user SET `lang` = :lang WHERE id = :id";
+                self::query($sql, $values);
+
+                return true;
+            } catch(\PDOException $e) {
+                $errors[] = Text::_("No se ha grabado correctamente. ") . $e->getMessage();
+                return false;
+                return false;
+            }
+
+        }
+
 
         /**
          * Usuario.
@@ -500,8 +509,6 @@ namespace Goteo\Model {
          */
         public static function get ($id, $lang = null) {
             try {
-                if (!$lang == 'es') $lang = null;
-
                 $sql = "
                     SELECT
                         user.id as id,
@@ -533,7 +540,7 @@ namespace Goteo\Model {
                 $user = $query->fetchObject(__CLASS__);
 
                 if (!$user instanceof  \Goteo\Model\User) {
-                    throw new \Goteo\Core\Error('404', Text::html('fatal-error-user'));
+                    return false;
                 }
 
                 $user->roles = $user->getRoles();
@@ -543,6 +550,13 @@ namespace Goteo\Model {
                 }
                 $user->interests = User\Interest::get($id);
                 $user->webs = User\Web::get($id);
+
+                // si es traductor cargamos sus idiomas
+                if (isset($user->roles['translator'])) {
+                    $user->translangs = User\Translate::getLangs($user->id);
+                }
+
+
                 return $user;
             } catch(\PDOException $e) {
                 return false;
@@ -577,50 +591,119 @@ namespace Goteo\Model {
         /**
          * Lista de usuarios.
          *
-         * @param  bool $visible    true|false
+         * @param  array $filters  Filtros
+         * @param  string $node    true|false
          * @return mixed            Array de objetos de usuario activos|todos.
          */
         public static function getAll ($filters = array()) {
+
+            $values = array();
+
             $users = array();
 
             $sqlFilter = "";
+            if (!empty($filters['id'])) {
+                $sqlFilter .= " AND id = :id";
+                $values[':id'] = $filters['id'];
+            }
             if (!empty($filters['name'])) {
-                $sqlFilter .= " AND ( name LIKE ('%{$filters['name']}%') OR email LIKE ('%{$filters['name']}%') )";
+                $sqlFilter .= " AND (name LIKE :name OR email LIKE :name)";
+                $values[':name'] = "%{$filters['name']}%";
             }
             if (!empty($filters['status'])) {
-                $active = $filters['status'] == 'active' ? '1' : '0';
-                $sqlFilter .= " AND active = '$active'";
+                $sqlFilter .= " AND active = :active";
+                $values[':active'] = $filters['status'] == 'active' ? '1' : '0';
             }
             if (!empty($filters['interest'])) {
                 $sqlFilter .= " AND id IN (
                     SELECT user
                     FROM user_interest
-                    WHERE interest = {$filters['interest']}
+                    WHERE interest = :interest
                     ) ";
+                $values[':interest'] = $filters['interest'];
             }
-            if (!empty($filters['role'])) {
+            if (!empty($filters['role']) && $filters['role'] != 'user') {
                 $sqlFilter .= " AND id IN (
                     SELECT user_id
                     FROM user_role
-                    WHERE role_id = '{$filters['role']}'
+                    WHERE role_id = :role
                     ) ";
+                $values[':role'] = $filters['role'];
             }
-            if (!empty($filters['posted'])) {
-                /*
-                 * Si ha enviado algun mensaje o comentario
+            if (!empty($filters['project'])) {
+                $subFilter = $filters['project'] == 'any' ? '' : 'invest.project = :project AND';
                 $sqlFilter .= " AND id IN (
                     SELECT user
-                    FROM message
-                    WHERE interest = {$filters['interest']}
+                    FROM invest
+                    WHERE {$subFilter} invest.status IN ('0', '1', '3', '4')
                     ) ";
-                 *
-                 */
+                if ($filters['project'] != 'any') {
+                    $values[':project'] = $filters['project'];
+                }
+            }
+
+            // por tipo de usuario (un usuario puede ser de más de un tipo)
+            if (!empty($filters['type'])) {
+                switch ($filters['type']) {
+                    case 'creators': // crean proyectos que se publican
+                        $sqlFilter .= " AND id IN (
+                            SELECT DISTINCT(owner)
+                            FROM project
+                            ) ";
+                        break;
+                    case 'investos': // aportan correctamente a proyectos
+                        $sqlFilter .= " AND id IN (
+                            SELECT DISTINCT(user)
+                            FROM invest
+                            WHERE status IN ('0', '1', '3', '4')
+                            ) ";
+                        break;
+                    case 'supporters': // colaboran con el proyecto
+                        $sqlFilter .= " AND id IN (
+                            SELECT DISTINCT(user)
+                            FROM message
+                            WHERE thread IN (
+                                SELECT id 
+                                FROM message
+                                WHERE thread IS NULL
+                                AND blocked = 1
+                                )
+                            ) ";
+                        break;
+                    case 'lurkers': // colaboran con el proyecto
+                        $sqlFilter .= " AND id NOT IN (
+                                SELECT DISTINCT(user)
+                                FROM invest
+                                WHERE status IN ('0', '1', '3', '4')
+                            )
+                             AND id NOT IN (
+                                SELECT DISTINCT(user)
+                                FROM invest
+                                WHERE status IN ('0', '1', '3', '4')
+                            )
+                             AND id NOT IN (
+                                SELECT DISTINCT(user)
+                                FROM message
+                            )
+                            ";
+                        break;
+                }
+
+            // si es solo los usuarios normales, añadimos HAVING
+            if ($filters['role'] == 'user') {
+                $sqlCR = ", (SELECT COUNT(role_id) FROM user_role WHERE user_id = user.id) as roles";
+                $sqlOrder .= " HAVING roles = 0";
+            } else {
+                $sqlCR = "";
             }
 
             //el Order
             switch ($filters['order']) {
                 case 'name':
                     $sqlOrder .= " ORDER BY name ASC";
+                break;
+                case 'id':
+                    $sqlOrder .= " ORDER BY id ASC";
                 break;
                 default:
                     $sqlOrder .= " ORDER BY created DESC";
@@ -633,16 +716,16 @@ namespace Goteo\Model {
                         email,
                         active,
                         hide,
-                        DATE_FORMAT(created, '%d/%m/%Y %H:%i:%s') as register_date
+                        DATE_FORMAT(created, '%d/%m/%Y %H:%i:%s') as register_date,
+                        $sqlCR
                     FROM user
                     WHERE id != 'root'
                         $sqlFilter
                    $sqlOrder
+                    LIMIT 999
                     ";
-
-
-
-            $query = self::query($sql, array($node));
+            
+            $query = self::query($sql, $values);
             foreach ($query->fetchAll(\PDO::FETCH_CLASS, __CLASS__) as $user) {
 
                 $query = static::query("
@@ -652,17 +735,13 @@ namespace Goteo\Model {
                     WHERE user_id = :id
                     ", array(':id' => $user->id));
                 foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $role) {
-                    if ($role->role_id == 'checker') {
-                        $user->checker = true;
-                    }
-                    if ($role->role_id == 'translator') {
-                        $user->translator = true;
-                    }
-                    if ($role->role_id == 'admin') {
-                        $user->admin = true;
-                    }
+                    $rolevar = $role->role_id;
+                    $user->$rolevar = true;
                 }
 
+                $user->namount = (int) $user->amount;
+                $user->nprojs = (int) count($user->support['projects']);
+                
                 $users[] = $user;
             }
             return $users;
@@ -678,9 +757,8 @@ namespace Goteo\Model {
             $query = static::query("
                 SELECT
                     user.id as id,
-                    user.name as name
+                    CONCAT(user.name, ' (', user.email, ')') as name
                 FROM    user
-                ORDER BY user.name ASC
                 ");
 
             foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
@@ -704,6 +782,89 @@ namespace Goteo\Model {
                 FROM    user
                 INNER JOIN project
                     ON project.owner = user.id
+                ORDER BY user.name ASC
+                ");
+
+            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
+                $list[$item->id] = $item->name;
+            }
+
+            return $list;
+        }
+
+        /*
+         * Listado simple de los usuarios Colaboradores
+         */
+        public static function getVips() {
+
+            $list = array();
+
+            $query = static::query("
+                SELECT
+                    user.id as id,
+                    user.name as name
+                FROM    user
+                INNER JOIN user_role
+                    ON  user_role.user_id = user.id
+                    AND user_role.role_id = 'vip'
+                ORDER BY user.name ASC
+                ");
+
+            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
+                $list[$item->id] = $item->name;
+            }
+
+            return $list;
+        }
+
+        /*
+         * Listado simple de los usuarios Administradores
+         */
+        public static function getAdmins($availableonly = false) {
+
+            $list = array();
+
+            $sql = "
+                SELECT
+                    user.id as id,
+                    user.name as name
+                FROM    user
+                INNER JOIN user_role
+                    ON  user_role.user_id = user.id
+                    AND user_role.role_id = 'admin'
+                ";
+            
+            if ($availableonly) {
+                $sql .= " WHERE id NOT IN (SELECT distinct(user) FROM user_node)";
+            }
+
+            $sql .= " ORDER BY user.name ASC
+                ";
+
+            $query = static::query($sql);
+
+            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
+                $list[$item->id] = $item->name;
+            }
+
+            return $list;
+        }
+
+        /*
+         * Listado simple de los usuarios Colaboradores
+         */
+        public static function getVips() {
+
+            $list = array();
+
+            $query = static::query("
+                SELECT
+                    user.id as id,
+                    user.name as name
+                FROM    user
+                INNER JOIN user_role
+                    ON  user_role.user_id = user.id
+                    AND user_role.role_id = 'vip'
                 ORDER BY user.name ASC
                 ");
 
@@ -746,6 +907,7 @@ namespace Goteo\Model {
 		 * @return obj|false Objeto del usuario, en caso contrario devolverá 'false'.
 		 */
 		public static function login ($username, $password) {
+            
             $query = self::query("
                     SELECT
                         id
@@ -754,7 +916,8 @@ namespace Goteo\Model {
                     AND BINARY password = :password",
 				array(
 					':username' => trim($username),
-					':password' => sha1($password)
+                    // si la contraseña ya viene en formato sha1 no la encriptamos
+					':password' => (\is_sha1($password)) ? $password : sha1($password)
 				)
 			);
 
@@ -797,25 +960,23 @@ namespace Goteo\Model {
 		 * @param string $email    Email de la cuenta
 		 * @return boolean true|false  Correctos y mail enviado
 		 */
-		public static function recover ($username = null, $email = null) {
+		public static function recover ($email = null) {
             $query = self::query("
                     SELECT
                         id,
                         name,
                         email
                     FROM user
-                    WHERE (BINARY id = :username
-                    OR BINARY email = :email)
+                    WHERE BINARY email = :email
                     ",
 				array(
-					':username' => trim($username),
 					':email'    => trim($email)
 				)
 			);
 			if($row = $query->fetchObject()) {
                 // tenemos id, nombre, email
                 // genero el token
-                $token = md5(uniqid()) . '¬' . $row->email;
+                $token = md5(uniqid()).'¬'.$row->email.'¬'.date('Y-m-d');
                 self::query('UPDATE user SET token = :token WHERE id = :id', array(':id' => $row->id, ':token' => $token));
 
                 // Obtenemos la plantilla para asunto y contenido
@@ -867,7 +1028,7 @@ namespace Goteo\Model {
 			if($row = $query->fetchObject()) {
                 // tenemos id, nombre, email
                 // genero el token
-                $token = md5(uniqid()) . '¬' . $row->email;
+                $token = md5(uniqid()).'¬'.$row->email.'¬'.date('Y-m-d');
                 self::query('UPDATE user SET token = :token WHERE id = :id', array(':id' => $row->id, ':token' => $token));
 
                 // Obtenemos la plantilla para asunto y contenido
@@ -967,9 +1128,9 @@ namespace Goteo\Model {
          * @return type array
          */
     	private function getSupport () {
-            $query = self::query('SELECT DISTINCT(project) FROM invest WHERE user = ? AND (status = 0 OR status = 1 OR status = 3 OR status = 4)', array($this->id));
+            $query = self::query("SELECT DISTINCT(project) FROM invest WHERE user = ? AND status IN ('0', '1', '3')", array($this->id));
             $projects = $query->fetchAll(\PDO::FETCH_ASSOC);
-            $query = self::query('SELECT SUM(amount), COUNT(id) FROM invest WHERE user = ? AND (status = 0 OR status = 1 OR status = 3 OR status = 4)', array($this->id));
+            $query = self::query("SELECT SUM(amount), COUNT(id) FROM invest WHERE user = ? AND status IN ('0', '1', '3')", array($this->id));
             $invest = $query->fetch();
             return array('projects' => $projects, 'amount' => $invest[0], 'invests' => $invest[1]);
         }
@@ -988,6 +1149,28 @@ namespace Goteo\Model {
                 self::query('UPDATE user SET worth = :worth WHERE id = :id', array(':id' => $this->id, ':worth' => $worth));
             }
             return $worth;
+        }
+
+        /**
+    	 * Número de proyectos publicados
+    	 *
+    	 * @return type int	Count(id)
+    	 */
+    	private function getProjects () {
+            $query = self::query('SELECT COUNT(id) FROM project WHERE owner = ? AND status > 2', array($this->id));
+            $num_proj = $query->fetchColumn(0);
+            return $num_proj;
+        }
+
+        /**
+    	 * Cantidad aportada
+    	 *
+    	 * @return type int	Count(id)
+    	 */
+    	private function getAmount () {
+            $query = self::query("SELECT SUM(invest.amount) FROM invest WHERE user = ? AND status IN ('0', '1', '3')", array($this->id));
+            $amount = $query->fetchColumn(0);
+            return $amount;
         }
 
         /**
@@ -1063,7 +1246,7 @@ namespace Goteo\Model {
                     return true;
 
                 } catch (\PDOException $e) {
-                    $errors[] = Text::_("FALLO al gestionar el registro de datos personales ") . $e->getMessage();
+                    $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                     return false;
                 }
             }
@@ -1115,7 +1298,7 @@ namespace Goteo\Model {
                     return true;
 
                 } catch (\PDOException $e) {
-                    $errors[] = Text::_("FALLO al gestionar las preferencias de notificación ") . $e->getMessage();
+                    $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                     return false;
                 }
             }
@@ -1138,6 +1321,22 @@ namespace Goteo\Model {
             foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $rol) {
                 $roles[$rol->id] = $rol;
             }
+            // añadimos el de usuario normal
+            $roles['user'] = (object) array('id'=>'user', 'name'=>'Usuario registrado');
+            
+            return $roles;
+
+		}
+
+        /* listado de roles */
+		public static function getRolesList () {
+
+            $roles = array();
+
+		    $query = self::query('SELECT role.id as id, role.name as name FROM role ORDER BY role.name');
+            foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $rol) {
+                $roles[$rol->id] = $rol->name;
+            }
             return $roles;
 
 		}
@@ -1155,7 +1354,7 @@ namespace Goteo\Model {
                     INNER JOIN invest
                         ON project.id = invest.project
                         AND invest.user = ?
-                        AND (invest.status = 0 OR invest.status = 1)
+                        AND invest.status IN ('0', '1', '3', '4')
                     WHERE project.status < 7
                     ";
             if ($publicOnly) {
@@ -1174,13 +1373,13 @@ namespace Goteo\Model {
 
             $query = self::query($sql, array($user));
             foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $proj) {
-                $projects[] = \Goteo\Model\Project::get($proj->id);
+                $projects[] = \Goteo\Model\Project::getMedium($proj->id);
             }
             return $projects;
         }
 
         public static function calcWorth($userId) {
-            $query = self::query('SELECT id FROM worthcracy WHERE amount <= (SELECT SUM(amount) FROM invest WHERE user = ? AND (status = 0 OR status = 1)) ORDER BY amount DESC LIMIT 1', array($userId));
+            $query = self::query("SELECT id FROM worthcracy WHERE amount <= (SELECT SUM(amount) FROM invest WHERE user = ? AND status IN ('0', '1', '3')) ORDER BY amount DESC LIMIT 1", array($userId));
             $worth = $query->fetchColumn();
             self::query('UPDATE user SET worth = :worth WHERE id = :id', array(':id' => $userId, ':worth' => $worth));
 
@@ -1197,6 +1396,29 @@ namespace Goteo\Model {
         public static function cancel($userId) {
 
             if (self::query('UPDATE user SET active = 0, hide = 1 WHERE id = :id', array(':id' => $userId))) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        /**
+         * Metodo para saber si el usuario ha bloqueado este envio de mailing
+         *
+         * @param string $userId
+         * @param string $mailingCode Tipo de envio de mailing. Default: newsletter
+         * @return bool
+         */
+        public static function mailBlock($userId, $mailingCode = 'mailing') {
+
+            $values = array(':user' => $userId);
+
+            $sql = "SELECT user_prefer.{$mailingCode} as blocked FROM user_prefer WHERE user_prefer.user = :user";
+
+            $query = self::query($sql, $values);
+            $block = $query->fetchColumn();
+            if ($block == 1) {
                 return true;
             } else {
                 return false;

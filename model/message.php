@@ -185,7 +185,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = Text::_("El mensaje no se ha grabado correctamente. Por favor, inténtelo de nuevo.") . $e->getMessage();
+                $errors[] = Text::_("No se ha grabado correctamente. ") . $e->getMessage();
                 return false;
             }
         }
@@ -214,7 +214,7 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = Text::_("El mensaje no se ha grabado correctamente. Por favor, inténtelo de nuevo.") . $e->getMessage();
+                $errors[] = Text::_("No se ha grabado correctamente. ") . $e->getMessage();
                 return false;
             }
         }
@@ -242,6 +242,104 @@ namespace Goteo\Model {
                 return false;
             }
 
+        }
+
+
+        /**
+         * Para saber si un hilo de mensajes es de colaboración
+         *
+         * @param numeric $id Id del mensaje (thread)
+         * @return bool true/false
+         */
+        public static function isSupport ($id) {
+            $sql = "SELECT support FROM support WHERE thread = :id";
+            $query = self::query($sql, array(':id'=>$id));
+            $support = $query->fetchColumn();
+
+            if (empty($support)) {
+                return false;
+            } else {
+                return $support;
+            }
+        }
+
+        /*
+         * Numero de usuarios mensajeros de un proyecto
+         */
+        public static function numMessegers ($id) {
+            $sql = "SELECT COUNT(DISTINCT(message.user)) FROM message WHERE project = :id";
+            $query = self::query($sql, array(':id'=>$id));
+            $num = $query->fetchColumn();
+
+            if (empty($num)) {
+                return false;
+            } else {
+                return $num;
+            }
+        }
+
+        /*
+         * Lista de usuarios mensajeros de un proyecto
+         */
+        public static function getMessegers ($id) {
+            $list = array();
+
+            $sql = "SELECT 
+                        message.user as user,
+                        message.message as text,
+                        respond.message as thread_text
+                    FROM message
+                    LEFT JOIN message as respond
+                        ON respond.id = message.thread
+                    WHERE message.project = :id";
+            $query = self::query($sql, array(':id'=>$id));
+            foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $msg) {
+
+                $msgData = (object) array(
+                        'text' => $msg->text,
+                        'thread_text' => $msg->thread_text
+                    );
+
+                if (isset($list[$msg->user])) {
+                    $list[$msg->user]->messages[] = $msgData;
+                } else {
+                    $user = User::getMini($msg->user);
+                    $user->messages = array();
+                    $user->messages[] = $msgData;
+                    $list[$msg->user] = $user;
+                }
+            }
+
+            return $list;
+        }
+
+        /*
+         * Lista de proyectos mensajeados por un usuario (proyectos en los que el usuario es participante)
+         */
+        public static function getMesseged($user, $publicOnly = true)
+        {
+            $projects = array();
+
+            $sql = "SELECT project.id
+                    FROM  project
+                    INNER JOIN message
+                        ON project.id = message.project
+                        AND message.user = ?
+                    WHERE project.status < 7
+                    ";
+            if ($publicOnly) {
+                $sql .= "AND project.status >= 3
+                    ";
+            }
+            $sql .= "GROUP BY project.id
+                    ORDER BY name ASC
+                    ";
+
+            $query = self::query($sql, array($user));
+            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $proj) {
+                $projects[] = \Goteo\Model\Project::getMedium($proj->id);
+            }
+            return $projects;
         }
 
     }

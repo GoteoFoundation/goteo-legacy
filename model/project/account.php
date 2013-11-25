@@ -18,7 +18,6 @@
  *
  */
 
-
 namespace Goteo\Model\Project {
 
     class Account extends \Goteo\Core\Model {
@@ -26,7 +25,10 @@ namespace Goteo\Model\Project {
         public
             $project,
             $bank,
-            $paypal;
+            $bank_owner,
+            $paypal,
+            $paypal_owner,
+            $allowpp; // para permitir usar el boton paypal
 
 
         /**
@@ -37,13 +39,14 @@ namespace Goteo\Model\Project {
 	 	public static function get ($id) {
 
             try {
-                $query = static::query("SELECT project, bank, paypal FROM project_account WHERE project = ?", array($id));
+                $query = static::query("SELECT * FROM project_account WHERE project = ?", array($id));
                 $accounts = $query->fetchObject(__CLASS__);
                 if (!empty($accounts)) {
                     return $accounts;
                 } else {
                     $accounts = new Account();
                     $accounts->project = $id;
+                    $accounts->allowpp = false;
                     return $accounts;
                 }
             } catch(\PDOException $e) {
@@ -66,8 +69,8 @@ namespace Goteo\Model\Project {
             if (!$this->validate($errors)) return false;
 
 			try {
-	            $sql = "REPLACE INTO project_account (project, bank, paypal) VALUES(:project, :bank, :paypal)";
-                $values = array(':project'=>$this->project, ':bank'=>$this->bank, ':paypal'=>$this->paypal);
+	            $sql = "REPLACE INTO project_account (project, bank, bank_owner, paypal, paypal_owner, allowpp) VALUES(:project, :bank, :bank_owner, :paypal, :paypal_owner, :allowpp)";
+                $values = array(':project'=>$this->project, ':bank'=>$this->bank, ':bank_owner'=>$this->bank_owner, ':paypal'=>$this->paypal, ':paypal_owner'=>$this->paypal_owner, ':allowpp'=>$this->allowpp);
 				self::query($sql, $values);
 				return true;
 			} catch(\PDOException $e) {
@@ -77,6 +80,20 @@ namespace Goteo\Model\Project {
 
 		}
 
+        // comprobar, para aportar con PayPal tiene que tener puesta la cuenta
+        public static function getAllowpp ($id) {
+
+            try {
+                $query = static::query("SELECT paypal FROM project_account WHERE project = ?", array($id));
+                $paypal = $query->fetchColumn();
+                return (!empty($paypal));
+            } catch(\PDOException $e) {
+                return false;
+            }
+            
+        }
+        
+        
 	}
     
 }

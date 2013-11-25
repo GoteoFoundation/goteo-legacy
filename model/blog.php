@@ -60,8 +60,66 @@ namespace Goteo\Model {
                         $blog->project = $blog->owner;
                         break;
                 }
-                $blog->posts = Blog\Post::getAll($blog->id);
+                if ($blog->node == \GOTEO_NODE) {
+                    $blog->posts = Blog\Post::getAll();
+                } elseif (!empty($blog->id)) {
+                    $blog->posts = Blog\Post::getAll($blog->id);
+                } else {
+                    $blog->posts = array();
+                }
                 return $blog;
+        }
+
+        /*
+         *  Listado simple de blogs de proyecto
+         */
+        public static function getListProj () {
+
+            $list = array();
+
+            $query = static::query("
+                SELECT
+                    blog.id as id,
+                    project.name as name
+                FROM    blog
+                INNER JOIN post
+                    ON post.blog = blog.id
+                INNER JOIN project
+                    ON project.id = blog.owner
+                WHERE blog.type = 'project'
+                ");
+
+            foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $item) {
+                $list[$item->id] = $item->name;
+            }
+
+            return $list;
+        }
+
+        /*
+         *  Listado simple de blogs de nodo
+         */
+        public static function getListNode () {
+
+            $list = array();
+
+            $query = static::query("
+                SELECT
+                    blog.id as id,
+                    node.name as name
+                FROM    blog
+                INNER JOIN post
+                    ON post.blog = blog.id
+                INNER JOIN node
+                    ON node.id = blog.owner
+                WHERE blog.type = 'node'
+                ");
+
+            foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $item) {
+                $list[$item->id] = $item->name;
+            }
+
+            return $list;
         }
 
         public function validate (&$errors = array()) {
@@ -92,16 +150,38 @@ namespace Goteo\Model {
 
             try {
                 $sql = "REPLACE INTO blog SET " . $set;
-                self::query($sql, $values);
-                if (empty($this->id)) $this->id = self::insertId();
-
-                return true;
+                if (self::query($sql, $values)) {
+                    if (empty($this->id)) $this->id = self::insertId();
+                    return true;
+                } else {
+                    return false;
+                }
             } catch(\PDOException $e) {
                 $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }
 
+        /*
+         *  Para saber si un proyecto tiene novedades publicadas
+         */
+        public static function hasUpdates ($project) {
+            $sql = "
+                    SELECT
+                        COUNT(post.id) as num
+                    FROM post
+                    INNER JOIN blog
+                        ON  post.blog = blog.id
+                        AND blog.type = 'project'
+                        AND blog.owner = :project
+                    WHERE post.publish = 1
+                    ";
+
+                $query = static::query($sql, array(':project' => $project));
+                $num = $query->fetchColumn(0);
+                return ($num > 0);
+        }
+        
     }
     
 }

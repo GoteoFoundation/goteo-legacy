@@ -50,12 +50,6 @@ namespace Goteo\Model {
                     ", array(':id' => $id));
                 $sponsor = $sql->fetchObject(__CLASS__);
 
-                // imagen
-                if (!empty($sponsor->image)) {
-                    $image = Image::get($sponsor->image);
-                    $sponsor->image = $image->id;
-                }
-
                 return $sponsor;
         }
 
@@ -78,12 +72,6 @@ namespace Goteo\Model {
                 ");
 
             foreach ($sql->fetchAll(\PDO::FETCH_CLASS, __CLASS__) as $sponsor) {
-                // imagen
-                if (!empty($sponsor->image)) {
-                    $image = Image::get($sponsor->image);
-                    $sponsor->image = $image->id;
-                }
-
                 $list[] = $sponsor;
             }
 
@@ -141,6 +129,7 @@ namespace Goteo\Model {
                 if ($image->save($errors)) {
                     $this->image = $image->id;
                 } else {
+                    \Goteo\Library\Message::Error(Text::get('image-upload-fail') . implode(', ', $errors));
                     $this->image = '';
                 }
             }
@@ -191,7 +180,7 @@ namespace Goteo\Model {
         }
 
         /*
-         * Para que una pregunta salga antes  (disminuir el order)
+         * Para que salga antes  (disminuir el order)
          */
         public static function up ($id) {
             return Check::reorder($id, 'up', 'sponsor');

@@ -77,6 +77,14 @@ namespace Goteo\Model\Project {
 
         }
 
+        protected static function getGissTvCode ($id, $https = false) {
+
+            return '<iframe src="'
+                    . ($https ? 'https' : 'http') . '://giss.tv/dmmdb/'.$id
+                    .'" width="100%" height="100%" scrolling=no></iframe>';
+
+        }
+
         public function getEmbedCode ($universalSubtitles = false, $lang = \LANG) {
 
             $code = '';
@@ -84,9 +92,9 @@ namespace Goteo\Model\Project {
             if (!empty($this->url)) {
 
                 if ($universalSubtitles) {
-                    return '<script type="text/javascript" src="http://s3.www.universalsubtitles.org/embed.js">
+                    return '<script type="text/javascript" src="http://s3.amazonaws.com/s3.www.universalsubtitles.org/embed.js">
 ({
-    "video_url": "'. trim($this->url) . ' ",
+    "video_url": "'. trim($this->url) . '",
     "base_state": {"language": "'.$lang.'"},
     "video_config": {"width": "620", "height": "380"}
 })
@@ -128,12 +136,17 @@ namespace Goteo\Model\Project {
 
                      case (preg_match('#^(http(?<https>s)?://)?(?:www\.)?prezi.com/(?<slide>\w+)/#', $this->url, $pz)):
                         // URL de Prezi
-                        $code = static::getPreziCode($pz['slide'], !empty($vm['https']));
+                        $code = static::getPreziCode($pz['slide'], !empty($pz['https']));
                         break;
 
                      case (preg_match('#^(http(?<https>s)?://)?(?:www\.)?blip.tv/play/(?<video>\w+).html#', $this->url, $bp)):
                         // URL de Blip.tv
-                        $code = static::getBlipCode($bp['video'], !empty($vm['https']));
+                        $code = static::getBlipCode($bp['video'], !empty($bp['https']));
+                        break;
+
+                     case (preg_match('#^(http(?<https>s)?://)?(?:www\.)?giss.tv/dmmdb/(?<video>\w+)#', $this->url, $bp)):
+                        // URL de Blip.tv
+                        $code = static::getGissTvCode($bp['video'], !empty($bp['https']));
                         break;
 
                     default:

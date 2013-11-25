@@ -77,7 +77,7 @@ namespace Goteo\Model\User {
 				self::query($sql, $values);
 				return true;
 			} catch(\PDOException $e) {
-				$errors[] = Text::_("La revisión no se ha asignado correctamente. Por favor, revise el metodo User\Review->save.") . $e->getMessage();
+				$errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
 				return false;
 			}
 
@@ -102,7 +102,6 @@ namespace Goteo\Model\User {
 				return true;
 			} catch(\PDOException $e) {
                 $errors[] = 'No se ha podido desasignar la revision ' . $this->id . ' del usuario ' . $this->user . ' ' . $e->getMessage();
-                //Text::get('remove-review-fail');
                 return false;
 			}
 		}
@@ -125,7 +124,6 @@ namespace Goteo\Model\User {
 				return true;
 			} catch(\PDOException $e) {
                 $errors[] = 'No se ha podido marcar la revision ' . $this->id . ' del usuario ' . $this->user . ' como lista. ' . $e->getMessage();
-                //Text::get('review-set_ready-fail');
                 return false;
 			}
 		}
@@ -148,7 +146,6 @@ namespace Goteo\Model\User {
 				return true;
 			} catch(\PDOException $e) {
                 $errors[] = 'No se ha podido reabrir la revision ' . $this->id . ' del usuario ' . $this->user . '. ' . $e->getMessage();
-                //Text::get('review-set_unready-fail');
                 return false;
 			}
 		}
@@ -320,6 +317,30 @@ namespace Goteo\Model\User {
 
             } catch(\PDOException $e) {
                 $errors[] = "No se ha aplicado la puntuacion. " . $e->getMessage();
+                return false;
+            }
+        }
+
+        /*
+         * Devuelve true o false si este usuario tiene asignada la revision de este proyecto
+         */
+        public static function is_assigned ($user, $project) {
+            $sql = "
+                SELECT project
+                FROM review
+                WHERE id IN (
+                    SELECT review FROM user_review WHERE user = :user
+                )
+                AND project = :project";
+            $values = array(
+                ':user' => $user,
+                ':project' => $project
+            );
+            $query = static::query($sql, $values);
+            $legal = $query->fetchObject();
+            if ($legal->project == $project) {
+                return true;
+            } else {
                 return false;
             }
         }

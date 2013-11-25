@@ -98,10 +98,16 @@ namespace Goteo\Model {
             }
 
             if (!empty($group)) {
-                // de un grupo o de todos
-                $sql .= "WHERE `group` = :group
-                    ";
-                $values[':group'] = $group;
+                if ($group == 'regular') {
+                    // sin grupo
+                    $sql .= "WHERE (`group` = '' OR `group` IS NULL)
+                        ";
+                } else {
+                    // de un grupo
+                    $sql .= "WHERE `group` = :group
+                        ";
+                    $values[':group'] = $group;
+                }
             }
 
             $sql .= "ORDER BY `order` ASC, name ASC

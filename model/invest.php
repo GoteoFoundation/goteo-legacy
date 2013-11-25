@@ -18,7 +18,6 @@
  *
  */
 
-
 namespace Goteo\Model {
 
     use Goteo\Library\Text,
@@ -38,6 +37,7 @@ namespace Goteo\Model {
             $method, // metodo de pago paypal/tpv
             $status, //estado en el que se encuentra esta aportación:
                     // -1 en proceso, 0 pendiente, 1 cobrado (charged), 2 devuelto (returned)
+            $issue, // aporte con incidencia
             $anonymous, //no debe aparecer su careto ni su nombre, nivel, etc... pero si aparece en la cuenta de cofinanciadores y de aportes
             $resign, //renuncia a cualquier recompensa
             $invested, //fecha en la que se ha iniciado el aporte
@@ -90,7 +90,7 @@ namespace Goteo\Model {
 
                     $invest->address = $usr_address;
                 }
-                
+
                 return $invest;
         }
 
@@ -132,7 +132,7 @@ namespace Goteo\Model {
                         ON invest_reward.reward = reward.id
                     WHERE   invest_reward.invest = ?
                     ", array($invest->id));
-				$invest->rewards = $query->fetchAll(\PDO::FETCH_CLASS);
+				$invest->rewards = $query->fetchAll(\PDO::FETCH_OBJ);
 
 				$query = static::query("
                     SELECT  address, zipcode, location, country
@@ -162,33 +162,56 @@ namespace Goteo\Model {
          * Los datos que sacamos: usuario, proyecto, cantidad, estado de proyecto, estado de aporte, fecha de aporte, tipo de aporte, campaña
          * .... anonimo, resign, etc...
          */
-        public static function getList ($filters = array()) {
-
-            /*
-             * Estos son los filtros
-            $fields = array('method', 'status', 'investStatus', 'project', 'user', 'campaign', 'types');
-             */
+        public static function getList ($filters = array(), $node = null, $limited = false) {
 
             $list = array();
+            $values = array();
 
             $sqlFilter = "";
+            if (!empty($filters['id'])) {
+                $sqlFilter .= " AND invest.id = :id";
+                $values[':id'] = $filters['id'];
+            }
             if (!empty($filters['methods'])) {
-                $sqlFilter .= " AND invest.method = '{$filters['methods']}'";
+                $sqlFilter .= " AND invest.method = :methods";
+                $values[':methods'] = $filters['methods'];
             }
             if (is_numeric($filters['status'])) {
-                $sqlFilter .= " AND project.status = '{$filters['status']}'";
+                $sqlFilter .= " AND project.status = :status";
+                $values[':status'] = $filters['status'];
             }
             if (is_numeric($filters['investStatus'])) {
-                $sqlFilter .= " AND invest.status = '{$filters['investStatus']}'";
+                $sqlFilter .= " AND invest.status = :investStatus";
+                $values[':investStatus'] = $filters['investStatus'];
             }
             if (!empty($filters['projects'])) {
-                $sqlFilter .= " AND invest.project = '{$filters['projects']}'";
+                $sqlFilter .= " AND invest.project = :projects";
+                $values[':projects'] = $filters['projects'];
+            }
+            if (!empty($filters['amount'])) {
+                $sqlFilter .= " AND invest.amount >= :amount";
+                $values[':amount'] = $filters['amount'];
             }
             if (!empty($filters['users'])) {
-                $sqlFilter .= " AND invest.user = '{$filters['users']}'";
+                $sqlFilter .= " AND invest.user = :users";
+                $values[':users'] = $filters['users'];
             }
-            if (!empty($filters['campaigns'])) {
-                $sqlFilter .= " AND invest.campaign = '{$filters['campaigns']}'";
+            if (!empty($filters['name'])) {
+                $sqlFilter .= " AND invest.user IN (SELECT id FROM user WHERE (name LIKE :name OR email LIKE :name))";
+                $values[':name'] = "%{$filters['name']}%";
+            }
+            if (!empty($filters['procStatus'])) {
+                switch ($filters['procStatus']) {
+                    case 'first': // en primera ronda
+                        $sqlFilter .= " AND project.status = 3 AND (project.passed IS NULL OR project.passed = '0000-00-00' )";
+                        break;
+                    case 'second': // en segunda ronda
+                        $sqlFilter .= " AND project.status = 3 AND (project.passed IS NOT NULL AND project.passed != '0000-00-00' )";
+                        break;
+                    case 'completed': // financiados
+                        $sqlFilter .= " AND project.status = 4";
+                        break;
+                }
             }
             if (!empty($filters['types'])) {
                 switch ($filters['types']) {
@@ -201,8 +224,6 @@ namespace Goteo\Model {
                     case 'manual':
                         $sqlFilter .= " AND invest.admin IS NOT NULL";
                         break;
-                    case 'campaign':
-                        $sqlFilter .= " AND invest.campaign IS NOT NULL";
                         break;
                 }
             }
@@ -226,10 +247,12 @@ namespace Goteo\Model {
             }
 
             if (!empty($filters['date_from'])) {
-                $sqlFilter .= " AND invest.invested >= '{$filters['date_from']}'";
+                $sqlFilter .= " AND invest.invested >= :date_from";
+                $values[':date_from'] = $filters['date_from'];
             }
             if (!empty($filters['date_until'])) {
-                $sqlFilter .= " AND invest.invested <= '{$filters['date_until']}'";
+                $sqlFilter .= " AND invest.invested <= :date_until";
+                $values[':date_until'] = $filters['date_until'];
             }
 
             $sql = "SELECT
@@ -246,7 +269,8 @@ namespace Goteo\Model {
                         DATE_FORMAT(invest.invested, '%d/%m/%Y') as invested,
                         DATE_FORMAT(invest.charged , '%d/%m/%Y') as charged,
                         DATE_FORMAT(invest.returned, '%d/%m/%Y') as returned,
-                        user.name as admin
+                        user.name as admin,
+                        invest.issue as issue
                     FROM invest
                     INNER JOIN project
                         ON invest.project = project.id
@@ -256,8 +280,13 @@ namespace Goteo\Model {
                         $sqlFilter
                     ORDER BY invest.id DESC
                     ";
-
-            $query = self::query($sql);
+            
+            if ($limited > 0 && is_numeric($limited)) {
+                $sql .= "LIMIT $limited";
+            }
+            
+            
+            $query = self::query($sql, $values);
             foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
                 $list[$item->id] = $item;
             }
@@ -322,7 +351,15 @@ namespace Goteo\Model {
             try {
                 $sql = "REPLACE INTO invest SET " . $set;
                 self::query($sql, $values);
-                if (empty($this->id)) $this->id = self::insertId();
+                if (empty($this->id)) {
+                    $this->id = self::insertId();
+                    if (empty($this->id)) {
+                        $errors[] = 'No ha conseguido Id de aporte';
+                        return false;
+                    }
+
+
+                }
 
                 // y las recompensas
                 foreach ($this->rewards as $reward) {
@@ -349,10 +386,92 @@ namespace Goteo\Model {
 
                 return true;
             } catch(\PDOException $e) {
-                $errors[] = Text::_("El aporte no se ha grabado correctamente. Por favor, revise los datos.") . $e->getMessage();
+                $errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
                 return false;
             }
         }
+
+        /*
+         * Para actualizar recompensa (o renuncia) y dirección
+         */
+        public function update (&$errors = array()) {
+
+            self::query("START TRANSACTION");
+
+            try {
+                // si renuncia
+                $sql = "UPDATE invest SET resign = :resign WHERE id = :id";
+                self::query($sql, array(':id'=>$this->id, ':resign'=>$this->resign));
+
+                // borramos als recompensas
+                $sql = "DELETE FROM invest_reward WHERE invest = :invest";
+                self::query($sql, array(':invest'=>$this->id));
+
+                // y grabamos las nuevas
+                foreach ($this->rewards as $reward) {
+                    $sql = "REPLACE INTO invest_reward (invest, reward) VALUES (:invest, :reward)";
+                    self::query($sql, array(':invest'=>$this->id, ':reward'=>$reward));
+                }
+
+                // dirección
+                if (!empty($this->address)) {
+                    $sql = "REPLACE INTO invest_address (invest, user, address, zipcode, location, country, name, nif)
+                        VALUES (:invest, :user, :address, :zipcode, :location, :country, :name, :nif)";
+                    self::query($sql, array(
+                        ':invest'=>$this->id,
+                        ':user'=>$this->user,
+                        ':address'=>$this->address->address,
+                        ':zipcode'=>$this->address->zipcode,
+                        ':location'=>$this->address->location,
+                        ':country'=>$this->address->country,
+                        ':name'=>$this->address->name,
+                        ':nif'=>$this->address->nif
+                        )
+                    );
+                }
+
+                self::query("COMMIT");
+
+                return true;
+
+            } catch (\PDOException $e) {
+                self::query("ROLLBACK");
+                $errors[] = "Envíanos esto: <br />" . $e->getMessage();
+                return false;
+            }
+        }
+
+        /*
+         * Para pasar un aporte con incidencia a resuelta, cash y cobrado
+         */
+        public function solve (&$errors = array()) {
+
+            self::query("START TRANSACTION");
+
+            try {
+                // si renuncia
+                $sql = "UPDATE invest SET  method = 'cash', status = 1, issue = 0 WHERE id = :id";
+                self::query($sql, array(':id'=>$this->id));
+
+                // añadir detalle
+                $sql = "INSERT INTO invest_detail (invest, type, log, date)
+                    VALUES (:id, 'solved', :log, NOW())";
+
+                self::query($sql, array(':id'=>$this->id, ':log'=>'Incidencia resuelta por el admin '.$_SESSION['user']->name.', aporte pasado a cash y cobrado'));
+
+
+                self::query("COMMIT");
+
+                return true;
+
+            } catch (\PDOException $e) {
+                self::query("ROLLBACK");
+                $errors[] = $e->getMessage();
+                return false;
+            }
+        }
+
+
 
         /*
          * Lista de proyectos con aportes
@@ -362,6 +481,9 @@ namespace Goteo\Model {
         public static function projects ($success = false, $node = \GOTEO_NODE) {
 
             $list = array();
+            $values = array();
+            
+            $and = " WHERE";
 
             $sql = "
                 SELECT
@@ -373,12 +495,17 @@ namespace Goteo\Model {
                     ";
 
             if ($success) {
-                $sql .= " WHERE project.status >= 3 AND project.status <= 5 ";
+                $sql .= "$and project.status >= 3 AND project.status <= 5 ";
+                $and = " AND";
+            }
+            if ($node != \GOTEO_NODE) {
+                $sql .= "$and project.node = :node";
+                $and = " AND";
+                $values[':node'] = $node;
             }
             $sql .= " ORDER BY project.name ASC";
 
-            //, array(':node' => $node)
-            $query = static::query($sql);
+            $query = static::query($sql, $values);
 
             foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
                 $list[$item->id] = $item->name;
@@ -390,9 +517,10 @@ namespace Goteo\Model {
         /*
          * Lista de usuarios que han aportado a algo
          */
-        public static function users ($all = false) {
+        public static function users ($all = false, $node = \GOTEO_NODE) {
 
             $list = array();
+            $values = array();
 
             $sql = "
                 SELECT
@@ -402,15 +530,24 @@ namespace Goteo\Model {
                 INNER JOIN invest
                     ON user.id = invest.user
                 ";
-            
+            if ($node != \GOTEO_NODE) {
+                $sql .= "
+                INNER JOIN project
+                    ON  project.id = invest.project
+                    AND project.node = :node
+                    ";
+                $values[':node'] = $node;
+            }
             if (!$all) {
                 $sql .= "WHERE (user.hide = 0 OR user.hide IS NULL)
                     ";
             }
-                $sql .= "ORDER BY user.name ASC
+                $sql .= "
+                    GROUP BY user.id
+                    ORDER BY user.name ASC
                 ";
 
-            $query = static::query($sql);
+            $query = static::query($sql, $values);
 
             foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
                 $list[$item->id] = $item->name;
@@ -420,47 +557,84 @@ namespace Goteo\Model {
         }
 
         /*
-         * Lista de campañas con aportes asociados
+         * Lista de emails de usuarios que han aportado a algo
          */
-        public static function campaigns () {
+        public static function emails ($all = false) {
 
             $list = array();
 
-            $query = static::query("
+            $sql = "
                 SELECT
-                    campaign.id as id,
-                    campaign.name as name
-                FROM    campaign
+                    user.id as id,
+                    user.email as email
+                FROM    user
                 INNER JOIN invest
-                    ON campaign.id = invest.campaign
-                ORDER BY campaign.name ASC
-                ");
+                    ON user.id = invest.user
+                ";
+
+            if (!$all) {
+                $sql .= "WHERE (user.hide = 0 OR user.hide IS NULL)
+                    ";
+            }
+                $sql .= "ORDER BY user.id ASC
+                ";
+
+            $query = static::query($sql);
 
             foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
-                $list[$item->id] = $item->name;
+                $list[$item->id] = $item->email;
             }
 
+            return $list;
+        }
+
+        /*
+         * Lista de convocatorias con aportes asociados
+         */
+        public static function calls () {
+
+            $list = array();
             return $list;
         }
 
         /*
          * Obtenido por un proyecto
          */
-        public static function invested ($project) {
-            $query = static::query("
-                SELECT  SUM(amount) as much
+        public static function invested ($project, $only = null, $call = null) {
+
+            $values = array(':project' => $project);
+
+            $sql = "SELECT  SUM(amount) as much
                 FROM    invest
                 WHERE   project = :project
-                AND     (invest.status = 0 OR invest.status = 1 OR invest.status = 3 OR invest.status = 4)
-                ", array(':project' => $project));
+                AND     invest.status IN ('0', '1', '3', '4')
+                ";
+
+            if (isset ($only) && in_array($only, array('users', 'call'))) {
+                switch ($only) {
+                    case 'users':
+                        $sql .= " AND invest.method != 'drop'";
+                        break;
+                    case 'call':
+                        $sql .= " AND invest.method = 'drop'";
+                        if (isset($call)) {
+                            $sql .= " AND invest.campaign = 1 AND invest.call = :call";
+                            $values['call'] = $call;
+                        }
+                        break;
+                }
+            }
+
+            $query = static::query($sql, $values);
             $got = $query->fetchObject();
             return (int) $got->much;
         }
 
         /*
-         * Usuarios que han aportado aun proyecto
+         * Aportes individuales a un proyecto
          */
-        public static function investors ($project, $projNum = true, $showall = false) {
+        public static function investors ($project, $projNum = false, $showall = false) {
+            $worth = array();
             $investors = array();
 
             $sql = "
@@ -468,18 +642,10 @@ namespace Goteo\Model {
                     invest.user as user,
                     user.name as name,
                     user.avatar as avatar,
+                    user.worth as worth,
                     invest.amount as amount,
                     DATE_FORMAT(invest.invested, '%d/%m/%Y') as date,
                     ";
-            if ($projNum) {
-                $sql .= "(SELECT
-                        COUNT(DISTINCT(project))
-                     FROM invest as invb
-                     WHERE invb.user = invest.user
-                     AND  invb.status IN ('0', '1', '3', '4')
-                     ) as projects,";
-            }
-
             $sql .= "user.hide as hide,
                      invest.anonymous as anonymous
                 FROM    invest
@@ -487,7 +653,7 @@ namespace Goteo\Model {
                     ON  user.id = invest.user
                 WHERE   project = ?
                 AND     invest.status IN ('0', '1', '3', '4')
-                ORDER BY invest.invested DESC
+                ORDER BY invest.invested DESC, invest.id DESC
                 ";
 
             $query = self::query($sql, array($project));
@@ -507,23 +673,27 @@ namespace Goteo\Model {
 
                     $investors[] = (object) array(
                         'user' => 'anonymous',
-                        'name' => Text::_("Anónimo"),
+                        'name' => Text::get('regular-anonymous'),
                         'projects' => null,
                         'avatar' => Image::get(1),
-                        'worth' => null,
+                        'worth' => $investor->worth,
                         'amount' => $investor->amount,
                         'date' => $investor->date
                     );
 
                 } else {
 
-                    $investors[$investor->user] = (object) array(
+                    if (!isset($worth[$investor->user])) {
+                        $worth[$investor->user] = \Goteo\Model\User::calcWorth($investor->user);
+                    }
+
+                    $investors[] = (object) array(
                         'user' => $investor->user,
                         'name' => $investor->name,
                         'projects' => $investor->projects,
                         'avatar' => $investor->avatar,
-                        'worth' => \Goteo\Model\User::calcWorth($investor->user),
-                        'amount' => ($investors[$investor->user]->amount + $investor->amount),
+                        'worth' => $worth[$investor->user],
+                        'amount' => $investor->amount,
                         'date' => $investor->date
                     );
 
@@ -532,6 +702,34 @@ namespace Goteo\Model {
             }
             
             return $investors;
+        }
+
+        public static function numInvestors ($project) {
+            $values = array(':project' => $project);
+
+            $sql = "SELECT  COUNT(DISTINCT(user)) as investors
+                FROM    invest
+                WHERE   project = :project
+                AND     invest.status IN ('0', '1', '3', '4')
+                ";
+
+            $query = static::query($sql, $values);
+            $got = $query->fetchObject();
+            return (int) $got->investors;
+        }
+
+        public static function my_numInvestors ($owner) {
+            $values = array(':owner' => $owner);
+
+            $sql = "SELECT  COUNT(DISTINCT(user)) as investors
+                FROM    invest
+                WHERE   project IN (SELECT id FROM project WHERE owner = :owner)
+                AND     invest.status IN ('0', '1', '3', '4')
+                ";
+
+            $query = static::query($sql, $values);
+            $got = $query->fetchObject();
+            return (int) $got->investors;
         }
 
         /*
@@ -693,8 +891,7 @@ namespace Goteo\Model {
             $sql = "UPDATE  invest
                     SET
                         payment = :payment,
-                        charged = :charged, 
-                        status = 1
+                        charged = :charged
                     WHERE id = :id";
             if (self::query($sql, $values)) {
                 return true;
@@ -715,6 +912,25 @@ namespace Goteo\Model {
             );
 
             $sql = "UPDATE invest SET transaction = :transaction WHERE id = :id";
+            if (self::query($sql, $values)) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        /*
+         *  Modifica el campo resign para marcar/desmarcar donativo (independientemente de la recompensa)
+         */
+        public function setResign ($resign) {
+
+            $values = array(
+                ':id' => $this->id,
+                ':resign' => $resign
+            );
+
+            $sql = "UPDATE invest SET resign = :resign WHERE id = :id";
             if (self::query($sql, $values)) {
                 return true;
             } else {
@@ -749,16 +965,23 @@ namespace Goteo\Model {
         /*
          * Marcar esta aportación como cancelada
          */
-        public function cancel () {
+        public function cancel ($fail = false) {
 
             $values = array(
                 ':id' => $this->id,
                 ':returned' => date('Y-m-d')
             );
 
+            // si es un proyecto fallido el aporte se queda en el termometro
+            if ($fail) {
+                $status = 4;
+            } else {
+                $status = 2;
+            }
+
             $sql = "UPDATE invest SET
                         returned = :returned,
-                        status = 2
+                        status = $status
                     WHERE id = :id";
             
             if (self::query($sql, $values)) {
@@ -769,17 +992,27 @@ namespace Goteo\Model {
 
         }
 
+        /* Para marcar que es una incidencia */
+        public static function setIssue($id) {
+           self::query("UPDATE invest SET issue = 1 WHERE id = :id", array(':id' => $id));
+        }
+
+        /* Para desmarcar incidencia */
+        public static function unsetIssue($id) {
+           self::query("UPDATE invest SET issue = 0 WHERE id = :id", array(':id' => $id));
+        }
+
         /*
          * Estados del aporte
          */
         public static function status ($id = null) {
             $array = array (
-                -1 => Text::_('En proceso'),
-                0  => Text::_('Pendiente de cargo'),
-                1  => Text::_('Cargo ejecutado'),
+                -1 => Text::_('Incompleto'),
+                0  => Text::_('Preaprobado'),
+                1  => Text::_('Cobrado'),
                 2  => Text::_('Cancelado'),
                 3  => Text::_('Pagado al proyecto'),
-                4  => Text::_('Caducado'),
+                4  => Text::_('Archivado (devuelto)'),
                 5  => Text::_('Reubicado')
             );
 
@@ -832,16 +1065,11 @@ namespace Goteo\Model {
                         'investStatus' => '1'
                     ));
                     if (!empty($inv_cash)) {
-                        $Data['note'][] = Text::_("Los aportes cash pueden venir de un taller y no son incidencias, solamente estan pendientes de reubicar");
                         $Data['cash']['total']['fail'] = 0;
                         foreach ($inv_cash as $invId => $invest) {
                             $Data['cash']['total']['users'][$invest->user] = $invest->user;
                             $Data['cash']['total']['invests']++;
                             $Data['cash']['total']['amount'] += $invest->amount;
-                            if ($invest->campaign == 1) {
-                                $Data['cash']['total']['fail'] += $invest->amount;
-                                $Data['note'][] = Text::_("Aporte de capital riego {$invId} debería estar cancelado");
-                            }
                         }
                     }
 
@@ -888,18 +1116,20 @@ namespace Goteo\Model {
                     if (!empty($passed)) {
                         if ($round == 1) {
                             // esto es mal
-                            $Data['note'][] = "ATENCION! Está marcada la fecha de pase a segunda ronda (el {$passed}) pero sique en primera ronda!!! Informe solamente actual=primera";
+                            $Data['note'][] = "ATENCION! Está marcada la fecha de pase a segunda ronda (el {$passed}) pero sique en primera ronda!!!";
                             $act_eq = (string) 'first';
                         } else {
                             // en segunda ronda
-                            $p0 = (string) 'first'; // paypal(0) es incidencia paralos de primera ronda solamente
+                            if (!isset($p0)) {
+                                $p0 = (string) 'first'; // paypal(0) es incidencia paralos de primera ronda solamente
+                            }
                             // si está en segunda ronda; la financiacion actual es un merge de usuarios y suma de aportes correctos, incidencias, correctos y cantidad total
                             $act_eq = (string) 'sum';
                         }
                     } else {
                         // si no tiene fecha de pase y esta en ronda 2: es un problema se trata como solo financiacion actual y paypal(0) no son incidencias
                         if ($round == 2) {
-                            $Data['note'][] = Text::_("ATENCION! En segunda ronda pero NO está marcada la fecha de pase a segunda ronda!!! Informe solamente actual=primera");
+                            $Data['note'][] = Text::_("ATENCION! En segunda ronda pero NO está marcada la fecha de pase a segunda ronda!");
                             $act_eq = (string) 'first';
                         } else {
                             // ok, en primera ronda sin  fecha marcada, informe solo actual = primera
@@ -944,6 +1174,10 @@ namespace Goteo\Model {
 
 
                         // PAYPAL
+                        $inv_paypal = self::getList(array(
+                            'methods' => 'paypal',
+                            'projects' => $project
+                        ));
                         if (!empty($inv_paypal)) {
                             $Data['paypal']['first']['fail'] = 0;
                             foreach ($inv_paypal as $invId => $invest) {
@@ -1010,7 +1244,7 @@ namespace Goteo\Model {
                                     // a ver si cargo pendiente es incidencia...
                                     if ($invest->investStatus == 0 && ($p0 === 'first' || $p0 === 'all')) {
                                         $Data['paypal']['first']['fail'] += $invest->amount;
-                                        $Data['note'][] = "El aporte paypal {$invId} no debería estar en estado '".self::status($invest->investStatus)."'";
+                                        $Data['note'][] = "El aporte paypal {$invId} no debería estar en estado '".self::status($invest->investStatus)."'. <a href=\"/admin/invests/details/{$invId}\" target=\"_blank\">Abrir detalles</a>";
                                         continue;
                                     }
                                     $Data['paypal']['first']['users'][$invest->user] = $invest->user;
@@ -1076,7 +1310,7 @@ namespace Goteo\Model {
                                     if ($invest->investStatus == 0 && $p0 === 'all') {
                                         $Data['paypal']['second']['fail'] += $invest->amount;
                                         $Data['paypal']['total']['fail'] += $invest->amount;
-                                        $Data['note'][] = "El aporte paypal {$invId} no debería estar en estado '".self::status($invest->investStatus)."'";
+                                        $Data['note'][] = "El aporte paypal {$invId} no debería estar en estado '".self::status($invest->investStatus)."'. <a href=\"/admin/invests/details/{$invId}\" target=\"_blank\">Abrir detalles</a>";
                                         continue;
                                     }
                                     $Data['paypal']['second']['users'][$invest->user] = $invest->user;
@@ -1099,9 +1333,111 @@ namespace Goteo\Model {
                     break;
             }
 
+            // incidencias
+            $Data['issues'] = self::getReportIssues($project);
+
              return $Data;
          }
 
+         public static function getReportIssues($id) {
+
+             $status = self::status();
+
+             $list = array();
+
+             $values = array(':id' => $id);
+
+             $sql = "SELECT
+                        invest.id as invest,
+                        user.id as user,
+                        user.name as userName,
+                        user.email as userEmail,
+                        invest.amount as amount,
+                        invest.status as status
+                    FROM invest
+                    INNER JOIN user
+                        ON user.id = invest.user
+                    WHERE invest.project = :id
+                    AND invest.issue = 1
+                    ORDER BY user.name DESC
+                    ";
+
+            $query = self::query($sql, $values);
+            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
+                $item->statusName = $status[$item->status];
+                $list[] = $item;
+            }
+            
+            // añadimos el capital riego de aportes con incidencia
+             $sql = "SELECT
+                        invest.id as invest,
+                        user.id as user,
+                        user.name as userName,
+                        user.email as userEmail,
+                        invest.amount as amount,
+                        invest.status as status
+                    FROM invest
+                    INNER JOIN user
+                        ON user.id = invest.user
+                    WHERE invest.id IN (
+                        SELECT droped 
+                        FROM invest 
+                        WHERE issue = 1 
+                        AND droped IS NOT NULL
+                        AND invest.project = :id
+                    )
+                    ORDER BY user.name DESC
+                    ";
+
+            $query = self::query($sql, $values);
+            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
+                $item->statusName = $status[$item->status].' (CAPITAL RIEGO)';
+                $list[] = $item;
+            }
+            
+            return $list;
+
+
+         }
+
+         public static function setDetail($id, $type, $log) {
+             $values = array(
+                ':id' => $id,
+                ':type' => $type,
+                ':log' => $log
+            );
+
+            $sql = "REPLACE INTO invest_detail (invest, type, log, date)
+                VALUES (:id, :type, :log, NOW())";
+
+            self::query($sql, $values);
+
+
+         }
+
+         public static function getDetails($id) {
+
+             $list = array();
+
+             $values = array(':id' => $id);
+
+             $sql = "SELECT
+                        type,
+                        log,
+                        DATE_FORMAT(invest_detail.date, '%d/%m/%Y %H:%i:%s') as date
+                    FROM invest_detail
+                    WHERE invest = :id
+                    ORDER BY invest_detail.date DESC
+                    ";
+
+            $query = self::query($sql, $values);
+            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
+                $list[] = $item;
+            }
+            return $list;
+
+
+         }
 
     }
     

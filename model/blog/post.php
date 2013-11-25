@@ -23,7 +23,6 @@ namespace Goteo\Model\Blog {
     use \Goteo\Model\Project\Media,
         \Goteo\Model\Image,
         \Goteo\Model\Project,
-        \Goteo\Model\Node,
         \Goteo\Model\User,
         \Goteo\Library\Text,
         \Goteo\Library\Message;
@@ -152,6 +151,7 @@ namespace Goteo\Model\Blog {
                 ";
                 if (empty($blog)) {
                 $sql .= " AND blog.owner IN (SELECT id FROM node WHERE active = 1)
+                    AND blog.owner != 'testnode'
                 ";
                 }
             }
@@ -189,11 +189,6 @@ namespace Goteo\Model\Blog {
                         $post->owner_name = $proj_blog->name;
                         break;
 
-                    case 'node':
-                        $post->user   = User::getMini($post->author);
-                        $node_blog = Node::get($post->owner_id);
-                        $post->owner_name = $node_blog->name;
-                        break;
                 }
 
                 $list[$post->id] = $post;
@@ -330,11 +325,6 @@ namespace Goteo\Model\Blog {
                         $post->owner_name = $proj_blog->name;
                         break;
 
-                    case 'node':
-                        $post->user   = User::getMini($post->author);
-                        $node_blog = Node::get($post->owner_id);
-                        $post->owner_name = $node_blog->name;
-                        break;
                 }
 
                 $list[$post->id] = $post;

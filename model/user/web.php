@@ -35,11 +35,17 @@ namespace Goteo\Model\User {
          * @return array of interests identifiers
          */
 	 	public static function get ($id) {
+            $list = array();
             try {
                 $query = static::query("SELECT id, user, url FROM user_web WHERE user = ?", array($id));
-                $webs = $query->fetchAll(\PDO::FETCH_CLASS, __CLASS__);
+                foreach ($query->fetchAll(\PDO::FETCH_CLASS, __CLASS__) as $web) {
+                    if (\substr($web->url, 0, 4) != 'http') {
+                        $web->url = 'http://'.$web->url;
+                    }
+                    $list[] = $web;
+                }
 
-                return $webs;
+                return $list;
             } catch(\PDOException $e) {
 				throw new \Goteo\Core\Exception($e->getMessage());
             }
@@ -59,7 +65,7 @@ namespace Goteo\Model\User {
 				self::query($sql, $values);
 				return true;
 			} catch(\PDOException $e) {
-				$errors[] = Text::_("La web ") . $this->url . Text::_("no se ha asignado correctamente. Por favor, revise los datos.") . $e->getMessage();
+				$errors[] = Text::_("No se ha guardado correctamente. ") . $e->getMessage();
 				return false;
 			}
 
@@ -84,7 +90,6 @@ namespace Goteo\Model\User {
 				return true;
 			} catch(\PDOException $e) {
                 $errors[] = Text::_('No se ha podido quitar la web ') . $this->id . Text::_(' del usuario ') . $this->user . ' ' . $e->getMessage();
-                //;
                 return false;
 			}
 		}
