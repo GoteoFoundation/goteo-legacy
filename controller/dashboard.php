@@ -365,7 +365,7 @@ namespace Goteo\Controller {
 
             $errors = array();
 
-            $langs = \Goteo\Library\Lang::getAll();
+            $langs = \Goteo\Library\i18n\Lang::getAll();
 
             if ($action == 'lang' && !empty($_POST['lang'])) {
                 $_SESSION['translate_lang'] = $_POST['lang'];
