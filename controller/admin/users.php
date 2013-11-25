@@ -27,7 +27,7 @@ namespace Goteo\Controller\Admin {
 		Goteo\Library\Feed,
 		Goteo\Library\Template,
         Goteo\Library\Message,
-        Goteo\Library\Lang,
+        Goteo\Library\i18n\Lang,
         Goteo\Model;
 
     class Users {
@@ -35,67 +35,43 @@ namespace Goteo\Controller\Admin {
         public static $manageSubAct = array(
             "ban" => array (
                 'sql' => "UPDATE user SET active = 0 WHERE id = :user",
-                'log' => "Desactivado"
+                'log' => Text::_("Desactivado")
                 ),
             "unban" => array (
                 'sql' => "UPDATE user SET active = 1 WHERE id = :user",
-                'log' => "Activado"
+                'log' => Text::_("Activado")
                 ),
             "show" => array (
                 'sql' => "UPDATE user SET hide = 0 WHERE id = :user",
-                'log' => "Mostrado"
+                'log' => Text::_("Mostrado")
                 ),
             "hide" => array (
                 'sql' => "UPDATE user SET hide = 1 WHERE id = :user",
-                'log' => "Ocultado"
+                'log' => Text::_("Ocultado")
                 ),
             "checker" => array (
                 'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'checker')",
-                'log' => "Hecho revisor"
+                'log' => Text::_("Hecho revisor")
                 ),
             "nochecker" => array (
                 'sql' => "DELETE FROM user_role WHERE role_id = 'checker' AND user_id = :user",
-                'log' => "Quitado de revisor"
+                'log' => Text::_("Quitado de revisor")
                 ),
             "translator" => array (
                 'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'translator')",
-                'log' => "Hecho traductor"
+                'log' => Text::_("Hecho traductor")
                 ),
             "notranslator" => array (
                 'sql' => "DELETE FROM user_role WHERE role_id = 'translator' AND user_id = :user",
-                'log' => "Quitado de traductor"
-                ),
-            "caller" => array (
-                'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'caller')",
-                'log' => "Hecho convocador"
-                ),
-            "nocaller" => array (
-                'sql' => "DELETE FROM user_role WHERE role_id = 'caller' AND user_id = :user",
-                'log' => "Quitado de convocador"
+                'log' => Text::_("Quitado de traductor")
                 ),
             "admin" => array (
                 'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'admin')",
-                'log' => "Hecho admin"
+                'log' => Text::_("Hecho admin")
                 ),
             "noadmin" => array (
                 'sql' => "DELETE FROM user_role WHERE role_id = 'admin' AND user_id = :user",
-                'log' => "Quitado de admin"
-                ),
-            "vip" => array (
-                'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'vip')",
-                'log' => "Hecho VIP"
-                ),
-            "novip" => array (
-                'sql' => "DELETE FROM user_role WHERE role_id = 'vip' AND user_id = :user",
-                'log' => "Quitado el VIP"
-                ),
-            "manager" => array (
-                'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'manager')",
-                'log' => "Hecho gestor"
-                ),
-            "nomanager" => array (
-                'sql' => "DELETE FROM user_role WHERE role_id = 'manager' AND user_id = :user",
-                'log' => "Quitado de gestor"
+                'log' => Text::_("Quitado de admin")
                 )            
         );
         
@@ -106,7 +82,7 @@ namespace Goteo\Controller\Admin {
         public static function process ($action = 'list', $id = null, $filters = array(), $subaction = '') {
 
             // multiples usos
-            $nodes = Model\Node::getList();
+            $nodes = array();
 
             $node = isset($_SESSION['admin_node']) ? $_SESSION['admin_node'] : \GOTEO_NODE;
 
@@ -163,11 +139,11 @@ namespace Goteo\Controller\Admin {
                         // para crear se usa el mismo método save del modelo, hay que montar el objeto
                         if (!empty($_POST['email'])) {
                             $user->email = $_POST['email'];
-                            $tocado[] = 'el email';
+                            $tocado[] = Text::_('el email');
                         }
                         if (!empty($_POST['password'])) {
                             $user->password = $_POST['password'];
-                            $tocado[] = 'la contraseña';
+                            $tocado[] = Text::_('la contraseña');
                         }
 
                         if(!empty($tocado) && $user->update($errors)) {
@@ -175,7 +151,7 @@ namespace Goteo\Controller\Admin {
                             // Evento Feed
                             $log = new Feed();
                             $log->setTarget($user->id, 'user');
-                            $log->populate('Operación sobre usuario (admin)', '/admin/users', \vsprintf('El admin %s ha %s del usuario %s', array(
+                            $log->populate(Text::_('Operación sobre usuario'), '/admin/users', \vsprintf('El admin %s ha %s del usuario %s', array(
                                 Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
                                 Feed::item('relevant', 'Tocado ' . implode (' y ', $tocado)),
                                 Feed::item('user', $user->name, $user->id)
@@ -184,13 +160,13 @@ namespace Goteo\Controller\Admin {
                             unset($log);
 
                             // mensaje de ok y volvemos a la lista de usuarios
-                            Message::Info('Datos actualizados');
+                            Message::Info(Text::_('Datos actualizados'));
                             throw new Redirection('/admin/users');
 
                         } else {
                             // si hay algun error volvemos a poner los datos en el formulario
                             $data = $_POST;
-                            Message::Error(implode('<br />', $errors));
+                            Message::Error(Text::_('No se ha guardado correctamente. ').implode('<br />', $errors));
                         }
                     }
 
@@ -226,7 +202,7 @@ namespace Goteo\Controller\Admin {
 //                            Message::Info('Ha <strong>' . $log_action . '</strong> al usuario <strong>'.$user->name.'</strong> CORRECTAMENTE');
                             $log_text = 'El admin %s ha %s al usuario %s';
 
-                            $onNode = Model\Node::get($node);
+                            $onNode = \GOTEO_NODE;
 
                             // procesos adicionales
                             switch ($subaction) {
@@ -271,7 +247,7 @@ namespace Goteo\Controller\Admin {
                         // Evento Feed
                         $log = new Feed();
                         $log->setTarget($user->id, 'user');
-                        $log->populate('Operación sobre usuario (admin)', '/admin/users',
+                        $log->populate(Text::_('Operación sobre usuario'), '/admin/users',
                             \vsprintf($log_text, array(
                                 Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
                                 Feed::item('relevant', $log_action),
@@ -310,7 +286,7 @@ namespace Goteo\Controller\Admin {
                 case 'translang':
 
                     if (!isset($_POST['user'])) {
-                        Message::Error('Hemos perdido de vista al usuario');
+                        Message::Error(Text::_('Hemos perdido de vista al usuario'));
                         throw new Redirection('/admin/users');
                     } else {
                         $user = $_POST['user'];
@@ -330,9 +306,9 @@ namespace Goteo\Controller\Admin {
                     }
 
                     if (!$anylang) {
-                        Message::Error('No se ha seleccionado ningún idioma, este usuario tendrá problemas en su panel de traducción!');
+                        Message::Error(Text::_('No se ha seleccionado ningún idioma, este usuario tendrá problemas en su panel de traducción!'));
                     } else {
-                        Message::Info('Se han aplicado al traductor los idiomas seleccionados');
+                        Message::Info(Text::_('Se han aplicado al traductor los idiomas seleccionados'));
                     }
 
                     throw new Redirection('/admin/users/manage/'.$user);
@@ -407,24 +383,24 @@ namespace Goteo\Controller\Admin {
                         $users = array();
                     }
                     $status = array(
-                                'active' => 'Activo',
-                                'inactive' => 'Inactivo'
+                                'active' => Text::_('Activo'),
+                                'inactive' => Text::_('Inactivo')
                             );
                     $interests = Model\User\Interest::getAll();
                     $roles = Model\User::getRolesList();
-                    $roles['user'] = 'Solo usuario';
+                    $roles['user'] = Text::_('Solo usuario');
                     $types = array(
-                        'creators' => 'Impulsores', // que tienen algun proyecto 
-                        'investors' => 'Cofinanciadores', // que han aportado a algun proyecto en campaña, financiado, archivado o caso de éxito
-                        'supporters' => 'Colaboradores' // que han enviado algun mensaje en respuesta a un mensaje de colaboración
+                        'creators' => Text::_('Impulsores'), // que tienen algun proyecto 
+                        'investors' => Text::_('Cofinanciadores'), // que han aportado a algun proyecto en campaña, financiado, archivado o caso de éxito
+                        'supporters' => Text::_('Colaboradores') // que han enviado algun mensaje en respuesta a un mensaje de colaboración
                         // hay demasiados de estos... 'lurkers' => 'Mirones'
                     );
                     $orders = array(
-                        'created' => 'Fecha de alta',
-                        'name' => 'Alias',
-                        'id' => 'User',
-                        'amount' => 'Cantidad',
-                        'projects' => 'Proyectos'
+                        'created' => Text::_('Fecha de alta'),
+                        'name' => Text::_('Alias'),
+                        'id' => Text::_('User'),
+                        'amount' => Text::_('Cantidad'),
+                        'projects' => Text::_('Proyectos')
                     );
                     // proyectos con aportes válidos
                     $projects = Model\Invest::projects(true, $node);

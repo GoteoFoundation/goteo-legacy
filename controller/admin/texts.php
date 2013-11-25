@@ -36,9 +36,9 @@ namespace Goteo\Controller\Admin {
             $groups    = Text::groups();
 
             // metemos el todos
-            \array_unshift($groups, 'Todas las agrupaciones');
+            \array_unshift($groups, Text::_('Todas las agrupaciones'));
 
- //@fixme temporal hasta pasar las agrupaciones a tabal o arreglar en el list.html.php
+            // I dont know if this must serve in default lang or in current navigation lang
             $data = Text::getAll($filters, 'original');
             foreach ($data as $key=>$item) {
                 $data[$key]->group = $groups[$item->group];
@@ -54,31 +54,24 @@ namespace Goteo\Controller\Admin {
                             'data' => $data,
                             'columns' => array(
                                 'edit' => '',
-                                'text' => 'Texto',
-                                'group' => 'Agrupación'
+                                'text' => Text::_('Texto'),
+                                'group' => Text::_('Agrupación')
                             ),
                             'url' => '/admin/texts',
                             'filters' => array(
                                 'filtered' => $filters['filtered'],
                                 'group' => array(
-                                        'label'   => 'Filtrar:',
+                                        'label'   => Text::_('Filtrar por agrupación:'),
                                         'type'    => 'select',
                                         'options' => $groups,
                                         'value'   => $filters['group']
                                     ),
                                 'text' => array(
-                                        'label'   => 'Texto:',
+                                        'label'   => Text::_('Buscar texto:'),
                                         'type'    => 'input',
                                         'options' => null,
                                         'value'   => $filters['text']
                                     )
-                                /*,
-                                'idfilter' => array(
-                                        'label'   => 'Id:',
-                                        'type'    => 'input',
-                                        'options' => null,
-                                        'value'   => $filters['idfilter']
-                                    )*/
                             )
                         )
                     );
@@ -100,13 +93,20 @@ namespace Goteo\Controller\Admin {
                         );
 
                         if (Text::update($data, $errors)) {
-                            Message::Info('El texto ha sido actualizado');
+                            Message::Info(Text::_('El texto ha sido actualizado'));
                             throw new Redirection("/admin/texts");
                         } else {
                             Message::Error(implode('<br />', $errors));
                         }
                     } else {
+                        //@TODO: this must get the text in the GOTEO_DEFAULT_LANG or it will be overwrited
                         $text = Text::getPurpose($id);
+                        // Julian Canaves  23 nov 2013
+                        // right now getPurpose gets the spanish text. 
+                        // In future this spanish text will be moved to the `Text` table 
+                        //  and the `Purpose` table will distribute to database text or to gettext
+                        //  and there will be no hardcoded strings
+                        //  and will be all happy, fun and joy
                     }
 
                     return new View(
@@ -122,7 +122,7 @@ namespace Goteo\Controller\Admin {
                                 'action' => '/admin/texts/edit/'.$id,
                                 'submit' => array(
                                     'name' => 'update',
-                                    'label' => 'Aplicar'
+                                    'label' => Text::_('Aplicar')
                                 ),
                                 'fields' => array (
                                     'idtext' => array(
@@ -133,7 +133,7 @@ namespace Goteo\Controller\Admin {
 
                                     ),
                                     'newtext' => array(
-                                        'label' => 'Texto',
+                                        'label' => Text::_('Texto'),
                                         'name' => 'text',
                                         'type' => 'textarea',
                                         'properties' => 'cols="100" rows="6"',

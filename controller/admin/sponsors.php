@@ -51,7 +51,7 @@ namespace Goteo\Controller\Admin {
                                 'action' => "$url/edit/",
                                 'submit' => array(
                                     'name' => 'update',
-                                    'label' => 'Añadir'
+                                    'label' => Text::_('Añadir')
                                 ),
                                 'fields' => array (
                                     'id' => array(
@@ -67,23 +67,23 @@ namespace Goteo\Controller\Admin {
 
                                     ),
                                     'name' => array(
-                                        'label' => 'Patrocinador',
+                                        'label' => Text::_('Patrocinador'),
                                         'name' => 'name',
                                         'type' => 'text'
                                     ),
                                     'url' => array(
-                                        'label' => 'Enlace',
+                                        'label' => Text::_('Enlace'),
                                         'name' => 'url',
                                         'type' => 'text',
                                         'properties' => 'size=100'
                                     ),
                                     'image' => array(
-                                        'label' => 'Logo',
+                                        'label' => Text::_('Logo'),
                                         'name' => 'image',
                                         'type' => 'image'
                                     ),
                                     'order' => array(
-                                        'label' => 'Posición',
+                                        'label' => Text::_('Posición'),
                                         'name' => 'order',
                                         'type' => 'text'
                                     )
@@ -124,10 +124,10 @@ namespace Goteo\Controller\Admin {
                         }
 
                         if ($item->save($errors)) {
-                            Message::Info('Datos grabados correctamente');
+                            Message::Info(Text::_('Datos grabados correctamente'));
                             throw new Redirection($url);
                         } else {
-                            Message::Error('No se han podido grabar los datos. ' . implode(', ', $errors));
+                            Message::Error(Text::_('No se ha grabado correctamente. ') . implode(', ', $errors));
                         }
                     } else {
                         $item = $model::get($id);
@@ -159,23 +159,23 @@ namespace Goteo\Controller\Admin {
 
                                     ),
                                     'name' => array(
-                                        'label' => 'Patrocinador',
+                                        'label' => Text::_('Patrocinador'),
                                         'name' => 'name',
                                         'type' => 'text'
                                     ),
                                     'url' => array(
-                                        'label' => 'Enlace',
+                                        'label' => Text::_('Enlace'),
                                         'name' => 'url',
                                         'type' => 'text',
                                         'properties' => 'size=100'
                                     ),
                                     'image' => array(
-                                        'label' => 'Logo',
+                                        'label' => Text::_('Logo'),
                                         'name' => 'image',
                                         'type' => 'image'
                                     ),
                                     'order' => array(
-                                        'label' => 'Posición',
+                                        'label' => Text::_('Posición'),
                                         'name' => 'order',
                                         'type' => 'text'
                                     )
@@ -196,10 +196,10 @@ namespace Goteo\Controller\Admin {
                     break;
                 case 'remove':
                     if ($model::delete($id)) {
-                        Message::Info('Se ha eliminado el registro');
+                        Message::Info(Text::_('Se ha eliminado el registro'));
                         throw new Redirection($url);
                     } else {
-                        Message::Info('No se ha podido eliminar el registro');
+                        Message::Info(Text::_('No se ha podido eliminar el registro'));
                     }
                     break;
             }
@@ -209,14 +209,14 @@ namespace Goteo\Controller\Admin {
                 array(
                     'folder' => 'base',
                     'file' => 'list',
-                    'addbutton' => 'Nuevo patrocinador',
+                    'addbutton' => Text::_('Nuevo patrocinador'),
                     'data' => $model::getAll($node),
                     'columns' => array(
                         'edit' => '',
-                        'name' => 'Patrocinador',
-                        'url' => 'Enlace',
-                        'image' => 'Imagen',
-                        'order' => 'Posición',
+                        'name' => Text::_('Patrocinador'),
+                        'url' => Text::_('Enlace'),
+                        'image' => Text::_('Imagen'),
+                        'order' => Text::_('Posición'),
                         'up' => '',
                         'down' => '',
                         'remove' => ''

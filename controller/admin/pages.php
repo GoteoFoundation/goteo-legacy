@@ -84,7 +84,7 @@ namespace Goteo\Controller\Admin {
                             if ($node != \GOTEO_NODE && in_array($id, self::$node_pages)) {
                                 $log->setTarget($node, 'node');
                             }
-                            $log->populate('modificacion de página institucional (admin)', '/admin/pages',
+                            $log->populate(Text::_('modificacion de página institucional (admin)'), '/admin/pages',
                                 \vsprintf("El admin %s ha %s la página institucional %s", array(
                                 Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
                                 Feed::item('relevant', 'Modificado'),

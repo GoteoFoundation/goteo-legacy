@@ -49,7 +49,7 @@ namespace Goteo\Controller\Admin {
                                 'action' => "$url/edit/",
                                 'submit' => array(
                                     'name' => 'update',
-                                    'label' => 'Añadir'
+                                    'label' => Text::_('Añadir')
                                 ),
                                 'fields' => array (
                                     'id' => array(
@@ -59,7 +59,7 @@ namespace Goteo\Controller\Admin {
 
                                     ),
                                     'name' => array(
-                                        'label' => 'Tag',
+                                        'label' => Text::_('Tag'),
                                         'name' => 'name',
                                         'type' => 'text'
                                     )
@@ -84,10 +84,10 @@ namespace Goteo\Controller\Admin {
                         ));
 
                         if ($item->save($errors)) {
-                            Message::Info('El tag ha sido actualizado');
+                            Message::Info(Text::_('El tag ha sido actualizado'));
                             throw new Redirection($url);
                         } else {
-                            Message::Error(implode('<br />', $errors));
+                            Message::Error(Text::_('No se ha guardado correctamente').implode('<br />', $errors));
                         }
                     } else {
                         $item = $model::get($id);
@@ -113,7 +113,7 @@ namespace Goteo\Controller\Admin {
 
                                     ),
                                     'name' => array(
-                                        'label' => 'Tag',
+                                        'label' => Text::_('Tag'),
                                         'name' => 'name',
                                         'type' => 'text'
                                     )
@@ -137,12 +137,12 @@ namespace Goteo\Controller\Admin {
                     'folder' => 'base',
                     'file' => 'list',
                     'model' => 'tag',
-                    'addbutton' => 'Nuevo tag',
+                    'addbutton' => Text::_('Nuevo tag'),
                     'data' => $model::getList(1),
                     'columns' => array(
                         'edit' => '',
-                        'name' => 'Tag',
-                        'used' => 'Entradas',
+                        'name' => Text::_('Tag'),
+                        'used' => Text::_('Entradas'),
                         'translate' => '',
                         'remove' => ''
                     ),

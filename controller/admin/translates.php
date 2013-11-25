@@ -42,7 +42,7 @@ namespace Goteo\Controller\Admin {
                     // proyectos que están más allá de edición y con traducción deshabilitada
                     $availables = Model\User\Translate::getAvailables('project', $_SESSION['admin_node']);
                     if (empty($availables)) {
-                        Message::Error('No hay más proyectos disponibles para traducir');
+                        Message::Error(Text::_('No hay más proyectos disponibles para traducir'));
                         throw new Redirection('/admin/translates');
                     }
 
@@ -59,7 +59,7 @@ namespace Goteo\Controller\Admin {
                     if (!empty($id)) {
                         $project = Model\Project::getMini($id);
                     } elseif ($action != 'add') {
-                        Message::Error('No hay proyecto sobre el que operar');
+                        Message::Error(Text::_('No hay proyecto sobre el que operar'));
                         throw new Redirection('/admin/translates');
                     }
 
@@ -78,21 +78,21 @@ namespace Goteo\Controller\Admin {
 
                         switch ($action) {
                             case 'assign': // se la ponemos
-                                $what = 'Asignado';
+                                $what = Text::_('Asignado');
                                 if ($assignation->save($errors)) {
-                                    Message::Info('Traducción asignada correctamente');
+                                    Message::Info(Text::_('Traducción asignada correctamente'));
                                     throw new Redirection('/admin/translates/edit/'.$project->id);
                                 } else {
-                                    Message::Error('La traducción no se ha asignado correctamente<br />'.implode(', ', $errors));
+                                    Message::Error(Text::_('No se ha guardado correctamente. ').implode(', ', $errors));
                                 }
                                 break;
                             case 'unassign': // se la quitamos
-                                $what = 'Desasignado';
+                                $what = Text::_('Desasignado');
                                 if ($assignation->remove($errors)) {
-                                    Message::Info('Traducción desasignada correctamente');
+                                    Message::Info(Text::_('Traducción desasignada correctamente'));
                                     throw new Redirection('/admin/translates/edit/'.$project->id);
                             } else {
-                                    Message::Error('No se ha podido desasignar la traduccion.<br />'.implode(', ', $errors));
+                                    Message::Error(Text::_('No se ha guardado correctamente. ').implode(', ', $errors));
                                 }
                                 break;
                         }
@@ -121,7 +121,7 @@ namespace Goteo\Controller\Admin {
                     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
 
                         if (empty($id)) {
-                            Message::Error('Hemos perdido de vista el proyecto');
+                            Message::Error(Text::_('Hemos perdido de vista el proyecto'));
                             throw new Redirection('/admin/translates');
                         }
 
@@ -131,14 +131,14 @@ namespace Goteo\Controller\Admin {
                             if ($action == 'add') {
                                 Message::Info('El proyecto '.$project->name.' se ha habilitado para traducir');
                             } else {
-                                Message::Info('Datos de traducción actualizados');
+                                Message::Info(Text::_('Datos de traducción actualizados'));
                             }
 
                             if ($action == 'add') {
                                 // Evento Feed
                                 $log = new Feed();
                                 $log->setTarget($project->id);
-                                $log->populate('proyecto habilitado para traducirse (admin)', '/admin/translates',
+                                $log->populate(Text::_('proyecto habilitado para traducirse (admin)'), '/admin/translates',
                                     \vsprintf('El admin %s ha %s la traducción del proyecto %s', array(
                                         Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
                                         Feed::item('relevant', 'Habilitado'),
@@ -153,9 +153,9 @@ namespace Goteo\Controller\Admin {
                             }
                         } else {
                             if ($action == 'add') {
-                                Message::Error('Ha fallado al habilitar la traducción del proyecto ' . $project->name);
+                                Message::Error(Text::_('Ha fallado al habilitar la traducción del proyecto ') . $project->name);
                             } else {
-                                Message::Error('Ha fallado al actualizar los datos de la traducción');
+                                Message::Error(Text::_('Ha fallado al actualizar los datos de la traducción'));
                             }
                         }
                     }
@@ -220,7 +220,7 @@ namespace Goteo\Controller\Admin {
                         // Evento Feed
                         $log = new Feed();
                         $log->setTarget($project->id);
-                        $log->populate('traducción finalizada (admin)', '/admin/translates',
+                        $log->populate(Text::_('traducción finalizada (admin)'), '/admin/translates',
                             \vsprintf('El admin %s ha dado por %s la traducción del proyecto %s', array(
                                 Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
                                 Feed::item('relevant', 'Finalizada'),
@@ -230,7 +230,7 @@ namespace Goteo\Controller\Admin {
                         unset($log);
 
                     } else {
-                        Message::Error('Falló al finalizar la traducción');
+                        Message::Error(Text::_('Falló al finalizar la traducción'));
                     }
                     break;
             }

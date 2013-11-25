@@ -23,7 +23,6 @@ namespace Goteo\Controller\Admin {
     use Goteo\Core\View,
         Goteo\Core\Redirection,
         Goteo\Core\Error,
-		Goteo\Model\Node,
 		Goteo\Library\Feed,
 		Goteo\Library\Template,
 		Goteo\Library\Mail;
@@ -32,7 +31,6 @@ namespace Goteo\Controller\Admin {
 
         public static function process ($action = 'list', $id = null, $filters = array()) {
             $templates = Template::getAllMini();
-            $nodes = Node::getList();
             $node = isset($_SESSION['admin_node']) ? $_SESSION['admin_node'] : \GOTEO_NODE;
 
             if ($filters['filtered'] == 'yes'){

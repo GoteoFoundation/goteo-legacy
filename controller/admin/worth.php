@@ -44,11 +44,11 @@ namespace Goteo\Controller\Admin {
 
 				if (WorthLib::save($data, $errors)) {
                     $action = 'list';
-                    Message::Info('Nivel de meritocracia modificado');
+                    Message::Info(Text::_('Nivel de meritocracia modificado'));
 
                     // Evento Feed
                     $log = new Feed();
-                    $log->populate('modificacion de meritocracia (admin)', '/admin/worth',
+                    $log->populate(Text::_('Nivel de meritocracia modificado'), '/admin/worth',
                         \vsprintf("El admin %s ha %s el nivel de meritocrácia %s", array(
                             Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
                             Feed::item('relevant', 'Modificado'),
@@ -58,7 +58,7 @@ namespace Goteo\Controller\Admin {
                     unset($log);
 				}
 				else {
-                    Message::Error(implode('<br />', $errors));
+                    Message::Error(Text::_('No se ha guardado correctamente. ').implode('<br />', $errors));
 
                     return new View(
                         'view/admin/index.html.php',

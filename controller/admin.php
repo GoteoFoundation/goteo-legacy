@@ -26,7 +26,7 @@ namespace Goteo\Controller {
         Goteo\Model,
         Goteo\Library\Text,
         Goteo\Library\Feed,
-        Goteo\Library\Lang,
+        Goteo\Library\i18n\Lang,
         Goteo\Library\Page,
         Goteo\Library\Mail,
         Goteo\Library\Template,

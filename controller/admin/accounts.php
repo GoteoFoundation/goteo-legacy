@@ -287,7 +287,7 @@ namespace Goteo\Controller\Admin {
                 // usuarios
                 $users = Model\User::getAllMini();
                 // campañas
-                $calls = Model\Call::getAll();
+                $calls = array();
                    
                 
                 // generar aporte manual
@@ -311,15 +311,6 @@ namespace Goteo\Controller\Admin {
                             'admin'     => $_SESSION['user']->id
                         )
                     );
-
-                    // si llega campaign, montar el $invest->called con instancia call para que el save genere el riego
-                    if (!empty($_POST['campaign'])) {
-                        $called = Model\Call::get($_POST['campaign']);
-
-                        if ($called instanceof Model\Call) {
-                            $invest->called = $called;
-                        }
-                    }
 
                     if ($invest->save($errors)) {
                         // Evento Feed
