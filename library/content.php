@@ -33,87 +33,92 @@ namespace Goteo\Library {
 
         public static 
             $tables = array(
-                'promote'   => 'Proyectos destacados',
-                'icon'      => 'Tipos de retorno/recompensa',
-                'license'   => 'Licencias',
-                'category'  => 'Categorías',
-                'news'      => 'Noticias',
-                'faq'       => 'Faq',
-                'post'      => 'Blog',
-                'tag'       => 'Tags',
-                'page'      => 'Páginas institucionales',
-                'criteria'  => 'Criterios de evaluación',
-                'worthcracy'=> 'Meritocrácia',
-                'template'  => 'Plantillas emails automáticos',
-                'glossary'  => 'Glosario de términos',
-                'info'      => 'Ideas de about'
+                'promote'   => Text::_('Proyectos destacados'),
+                'patron'    => Text::_('Proyectos apadrinados'),
+                'icon'      => Text::_('Tipos de retorno/recompensa'),
+                'license'   => Text::_('Licencias'),
+                'category'  => Text::_('Categorías'),
+                'news'      => Text::_('Noticias'),
+                'faq'       => Text::_('Faq'),
+                'post'      => Text::_('Blog'),
+                'banner'    => Text::_('Banners'),
+                'tag'       => Text::_('Tags'),
+                'criteria'  => Text::_('Criterios de evaluación'),
+                'worthcracy'=> Text::_('Meritocrácia'),
+                'template'  => Text::_('Plantillas emails automáticos'),
+                'glossary'  => Text::_('Glosario de términos'),
+                'info'      => Text::_('Ideas de about')
             ),
             $fields = array(
+                'banner' => array (
+                    'title' => Text::_('Título'),
+                    'description' => Text::_('Descripción')
+                ),
                 'promote' => array (
-                    'title' => 'Título',
-                    'description' => 'Descripción'
+                    'title' => Text::_('Título'),
+                    'description' => Text::_('Descripción')
+                ),
+                'patron' => array (
+                    'title' => Text::_('Título'),
+                    'description' => Text::_('Descripción')
                 ),
                 'icon' => array (
-                    'name' => 'Nombre',
-                    'description' => 'Descripción'
+                    'name' => Text::_('Nombre'),
+                    'description' => Text::_('Descripción')
                 ),
                 'license' => array (
-                    'name' => 'Nombre',
-                    'description' => 'Descripción',
+                    'name' => Text::_('Nombre'),
+                    'description' => Text::_('Descripción'),
                     'url' => 'Enlace'
                 ),
                 'category' => array (
-                    'name' => 'Nombre',
-                    'description' => 'Descripción'
+                    'name' => Text::_('Nombre'),
+                    'description' => Text::_('Descripción')
                 ),
                 'news' => array (
-                    'title' => 'Título',
-                    'description' => 'Entradilla'
+                    'title' => Text::_('Título'),
+                    'description' => Text::_('Entradilla')
                 ),
                 'faq' => array (
-                    'title' => 'Título',
-                    'description' => 'Descripción'
+                    'title' => Text::_('Título'),
+                    'description' => Text::_('Descripción')
                 ),
                 'post' => array (
-                    'title' => 'Título',
-                    'text' => 'Texto entrada',
-                    'legend' => 'Leyenda media'
+                    'title' => Text::_('Título'),
+                    'text' => Text::_('Texto entrada'),
+                    'legend' => Text::_('Leyenda media')
                 ),
                 'tag' => array (
-                    'name' => 'Nombre'
-                ),
-                'page' => array (
-                    'name' => 'Nombre',
-                    'description' => 'Descripción'
+                    'name' => Text::_('Nombre')
                 ),
                 'criteria' => array (
-                    'title' => 'Título'
+                    'title' => Text::_('Título')
                 ),
                 'worthcracy' => array (
-                    'name' => 'Nombre'
+                    'name' => Text::_('Nombre')
                 ),
                 'template' => array (
-                    'title' => 'Título',
-                    'text' => 'Contenido'
+                    'title' => Text::_('Título'),
+                    'text' => Text::_('Contenido')
                 ),
                 'glossary' => array (
-                    'title' => 'Título',
-                    'text' => 'Contenido',
-                    'legend' => 'Leyenda media'
+                    'title' => Text::_('Título'),
+                    'text' => Text::_('Contenido'),
+                    'legend' => Text::_('Leyenda media')
                 ),
                 'info' => array (
-                    'title' => 'Título',
-                    'text' => 'Contenido',
-                    'legend' => 'Leyenda media'
+                    'title' => Text::_('Título'),
+                    'text' => Text::_('Contenido'),
+                    'legend' => Text::_('Leyenda media')
                 )
             ),
             $types = array(
-                'description' => 'Descripción',
-                'url'         => 'Enlace',
-                'name'        => 'Nombre',
-                'text'        => 'Texto extenso',
-                'legend'      => 'Leyenda',
-                'title'       => 'Título'
+                'description' => Text::_('Descripción'),
+                'url'         => Text::_('Enlace'),
+                'name'        => Text::_('Nombre'),
+                'text'        => Text::_('Texto extenso'),
+                'legend'      => Text::_('Leyenda'),
+                'title'       => Text::_('Título')
             );
 
         /*
@@ -182,6 +187,7 @@ namespace Goteo\Library {
                     if (!empty($filters['table']) && $table != $filters['table']) continue;
 
                     $sql = "";
+                    $primercampo = "";
                     $values = array();
 
                     $sql .= "SELECT
@@ -192,6 +198,7 @@ namespace Goteo\Library {
                         $sql .= "IFNULL({$table}_lang.$field, {$table}.$field) as $field,
                                 IF({$table}_lang.$field IS NULL, 0, 1) as {$field}ready,
                                 ";
+                        $primercampo = ($primercampo == '') ?: "{$field}ready";
                     }
 
                     $sql .= "CONCAT('{$table}') as `table`
@@ -223,6 +230,17 @@ namespace Goteo\Library {
                             $values[":text{$field}"] = "%{$filters['text']}%";
                             $and = "OR";
                         }
+                    }
+
+                    // ojo originales vacios
+                    foreach (self::$fields[$table] as $field=>$fieldName) {
+                        $sql .= " AND {$table}.{$field} IS NOT NULL
+                            ";
+                    }
+
+                    // pendientes de traducir
+                    if (!empty($filters['pending'])) {
+                        $sql .= " HAVING $primercampo = 0";
                     }
 
                     $sql .= " ORDER BY id ASC";

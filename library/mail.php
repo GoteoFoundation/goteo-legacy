@@ -121,7 +121,13 @@ namespace Goteo\Library {
                         $mail->AddCC($this->cc);
                     }
                     if($this->bcc) {
-                        $mail->AddBCC($this->bcc);
+                        if (is_array($this->bcc)) {
+                            foreach ($this->bcc as $ml) {
+                                $mail->AddBCC($ml);
+                            }
+                        } else {
+                            $mail->AddBCC($this->bcc);
+                        }
                     }
                     if($this->reply) {
                         $mail->AddReplyTo($this->reply, $this->replyName);
@@ -195,14 +201,16 @@ namespace Goteo\Library {
             $query = Model::query($sql, $values);
 
             $sendId = Model::insertId();
+                $the_mail = $this->to;
 
             if (!empty($sendId)) {
                 // token para el sinoves
-                $token = md5(uniqid()) . '¬' . $this->to  . '¬' . $sendId;
+                $token = md5(uniqid()) . '¬' . $the_mail  . '¬' . $sendId;
                 $viewData['sinoves'] = \SITE_URL . '/mail/' . base64_encode($token) . '/?email=' . $this->to;
             } else {
                 $viewData['sinoves'] = \SITE_URL . '/contact';
             }
+            $_SESSION['MAILING_TOKEN'] = $viewData['sinoves'];
 
             $viewData['baja'] = \SITE_URL . '/user/leave/?email=' . $this->to;
 
@@ -254,14 +262,14 @@ namespace Goteo\Library {
          *
          * @param array $filters    user (nombre o email),  template
          */
-        public function getSended($filters = array()) {
+        public static function getSended($filters = array(), $node = null, $limit = 9) {
 
             $values = array();
             $sqlFilter = '';
             $and = " WHERE";
 
             if (!empty($filters['user'])) {
-                $sqlFilter .= $and . " ( user.id LIKE :user OR user.name LIKE :user OR user.email LIKE :user  OR mail.email LIKE :user )";
+                $sqlFilter .= $and . " mail.email LIKE :user";
                 $and = " AND";
                 $values[':user'] = "%{$filters['user']}%";
             }
@@ -272,17 +280,40 @@ namespace Goteo\Library {
                 $values[':template'] = $filters['template'];
             }
 
+            /*
+            if ($node != \GOTEO_NODE) {
+                $sqlFilter .= $and . " mail.node = :node";
+                $and = " AND";
+                $values[':node'] = $node;
+            } else
+            */
+            if (!empty($filters['node'])) {
+                $sqlFilter .= $and . " mail.node = :node";
+                $and = " AND";
+                $values[':node'] = $filters['node'];
+            }
+
+            if (!empty($filters['date_from'])) {
+                $sqlFilter .= $and . " mail.date >= :date_from";
+                $and = " AND";
+                $values[':date_from'] = $filters['date_from'];
+            }
+            if (!empty($filters['date_until'])) {
+                $sqlFilter .= $and . " mail.date <= :date_until";
+                $and = " AND";
+                $values[':date_until'] = $filters['date_until'];
+            }
+
             $sql = "SELECT
                         mail.id as id,
-                        user.name as user,
                         mail.email as email,
                         mail.template as template,
                         DATE_FORMAT(mail.date, '%d/%m/%Y %H:%i') as date
                     FROM mail
-                    LEFT JOIN user
-                        ON user.email = mail.email
                     $sqlFilter
-                    ORDER BY mail.date DESC";
+                    ORDER BY mail.date DESC
+                    LIMIT {$limit}";
+
             $query = Model::query($sql, $values);
             return $query->fetchAll(\PDO::FETCH_OBJ);
             

@@ -62,8 +62,9 @@ class SocialAuth {
 	 * @param $provider : 'twitter', 'facebook', 'linkedin', 'any_openid_server'
 	 * */
 	function __construct($provider='') {
-		$this->host = SITE_URL;
-		$this->callback_url = SITE_URL . '/user/oauth?return=' . $provider;
+        $URL = (NODE_ID != GOTEO_NODE) ? NODE_URL : SITE_URL;
+		$this->host = $URL;
+		$this->callback_url = $URL . '/user/oauth?return=' . $provider;
 
 		$this->twitter_id = OAUTH_TWITTER_ID;
 		$this->twitter_secret = OAUTH_TWITTER_SECRET;
@@ -501,7 +502,6 @@ class SocialAuth {
 				$img->save();
 
 				if($img->id) {
-					Goteo\Core\Model::query("REPLACE user_image (user, image) VALUES (:user, :image)", array(':user' => $username, ':image' => $img->id));
 					Goteo\Core\Model::query("UPDATE user SET avatar = :avatar WHERE id = :user", array(':user'=>$username,':avatar'=>$img->id));
 				}
 			}
@@ -559,7 +559,6 @@ class SocialAuth {
 				$img->save();
 
 				if($img->id) {
-					Goteo\Core\Model::query("REPLACE user_image (user, image) VALUES (:user, :image)", array(':user' => $username, ':image' => $img->id));
 					Goteo\Core\Model::query("UPDATE user SET avatar = :avatar WHERE id = :user", array(':user'=>$username,':avatar'=>$img->id));
 					$user = Goteo\Model\User::get($username);
 				}

@@ -51,20 +51,28 @@ namespace Goteo\Library {
         }
 
         /*
-         * Devuelve un testo sin HTML
+         * Devuelve un texto sin HTML
          */
         static public function plain ($id) {
             // sacamos el contenido del texto
-            $text = call_user_func_array ( 'Text::get' , \func_get_args() );
+            $text = call_user_func_array ( 'static::get' , \func_get_args() );
             if (self::isHtml($id))
                 return \strip_tags($text) ; // ES html, le quitamos los tags
             else
                 return $text;
         }
 
+        /*
+         * Devuelve un texto con comillas escapadas para usarlo en javascript
+         */
+        static public function slash ($id) {
+            // sacamos el contenido del texto
+            $text = call_user_func_array ( 'static::get' , \func_get_args() );
+            return \addslashes($text);
+        }
+
         static public function getAdmin ($id) {
 
-            //$lang = 'es';
 
 			// buscamos el texto en la tabla, si no está sacamos el propósito
             $values = array(':id'=>$id, ':lang' => LANG);
@@ -84,7 +92,7 @@ namespace Goteo\Library {
 
         static public function getTrans ($id) {
 
-            $lang = $_SESSION['translator_lang'];
+            $lang = $_SESSION['translate_lang'];
 
 			// buscamos el texto en la tabla, si no está sacamos el propósito
             $values = array(':id'=>$id, ':lang' => $lang);
@@ -139,7 +147,8 @@ namespace Goteo\Library {
 			// buscamos el texto en la tabla
             $values = array(':id'=>$id, ':lang' => $lang);
 
-            $sql = "SELECT
+            // Español de purpose como alternativa
+            $sql_es = "SELECT
                         IFNULL(text.text,purpose.purpose) as `text`
                     FROM purpose
                     LEFT JOIN text
@@ -147,7 +156,21 @@ namespace Goteo\Library {
                         AND text.lang = :lang
                     WHERE purpose.text = :id
                     ";
-			$query = Model::query($sql, $values);
+            // Inglés como alternativa
+            $sql_en = "SELECT
+                        IFNULL(text.text, eng.text) as `text`
+                    FROM purpose
+                    LEFT JOIN text
+                        ON text.id = purpose.text
+                        AND text.lang = :lang
+                    LEFT JOIN text as eng
+                        ON  eng.id = purpose.text
+                        AND eng.lang = 'en'
+                    WHERE purpose.text = :id
+                    ";
+            // idiomas no españoles usan alternativa en inglés
+            $sql = (in_array($lang, array('es','ca', 'gl', 'eu', 'en'))) ? $sql_es : $sql_en;
+            $query = Model::query($sql, $values);
 			if ($exist = $query->fetchObject()) {
                 $tmptxt = $_cache[$id][$lang] = $exist->text;
 
@@ -161,7 +184,9 @@ namespace Goteo\Library {
                 }
 
 			} else {
-                $texto = 'Texto: ' . $id;
+                // para catalogar textos nuevos
+//				Model::query("REPLACE INTO purpose (text, purpose, html, `group`) VALUES (:text, :purpose, NULL, 'new')", array(':text' => $id, ':purpose' => $id));
+                $texto = $id;
 			}
 
             $texto = nl2br($texto);
@@ -232,6 +257,10 @@ namespace Goteo\Library {
                 $sql .= " AND ( text.text LIKE :text OR (text.text IS NULL AND purpose.purpose LIKE :text ))";
                 $values[':text'] = "%{$filters['text']}%";
             }
+            // pendientes de traducir
+            if (!empty($filters['pending'])) {
+                $sql .= " HAVING pendiente = 1";
+            }
             $sql .= " ORDER BY pendiente DESC, text ASC";
             
             try {
@@ -292,73 +321,50 @@ namespace Goteo\Library {
 		}
 
         /*
-         * Filtros de textos
-         */
-        static public function filters()
-        {
-            $filters = array(
-                'header'        => 'Cabeceras de página o sección',
-                'field'         => 'Campos y agrupaciones de campos',
-                'mandatory'     => 'Mensajes de campos obligatorios',
-                'tooltip'       => 'Consejos para rellenar el formulario',
-                'error'         => 'Errores que se muestran al usuario',
-                'explain'       => 'Explicaciones',
-                'guide'         => 'Textos de guia',
-                'step'          => 'Pasos del formulario',
-                'status'        => 'Estados de los proyectos',
-                'waitfot'       => 'Explicacion estados de los proyectos',
-                'validate'      => 'Validaciones de campos',
-                'regular'       => 'De uso común',
-                'button'        => 'Genéricos para botones',
-                'subject'       => 'Asuntos para emails automáticos',
-                'feed'          => 'Eventos',
-                'mark'          => 'Banderolos'
-            );
-
-            \asort($filters);
-
-            return $filters;
-        }
-
-        /*
          * Grupos de textos
          */
         static public function groups()
         {
             $groups = array(
-                'home' => 'Portada',
-                'public_profile' => 'Pagina de perfil de usuario',
-                'project'  => 'Proyecto, pública y formulario',
-                'form'     => 'Generales del formulario de proyecto',
-                'profile'  => 'Gestión de perfil del usuario',
-                'personal' => 'Datos personales del usuario',
-                'overview' => 'Descripción del proyecto',
-                'costs'    => 'Costes del proyecto',
-                'rewards'  => 'Retornos y recompensas del proyecto',
-                'supports' => 'Colaboraciones del proyecto',
-                'preview'  => 'Previsualización del proyecto',
-                'dashboard'=> 'Dashboard del usuario',
-                'register' => 'Registro de usuarios',
-                'login'    => 'Pagina de login',
-                'discover'  => 'Sección descubre proyectos',
-                'community'  => 'Sección comunidad',
-                'general'  => 'Propósito general',
-                'blog'  => 'Blog/Actualizaciones',
-                'faq'  => 'Pagina de FAQ',
-                'contact'  => 'Pagina de contacto',
-                'widget'  => 'Textos para etiquetas en el widget de un proyecto',
-                'invest'  => 'Pagina de aportar a un proyecto',
-                'types' => 'Tooltips para tipos de necesidades',
-                'banners' => 'Banners y cabeceras',
-                'footer' => 'Footer',
-                'social' => 'Cuentas de redes sociales',
-                'review' => 'Panel revisor',
-                'translate' => 'Panel traductor',
-                'menu' => 'Menu superior',
-                'feed' => 'Eventos recientes',
-                'mailer' => 'Emails automaticos',
-                'bluead' => 'Avisos azules',
-                'error' => 'Errores catastroficos'
+                'home' => static::_('Portada'),
+                'public_profile' => static::_('Pagina de perfil de usuario'),
+                'project'  => static::_('Proyecto, pública y formulario'),
+                'form'     => static::_('Generales del formulario de proyecto'),
+                'profile'  => static::_('Gestión de perfil del usuario'),
+                'personal' => static::_('Datos personales del usuario'),
+                'overview' => static::_('Descripción del proyecto'),
+                'costs'    => static::_('Costes del proyecto'),
+                'rewards'  => static::_('Retornos y recompensas del proyecto'),
+                'supports' => static::_('Colaboraciones del proyecto'),
+                'preview'  => static::_('Previsualización del proyecto'),
+                'dashboard'=> static::_('Dashboard del usuario'),
+                'register' => static::_('Registro de usuarios'),
+                'login'    => static::_('Pagina de login'),
+                'discover'  => static::_('Sección descubre proyectos'),
+                'community'  => static::_('Sección comunidad'),
+                'general'  => static::_('Propósito general'),
+                'blog'  => static::_('Blog/Actualizaciones'),
+                'faq'  => static::_('Pagina de FAQ'),
+                'contact'  => static::_('Pagina de contacto'),
+                'widget'  => static::_('Banderolos'),
+                'invest'  => static::_('Pagina de aportar a un proyecto'),
+                'types' => static::_('Tooltips para tipos de necesidades'),
+                'banners' => static::_('Banners y cabeceras'),
+                'footer' => static::_('Footer'),
+                'social' => static::_('Cuentas de redes sociales'),
+                'review' => static::_('Panel revisor'),
+                'translate' => static::_('Panel traductor'),
+                'menu' => static::_('Menu superior'),
+                'feed' => static::_('Eventos recientes'),
+                'mailer' => static::_('Emails automaticos'),
+                'bluead' => static::_('Avisos azules'),
+                'error' => static::_('Errores catastroficos'),
+                'call_public' => static::_('Convocatorias: publicos'),
+                'call_form' => static::_('Convocatorias: formulario'),
+                'call_dash' => static::_('Convocatorias: dashboard'),
+                'wof' => static::_('Wall of friends'),
+                'node_public' => static::_('Nodos'),
+                'contract' => static::_('Formulario Contrato')
             );
 
             \asort($groups);
@@ -418,11 +424,19 @@ namespace Goteo\Library {
         /*
          * Devuelve el código embed de un widget de proyecto
          */
-        static public function widget ($url, $type = 'project') {
+        static public function widget ($url, $type = 'project', $styles = null) {
+
+            $style = (isset($styles)) ? ' style="'.$styles.'"' : '';
             
             switch ($type) {
                 case 'fb':
                     $code = '<div class="fb-like" data-href="'.$url.'" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>';
+                    break;
+                case 'fb-nocount':
+                    $code = '<div class="fb-like"'.$style.' data-href="'.$url.'" data-send="false" data-layout="box_count" data-width="0" data-height="0" data-show-faces="false"></div>';
+                    break;
+                case 'wof':
+                    $code = '<iframe frameborder="0" height="100%" src="'.$url.'" width="630px" scrolling="no"></iframe>';
                     break;
                 case 'project':
                 default:
@@ -431,6 +445,19 @@ namespace Goteo\Library {
             }
 
             return $code;
+        }
+
+        /*
+         * Devuelve array de urls para compartir en redes sociales
+         */
+        static public function shareLinks ($url, $title) {
+
+            $urls = array(
+                'twitter' => 'http://twitter.com/home?status=' . rawurlencode($title . ': ' . $url . ' #Goteo'),
+                'facebook' => 'http://facebook.com/sharer.php?u=' . rawurlencode($url . '&t=' . rawurlencode($title)) 
+            );
+            
+            return $urls;
         }
 
 		/*
@@ -579,7 +606,7 @@ namespace Goteo\Library {
             $rexPath     = '(/[!$-/0-9:;=@_\':;!a-zA-Z\x7f-\xff]*?)?';
             $rexQuery    = '(\?[!$-/0-9:;=@_\':;!a-zA-Z\x7f-\xff]+?)?';
             $rexFragment = '(#[!$-/0-9:;=@_\':;!a-zA-Z\x7f-\xff]+?)?';
-            $rexUrlLinker = "{\\b$rexProtocol$rexDomain$rexPort$rexPath$rexQuery$rexFragment(?=[?.!,;:\)\"]?(,|\.|\s|$))}";
+            $rexUrlLinker = "{\\b$rexProtocol$rexDomain$rexPort$rexPath$rexQuery$rexFragment(?=[?.!,;:\)\"]?(,|\s|\)|$))}";
 
             /**
              *  $validTlds is an associative array mapping valid TLDs to the value true.
@@ -640,6 +667,14 @@ namespace Goteo\Library {
 
 		}
 
+        /*
+         * Método para ocultar parámetros de una url
+         */
+        public static function cutUrlParams($url) {
+            return $url = preg_replace('#/.+#', '', preg_replace('#http|s?://#', '', $url));
+        }
+        
+        
 	}
     
 }

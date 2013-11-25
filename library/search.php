@@ -69,9 +69,10 @@ namespace Goteo\Library {
         /**
          * Metodo para realizar una busqueda por parametros
          * @param array multiple $params 'category', 'location', 'reward'
+         * @param bool showall si true, muestra tambien proyectos en estado de edicion y revision
          * @return array results
          */
-		public static function params ($params) {
+		public static function params ($params, $showall = false, $limit = null) {
 
             $results = array();
             $where   = array();
@@ -110,18 +111,35 @@ namespace Goteo\Library {
                 $values[':text'] = "%{$params['query']}%";
             }
 
+            
+            if (!empty($params['node'])) {
+                $where[] = ' AND node = :node';
+                $values[':node'] = NODE_ID;
+            }
+
+            if (!empty($params['status'])) {
+                $where[] = ' AND status = :status';
+                $values[':status'] = $params['status'];
+            }
+
+            $minstatus = ($showall) ? '1' : '2';
+            $maxstatus = ($showall) ? '4' : '7';
+
             $sql = "SELECT id
                     FROM project
-                    WHERE status > 2
+                    WHERE status > $minstatus
+                    AND status < $maxstatus
                     ";
             
             if (!empty($where)) {
                 $sql .= implode (' ', $where);
             }
 
-            $sql .= "ORDER BY name ASC";
-
-//            echo "$sql<br />";
+            $sql .= " ORDER BY status ASC, name ASC";
+            // Limite
+            if (!empty($limit) && \is_numeric($limit)) {
+                $sql .= " LIMIT $limit";
+            }
 
             try {
                 $query = Model::query($sql, $values);

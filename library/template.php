@@ -41,6 +41,7 @@ namespace Goteo\Library {
             // buscamos la página para este nodo en este idioma
 			$sql = "SELECT  template.id as id,
                             template.name as name,
+                            template.group as `group`,
                             template.purpose as purpose,
                             IFNULL(template_lang.title, template.title) as title,
                             IFNULL(template_lang.text, template.text) as text
@@ -63,13 +64,25 @@ namespace Goteo\Library {
 		/*
 		 *  Metodo para la lista de páginas
 		 */
-		public static function getAll() {
+		public static function getAll($filters = array()) {
             $templates = array();
 
             try {
 
                 $values = array(':lang' => \LANG);
-
+                $sqlFilter = '';
+                $and = "WHERE";
+                if (!empty($filters['group'])) {
+                    $sqlFilter .= " $and template.`group` = :group";
+                    $and = "AND";
+                    $values[':group'] = "{$filters['group']}";
+                }
+                if (!empty($filters['name'])) {
+                    $sqlFilter .= " $and (template.`name` LIKE :name OR template.`purpose` LIKE :name OR template.`title` LIKE :name)";
+                    $and = "AND";
+                    $values[':name'] = "%{$filters['name']}%";
+                }
+                
                 $sql = "SELECT
                             template.id as id,
                             template.name as name,
@@ -80,6 +93,7 @@ namespace Goteo\Library {
                         LEFT JOIN template_lang
                             ON  template_lang.id = template.id
                             AND template_lang.lang = :lang
+                        $sqlFilter
                         ORDER BY name ASC
                         ";
 
@@ -89,7 +103,7 @@ namespace Goteo\Library {
                 }
                 return $templates;
             } catch (\PDOException $e) {
-                throw new Exception('FATAL ERROR SQL: ' . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
+                throw new Exception(Text::_('No se ha grabado correctamente. ')S . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
             }
 		}
 
@@ -113,7 +127,7 @@ namespace Goteo\Library {
                 }
                 return $templates;
             } catch (\PDOException $e) {
-                throw new Exception('FATAL ERROR SQL: ' . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
+                throw new Exception(Text::_('No se ha grabado correctamente. ') . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
             }
 		}
 
@@ -122,17 +136,17 @@ namespace Goteo\Library {
             $allok = true;
 
             if (empty($this->id)) {
-                $errors[] = 'Registro sin id';
+                $errors[] = Text::_('Registro sin id');
                 $allok = false;
             }
 
             if (empty($this->title)) {
-                $errors[] = 'Registro sin titulo';
+                $errors[] = Text::_('Registro sin titulo');
                 $allok = false;
             }
 
             if (empty($this->text)) {
-                $errors[] = 'Registro sin contenido';
+                $errors[] = Text::_('Registro sin contenido');
                 $allok = false;
             }
 
@@ -149,15 +163,16 @@ namespace Goteo\Library {
                 $values = array(
                     ':template' => $this->id,
                     ':name' => $this->name,
+                    ':group' => $this->group,
                     ':purpose' => $this->purpose,
                     ':title' => $this->title,
                     ':text' => $this->text
                 );
 
 				$sql = "REPLACE INTO template
-                            (id, name, purpose, title, text)
+                            (id, name, purpose, title, text, `group`)
                         VALUES
-                            (:template, :name, :purpose, :title, :text)
+                            (:template, :name, :purpose, :title, :text, :group)
                         ";
 				if (Model::query($sql, $values)) {
                     return true;
@@ -173,6 +188,25 @@ namespace Goteo\Library {
 
 		}
 
+        /*
+         * Grupos de plantillas
+         */
+        static public function groups()
+        {
+            $groups = array(
+                'general' => Text::_('Propósito general'),
+                'access'  => Text::_('Registro y acceso usuario'),
+                'project' => Text::_('Actividad proyecto'),
+                'tips'    => Text::_('Auto-tips difusión'),
+                'invest'  => Text::_('Proceso aporte'),
+                'contact' => Text::_('Comunicación'),
+                'advice'  => Text::_('Avisos al autor')
+            );
+
+            \asort($groups);
+
+            return $groups;
+        }
 
 	}
 }

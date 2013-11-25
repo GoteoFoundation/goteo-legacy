@@ -20,7 +20,9 @@
 
 namespace Goteo\Library {
 
-    require_once 'library/rss/FeedWriter.php';  // Libreria para creacion de rss
+    //  Php FeedWriter 3.0.1 (beta)
+    //	(c) Copyright Daniel Soutter
+    require_once 'library/rss/FeedWriter.php';
 
 	/*
 	 * Clase para usar La libreria FeedWriter

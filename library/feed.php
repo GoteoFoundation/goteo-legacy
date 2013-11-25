@@ -34,58 +34,67 @@ namespace Goteo\Library {
             $title, // titulo entrada o nombre usuario
             $url = null, // enlace del titulo
             $image = null, // enlace del titulo
-            $scope = 'admin', // ambito del evento (public, admin)
-            $type =  'system', // tipo de evento  ($public_types , $admin_types)
+            $scope = 'admin', // ambito del evento (public, admin, private)
+            $type =  'system', // tipo de evento  ($public_types , $admin_types, $private_types)
             $timeago, // el hace tanto
             $date, // fecha y hora del evento
             $html, // contenido del evento en codigo html
             $unique = false, // si es un evento unique, no lo grabamos si ya hay un evento con esa url
+            $unique_issue = false, // si se encuentra con que esta duplicando el feed
             $text,  // id del texto dinamico
             $params,  // (array serializado en bd) parametros para el texto dinamico
-            $user, // usuario asociado al evento
-            $project, // proyecto asociado al evento
-            $node; // nodo asociado al evento
+            $target_type, // tipo de objetivo del evento (user, project, call, node, etc..) normalmente project
+            $target_id; // id registro del objetivo (normalmente varchar(50))
 
         static public $admin_types = array(
             'all' => array(
-                'label' => 'Todo',
+                'label' => Text::_('Todo'),
                 'color' => 'light-blue'
             ),
             'admin' => array(
-                'label' => 'Administrador',
+                'label' => Text::_('Administrador'),
                 'color' => 'red'
             ),
             'user' => array(
-                'label' => 'Usuario',
+                'label' => Text::_('Usuario'),
                 'color' => 'blue'
             ),
             'project' => array(
-                'label' => 'Proyecto',
+                'label' => Text::_('Proyecto'),
                 'color' => 'light-blue'
             ),
             'call' => array(
-                'label' => 'Convocatoria',
+                'label' => Text::_('Convocatoria'),
                 'color' => 'light-blue'
             ),
             'money' => array(
-                'label' => 'Transferencias',
+                'label' => Text::_('Transferencias'),
                 'color' => 'violet'
             ),
             'system' => array(
-                'label' => 'Sistema',
+                'label' => Text::_('Sistema'),
                 'color' => 'grey'
             )
         );
 
         static public $public_types = array(
             'goteo' => array(
-                'label' => 'Goteo'
+                'label' => Text::_('Goteo')
             ),
             'projects' => array(
-                'label' => 'Proyectos'
+                'label' => Text::_('Proyectos')
             ),
             'community' => array(
-                'label' => 'Comunidad'
+                'label' => Text::_('Comunidad')
+            )
+        );
+
+        static public $private_types = array(
+            'info' => array(
+                'label' => Text::_('Información')
+            ),
+            'alert' => array(
+                'label' => Text::_('Alerta')
             )
         );
 
@@ -131,6 +140,18 @@ namespace Goteo\Library {
             $this->image = $image;
         }
 
+        /**
+         * Metodo que establece el elemento al que afecta el evento
+         *
+         * Sufridor del evento: tipo (tabla) & id registro
+         *
+         * @param $id string normalmente varchar(50)
+         * @param $type string (project, user, node, call, etc...)
+         */
+        public function setTarget ($id, $type = 'project') {
+            $this->target_id = $id;
+            $this->target_type = $type;
+        }
 
         public function doAdmin ($type = 'system') {
             $this->doEvent('admin', $type);
@@ -138,6 +159,10 @@ namespace Goteo\Library {
 
         public function doPublic ($type = 'goteo') {
             $this->doEvent('public', $type);
+        }
+
+        public function doPrivate ($type = 'info') {
+            $this->doEvent('private', $type);
         }
 
         private function doEvent ($scope = 'admin', $type = 'system') {
@@ -151,9 +176,10 @@ namespace Goteo\Library {
          *
          * @param string $type  tipo de evento (public: columnas goteo, proyectos, comunidad;  admin: categorias de filtro)
          * @param string $scope ambito de eventos (public | admin)
+         * @param numeric $limit limite de elementos
          * @return array list of items
 		 */
-		public static function getAll($type = 'all', $scope = 'public') {
+		public static function getAll($type = 'all', $scope = 'public', $limit = '99', $node = null) {
 
             $list = array();
 
@@ -164,6 +190,37 @@ namespace Goteo\Library {
                 if ($type != 'all') {
                     $sqlType = " AND feed.type = :type";
                     $values[':type'] = $type;
+                } else {
+                    // acciones del web service ultra secreto
+                    $sqlType = " AND feed.type != 'usws'";
+                }
+                
+                $sqlNode = '';
+                if (!empty($node) && $node != \GOTEO_NODE) {
+                    /* segun el objetivo del feed sea:
+                     * proyectos del nodo
+                     * usuarios del nodo
+                     * convocatorias destacadas por el nodo (aunque inactivas)
+                     * el propio nodo
+                     * el blog
+                     */
+                    $sqlNode = " AND (
+                        (feed.target_type = 'project' AND feed.target_id IN (
+                            SELECT id FROM project WHERE node = :node
+                            )
+                        )
+                        OR (feed.target_type = 'user' AND feed.target_id IN (
+                            SELECT id FROM user WHERE node = :node
+                            )
+                        )
+                        OR (feed.target_type = 'call' AND feed.target_id IN (
+                            SELECT `call` FROM campaign WHERE node = :node
+                            )
+                        )
+                        OR (feed.target_type = 'node' AND feed.target_id = :node)
+                        OR (feed.target_type = 'blog')
+                    )";
+                    $values[':node'] = $node;
                 }
 
                 $sql = "SELECT
@@ -175,16 +232,15 @@ namespace Goteo\Library {
                             feed.datetime as timer,
                             feed.html as html
                         FROM feed
-                        WHERE feed.scope = :scope $sqlType
+                        WHERE feed.scope = :scope 
+                        $sqlType
+                        $sqlNode
                         ORDER BY datetime DESC
-                        LIMIT 99
+                        LIMIT $limit
                         ";
 
                 $query = Model::query($sql, $values);
                 foreach ($query->fetchAll(\PDO::FETCH_CLASS, __CLASS__) as $item) {
-
-                    //hace tanto
-                    $item->timeago = self::time_ago($item->timer);
 
                     // si es la columan goteo, vamos a cambiar el html por el del post traducido
                     if ($type == 'goteo') {
@@ -194,19 +250,159 @@ namespace Goteo\Library {
                         \preg_match('(\d+)', $item->url, $matches);
                         if (!empty($matches[0])) {
                             //  luego hacemos get del post
-                            $post = Post::get($matches[0]);
+                            $post = Post::get($matches[0], LANG);
+
+                            if ($post->owner_type == 'node' && $post->owner_id != \GOTEO_NODE) {
+                                if (!\Goteo\Core\NodeSys::isActive($post->owner_id)) {
+                                    continue;
+                                }
+                            }
 
                             // y substituimos el $item->html por el $post->html
                             $item->html = Text::recorta($post->text, 250);
+                            $item->title = $post->title;
+                            $item->image = $post->image->id;
+
+                            // arreglo la fecha de publicación
+                            $parts = explode(' ', $item->timer);
+                            $item->timer = $post->date . ' ' . $parts[1];
                         }
                     }
+
+                    //hace tanto
+                    $item->timeago = self::time_ago($item->timer);
 
 
                     $list[] = $item;
                 }
                 return $list;
             } catch (\PDOException $e) {
-                throw new Exception('FATAL ERROR SQL: ' . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
+                throw new Exception(Text::_('No se ha guardado correctamente. ') . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
+            }
+		}
+
+        /**
+		 *  Metodo para sacar los eventos de novedades de proyecto (solo)
+         *
+         * @param string $limit limite de elementos
+         * @return array list of items
+		 */
+		public static function getProjUpdates($limit = '99') {
+
+            $list = array();
+
+            try {
+                $sql = "SELECT
+                            feed.id as id,
+                            feed.title as title,
+                            feed.url as url,
+                            feed.image as image,
+                            DATE_FORMAT(feed.datetime, '%H:%i %d|%m|%Y') as date,
+                            feed.datetime as timer,
+                            feed.html as html
+                        FROM feed
+                        WHERE feed.scope = 'public' 
+                        AND feed.type = 'projects'
+                        AND feed.url LIKE '%updates%'
+                        ORDER BY datetime DESC
+                        LIMIT $limit
+                        ";
+
+                $query = Model::query($sql, $values);
+                foreach ($query->fetchAll(\PDO::FETCH_CLASS, __CLASS__) as $item) {
+
+                    //hace tanto
+                    $item->timeago = self::time_ago($item->timer);
+
+                    $list[] = $item;
+                }
+                return $list;
+            } catch (\PDOException $e) {
+                throw new Exception(Text::_('No se ha guardado correctamente. ') . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
+            }
+		}
+
+        /**
+		 * Metodo para sacar los eventos relacionados con un usuario
+         *
+         * @param string $id id del usuario
+         * @param string $filter  para tipos de eventos que queremos obtener
+         * @return array list of items (como getAll)
+		 */
+		public static function getUserItems($id, $filter = 'private') {
+
+            $list = array();
+
+            try {
+                $values = array();
+
+                $wheres = array();
+                if (!empty($filter)) {
+                    switch ($filter) {
+                        case 'private':
+                            // eventos que afecten al usuario
+                            $wheres[] = "feed.target_type = 'user'";
+                            $wheres[] = "feed.target_id = :target_id";
+                            $values[':target_id'] = $id;
+                            break;
+                        case 'supported':
+                            // eventos del proyectos que cofinancio (o he intentado cofinanciar)
+                            $wheres[] = "feed.target_type = 'project'";
+                            $wheres[] = "feed.target_id IN (
+                                SELECT DISTINCT(invest.project) FROM invest WHERE invest.user  = :id
+                                )";
+                            $values[':id'] = $id;
+                            break;
+                        case 'comented':
+                            // eventos de proyectos en los que comento pero que no cofinancio
+                            $wheres[] = "feed.target_type = 'project'";
+                            $wheres[] = "( feed.target_id IN (
+                                SELECT DISTINCT(message.project) FROM message WHERE message.user  = :id
+                                ) OR feed.target_id IN (
+                                SELECT DISTINCT(blog.owner)
+                                FROM comment
+                                INNER JOIN post
+                                    ON post.id = comment.post
+                                INNER JOIN blog
+                                    ON blog.id = post.blog
+                                    AND blog.type = 'project'
+                                WHERE comment.user  = :id
+                                )
+                            )";
+                            $wheres[] = "feed.target_id NOT IN (
+                                SELECT DISTINCT(invest.project) FROM invest WHERE invest.user  = :id
+                                )";
+                            $values[':id'] = $id;
+                            break;
+                    }
+                }
+
+                $sql = "SELECT
+                            feed.id as id,
+                            feed.title as title,
+                            feed.url as url,
+                            feed.image as image,
+                            DATE_FORMAT(feed.datetime, '%H:%i %d|%m|%Y') as date,
+                            feed.datetime as timer,
+                            feed.html as html
+                        FROM feed
+                        WHERE " . implode(' AND ', $wheres) . "
+                        ORDER BY datetime DESC
+                        LIMIT 99
+                        ";
+
+                $query = Model::query($sql, $values);
+                foreach ($query->fetchAll(\PDO::FETCH_CLASS, __CLASS__) as $item) {
+
+                    //hace tanto
+                    $item->timeago = self::time_ago($item->timer);
+                    
+                    $list[] = $item;
+                }
+                return $list;
+            } catch (\PDOException $e) {
+                return array();
+                @\mail(\GOTEO_MAIL, 'ERROR SQL en Feed::getItems', Text::_('No se ha guardado correctamente. ') . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
             }
 		}
 
@@ -231,6 +427,11 @@ namespace Goteo\Library {
                 return false;
             }
 
+		// we dont want to show the actions made by root user
+            if ($this->scope == 'public' && $_SESSION['user']->id == 'root') {
+                return false;
+            }
+
 
             // primero, verificar si es unique, no duplicarlo
             if ($this->unique === true) {
@@ -241,6 +442,7 @@ namespace Goteo\Library {
                     ':type' => $this->type
                 ));
                 if ($query->fetchColumn(0) != false) {
+                    $this->unique_issue = true;
                     return true;
                 }
             }
@@ -252,13 +454,15 @@ namespace Goteo\Library {
                     ':image' => $this->image,
                     ':scope' => $this->scope,
                     ':type' => $this->type,
-                    ':html' => $this->html
+                    ':html' => $this->html,
+                    ':target_type' => $this->target_type,
+                    ':target_id' => $this->target_id
                 );
 
 				$sql = "INSERT INTO feed
-                            (id, title, url, scope, type, html, image)
+                            (id, title, url, scope, type, html, image, target_type, target_id)
                         VALUES
-                            ('', :title, :url, :scope, :type, :html, :image)
+                            ('', :title, :url, :scope, :type, :html, :image, :target_type, :target_id)
                         ";
 				if (Model::query($sql, $values)) {
                     return true;
@@ -289,11 +493,11 @@ namespace Goteo\Library {
             $per_id = array('sec', 'min', 'hour', 'day', 'week', 'month', 'year', 'dec');
 
             $per_txt = array();
-            foreach (\explode('_', Text::_("segundo-segundos_minuto-minutos_hora-horas_día-días_semana-semanas_mes-meses_año-años_década-décadas")) as $key=>$grptxt) {
+            foreach (\explode('_', Text::get('feed-timeago-periods')) as $key=>$grptxt) {
                 $per_txt[$per_id[$key]] = \explode('-', $grptxt);
             }
 
-            $justnow = Text::_("nada");
+            $justnow = Text::get('feed-timeago-justnow');
 
             $retval = '';
             $date = strtotime($date);
@@ -321,7 +525,6 @@ namespace Goteo\Library {
 
             return empty($retval) ? $justnow : $retval;
         }
-
 
         /**
          *  Genera codigo html para enlace o texto dentro de feed

@@ -26,15 +26,16 @@ namespace Goteo\Library {
         Goteo\Library\Feed,
         Goteo\Core\Redirection;
 
+// contact us for PayPal implementation service or download the PayPal SDK for Adaptive Payments API calls and copy it into 'library/paypal/' (you will have to make it work)
 	/*
 	 * Clase para usar los adaptive payments de paypal
-         * Reference used: https://www.x.com/adaptive-payments-2
+// this is a free PayPal implementation with free code, you will have to make it work or contact us for implementation services
 	 */
     class Paypal {
 
 	/*
 	*******************************************************************
-	PayPal API Credentials
+	PayPal API Credentials  (on sandbox)
 	Replace <API_USERNAME> with your API Username
 	Replace <API_PASSWORD> with your API Password
 	Replace <API_SIGNATURE> with your Signature
@@ -43,10 +44,10 @@ namespace Goteo\Library {
         public $main = array(
 		'api_endpoint' => '', 
 		'wsdl' => '',
-		'API_UserName' => 'sbapi_1287090601_biz_api1.paypal.com', //replace with values from Goteo
-		'API_Password' => '1287090610', //replace with values from Goteo
-		'API_Signature' => 'ANFgtzcGWolmjcm5vfrf07xVQ6B9AsoDvVryVxEQqezY85hChCfdBMvY', //replace with values from Goteo
-		'API_AppID' => 'APP-80W284485P519543T', //replace with values from Goteo
+		'API_UserName' => '[name]_[code]_biz_api1.paypal.com', // this is an example, replace with values from PayPal
+		'API_Password' => '1234567890', // this is an example, replace with values from PayPal
+		'API_Signature' => 'ANFgtzcGWolmjcm5vfrf07xVQ6B9AsoDvVryVxEQqezY85hChCfdBMvY', // this is an example, replace with values from PayPal
+		'API_AppID' => 'APP-80W284485P519543T', // this is an example, replace with values from PayPal
 		'API_MessageProtocol' => 'SOAP11',
 	);
 	public $RequestEnvelope = array(
@@ -80,6 +81,7 @@ namespace Goteo\Library {
          * @TODO poner límite máximo de dias a lo que falte para los 40/80 dias para evitar las cancelaciones
          */
         public static function preapproval($invest, &$errors = array()) {
+// this is an example of PayPal implementation (on sandbox), you will have to make it work or contact us for implementation services
 		error_log(print_r($invest,1));
 		$this->$PreapprovalRequest['cancelUrl'] = 'http://www.ebay.com'; //replace with values from Goteo
 		$this->$PreapprovalRequest['currencyCode'] = 'EUR'; //replace with values from Goteo
@@ -111,6 +113,7 @@ namespace Goteo\Library {
 		$ackCode = $response->responseEnvelope->ack;
 		$paypalURL = "https://www.sandbox.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey=" .$preapprovalKey;
 		echo '<p><a href="' . $paypalURL . '" target="_blank">' . $paypalURL . '</a></p>';
+die('Make it work first');
         }
 
 
@@ -123,6 +126,7 @@ namespace Goteo\Library {
          */
         public static function pay($invest, &$errors = array()) {
             if (\GOTEO_FREE) {
+                $errors[] = 'PayPal implementation not licensed. Get the SDK and make it work, or contact us for implementation services';
                 return false;
             }
         }
@@ -134,6 +138,7 @@ namespace Goteo\Library {
          */
         public static function doPay($invest, &$errors = array()) {
             if (\GOTEO_FREE) {
+                $errors[] = 'PayPal implementation not licensed. Get the SDK and make it work, or contact us for implementation services';
                 return false;
             }
         }
@@ -144,6 +149,7 @@ namespace Goteo\Library {
          */
         public static function preapprovalDetails ($key, &$errors = array()) {
             if (\GOTEO_FREE) {
+                $errors[] = 'PayPal implementation not licensed. Get the SDK and make it work, or contact us for implementation services';
                 return false;
             }
         }
@@ -153,6 +159,7 @@ namespace Goteo\Library {
          */
         public static function paymentDetails ($key, &$errors = array()) {
             if (\GOTEO_FREE) {
+                $errors[] = 'PayPal implementation not licensed. Get the SDK and make it work, or contact us for implementation services';
                 return false;
             }
         }
@@ -162,8 +169,9 @@ namespace Goteo\Library {
          * Llamada para cancelar un preapproval (si llega a los 40 sin conseguir el mínimo)
          * recibe la instancia del aporte
          */
-        public static function cancelPreapproval ($invest, &$errors = array()) {
+        public static function cancelPreapproval ($invest, &$errors = array(), $fail = false) {
             if (\GOTEO_FREE) {
+                $errors[] = 'PayPal implementation not licensed. Get the SDK and make it work, or contact us for implementation services';
                 return false;
             }
         }

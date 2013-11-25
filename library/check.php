@@ -245,7 +245,7 @@ namespace Goteo\Library {
             $sqlSec = '';
             $and = 'WHERE';
             foreach ($extra as $campo=>$valor) {
-                $sqlSec .= " $and `{$campo}` = '{$valor}'";
+                $sqlSec .= ($valor == '') ? " $and (`{$campo}` = '{$valor}' OR `{$campo}` IS NULL)" : " $and `{$campo}` = '{$valor}'";
                 $and = 'AND';
             }
             //sacar de la tabla ordenando y poniendo en array de 10 en 10
@@ -284,6 +284,45 @@ namespace Goteo\Library {
             }
 
         }
+
+        /**
+         * Metodo para calcular cuanto falta para una fecha (para las 0:00 de esa fecha
+         *
+         * Usa los mismos periodos que feed::time_ago y la misma idea pero con la resta a la inversa
+         */
+        public static function time_togo($date,$granularity=1) {
+
+            $per_id = array('sec', 'min', 'hour', 'day', 'week', 'month', 'year', 'dec');
+
+            $per_txt = array();
+            foreach (\explode('_', Text::get('feed-timeago-periods')) as $key=>$grptxt) {
+                $per_txt[$per_id[$key]] = \explode('-', $grptxt);
+            }
+
+            $justnow = Text::get('feed-timeago-justnow');
+
+            $retval = '';
+            $date = strtotime($date); // fecha objetivo
+            $ahora = time(); // ahora
+            $difference = $date - $ahora;
+            $periods = array('hour' => 3600,
+                'min' => 60,
+                'sec' => 1);
+
+            foreach ($periods as $key => $value) {
+                if ($difference >= $value) {
+                    $time = floor($difference/$value);
+                    $difference %= $value;
+                    $retval .= ($retval ? ' ' : '').$time.' ';
+                    $retval .= (($time > 1) ? $per_txt[$key][1] : $per_txt[$key][0]);
+                    $granularity--;
+                }
+                if ($granularity == '0') { break; }
+            }
+
+            return empty($retval) ? $justnow : $retval;
+        }
+
 
 
         }

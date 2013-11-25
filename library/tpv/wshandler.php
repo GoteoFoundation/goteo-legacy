@@ -18,6 +18,11 @@
  *
  */
 
+/****************************************************
+wshandler.php
+This file contains methods to make calls to bank webservice
+Called by /library/tpv.php
+****************************************************/
 require_once 'library/paypal/stub.php'; // sí, uso el stub de paypal
 require_once 'library/paypal/log.php'; // sí, uso el log de paypal
 
@@ -89,7 +94,7 @@ class WSHandler {
 	        }
 		}
 		catch(Exception $ex) {
-			die('Error occurred in call method');
+			return null;
 		}
 	   return $response;
 	}
@@ -162,6 +167,11 @@ function tpvcall($data, $endpoint)
 {
     //setting the curl parameters.
     $ch = curl_init();
+    //For Debugging
+//    curl_setopt($ch, CURLOPT_HEADER, true);
+//    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+//    curl_setopt($ch, CURLOPT_VERBOSE, true);
+    curl_setopt($ch, CURLOPT_SSLVERSION, 3);
     curl_setopt($ch, CURLOPT_URL,$endpoint);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); //no se exactamente para que es, está en los ejemplos
@@ -195,14 +205,17 @@ function tpvcall($data, $endpoint)
     //getting response from server
     $response = curl_exec($ch);
 
+//    curl_getinfo($ch);
 
     $logger->log("response: ".trim(htmlentities($response)));
     $logger->log('##### END TPV call '.date('d/m/Y').' #####');
     $logger->close();
     
     if (curl_errno($ch)) {
-        // moving to display page to display curl errors
-        die('curl_error: ' . curl_errno($ch) . '<br />' . curl_error($ch));
+        @mail(\GOTEO_MAIL,
+            'Ha fallado el handler de tpv ' . SITE_URL,
+            'curl_error: ' . curl_errno($ch) . '<br />' . curl_error($ch) . '<hr /><pre>'.print_r($data, 1).'</pre>');
+        return null;
      } else {
          //closing the curl
             curl_close($ch);

@@ -24,6 +24,7 @@ namespace Goteo\Library {
         Goteo\Model\Project,
         Goteo\Core\Redirection;
 
+// this library depends on bank system. Contact us for development services or make it work somehow.
 	/*
 	 * Clase para usar la pasarela de pago
 	 */
@@ -38,17 +39,65 @@ namespace Goteo\Library {
 
         public static function pay($invest, &$errors = array()) {
             if (\GOTEO_FREE) {
+                $errors[] = 'Bank not implemented. Contact us for development services or make it work somehow';
                 return false;
             }
+
+
+			try {
+                $project = Project::getMini($invest->project);
+
+                // preparo codigo y cantidad
+                $token  = $invest->id . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9);
+                $amount = $invest->amount * 100;
+
+                // Guardar el codigo de preaproval en el registro de aporte (para confirmar o cancelar)
+                $invest->setPreapproval($token);
+                $logger = &\Log::singleton('file', 'logs/'.date('Ymd').'_invest.log', 'caller', $conf);
+
+                $logger->log('##### TPV ['.$invest->id.'] '.date('d/m/Y').' User:'.$_SESSION['user']->id.'#####');
+
+                $logger->log("Charge request: $MsgStr");
+                $logger->close();
+
+                Invest::setDetail($invest->id, 'tpv-conection', 'Ha iniciado la comunicacion con el tpv, operacion numero ' . $token . '. Proceso libary/tpv::pay');
+
+                return true;
+			}
+			catch(Exception $ex) {
+                Invest::setDetail($invest->id, 'tpv-conection-fail', 'Ha fallado la comunicacion con el tpv. Proceso libary/tpv::pay');
+                $errors[] = 'Error fatal en la comunicacion con el TPV, se ha reportado la incidencia. Disculpe las molestias.';
+                @mail(\GOTEO_MAIL, 'Error fatal en comunicacion TPV Sermepa', 'ERROR en ' . __FUNCTION__ . '<br />' . $ex->getMessage());
+                return false;
+			}
         }
 
-        public static function cancelPreapproval ($invest, &$errors = array()) {
-            return static::cancelPay($invest, $errors);
+        public static function cancelPreapproval ($invest, &$errors = array(), $fail = false) {
+            return static::cancelPay($invest, $errors, $fail);
         }
-        public static function cancelPay($invest, &$errors = array()) {
+        public static function cancelPay($invest, &$errors = array(), $fail = false) {
             if (\GOTEO_FREE) {
+                $errors[] = 'Bank not implemented. Contact us for development services or make it work somehow';
                 return false;
             }
+
+			try {
+                if (empty($invest->payment)) {
+                    $invest->cancel($fail);
+                    return true;
+                }
+
+                //echo \trace($datos);
+
+                    return false;
+			}
+			catch(Exception $ex) {
+                Invest::setDetail($invest->id, 'tpv-cancel-conection-fail', 'Ha fallado la comunicacion con el tpv al anular la operacion. Proceso libary/tpv::cancelPay');
+                $errors[] = 'Error fatal en la comunicaciÃ³n con el TPV, se ha reportado la incidencia. Disculpe las molestias.';
+                @mail(\GOTEO_MAIL, 'Error fatal en comunicacion TPV Sermepa', 'ERROR en ' . __FUNCTION__ . '<br /><pre>' . print_r($handler, 1) . '</pre>');
+                return false;
+			}
+
         }
 
 	}

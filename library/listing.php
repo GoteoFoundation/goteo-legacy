@@ -30,6 +30,8 @@ namespace Goteo\Library {
 
         public static function get($projects = array(), $each = 3) {
 
+                if (empty($projects)) return array();
+            
                 $g = 1;
                 $c = 1;
                 foreach ($projects as $k=>$project) {
