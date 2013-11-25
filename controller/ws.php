@@ -147,6 +147,33 @@ EOD;
         }
 
 
+        /*
+         * Marcar recompensa cumplida
+         */
+        public function fulfill_reward($project, $user) {
+
+            if (Model\Project::isMine($project, $user)) {
+                $parts = explode('-', $_POST['token']);
+                if ($parts[0] == 'ful_reward') {
+                    if (Model\Invest::setFulfilled($parts[1], $parts[2])) {
+                        header ('HTTP/1.1 200 Ok');
+                        echo 'Recompensa '.$_POST['token'].' marcada como cumplida por '.$user;
+                        die;
+                    } else {
+                        header ('HTTP/1.1 200 Ok');
+                        die;
+                    }
+                } else {
+                    header ('HTTP/1.1 400 Bad request');
+                    die;
+                }
+            } else {
+                header ('HTTP/1.1 403 Forbidden');
+                die;
+            }
+            
+        }
+        
     }
     
 }

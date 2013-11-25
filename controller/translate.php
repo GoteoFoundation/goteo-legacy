@@ -30,16 +30,27 @@ namespace Goteo\Controller {
 	    Goteo\Library\Text,
 	    Goteo\Library\Page,
 	    Goteo\Library\Content,
-		Goteo\Library\Lang;
+		Goteo\Library\i18n\Lang;
 
 	class Translate extends \Goteo\Core\Controller {
 
-        public function index ($table = '', $action = 'list', $id = null) {
+        /*
+         * Para traducir contenidos de nodo, especial: $action = id del nodo; $id = tabla, $auxAction = action, $contentId = registro
+         */
+        public function index ($table = '', $action = 'list', $id = null, $auxAction = 'list', $contentId = null) {
 
-            if (empty($_SESSION['translator_lang'])) {
-                $_SESSION['translator_lang'] = 'en';
-//                $errors[] = 'Selecciona el idioma de traducción';
-//                return new View('view/translate/index.html.php', array('menu'=>self::menu()));
+            $_SESSION['user']->translangs = Model\User\Translate::getLangs($_SESSION['user']->id);
+            if (empty($_SESSION['user']->translangs)) {
+                Message::Error(Text::_('No tienes ningún idioma, contacta con el administrador'));
+                throw new Redirection('/dashboard');
+            }
+
+            if (empty($_SESSION['translate_lang']) || !isset($_SESSION['user']->translangs[$_SESSION['translate_lang']])) {
+                if (count($_SESSION['user']->translangs) > 1 && isset($_SESSION['user']->translangs['en'])) {
+                    $_SESSION['translate_lang'] = 'en';
+                } else {
+                    $_SESSION['translate_lang'] = current(array_keys($_SESSION['user']->translangs));
+                }
             }
 
             if ($table == '') {
@@ -49,12 +60,23 @@ namespace Goteo\Controller {
             // para el breadcrumbs segun el contenido
             $section = ($table == 'news' || $table == 'promote') ? 'home' : 'contents';
 
-            $BC = self::menu(array(
-                'section' => $section,
-                'option' => $table,
-                'action' => $action,
-                'id' => $id
-            ));
+            // muy especial para traducción de nodo
+            if ($table == 'node') {
+                $BC = self::menu(array(
+                    'section' => 'node',
+                    'node' => $action,
+                    'option' => $id,
+                    'action' => $auxAction,
+                    'id' => $contentId
+                ));
+            } else {
+                $BC = self::menu(array(
+                    'section' => $section,
+                    'option' => $table,
+                    'action' => $action,
+                    'id' => $id
+                ));
+            }
 
             define('ADMIN_BCPATH', $BC);
 
@@ -65,14 +87,19 @@ namespace Goteo\Controller {
                 case 'texts':
                     // comprobamos los filtros
                     $filters = array();
-                    $fields = array('idfilter', 'group', 'text');
+                    $fields = array('group', 'text', 'pending');
+                    if (!isset($_GET['pending'])) $_GET['pending'] = 0;
                     foreach ($fields as $field) {
                         if (isset($_GET[$field])) {
                             $filters[$field] = $_GET[$field];
+                            $_SESSION['translate_filters']['texts'][$field] = (string) $_GET[$field];
+                        } elseif (!empty($_SESSION['translate_filters']['texts'][$field])) {
+                            // si no lo tenemos en el get, cogemos de la sesion pero no lo pisamos
+                            $filters[$field] = $_SESSION['translate_filters']['texts'][$field];
                         }
                     }
 
-                    $filter = "?idfilter={$filters['idfilter']}&group={$filters['group']}&text={$filters['text']}";
+                    $filter = "?group={$filters['group']}&text={$filters['text']}&pending={$filters['pending']}";
 
                     // si llega post, vamos a guardar los cambios
                     if ($action == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
@@ -84,6 +111,7 @@ namespace Goteo\Controller {
                                     ), $errors)) {
 
                             // Evento Feed
+                            /*
                             $log = new Feed();
                             $log->populate('texto traducido (traductor)', '/translate/texts',
                                 \vsprintf('El traductor %s ha %s el texto %s al %s', array(
@@ -94,13 +122,15 @@ namespace Goteo\Controller {
                             )));
                             $log->doAdmin('admin');
                             unset($log);
-
+                            */
+                            
                             Message::Info('Texto <strong>'.$id.'</strong> traducido correctamente al <strong>'.Lang::get($_POST['lang'])->name.'</strong>');
 
                             throw new Redirection("/translate/texts/$filter&page=".$_GET['page']);
                         } else {
                             // Evento Feed
                             $log = new Feed();
+                            $log->setTarget($_SESSION['user']->id, 'user');
                             $log->populate('texto traducido (traductor)', '/translate/texts',
                                 \vsprintf('Al traductor %s  le ha %s el texto %s al %s', array(
                                     Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
@@ -128,22 +158,123 @@ namespace Goteo\Controller {
                         )
                      );
                     break;
+
+                case 'node':
+                    // parametros especiales
+                    $node = $action;
+                    $action = $auxAction;
+                    $contentTable = $id;
+
+                    // si llega post, vamos a guardar los cambios
+                    if ($action == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
+
+                        switch ($contentTable) {
+                            case 'banner':
+                                if (Content::save(array(
+                                                'id'   => $contentId,
+                                                'table' => $contentTable,
+                                                'title' => $_POST['title'],
+                                                'description' => $_POST['description'],
+                                                'lang' => $_POST['lang']
+                                            ), $errors)) {
+                                    Message::Info('El Banner <strong>'.$contentId.'</strong> del nodo <strong>'.$node.'</strong> traducido correctamente al <strong>'.Lang::get($_POST['lang'])->name.'</strong>');
+                                    throw new Redirection("/translate/node/$node/$contentTable/list");
+                                } else {
+                                    Message::Error('Ha habido algun ERROR al traducir el Banner <strong>'.$contentId.'</strong> del nodo <strong>'.$node.'</strong> al <strong>'.Lang::get($_POST['lang'])->name.'</strong><br />' . implode('<br />', $errors));
+                                }
+                                break;
+                            case 'page':
+                                $page = Page::get($contentId, $node);
+                                if ($page->update(
+                                        $contentId, $_POST['lang'], $node,
+                                        $_POST['name'], $_POST['description'], $_POST['content'],
+                                        $errors)) {
+                                    Message::Info('La página <strong>'.$contentId.'</strong> del nodo <strong>'.$node.'</strong> traducido correctamente al <strong>'.Lang::get($_POST['lang'])->name.'</strong>');
+                                    throw new Redirection("/translate/node/$node/$contentTable/list");
+                                } else {
+                                    Message::Error('Ha habido algun ERROR al traducir la página <strong>'.$contentId.'</strong> del nodo <strong>'.$node.'</strong> al <strong>'.Lang::get($_POST['lang'])->name.'</strong><br />' . implode('<br />', $errors));
+                                }
+                                break;
+                            case 'post':
+                                if (Content::save(array(
+                                                'id'   => $contentId,
+                                                'table' => $contentTable,
+                                                'title' => $_POST['title'],
+                                                'text' => $_POST['text'],
+                                                'legend' => $_POST['legend'],
+                                                'lang' => $_POST['lang']
+                                            ), $errors)) {
+                                    Message::Info('La entrada <strong>'.$contentId.'</strong> del nodo <strong>'.$node.'</strong> traducido correctamente al <strong>'.Lang::get($_POST['lang'])->name.'</strong>');
+                                    throw new Redirection("/translate/node/$node/$contentTable/list");
+                                } else {
+                                    Message::Error('Ha habido algun ERROR al traducir la Entrada <strong>'.$contentId.'</strong> del nodo <strong>'.$node.'</strong> al <strong>'.Lang::get($_POST['lang'])->name.'</strong><br />' . implode('<br />', $errors));
+                                }
+                                break;
+                            default:
+                                $node = Model\Node::get($node);
+                                $node->lang_lang = $_SESSION['translate_lang'];
+                                $node->subtitle_lang = $_POST['subtitle'];
+                                $node->description_lang = $_POST['description'];
+                                if ($node->updateLang($errors)) {
+                                    Message::Info('La Descripción del nodo <strong>'.$node->id.'</strong> traducido correctamente al <strong>'.Lang::get($_POST['lang'])->name.'</strong>');
+                                    throw new Redirection("/translate/node/$node->id");
+                                } else {
+                                    Message::Error('Ha habido algun ERROR al traducir la Descripción del nodo <strong>'.$node->id.'</strong> al <strong>'.Lang::get($_POST['lang'])->name.'</strong><br />' . implode('<br />', $errors));
+                                }
+                                
+                        }
+
+                        return new View(
+                            'view/translate/index.html.php',
+                            array(
+                                'section' => 'node',
+                                'action'  => 'edit_'.$contentTable,
+                                'option'  => $contentTable,
+                                'id'      => $contentId,
+                                'node'    => $node
+                            )
+                         );
+
+                    } elseif ($action == 'edit') {
+                        return new View(
+                            'view/translate/index.html.php',
+                            array(
+                                'section' => 'node',
+                                'action'  => 'edit_'.$contentTable,
+                                'option'  => $contentTable,
+                                'id'      => $contentId,
+                                'node'    => $node
+                            )
+                         );
+                    } elseif ($contentTable == 'data') {
+                        return new View(
+                            'view/translate/index.html.php',
+                            array(
+                                'section' => 'node',
+                                'action'  => 'edit_'.$contentTable,
+                                'option'  => $contentTable,
+                                'id'      => $node,
+                                'node'    => $node
+                            )
+                         );
+                    } else {
+                        // sino, mostramos la lista
+                        return new View(
+                            'view/translate/index.html.php',
+                            array(
+                                'section' => 'node',
+                                'action'  => 'list_'.$contentTable,
+                                'option'  => $contentTable,
+                                'node'    => $node
+                            )
+                         );
+                    }
+
+                    break;
                 case 'pages':
                     // si llega post, vamos a guardar los cambios
                     if ($action == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
-                        if (Page::update($id, $_POST['lang'], $_POST['content'], $errors)) {
-
-                            // Evento Feed
-                            $log = new Feed();
-                            $log->populate('pagina traducida (traductor)', '/translate/pages',
-                                \vsprintf('El traductor %s ha %s la página %s al %s', array(
-                                Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
-                                Feed::item('relevant', 'Traducido'),
-                                Feed::item('blog', $id),
-                                Feed::item('relevant', Lang::get($_POST['lang'])->name)
-                            )));
-                            $log->doAdmin('admin');
-                            unset($log);
+                        if (Page::update($id, $_POST['lang'], $_POST['node'], $_POST['name'], $_POST['description'], $_POST['content'], $errors)) {
 
                             Message::Info('Contenido de la Pagina <strong>'.$id.'</strong> traducido correctamente al <strong>'.Lang::get($_POST['lang'])->name.'</strong>');
 
@@ -151,11 +282,13 @@ namespace Goteo\Controller {
                         } else {
                             // Evento Feed
                             $log = new Feed();
+                            $log->setTarget($_SESSION['user']->id, 'user');
                             $log->populate('pagina traducida (traductor)', '/translate/pages',
-                                \vsprintf('Al traductor %s le ha %s la página %s al %s', array(
+                                \vsprintf('Al traductor %s le ha %s la página %s del nodo %s al %s', array(
                                 Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
                                 Feed::item('relevant', 'Fallado al traducir'),
                                 Feed::item('blog', $id),
+                                Feed::item('blog', $_POST['node']),
                                 Feed::item('relevant', Lang::get($_POST['lang'])->name)
                             )));
                             $log->doAdmin('admin');
@@ -164,6 +297,7 @@ namespace Goteo\Controller {
                             Message::Error('Ha habido algun ERROR al traducir el contenido de la pagina <strong>'.$id.'</strong> al <strong>'.Lang::get($_POST['lang'])->name.'</strong><br />' . implode('<br />', $errors));
                         }
                     }
+
 
                     // sino, mostramos la lista
                     return new View(
@@ -179,14 +313,19 @@ namespace Goteo\Controller {
                 default:
                     // comprobamos los filtros
                     $filters = array();
-                    $fields = array('type', 'text');
+                    $fields = array('type', 'text', 'pending');
+                    if (!isset($_GET['pending'])) $_GET['pending'] = 0;
                     foreach ($fields as $field) {
                         if (isset($_GET[$field])) {
                             $filters[$field] = $_GET[$field];
+                            $_SESSION['translate_filters']['contents'][$field] = (string) $_GET[$field];
+                        } elseif (!empty($_SESSION['translate_filters']['contents'][$field])) {
+                            // si no lo tenemos en el get, cogemos de la sesion pero no lo pisamos
+                            $filters[$field] = $_SESSION['translate_filters']['contents'][$field];
                         }
                     }
 
-                    $filter = "?type={$filters['type']}&text={$filters['text']}";
+                    $filter = "?type={$filters['type']}&text={$filters['text']}&pending={$filters['pending']}";
 
                     // si llega post, vamos a guardar los cambios
                     if ($action == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
@@ -198,32 +337,24 @@ namespace Goteo\Controller {
 
                         if (Content::save($_POST, $errors)) {
 
-                            // Evento Feed
-                            $log = new Feed();
-                            $log->populate('contenido traducido (traductor)', '/translate/'.$table,
-                                \vsprintf('El traductor %s ha %s el contenido del registro %s de la tabla %s al %s', array(
-                                Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
-                                Feed::item('relevant', 'Traducido'),
-                                Feed::item('blog', $id),
-                                Feed::item('blog', $table),
-                                Feed::item('relevant', Lang::get($_SESSION['translator_lang'])->name)
-                            )));
-                            $log->doAdmin('admin');
-                            unset($log);
-
                             Message::Info('Contenido del registro <strong>'.$id.'</strong> de la tabla <strong>'.$table.'</strong> traducido correctamente al <strong>'.Lang::get($_POST['lang'])->name.'</strong>');
+
+                            if (isset($_SESSION['translate_node'])) {
+                                throw new Redirection('/dashboard/translates/'.$table.'s');
+                            }
 
                             throw new Redirection("/translate/$table/$filter&page=".$_GET['page']);
                         } else {
                             // Evento Feed
                             $log = new Feed();
+                            $log->setTarget($_SESSION['user']->id, 'user');
                             $log->populate('contenido traducido (traductor)', '/translate/'.$table,
                                 \vsprintf('El traductor %s le ha %s el contenido del registro %s de la tabla %s al %s', array(
                                 Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
                                 Feed::item('relevant', 'Fallado al traducir'),
                                 Feed::item('blog', $id),
                                 Feed::item('blog', $table),
-                                Feed::item('relevant', Lang::get($_SESSION['translator_lang'])->name)
+                                Feed::item('relevant', Lang::get($_SESSION['translate_lang'])->name)
                             )));
                             $log->doAdmin('admin');
                             unset($log);
@@ -251,11 +382,15 @@ namespace Goteo\Controller {
             return new View('view/translate/index.html.php', array('menu'=>self::menu()));
         }
 
-        public function select ($section = '', $action = '', $id = null) {
+        public function select ($section = '', $action = '', $id = null, $extraAction = null, $extraId = null) {
 
-            $_SESSION['translator_lang'] = isset($_POST['lang']) ? $_POST['lang'] : null;
+            $_SESSION['translate_lang'] = isset($_POST['lang']) ? $_POST['lang'] : null;
 
             if (!empty($section) && !empty($action)) {
+
+                if ($section == 'node') {
+                    throw new Redirection("/translate/$section/$action/$id/$extraAction/$extraId");
+                }
 
                 $filter = "?type={$_GET['type']}&text={$_GET['text']}";
 
@@ -264,50 +399,6 @@ namespace Goteo\Controller {
                 return new View('view/translate/index.html.php', array('menu'=>self::menu()));
             }
         }
-
-        /*
-         * Gestión de páginas institucionales
-         */
-
-        /*
-         * Gestión de textos de interficie
-         */
-
-        /*
-         * proyectos destacados
-         */
-
-        /*
-         * preguntas frecuentes
-         */
-
-        /*
-         * criterios de puntuación Goteo
-         */
-
-        /*
-         * Tipos de Retorno/Recompensa (iconos)
-         */
-
-        /*
-         * Licencias
-         */
-
-        /*
-         *  categorias de proyectos / intereses usuarios
-         */
-
-        /*
-         *  Gestión de tags de blog
-         */
-
-        /*
-         * Gestión de entradas de blog
-         */
-
-        /*
-         *  Gestión de noticias
-         */
 
         /*
          *  Menu de secciones, opciones, acciones y config para el panel Translate
@@ -323,123 +414,163 @@ namespace Goteo\Controller {
 
             $menu = array(
                 'contents' => array(
-                    'label'   => 'Gestión de Textos y Traducciones',
+                    'label'   => Text::_('Gestión de Textos y Traducciones'),
                     'options' => array (
-                        'post' => array(
-                            'label' => 'Blog',
+                        'banner' => array(
+                            'label' => Text::_('Banners'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Entrada', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Banner'), 'item' => true)
+                            )
+                        ),
+                        'post' => array(
+                            'label' => Text::_('Blog'),
+                            'actions' => array(
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Entrada'), 'item' => true)
                             )
                         ),
                         'texts' => array(
-                            'label' => 'Textos interficie',
+                            'label' => Text::_('Textos interficie'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Texto', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Texto'), 'item' => true)
                             )
                         ),
                         'faq' => array(
-                            'label' => 'FAQs',
+                            'label' => Text::_('FAQs'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Pregunta', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Pregunta'), 'item' => true)
                             )
                         ),
                         'pages' => array(
-                            'label' => 'Contenidos institucionales',
+                            'label' => Text::_('Contenidos institucionales'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo contenido de Página', 'item' => true)
-                            )
-                        ),
-                        'page' => array(
-                            'label' => 'Páginas',
-                            'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Página', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo contenido de Página'), 'item' => true)
                             )
                         ),
                         'category' => array(
-                            'label' => 'Categorias e Intereses',
+                            'label' => Text::_('Categorias e Intereses'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Categoría', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Categoría'), 'item' => true)
                             )
                         ),
                         'license' => array(
-                            'label' => 'Licencias',
+                            'label' => Text::_('Licencias'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Licencia', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Licencia'), 'item' => true)
                             )
                         ),
                         'icon' => array(
-                            'label' => 'Tipos de Retorno',
+                            'label' => Text::_('Tipos de Retorno'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Tipo', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Tipo'), 'item' => true)
                             )
                         ),
                         'tag' => array(
-                            'label' => 'Tags de blog',
+                            'label' => Text::_('Tags de blog'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Tag', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Tag'), 'item' => true)
                             )
                         ),
                         'criteria' => array(
-                            'label' => 'Criterios de revisión',
+                            'label' => Text::_('Criterios de revisión'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Criterio', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Criterio'), 'item' => true)
                             )
                         ),
                         'template' => array(
-                            'label' => 'Plantillas de email',
+                            'label' => Text::_('Plantillas de email'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Plantilla', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Plantilla'), 'item' => true)
                             )
                         ),
                         'glossary' => array(
-                            'label' => 'Glosario',
+                            'label' => Text::_('Glosario'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Término', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Término'), 'item' => true)
                             )
                         ),
                         'info' => array(
-                            'label' => 'Ideas about',
+                            'label' => Text::_('Ideas about'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Idea', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Idea'), 'item' => true)
                             )
                         ),
                         'worthcracy' => array(
-                            'label' => 'Meritocracia',
+                            'label' => Text::_('Meritocracia'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Nivel', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Nivel'), 'item' => true)
                             )
                         )
                     )
                 ),
                 'home' => array(
-                    'label'   => 'Portada',
+                    'label'   => Text::_('Portada'),
                     'options' => array (
                         'news' => array(
-                            'label' => 'Micronoticias',
+                            'label' => Text::_('Micronoticias'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Micronoticia', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Micronoticia'), 'item' => true)
                             )
                         ),
                         'promote' => array(
-                            'label' => 'Proyectos destacados',
+                            'label' => Text::_('Proyectos destacados'),
                             'actions' => array(
-                                'list' => array('label' => 'Listando', 'item' => false),
-                                'edit' => array('label' => 'Traduciendo Destacado', 'item' => true)
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo Destacado'), 'item' => true)
+                            )
+                        ),
+                        'patron' => array(
+                            'label' => Text::_('Proyectos recomendados'),
+                            'actions' => array(
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo recomendado'), 'item' => true)
+                            )
+                        )
+                    )
+                ),
+                'node' => array(
+                    'label'   => Text::_('Nodo'),
+                    'options' => array (
+                        'data' => array(
+                            'label' => Text::_('Descripción'),
+                            'actions' => array(
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo'), 'item' => false)
+                            )
+                        ),
+                        'banner' => array(
+                            'label' => Text::_('Banners'),
+                            'actions' => array(
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo banner'), 'item' => true)
+                            )
+                        ),
+                        'post' => array(
+                            'label' => Text::_('Blog'),
+                            'actions' => array(
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo entrada'), 'item' => true)
+                            )
+                        ),
+                        'page' => array(
+                            'label' => Text::_('Páginas institucionales'),
+                            'actions' => array(
+                                'list' => array('label' => Text::_('Listando'), 'item' => false),
+                                'edit' => array('label' => Text::_('Traduciendo página'), 'item' => true)
                             )
                         )
                     )
@@ -461,7 +592,7 @@ namespace Goteo\Controller {
                             $BC['action'],
                             array_keys($menu[$BC['section']]['options'][$BC['option']]['actions'])
                         )) {
-                        $BC['action'] = 'list';
+                        $BC['action'] = '';
                         $BC['id'] = null;
                     }
 
@@ -475,16 +606,33 @@ namespace Goteo\Controller {
                 }
 
                 // si el BC tiene Option, enlace a la portada de esa gestión
-                if (!empty($BC['option'])) {
+                if (!empty($BC['option']) && isset($menu[$BC['section']]['options'][$BC['option']])) {
                     $option = $menu[$BC['section']]['options'][$BC['option']];
-                    $path = ' &gt; <a href="/translate/'.$BC['option'].''.$BC['filter'].'">'.$option['label'].'</a>'.$path;
+                    if ($BC['action'] == 'list') {
+                        $path = " &gt; <strong>{$option['label']}</strong>";
+                    } else {
+                        if (!empty($BC['node'])) {
+                            $path = ' &gt; <a href="/translate/node/'.$BC['node'].'/'.$BC['option'].'">'.$option['label'].'</a>'.$path;
+                        } else {
+                            $path = ' &gt; <a href="/translate/'.$BC['option'].''.$BC['filter'].'">'.$option['label'].'</a>'.$path;
+                        }
+                    }
                 }
 
-                // si el BC tiene section, facil, enlace al admin
-                if (!empty($BC['section'])) {
-                    $section = $menu[$BC['section']];
-                    $path = '<a href="/translate#'.$BC['section'].'">'.$section['label'].'</a>' . $path;
+                if (empty($BC['option'])) {
+                    if (!empty($BC['node'])) {
+                        $path = 'Traduciendo nodo <strong>'.$BC['node'].'</strong>';
+                    } else {
+                        $path = '<strong>Traductor</strong>';
+                    }
+                } else {
+                    if (!empty($BC['node'])) {
+                        $path = '<a href="/translate/node/'.$BC['node'].'">Traduciendo nodo <strong>'.$BC['node'].'</strong></a>' . $path;
+                    } else {
+                        $path = '<a href="/translate">Traductor</a>' . $path;
+                    }
                 }
+                
                 return $path;
             }
 

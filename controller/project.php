@@ -18,7 +18,6 @@
  *
  */
 
-
 namespace Goteo\Controller {
 
     use Goteo\Core\ACL,
@@ -26,6 +25,7 @@ namespace Goteo\Controller {
         Goteo\Core\Redirection,
         Goteo\Core\View,
         Goteo\Library\Text,
+        Goteo\Library\Check,
         Goteo\Library\Mail,
         Goteo\Library\Template,
         Goteo\Library\Message,
@@ -47,6 +47,7 @@ namespace Goteo\Controller {
         public function raw ($id) {
             $project = Model\Project::get($id, LANG);
             $project->check();
+            \trace($project->call);
             \trace($project);
             die;
         }
@@ -66,8 +67,22 @@ namespace Goteo\Controller {
         }
 
         //Aunque no esté en estado edición un admin siempre podrá editar un proyecto
-        public function edit ($id) {
+        public function edit ($id, $step = 'userProfile') {
             $project = Model\Project::get($id, null);
+
+            // para que tenga todas las imágenes
+            $project->gallery = Model\Image::getAll($id, 'project');
+            
+            // aunque pueda acceder edit, no lo puede editar si
+            if ($project->owner != $_SESSION['user']->id // no es su proyecto
+                && (isset($_SESSION['admin_node']) && $_SESSION['admin_node'] != \GOTEO_NODE) // es admin pero no es admin de central
+                && (isset($_SESSION['admin_node']) && $project->node != $_SESSION['admin_node']) // no es de su nodo
+                && !isset($_SESSION['user']->roles['superadmin']) // no es superadmin
+                && (isset($_SESSION['user']->roles['checker']) && !Model\User\Review::is_assigned($_SESSION['user']->id, $project->id)) // no lo tiene asignado
+                ) {
+                Message::Info('No tienes permiso para editar este proyecto');
+                throw new Redirection('/admin/projects');
+            }
 
             // si no tenemos SESSION stepped es porque no venimos del create
             if (!isset($_SESSION['stepped']))
@@ -94,9 +109,8 @@ namespace Goteo\Controller {
                  
                  
             } else {
-                // todos los pasos, entrando en userProfile por defecto
-                $step = 'userProfile';
-
+                // todos los pasos
+                // entrando, por defecto, en el paso especificado en url
                 $steps = array(
                     'userProfile' => array(
                         'name' => Text::get('step-1'),
@@ -140,8 +154,9 @@ namespace Goteo\Controller {
                 }                
             }
 
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
                 $errors = array(); // errores al procesar, no son errores en los datos del proyecto
+
                 foreach ($steps as $id => &$data) {
                     
                     if (call_user_func_array(array($this, "process_{$id}"), array(&$project, &$errors))) {
@@ -155,11 +170,24 @@ namespace Goteo\Controller {
 
                 // guardamos los datos que hemos tratado y los errores de los datos
                 $project->save($errors);
+                
+                // hay que mostrar errores en la imagen
+                if (!empty($errors['image'])) {
+                    $project->errors['overview']['image'] = $errors['image'];
+                    $project->okeys['overview']['image'] = null;
+                }
+
+                
 
                 // si estan enviando el proyecto a revisión
                 if (isset($_POST['process_preview']) && isset($_POST['finish'])) {
                     $errors = array();
+                    $old_id = $project->id;
                     if ($project->ready($errors)) {
+
+                        if ($_SESSION['project']->id == $old_id) {
+                            $_SESSION['project'] = $project;
+                        }
 
                         // email a los de goteo
                         $mailHandler = new Mail();
@@ -211,21 +239,15 @@ namespace Goteo\Controller {
 
                         unset($mailHandler);
 
-                        /*
-                         * Evento Feed
-                         */
+                        // Evento Feed
                         $log = new Feed();
-                        $log->title = 'proyecto enviado a revision';
-                        $log->url = '/admin/projects';
-                        $log->type = 'project';
-                        $log_text = '%s ha inscrito el proyecto %s para <span class="red">revisión</span>, el estado global de la información es del %s';
-                        $log_items = array(
+                        $log->setTarget($project->id);
+                        $log->populate('El proyecto '.$project->name.' se ha enviado a revision', '/project/'.$project->id, \vsprintf('%s ha inscrito el proyecto %s para <span class="red">revisión</span>, el estado global de la información es del %s', array(
                             Feed::item('user', $project->user->name, $project->user->id),
                             Feed::item('project', $project->name, $project->id),
                             Feed::item('relevant', $project->progress.'%')
-                        );
-                        $log->html = \vsprintf($log_text, $log_items);
-                        $log->add($errors);
+                        )));
+                        $log->doAdmin('project');
                         unset($log);
 
                         throw new Redirection("/dashboard?ok");
@@ -233,40 +255,13 @@ namespace Goteo\Controller {
                 }
 
 
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST)) {
+                throw new Error(Error::INTERNAL, 'FORM CAPACITY OVERFLOW');
             }
 
             //re-evaluar el proyecto
             $project->check();
 
-            /*
-             * @deprecated
-            //si nos estan pidiendo el error de un campo, se lo damos
-            if (!empty($_GET['errors'])) {
-                foreach ($project->errors as $paso) {
-                    if (!empty($paso[$_GET['errors']])) {
-                        return new View(
-                            'view/project/errors.json.php',
-                            array('errors'=>array($paso[$_GET['errors']]))
-                        );
-                    }
-                }
-            }
-            */
-
-            // si
-            // para cada paso, si no han pasado por el, quitamos errores y okleys de ese paso
-            /*
-            foreach ($steps as $id => $data) {
-                if (!in_array($id, $_SESSION['stepped'])) {
-                    unset($project->errors[$id]);
-                    unset($project->okeys[$id]);
-                }
-            }
-             * 
-             */
-
-
-            
             // variables para la vista
             $viewData = array(
                 'project' => $project,
@@ -278,7 +273,7 @@ namespace Goteo\Controller {
             // segun el paso añadimos los datos auxiliares para pintar
             switch ($step) {
                 case 'userProfile':
-                    $owner = Model\User::get($project->owner);
+                    $owner = Model\User::get($project->owner, null);
                     // si es el avatar por defecto no lo mostramos aqui
                     if ($owner->avatar->id == 1) {
                         unset($owner->avatar);
@@ -301,11 +296,14 @@ namespace Goteo\Controller {
                         }
                     }
                     break;
+                case 'userPersonal':
+                    $viewData['account'] = Model\Project\Account::get($project->id);
+                    break;
                 
                 case 'overview':
-                    $viewData['currently'] = Model\Project::currentStatus();
                     $viewData['categories'] = Model\Project\Category::getAll();
-                    $viewData['scope'] = Model\Project::scope();
+//                    $viewData['currently'] = Model\Project::currentStatus();
+//                    $viewData['scope'] = Model\Project::scope();
                     break;
 
                 case 'costs':
@@ -336,7 +334,6 @@ namespace Goteo\Controller {
                         foreach ($_POST as $k => $v) {
                             if (!empty($v) && preg_match('/((social)|(individual))_reward-(\d+)-edit/', $k)) {                                
                                 $viewData[$k] = true;
-                                break;
                             }                            
                         }
                         
@@ -419,24 +416,19 @@ namespace Goteo\Controller {
                 $_SESSION['stepped'] = array();
                 
                 // permisos para editarlo y borrarlo
-                ACL::allow('/project/edit/'.$project->id, '*', 'user', $_SESSION['user']->id);
-                ACL::allow('/project/delete/'.$project->id, '*', 'user', $_SESSION['user']->id);
+                ACL::allow('/project/edit/'.$project->id.'/', '*', 'user', $_SESSION['user']->id);
+                ACL::allow('/project/delete/'.$project->id.'/', '*', 'user', $_SESSION['user']->id);
 
-                    /*
-                     * Evento Feed
-                     */
-                    $log = new Feed();
-                    $log->title = 'usuario crea nuevo proyecto';
-                    $log->url = 'admin/projects';
-                    $log->type = 'project';
-                    $log_text = '%s ha creado un nuevo proyecto, %s';
-                    $log_items = array(
+                // Evento Feed
+                $log = new Feed();
+                $log->setTarget($_SESSION['user']->id, 'user');
+                $log->populate('usuario crea nuevo proyecto', 'admin/projects',
+                    \vsprintf('%s ha creado un nuevo proyecto, %s', array(
                         Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
-                        Feed::item('project', $project->name, $project->id)
-                    );
-                    $log->html = \vsprintf($log_text, $log_items);
-                    $log->add($errors);
-                    unset($log);
+                        Feed::item('project', $project->name, $project->id))
+                    ));
+                $log->doAdmin('project');
+                unset($log);
 
 
                 throw new Redirection("/project/edit/{$project->id}");
@@ -458,55 +450,53 @@ namespace Goteo\Controller {
                 }
             }
 
+            // mensaje cuando, sin estar en campaña, financiado o cumplido, tiene fecha de publicación, es que la campaña ha sido cancelada
+            if (!in_array($project->status, array(3, 4, 5)) && !empty($project->published)) 
+                Message::Info(Text::get('project-unpublished'));
+            elseif ($project->status < 3) 
+                // mensaje de no publicado siempre que no esté en campaña
+                Message::Info(Text::get('project-not_published'));
 
-            // solamente se puede ver publicamente si
-            // - es el dueño
-            // - es un admin con permiso
-            // - es otro usuario y el proyecto esta available: en campaña, financiado, retorno cumplido o caducado (que no es desechado)
-            if (($project->status > 2) ||
-                $project->owner == $_SESSION['user']->id ||
-                ACL::check('/project/edit/todos') ||
-                ACL::check('/project/view/todos')) {
-                // lo puede ver
+            
+            // solamente se puede ver publicamente si...
+            $grant = false;
+            if ($project->status > 2) // está publicado
+                $grant = true;
+            elseif ($project->owner == $_SESSION['user']->id)  // es el dueño
+                $grant = true;
+            elseif (ACL::check('/project/edit/todos'))  // es un admin
+                $grant = true;
+            elseif (ACL::check('/project/view/todos'))  // es un usuario con permiso
+                $grant = true;
+            elseif (isset($_SESSION['user']->roles['checker']) && Model\User\Review::is_assigned($_SESSION['user']->id, $project->id)) // es un revisor y lo tiene asignado
+                $grant = true;
+            // (Callsys)
 
+            // si lo puede ver
+            if ($grant) {
                 $viewData = array(
                         'project' => $project,
                         'show' => $show
                     );
 
+                // sus entradas de novedades
+                $blog = Model\Blog::get($project->id);
+                // si está en modo preview, ponemos  todas las entradas, incluso las no publicadas
+                if (isset($_GET['preview']) && $_GET['preview'] == $_SESSION['user']->id) {
+                    $blog->posts = Model\Blog\Post::getAll($blog->id, null, false);
+                }
+
+                $viewData['blog'] = $blog;
+                        
                 // tenemos que tocar esto un poquito para motrar las necesitades no economicas
                 if ($show == 'needs-non') {
                     $viewData['show'] = 'needs';
                     $viewData['non-economic'] = true;
                 }
 
-                // -- ojo a los usuarios publicos
-                if (empty($_SESSION['user'])) {
-
-                    // Ya no ocultamos los cofinanciadores a los usuarios públicos.
-                    /*
-                    if ($show == 'supporters') {
-                        Message::Info(Text::get('user-login-required-to_see-supporters'));
-                        throw new Redirection('/project/' .  $id);
-                    }
-                     *
-                     */
-
-                    // --- loguearse para aportar
-                    if ($show == 'invest') {
-                        $_SESSION['jumpto'] = '/project/' .  $id . '/invest';
-                        if (isset($_GET['amount'])) {
-                            $_SESSION['jumpto'] .= '?amount='.$_GET['amount'];
-                        }
-                        Message::Info(Text::get('user-login-required-to_invest'));
-                        throw new Redirection("/user/login");
-                    }
-
-                    // -- Mensaje azul molesto para usuarios no registrados
-                    if ($show == 'messages' || $show == 'updates') {
-                        $_SESSION['jumpto'] = '/project/' .  $id . '/'.$show;
-                        Message::Info(Text::get('user-login-required'));
-                    }
+                // -- Mensaje azul molesto para usuarios no registrados
+                if (($show == 'messages' || $show == 'updates') && empty($_SESSION['user'])) {
+                    Message::Info(Text::html('user-login-required'));
                 }
 
                 //tenemos que tocar esto un poquito para gestionar los pasos al aportar
@@ -519,16 +509,61 @@ namespace Goteo\Controller {
                     }
 
                     $viewData['show'] = 'supporters';
-                    if (isset($_GET['confirm'])) {
-                        if (\in_array($_GET['confirm'], array('ok', 'fail'))) {
-                            $invest = $_GET['confirm'];
-                        } else {
-                            $invest = 'start';
-                        }
+                    /* pasos de proceso aporte
+                     *
+                     * 1, 'start': ver y seleccionar recompensa (y cantidad)
+                     * 2, 'login': loguear con usuario/contraseña o con email (que crea el usuario automáticamente)
+                     * 3, 'confirm': confirmar los datos y saltar a la pasarela de pago
+                     * 4, 'ok'/'fail': al volver de la pasarela de pago, la confirmación nos dice si todo bien o algo mal
+                     * 5, 'continue': recuperar aporte incompleto (variante de confirm)
+                     */
+
+                    // usamos la variable de url $post para movernos entre los pasos
+                    $step = (isset($post) && in_array($post, array('start', 'login', 'confirm', 'continue'))) ? $post : 'start';
+
+                    // si llega confirm ya ha terminado el proceso de aporte
+                    if (isset($_GET['confirm']) && \in_array($_GET['confirm'], array('ok', 'fail'))) {
+                        unset($_SESSION['invest-amount']);
+                        // confirmación
+                        $step = $_GET['confirm'];
                     } else {
-                        $invest = 'start';
+                        // si no, a ver en que paso estamos
+                        if (isset($_GET['amount']))
+                            $_SESSION['invest-amount'] = $_GET['amount'];
+
+                        // si el usuario está validado, recuperamos posible amount y mostramos
+                        if ($_SESSION['user'] instanceof Model\User) {
+                            $step = 'confirm';
+                        } elseif ($step != 'start' && empty($_SESSION['user'])) {
+                            // si no está validado solo puede estar en start
+                            Message::Info(Text::get('user-login-required-to_invest'));
+                            $step = 'start';
+                        } elseif ($step == 'start') {
+                            // para cuando salte
+                            $_SESSION['jumpto'] = '/project/' .  $id . '/invest/#continue';
+                        } else {
+                            $step = 'start';
+                        }
                     }
-                    $viewData['invest'] = $invest;
+
+                    /*
+                    elseif (isset($_SESSION['pre-invest'])) {
+                        // aporte incompleto, puede ser que aun no esté logueado
+                        if (empty($_SESSION['user'])) {
+                            $step = 'login';
+                        } else {
+                            $step = 'confirm';
+                        }
+                    }
+                     *
+                     */
+
+                    /*
+                        Message::Info(Text::get('user-login-required-to_invest'));
+                        throw new Redirection("/user/login");
+                     */
+                    
+                    $viewData['step'] = $step;
                 }
 
                 if ($show == 'updates') {
@@ -541,7 +576,7 @@ namespace Goteo\Controller {
                     Message::Info(Text::get('project-messages-closed'));
                 }
 
-                return new View('view/project/public.html.php', $viewData);
+                return new View('view/project/view.html.php', $viewData);
 
             } else {
                 // no lo puede ver
@@ -573,8 +608,6 @@ namespace Goteo\Controller {
                 'user_location'=>'location',
                 'user_avatar'=>'avatar',
                 'user_about'=>'about',
-                'user_keywords'=>'keywords',
-                'user_contribution'=>'contribution',
                 'user_facebook'=>'facebook',
                 'user_google'=>'google',
                 'user_twitter'=>'twitter',
@@ -589,14 +622,14 @@ namespace Goteo\Controller {
             }
             
             // Avatar
-            if(!empty($_FILES['avatar_upload']['name'])) {
+            if (isset($_FILES['avatar_upload']) && $_FILES['avatar_upload']['error'] != UPLOAD_ERR_NO_FILE) {
                 $user->avatar = $_FILES['avatar_upload'];
             }
 
             // tratar si quitan la imagen
             if (!empty($_POST['avatar-' . $user->avatar->id .  '-remove'])) {
-                $user->avatar->remove('user');
-                $user->avatar = '';
+                $user->avatar->remove();
+                $user->avatar = null;
             }
 
             $user->interests = $_POST['user_interests'];
@@ -625,7 +658,14 @@ namespace Goteo\Controller {
 
             /// este es el único save que se lanza desde un metodo process_
             $user->save($project->errors['userProfile']);
+            
+            // si hay errores en la imagen hay que mostrarlos
+            if (!empty($project->errors['userProfile']['image'])) {
+                $project->errors['userProfile']['avatar'] = $project->errors['userProfile']['image'];
+            }
+            
             $user = Model\User::flush();
+            $project->user = $user;
             return true;
         }
 
@@ -643,20 +683,11 @@ namespace Goteo\Controller {
                 'contract_nif',
                 'contract_email',
                 'phone',
-                'contract_entity',
                 'contract_birthdate',
-                'entity_office',
-                'entity_name',
-                'entity_cif',
                 'address',
                 'zipcode',
                 'location',
-                'country',
-                'secondary_address',
-                'post_address',
-                'post_zipcode',
-                'post_location',
-                'post_country'
+                'country'
             );
 
             $personalData = array();
@@ -680,6 +711,23 @@ namespace Goteo\Controller {
                 Model\User::setPersonal($project->owner, $personalData, true);
             }
 
+            // cuentas bancarias
+            $ppacc = (!empty($_POST['paypal'])) ? $_POST['paypal'] : '';
+            $bankacc = (!empty($_POST['bank'])) ? $_POST['bank'] : '';
+
+            // primero checkeamos si la cuenta Paypal es tipo email
+            if (!Check::mail($ppacc)) {
+                $project->errors['userPersonal']['paypal'] = Text::get('validate-project-paypal_account');
+            } else {
+                $project->okeys['userPersonal']['paypal'] = true;
+            }
+
+            $accounts = Model\Project\Account::get($project->id);
+            $accounts->paypal = $ppacc;
+            $accounts->bank = $bankacc;
+            $accounts->save($project->errors['userPersonal']);
+            
+            
             return true;
         }
 
@@ -704,22 +752,19 @@ namespace Goteo\Controller {
                 'about',
                 'goal',
                 'related',
+                'reward',
                 'keywords',
                 'media',
                 'media_usubs',
-                'currently',
-                'project_location',
-                'scope'
+                'project_location'
             );
 
             foreach ($fields as $field) {
-                if (isset($_POST[$field])) {
                     $project->$field = $_POST[$field];
-                }
             }
             
             // tratar la imagen que suben
-            if(!empty($_FILES['image_upload']['name'])) {
+            if (isset($_FILES['image_upload']) && $_FILES['image_upload']['error'] != UPLOAD_ERR_NO_FILE) {
                 $project->image = $_FILES['image_upload'];
             }
 
@@ -773,9 +818,6 @@ namespace Goteo\Controller {
                 return false;
             }
 
-            if (isset($_POST['resource'])) {
-                $project->resource = $_POST['resource'];
-            }
             
             //tratar costes existentes
             foreach ($project->costs as $key => $cost) {
@@ -922,7 +964,7 @@ namespace Goteo\Controller {
                         $msg->date = date('Y-m-d');
                         $msg->message = "{$support->support}: {$support->description}";
                         $msg->blocked = true;
-                        $msg->save();
+                        $msg->save($errors);
                     } else {
                         // grabar nuevo mensaje
                         $msg = new Model\Message(array(
@@ -932,7 +974,7 @@ namespace Goteo\Controller {
                             'message' => "{$support->support}: {$support->description}",
                             'blocked' => true
                             ));
-                        if ($msg->save()) {
+                        if ($msg->save($errors)) {
                             // asignado a la colaboracion como thread inicial
                             $support->thread = $msg->id;
                         }
