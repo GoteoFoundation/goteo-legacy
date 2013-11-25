@@ -30,6 +30,7 @@ namespace Goteo\Core {
             NOT_FOUND       = 404,
             NOT_ACEPTABLE   = 406,
             CONFLICT        = 409,
+            TEAPOT          = 418,
             INTERNAL        = 500,
             UNAVAILABLE     = 503;
         

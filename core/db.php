@@ -25,6 +25,8 @@ namespace Goteo\Core {
 
         public function __construct() {
 
+try {
+
             $dsn = \GOTEO_DB_DRIVER . ':host=' . \GOTEO_DB_HOST . ';dbname=' . \GOTEO_DB_SCHEMA;
 
             if (defined('GOTEO_DB_PORT')) {
@@ -40,6 +42,11 @@ namespace Goteo\Core {
 			}
 
             $this->setAttribute(static::ATTR_ERRMODE, static::ERRMODE_EXCEPTION);
+} catch (\PDOException $e) {
+die (Text::_('No puede conectar la base de datos'));
+}
+
+
         }
 
     }
