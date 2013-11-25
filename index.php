@@ -24,10 +24,19 @@ use Goteo\Core\Resource,
     Goteo\Core\ACL,
     Goteo\Library\Text,
     Goteo\Library\Message,
-    Goteo\Library\Lang;
+    Goteo\Library\i18n\Lang;
 
 require_once 'config.php';
 require_once 'core/common.php';
+
+/*
+ * Pagina de en mantenimiento
+ */
+if (GOTEO_MAINTENANCE === true && $_SERVER['REQUEST_URI'] != '/about/maintenance' 
+     && !isset($_POST['Num_operacion'])
+    ) {
+    header('Location: /about/maintenance');
+}
 
 // Include path
 //set_include_path(GOTEO_PATH . PATH_SEPARATOR . '.');
@@ -67,6 +76,7 @@ set_error_handler (
 
 );
 
+    define('NODE_ID', GOTEO_NODE);
 /**
  * Sesión.
  */
@@ -89,14 +99,13 @@ $segments = preg_split('!\s*/+\s*!', $uri, -1, \PREG_SPLIT_NO_EMPTY);
 $uri = '/' . implode('/', $segments);
 
 try {
-
     // Check permissions on requested URI
     if (!ACL::check($uri)) {
         Message::Info(Text::get('user-login-required-access'));
 
         //si es un cron (ejecutandose) con los parámetros adecuados, no redireccionamos
         if (strpos($uri, 'cron') !== false && strcmp($_GET[md5(CRON_PARAM)], md5(CRON_VALUE)) === 0) {
-            // proceed
+            define('CRON_EXEC', true);
         } else {
             throw new Redirection("/user/login/?return=".rawurlencode($uri));
         }
