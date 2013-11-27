@@ -22,7 +22,14 @@ class Paginated {
 	private $offSet;
 	private $layout;
 
-	function __construct($obj, $displayRows = 10, $pageNum = 1) {
+	function __construct($the_obj, $displayRows = 10, $pageNum = 1) {
+        
+        // quitar los indices...
+        $obj = array();
+        foreach ($the_obj as $key => $value) {
+            $obj[] = $value;
+        }
+        
 		$this->setRs($obj);
 		$this->setPageSize($displayRows);
 		$this->assignPageNumber($pageNum);
@@ -148,7 +155,7 @@ class DoubleBarLayout implements PageLayout {
 
 		if(!$parent->isFirstPage()) {
 			if($currentPage != 1 && $currentPage != 2 && $currentPage != 3 && $currentPage != 4) {
-					$str .= "<li><a href='?page=1$queryVars' title='".Text::_("Primera")."'>".Text::_("Primera")."</a></li><li class='hellip'>&hellip; </li>";
+					$str .= "<li><a href='?page=1$queryVars' title='".Text::get('regular-first')."'>".Text::get('regular-first')."</a></li><li class='hellip'>&hellip; </li>";
 			}
 		}
 
@@ -184,7 +191,7 @@ class DoubleBarLayout implements PageLayout {
 		if (!$parent->isLastPage()) {
 			if($currentPage != $parent->fetchNumberPages() && $currentPage != $parent->fetchNumberPages() -1 && $currentPage != $parent->fetchNumberPages() - 2 && $currentPage != $parent->fetchNumberPages() - 3)
 			{
-				$str .= " <li class='hellip'>&hellip;</li><li><a href=\"?page=".$parent->fetchNumberPages()."$queryVars\" title=\"".Text::_("Última")."\">".Text::_("Última")."(".$parent->fetchNumberPages().") </a></li>";
+				$str .= " <li class='hellip'>&hellip;</li><li><a href=\"?page=".$parent->fetchNumberPages()."$queryVars\" title=\"".Text::get('regular-last')."\">".Text::get('regular-last')."(".$parent->fetchNumberPages().") </a></li>";
 			}
 		}
 		return $str;
