@@ -95,10 +95,7 @@ include 'view/prologue.html.php';
 
                 <?php echo $message; ?>
 
-                <?php foreach ($this['menu'] as $sCode=>$section) :
-                    // piñoncete para Diego
-                    if ($_SESSION['user']->id == 'diegobus' && $sCode != 'contents') continue;
-                    ?>
+                <?php foreach ($this['menu'] as $sCode=>$section) : ?>
                 <a name="<?php echo $sCode ?>"></a>
                 <div class="widget board collapse">
                     <h3 class="title"><?php echo $section['label'] ?></h3>
