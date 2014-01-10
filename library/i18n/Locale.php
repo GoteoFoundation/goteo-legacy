@@ -113,7 +113,7 @@ namespace Goteo\Library\i18n {
 		 */
 		public function configGettext($root, $locale, $domain) {
 			if (!Locale::gettextSupported()) {
-				_log(GoteoLogLevel::WARNING, "GETTEXT not supported on this server, all texts will appear in spanish");
+				_log(\GoteoLogLevel::WARNING, "GETTEXT not supported on this server, all texts will appear in spanish");
 				return;
 			}
 
