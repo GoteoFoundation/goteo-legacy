@@ -374,17 +374,13 @@ div#sub-footer div.platoniq a.foundation:hover{
 
 div#sub-footer div.platoniq a.growby {
     display: inline-block;
-    width: 60px;
+    width: 76px;
     height: 30px;
-    background: url('/view/css/platoniq.png') no-repeat 0px 8px transparent;
+    background: url('/view/css/agpl.png') no-repeat 0px 3px transparent;
     text-indent: 2000px;
     line-height: 2000px;
     overflow: hidden;
 	position:relative;
-}
-
-div#sub-footer div.platoniq a.growby:hover{
-	background: url('/view/css/platoniq2.png') no-repeat 0px 8px transparent;
 }
 
 div#sub-footer div.platoniq a.poweredby {

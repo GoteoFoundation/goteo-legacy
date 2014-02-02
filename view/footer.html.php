@@ -142,11 +142,15 @@ jQuery(document).ready(function($) {
                     <li><a href="/legal/terms"><?php echo Text::get('regular-footer-terms'); ?></a></li>
                     <li><a href="/legal/privacy"><?php echo Text::get('regular-footer-privacy'); ?></a></li>
                 </ul>
-    
+
                 <div class="platoniq">
-                   <span class="text"><a href="#" class="poweredby"><?php echo Text::get('footer-platoniq-iniciative') ?></a></span>
+<?php /* You are not allowed to remove this links. If so, you'll make a legal fault regarding the release license. You can read it at https://github.com/Goteo/Goteo/blob/master/GNU-AGPL-3.0 */?>    
+                   <span class="text"><a href="http://goteo.org" class="poweredby">Powered by</a></span>
+<?php /* You are not allowed to remove this links. If so, you'll make a legal fault regarding the release license. You can read it at https://github.com/Goteo/Goteo/blob/master/GNU-AGPL-3.0 */?>    
                    <span class="logo"><a href="http://fuentesabiertas.org" target="_blank" class="foundation">FFA</a></span>
-                   <span class="logo"><a href="http://www.youcoop.org" target="_blank" class="growby">Platoniq</a></span>
+<?php /* You are not allowed to remove this links. If so, you'll make a legal fault regarding the release license. You can read it at https://github.com/Goteo/Goteo/blob/master/GNU-AGPL-3.0 */?>    
+                   <span class="logo"><a href="https://github.com/Goteo/Goteo" target="_blank" class="growby">GNU-AGPL-3</a></span>
+<?php /* You are not allowed to remove this links. If so, you'll make a legal fault regarding the release license. You can read it at https://github.com/Goteo/Goteo/blob/master/GNU-AGPL-3.0 */?>    
                 </div>
     
        
