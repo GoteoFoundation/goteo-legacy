@@ -43,7 +43,7 @@ try {
 
             $this->setAttribute(static::ATTR_ERRMODE, static::ERRMODE_EXCEPTION);
 } catch (\PDOException $e) {
-die (Text::_('No puede conectar la base de datos'));
+die ('No puede conectar la base de datos');
 }
 
 

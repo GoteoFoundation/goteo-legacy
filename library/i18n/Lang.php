@@ -175,4 +175,4 @@ namespace Goteo\Library\i18n {
         
     } //class
 
-} ns
+}

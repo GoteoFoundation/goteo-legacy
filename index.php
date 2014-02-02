@@ -20,14 +20,18 @@
 
 use Goteo\Core\Resource,
     Goteo\Core\Error,
+	Goteo\Core\Registry,
     Goteo\Core\Redirection,
     Goteo\Core\ACL,
     Goteo\Library\Text,
     Goteo\Library\Message,
+	Goteo\Library\i18n\Locale,
     Goteo\Library\i18n\Lang;
 
 require_once 'config.php';
 require_once 'core/common.php';
+require_once 'library/i18n/Locale.php';
+require_once 'library/i18n/Lang.php';
 
 /*
  * Pagina de en mantenimiento
@@ -45,7 +49,7 @@ if (GOTEO_MAINTENANCE === true && $_SERVER['REQUEST_URI'] != '/about/maintenance
 spl_autoload_register(
 
     function ($cls) {
-
+		//echo "Trying to autoload {$cls}...";
         $file = __DIR__ . '/' . implode('/', explode('\\', strtolower(substr($cls, 6)))) . '.php';
         $file = realpath($file);
 
@@ -58,6 +62,7 @@ spl_autoload_register(
         }
 
         if ($file !== false) {
+			//echo "Autoloading {$file}...";
             include $file;
         }
 
@@ -86,8 +91,11 @@ session_start();
 // set Lang
 Lang::set();
 // change current locale
-$locale = Lang::locale();
-Lang::gettext( $locale, \GOTEO_GETTEXT_DOMAIN );
+$locale_name = Lang::locale();
+$locale = new Locale($config['locale']);
+$locale->set($locale_name);
+Registry::set('locale', $locale);
+
 
 // Get URI without query string
 $uri = strtok($_SERVER['REQUEST_URI'], '?');

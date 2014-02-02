@@ -90,7 +90,6 @@ namespace Goteo\Model {
 	        if($name == "projects") {
 	            return $this->getProjects();
 	        }
-	        }
             return $this->$name;
         }
 
@@ -118,7 +117,6 @@ namespace Goteo\Model {
                     $data[':active'] = true;
                     $data[':confirmed'] = false;
                     $data[':lang'] = \LANG;
-                    }
 
 					//active = 1 si no se quiere comprovar
 					if(in_array('active',$skip_validations) && $this->active) $data[':active'] = 1;
@@ -571,7 +569,8 @@ namespace Goteo\Model {
                         id,
                         name,
                         avatar,
-                        email
+                        email,
+                        IFNULL(lang, 'es') as lang
                     FROM user
                     WHERE id = :id
                     ", array(':id' => $id));
@@ -688,6 +687,7 @@ namespace Goteo\Model {
                             ";
                         break;
                 }
+            }
 
             // si es solo los usuarios normales, añadimos HAVING
             if ($filters['role'] == 'user') {
@@ -850,54 +850,6 @@ namespace Goteo\Model {
             return $list;
         }
 
-        /*
-         * Listado simple de los usuarios Colaboradores
-         */
-        public static function getVips() {
-
-            $list = array();
-
-            $query = static::query("
-                SELECT
-                    user.id as id,
-                    user.name as name
-                FROM    user
-                INNER JOIN user_role
-                    ON  user_role.user_id = user.id
-                    AND user_role.role_id = 'vip'
-                ORDER BY user.name ASC
-                ");
-
-            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
-                $list[$item->id] = $item->name;
-            }
-
-            return $list;
-        }
-
-        /*
-         * Listado id-nombre-email de los usuarios que siguen teniendo su email como contraseña
-        public static function getWorkshoppers() {
-
-            $list = array();
-
-            $query = static::query("
-                SELECT
-                    user.id as id,
-                    user.name as name,
-                    user.email as email
-                FROM    user
-                WHERE BINARY password = SHA1(user.email)
-                ORDER BY user.name ASC
-                ");
-
-            foreach ($query->fetchAll(\PDO::FETCH_CLASS) as $item) {
-                $list[] = $item;
-            }
-
-            return $list;
-        }
-         */
 
 		/**
 		 * Validación de usuario.
@@ -1264,7 +1216,9 @@ namespace Goteo\Model {
                                       updates,
                                       threads,
                                       rounds,
-                                      mailing
+                                      mailing,
+                                      email,
+                                      tips
                                   FROM user_prefer
                                   WHERE user = ?'
                 , array($id));

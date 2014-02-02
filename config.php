@@ -131,6 +131,7 @@ define('GOTEO_DEFAULT_LANG', 'es');
 
 // url
 define('SITE_URL', 'http://example.com');
+define('SRC_URL', 'http://example.com');
 
 //Sessions
 //session handler: php, dynamodb
