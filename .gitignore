@@ -2,3 +2,4 @@ data/
 
 # translation binary files
 *.mo
+/local-settings.php
