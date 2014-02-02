@@ -10,25 +10,32 @@ Prepare a htdocs folder on your server that can be accessed with a browser. Mayb
 
 Uncompress source files from github into that folder (you dont need to have the /db and /doc folders published)
 
-Execute the /db/goteo.sql script on the database, then the /db/pages.sql 
+Execute the scripts on the `db` folder. goteo.sql first then the others. Not mention you have to create the database and a user for it.
 
-Modify /config.php file with database credentials:
+On the first run you will see a settings file example, copy it into a file called `local-settings.php`.
+Modify it with database credentials:
 	· GOTEO_DB_SCHEMA is the name of your database
 	· GOTEO_DB_USERNAME is the user you created for your database
 	· GOTEO_DB_PASSWORD is the password you setted for that user
 
+Modify the access point to the site
+	· SITE_URL is 'http://your.intallation.site'
+	· SRC_URL is (for you and now) the same 'http://your.intallation.site'
+* If you're installing on localhost you have to create a hosts entry for this
+
+Every thing should be working fine at http://your.intallation.site 
+* check that you have the .htaccess file (if downloaded the zip maybe not extracted) https://github.com/Goteo/Goteo/blob/master/.htaccess
+
+	
 Set the email and pasword for the goteo root user with the following SQL sentence:
 	UPDATE user SET password = SHA1('yourpassword') AND email = 'youremail' WHERE id = 'root';
 
-Modify /config.php file with the access point to the htdocs folder
-	· SITE_URL is 'http://your.intallation.site'
-	· SRC_URL is (for you and now) the same 'http://your.intallation.site'
-
-Every thing should be working fine at http://your.intallation.site 
-
-You manage the contents at http://your.intallation.site/admin
+Log in with that root user and manage the contents at http://your.intallation.site/admin
 	
-If you want to modify the code for your own purposses, better you read /doc/plataforma_goteo.doc (it's in spanish, apologies)
+If you want to modify the code for your own purposses, better you read /doc/plataforma_goteo.doc (english version in progress)
+Also remember that you have to license the modified source code.
+
+We'll be thankful if you notify us about your implementation.
 
 
 Notes
