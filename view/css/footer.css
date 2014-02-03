@@ -374,9 +374,9 @@ div#sub-footer div.platoniq a.foundation:hover{
 
 div#sub-footer div.platoniq a.growby {
     display: inline-block;
-    width: 76px;
+    width: 90px;
     height: 30px;
-    background: url('/view/css/agpl.png') no-repeat 0px 3px transparent;
+    background: url('/view/css/agpl.png') no-repeat 0px 0px transparent;
     text-indent: 2000px;
     line-height: 2000px;
     overflow: hidden;
@@ -392,7 +392,7 @@ div#sub-footer div.platoniq a.poweredby {
     cursor: default;
     position: absolute;
     top: 8px;
-    right: 100px;
+    right: 130px;
     width: 100%;
 }
 

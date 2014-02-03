@@ -145,7 +145,7 @@ jQuery(document).ready(function($) {
 
                 <div class="platoniq">
 <?php /* You are not allowed to remove this links. If so, you'll make a legal fault regarding the release license. You can read it at https://github.com/Goteo/Goteo/blob/master/GNU-AGPL-3.0 */?>    
-                   <span class="text"><a href="http://goteo.org" class="poweredby">Powered by</a></span>
+                   <span class="text"><a href="http://goteo.org" class="poweredby">Powered by Goteo.org</a></span>
 <?php /* You are not allowed to remove this links. If so, you'll make a legal fault regarding the release license. You can read it at https://github.com/Goteo/Goteo/blob/master/GNU-AGPL-3.0 */?>    
                    <span class="logo"><a href="http://fuentesabiertas.org" target="_blank" class="foundation">FFA</a></span>
 <?php /* You are not allowed to remove this links. If so, you'll make a legal fault regarding the release license. You can read it at https://github.com/Goteo/Goteo/blob/master/GNU-AGPL-3.0 */?>    
