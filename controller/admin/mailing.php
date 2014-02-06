@@ -34,11 +34,10 @@ namespace Goteo\Controller\Admin {
 
         public static function process ($action = 'list', $id = null, $filters = array()) {
 
-            // año fiscal, esta primera vez es desde 2011
-            $year = '2012';
-            // ESTA PRIMERA VEZ ESESPECIAL  porque el cif no lo tuvimos hasta el 2012
-            $year0 = '2011';
-            $year1 = '2013';
+            // año fiscal
+            $year = Model\User\Donor::$currYear;
+            $year0 = $year;
+            $year1 = $year-1;
             
 
             $errors = array();
@@ -46,7 +45,6 @@ namespace Goteo\Controller\Admin {
             $node = isset($_SESSION['admin_node']) ? $_SESSION['admin_node'] : \GOTEO_NODE;
 
             // Valores de filtro
-//            $projects = Model\Project::getAll();
             $interests = Model\User\Interest::getAll();
             $status = Model\Project::status();
             $methods = Model\Invest::methods();
@@ -135,7 +133,7 @@ namespace Goteo\Controller\Admin {
                                 AND user_interest.interest = :interest
                                 ";
                         $values[':interest'] = $filters['interest'];
-                        if ($filters['interest']) {
+                        if ($filters['interest'] == 15) {
                             $_SESSION['mailing']['filters_txt'] .= 'del grupo de testeo ';
                         } else {
                             $_SESSION['mailing']['filters_txt'] .= 'interesados en fin <strong>' . $interests[$filters['interest']] . '</strong> ';
@@ -181,13 +179,13 @@ namespace Goteo\Controller\Admin {
 
                     $sql = "SELECT
                                 user.id as id,
+                                user.id as user,
                                 user.name as name,
                                 user.email as email
                                 $sqlFields
                             FROM user
                             $sqlInner
-                            WHERE user.id != 'root'
-                            AND user.active = 1
+                            WHERE user.active = 1
                             $sqlFilter
                             GROUP BY user.id
                             ORDER BY user.name ASC
@@ -217,7 +215,6 @@ namespace Goteo\Controller\Admin {
                             'folder'    => 'mailing',
                             'file'      => 'edit',
                             'filters'   => $filters,
-//                                'projects'  => $projects,
                             'interests' => $interests,
                             'status'    => $status,
                             'types'     => $types,
@@ -227,92 +224,73 @@ namespace Goteo\Controller\Admin {
 
                     break;
                 case 'send':
-                    $tini = \microtime();
-                    // Enviando contenido recibido a destinatarios recibidos
-                    $users = array();
 
-//                        $content = nl2br($_POST['content']);
-                    $content = $_POST['content'];
-                    $subject = $_POST['subject'];
-                    $templateId = !empty($_POST['template']) ? $_POST['template'] : 11;
+//                    die(\trace($_POST));
 
                     $URL = (NODE_ID != GOTEO_NODE) ? NODE_URL : SITE_URL;
+                    
+                    // Enviando contenido recibido a destinatarios recibidos
+                    $receivers = array();
 
-                    // Contenido para newsletter
-                    if ($templateId == 33) {
-                        $_SESSION['NEWSLETTER_SENDID'] = '';
-                        $tmpcontent = \Goteo\Library\Newsletter::getContent($content);
-                    }
+                    $subject = $_POST['subject'];
+                    $templateId = !empty($_POST['template']) ? $_POST['template'] : 11;
+                    $content = \str_replace('%SITEURL%', $URL, $_POST['content']);
 
-                    // ahora, envio, el contenido a cada usuario
+                    // quito usuarios desmarcados
                     foreach ($_SESSION['mailing']['receivers'] as $usr=>$userData) {
 
                         $errors = array();
 
-                        $users[] = $usr;
-                        if (!isset($_POST[$usr])) {
-                            $campo = 'receiver_'.str_replace('.', '_', $usr);
-                            if (!isset($_POST[$campo])) {
-                                $_SESSION['mailing']['receivers'][$usr]->ok = null;
-                                continue;
-                            }
-                        }
-
-                        // si es newsletter
-                        if ($templateId == 33) {
-                            // Mirar que no tenga bloqueadas las preferencias
-                            if (Model\User::mailBlock($usr)) {
-                                Message::Error($usr . ' lo tiene bloqueado');
-                                continue;
-                            }
-
-                            // el sontenido es el mismo para todos, no lleva variables
+                        $campo = 'receiver_'.$usr;
+                        if (!isset($_POST[$campo])) {
+                            $_SESSION['mailing']['receivers'][$usr]->ok = null;
                         } else {
-                            $tmpcontent = \str_replace(
-                                array('%USERID%', '%USEREMAIL%', '%USERNAME%', '%SITEURL%', '%PROJECTID%', '%PROJECTNAME%', '%PROJECTURL%'),
-                                array(
-                                    $usr,
-                                    $userData->email,
-                                    $userData->name,
-                                    $URL,
-                                    $userData->projectId,
-                                    $userData->project,
-                                    $URL.'/project/'.$userData->projectId
-                                ),
-                                $content);
+                            $receivers[] = $userData;
                         }
-
-                        $mailHandler = new Mail();
-
-                        $mailHandler->to = $userData->email;
-                        $mailHandler->toName = $userData->name;
-                        $mailHandler->subject = $subject;
-                        $mailHandler->content = '<br />'.$tmpcontent.'<br />';
-                        $mailHandler->html = true;
-                        $mailHandler->template = $templateId;
-                        if ($mailHandler->send($errors)) {
-                            $_SESSION['mailing']['receivers'][$usr]->ok = true;
-                        } else {
-                            Message::Error(implode('<br />', $errors));
-                            $_SESSION['mailing']['receivers'][$usr]->ok = false;
-                        }
-
-                        unset($mailHandler);
                     }
 
-                    $tend = \microtime();
-                    $time = $tend - $tini;
 
-                    // Evento Feed
-                    $log = new Feed();
-                    $log->populate('mailing a usuarios (admin)', '/admin/mailing',
-                        \vsprintf("El admin %s ha enviado una %s a %s", array(
-                        Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
-                        Feed::item('relevant', 'Comunicacion masiva'),
-                        $_SESSION['mailing']['filters_txt']
-                    )));
-                    $log->doAdmin('admin');
-                    unset($log);
+                    // montamos el mailing
+                    // - se crea un registro de tabla mail
+                    $sql = "INSERT INTO mail (id, email, html, template, node) VALUES ('', :email, :html, :template, :node)";
+                    $values = array (
+                        ':email' => 'any',
+                        ':html' => $content,
+                        ':template' => $templateId,
+                        ':node' => $node
+                    );
+                    $query = \Goteo\Core\Model::query($sql, $values);
+                    $mailId = \Goteo\Core\Model::insertId();
+
+
+                    // - se usa el metodo initializeSending para grabar el envío (parametro para autoactivar)
+                    // - initiateSending ($mailId, $subject, $receivers, $autoactive = 0)
+                    if (\Goteo\Library\Sender::initiateSending($mailId, $subject, $receivers, 1))  {
+                        $ok = true;
+                        // Evento Feed
+                        $log = new Feed();
+                        $log->populate('comunicación masiva a usuarios (admin)', '/admin/mailing',
+                            \vsprintf("El admin %s ha iniciado una %s a %s", array(
+                            Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
+                            Feed::item('relevant', 'Comunicacion masiva'),
+                            $_SESSION['mailing']['filters_txt']
+                        )));
+                        $log->doAdmin('admin');
+                        unset($log);
+                    } else {
+                        $ok = false;
+                        // Evento Feed
+                        $log = new Feed();
+                        $log->populate('comunicación masiva a usuarios (admin)', '/admin/mailing',
+                            \vsprintf("El admin %s le ha %s una %s a %s", array(
+                            Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
+                            Feed::item('relevant', 'fallado'),
+                            Feed::item('relevant', 'Comunicacion masiva'),
+                            $_SESSION['mailing']['filters_txt']
+                        )));
+                        $log->doAdmin('admin');
+                        unset($log);
+                    }
 
 
                     return new View(
@@ -320,15 +298,14 @@ namespace Goteo\Controller\Admin {
                         array(
                             'folder'    => 'mailing',
                             'file'      => 'send',
-                            'content'   => $content,
-//                                'projects'  => $projects,
+                            'subject'   => $subject,
                             'interests' => $interests,
                             'status'    => $status,
                             'methods'   => $methods,
                             'types'     => $types,
                             'roles'     => $roles,
-                            'users'     => $users,
-                            'time'      => $time
+                            'users'     => $receivers,
+                            'ok'        => $ok
                         )
                     );
 
@@ -340,7 +317,6 @@ namespace Goteo\Controller\Admin {
                 array(
                     'folder'    => 'mailing',
                     'file'      => 'list',
-//                    'projects'  => $projects,
                     'interests' => $interests,
                     'status'    => $status,
                     'methods'   => $methods,

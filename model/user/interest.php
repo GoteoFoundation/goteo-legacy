@@ -84,6 +84,7 @@ namespace Goteo\Model\User {
                 $query = static::query($sql, $values);
                 $interests = $query->fetchAll();
                 foreach ($interests as $int) {
+                    if ($int[0] == 15) continue;
                     $array[$int[0]] = $int[1];
                 }
 

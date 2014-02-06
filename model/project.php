@@ -806,6 +806,7 @@ namespace Goteo\Model {
                 return !$fail;
 			} catch(\PDOException $e) {
                 $errors[] = Text::_('No se ha grabado correctamente. ') . $e->getMessage();
+                //Text::get('save-project-fail');
                 return false;
 			}
 

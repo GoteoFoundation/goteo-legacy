@@ -40,25 +40,28 @@ namespace Goteo\Controller {
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST' 
                 && !empty($_POST['id'])
-                && !empty($_POST['impersonate'])
-                && $_SESSION['user'] = User::get($_POST['id'])) {
+                && !empty($_POST['impersonate'])) {
 
+                $impersonator = $_SESSION['user']->id;
+
+                session_unset();
+                $_SESSION['user'] = User::get($_POST['id']);
+                $_SESSION['impersonating'] = true;
+                $_SESSION['impersonator'] = $impersonator;
+
+                unset($_SESSION['admin_menu']);
                 /*
                  * Evento Feed
                  */
+                // Evento Feed
                 $log = new Feed();
-                $log->title = 'Suplantación usuario (admin)';
-                $log->url = '/admin/users';
-                $log->type = 'user';
-                $log_text = 'El admin %s ha %s al usuario %s';
-                $log_items = array(
+                $log->setTarget($_SESSION['user']->id, 'user');
+                $log->populate('Suplantación usuario (admin)', '/admin/users', \vsprintf('El admin %s ha %s al usuario %s', array(
                     Feed::item('user', $admin->name, $admin->id),
                     Feed::item('relevant', 'Suplantado'),
                     Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id)
-                );
-                $log->html = \vsprintf($log_text, $log_items);
-                $log->add($errors);
-
+                )));
+                $log->doAdmin('user');
                 unset($log);
 
 

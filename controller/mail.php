@@ -35,12 +35,16 @@ namespace Goteo\Controller {
             if (!empty($token) && !empty($_GET['email'])) {
                 $token = base64_decode($token);
                 $parts = explode('¬', $token);
-                if(count($parts) > 2 && $_GET['email'] == $parts[1] && !empty($parts[2])) {
+                if(count($parts) > 2 && ($_GET['email'] == $parts[1] || $parts[1] == 'any' ) && !empty($parts[2])) {
                     // cogemos el contenido de la bbdd y lo pintamos aqui tal cual
                     if ($query = Model::query('SELECT html FROM mail WHERE email = ? AND id = ?', array($parts[1], $parts[2]))) {
                         $content = $query->fetchColumn();
-                        $baja = \SITE_URL . '/user/leave/?email=' . $parts[1];
-                        return new View ('view/email/goteo.html.php', array('content'=>$content, 'baja' => $baja));
+                        $baja = SEC_URL . '/user/leave/?email=' . $parts[1];
+                        if ($parts[1] == 'any') {
+                            return new View ('view/email/newsletter.html.php', array('content'=>$content, 'baja' => ''));
+                        } else {
+                                return new View ('view/email/goteo.html.php', array('content'=>$content, 'baja' => $baja));
+                        }
                     }
                 }
             }

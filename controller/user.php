@@ -80,8 +80,8 @@ namespace Goteo\Controller {
                     } else {
                         unset($_SESSION['admin_node']);
                     }
-                    if (!empty($_POST['return'])) {
-                        throw new Redirection($_POST['return']);
+                    if (!empty($_REQUEST['return'])) {
+                        throw new Redirection($_REQUEST['return']);
                     } elseif (!empty($_SESSION['jumpto'])) {
                         $jumpto = $_SESSION['jumpto'];
                         unset($_SESSION['jumpto']);
@@ -149,7 +149,7 @@ namespace Goteo\Controller {
                     Message::Info(Text::get('user-register-success'));
 
                     $_SESSION['user'] = Model\User::get($user->id);
-                    
+
                     // creamos una cookie
                     setcookie("goteo_user", $user->id, time() + 3600 * 24 * 365);
 
@@ -186,6 +186,7 @@ namespace Goteo\Controller {
             //comprovar si venimos de un registro via oauth
             if ($_POST['provider']) {
 
+                require_once OAUTH_LIBS;
 
                 $provider = $_POST['provider'];
 
@@ -256,6 +257,13 @@ namespace Goteo\Controller {
                     }
                 }
             }
+            return new View(
+                            'view/user/confirm.html.php',
+                            array(
+                                'errors' => $errors,
+                                'oauth' => $oauth
+                            )
+            );
         }
 
         /**
@@ -438,7 +446,7 @@ namespace Goteo\Controller {
                 if ($show == 'message') {
                     $_SESSION['jumpto'] = '/user/profile/' . $id . '/message';
                     Message::Info(Text::get('user-login-required-to_message'));
-                    throw new Redirection("/user/login");
+                    throw new Redirection(SEC_URL."/user/login");
                 }
 
 
@@ -446,7 +454,7 @@ namespace Goteo\Controller {
                 if (!isset($user->roles['vip'])) {
                     $_SESSION['jumpto'] = '/user/profile/' . $id . '/' . $show;
                     Message::Info(Text::get('user-login-required-to_see'));
-                    throw new Redirection("/user/login");
+                    throw new Redirection(SEC_URL."/user/login");
                 }
 
                 /*
@@ -470,7 +478,7 @@ namespace Goteo\Controller {
                 if (!empty($user_created)) {
                     $is_author = true;
                 }
-                
+
                 // si el usuario del perfil es cofin. o partic.
                 // proyectos que es cofinanciador este usuario (el del perfil)
                 $user_invested = Model\User::invested($id, true);
@@ -689,7 +697,7 @@ namespace Goteo\Controller {
                             $user = Model\User::get($id);
                             $_SESSION['user'] = $user;
                             $_SESSION['recovering'] = $user->id;
-                            throw new Redirection('/dashboard/profile/access/recover#password');
+                            throw new Redirection(SEC_URL.'/dashboard/profile/access/recover#password');
                         }
                     }
                 }
@@ -697,7 +705,6 @@ namespace Goteo\Controller {
                 $error = Text::get('recover-token-incorrect');
             }
 
-		// password recovery only by email
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['recover'])) {
                 $email = $_POST['email'];
                 if (!empty($email) && Model\User::recover($email)) {
@@ -741,10 +748,10 @@ namespace Goteo\Controller {
                             // el token coincide con el email y he obtenido una id
                             if (Model\User::cancel($id)) {
                                 Message::Info(Text::get('leave-process-completed'));
-                                throw new Redirection('/user/login');
+                                throw new Redirection(SEC_URL.'/user/login');
                             } else {
                                 Message::Error(Text::get('leave-process-fail'));
-                                throw new Redirection('/user/login');
+                                throw new Redirection(SEC_URL.'/user/login');
                             }
                         }
                     }

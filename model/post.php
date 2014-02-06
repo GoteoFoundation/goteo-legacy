@@ -24,6 +24,7 @@ namespace Goteo\Model {
         Goteo\Model\Image,
         Goteo\Model\Project,
         Goteo\Model\User,
+        Goteo\Model\Node,
         Goteo\Library\Check;
 
     class Post extends \Goteo\Core\Model {
@@ -354,6 +355,92 @@ namespace Goteo\Model {
          */
         public static function next ($type = 'home') {
             $query = self::query('SELECT MAX(`order`) FROM post WHERE '.$type.'=1');
+            $order = $query->fetchColumn(0);
+            return ++$order;
+
+        }
+
+
+        /****************************************************
+        * Variantes de los metodos para las portadas de nodo *
+         ****************************************************/
+        /*
+         *  Actualizar una entrada en portada
+         */
+        public function update_node ($data, &$errors = array()) {
+            if (!$data->post || !$data->node) return false;
+
+            $fields = array(
+                'post',
+                'node',
+                'order'
+                );
+
+            $set = '';
+            $values = array();
+
+            foreach ($fields as $field) {
+                if ($set != '') $set .= ", ";
+                $set .= "`$field` = :$field ";
+                $values[":$field"] = $data->$field;
+            }
+
+            if ($set == '') {
+                $errors[] = 'Sin datos';
+                return false;
+            }
+
+            try {
+                $sql = "REPLACE INTO post_node SET " . $set;
+                self::query($sql, $values);
+
+                return true;
+            } catch(\PDOException $e) {
+                $errors[] = "Ha fallado!!! " . $e->getMessage();
+                return false;
+            }
+        }
+
+        /*
+         * Para quitar una entrada
+         */
+        public static function remove_node ($post, $node) {
+
+            $values = array(':post'=>$post, ':node'=>$node);
+            $sql = "DELETE FROM post_node WHERE post = :post AND node = :node";
+            if (self::query($sql, $values)) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
+        /*
+         * Para que salga antes  (disminuir el order)
+         */
+        public static function up_node ($post, $node) {
+            $extra = array (
+                    'node' => $node
+                );
+            return Check::reorder($post, 'up', 'post_node', 'post', 'order', $extra);
+        }
+
+        /*
+         * Para que un proyecto salga despues  (aumentar el order)
+         */
+        public static function down_node ($post, $node) {
+            $extra = array (
+                    'node' => $node
+                );
+            return Check::reorder($post, 'down', 'post_node', 'post', 'order', $extra);
+        }
+
+        /*
+         * Orden para aÃ±adirlo al final
+         */
+        public static function next_node ($node) {
+            $query = self::query('SELECT MAX(`order`) FROM post_node WHERE node = :node', array(':node'=>$node));
             $order = $query->fetchColumn(0);
             return ++$order;
 

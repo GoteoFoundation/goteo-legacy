@@ -113,6 +113,8 @@ namespace Goteo\Model {
                 $query = static::query($sql, array(':lang'=>\LANG));
                 $categories = $query->fetchAll();
                 foreach ($categories as $cat) {
+                    // la 15 es de testeos
+                    if ($cat[0] == 15) continue;
                     $array[$cat[0]] = $cat[1];
                 }
 

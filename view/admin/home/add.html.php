@@ -1,7 +1,7 @@
 <?php
 /*
  *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
- *	This file is part of Goteo.
+ *  This file is part of Goteo.
  *
  *  Goteo is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published by
@@ -18,39 +18,26 @@
  *
  */
 
-namespace Goteo\Controller {
 
-    use Goteo\Model,
-        Goteo\Model\User;
+use Goteo\Library\Text,
+    Goteo\Model\Home;
 
-    class JSON extends \Goteo\Core\Controller {
+$home = $this['home'];
+$availables = $this['availables'];
+?>
+<form method="post" action="/admin/home" >
+    <input type="hidden" name="action" value="<?php echo $this['action'] ?>" />
+    <input type="hidden" name="type" value="<?php echo $home->type ?>" />
+    <input type="hidden" name="order" value="<?php echo $home->order ?>" />
 
-		private $result = array();
+<p>
+    <label for="home-item">Elemento:</label><br />
+    <select id="home-item" name="item">
+    <?php foreach ($availables as $item=>$name) : ?>
+        <option value="<?php echo $item; ?>"><?php echo $name; ?></option>
+    <?php endforeach; ?>
+    </select>
+</p>
 
-		/**
-		 * Solo retorna si la sesion esta activa o no
-		 * */
-		public function keep_alive() {
-
-			$this->result = array(
-				'logged'=>false
-			);
-			if($_SESSION['user'] instanceof User) {
-				$this->result['logged'] = true;
-				$this->result['userid'] = $_SESSION['user']->id;
-			}
-
-			return $this->output();
-		}
-
-		/**
-		 * Json encoding...
-		 * */
-		public function output() {
-
-			header("Content-Type: application/json; charset=utf-8");
-
-			return json_encode($this->result);
-		}
-    }
-}
+    <input type="submit" name="save" value="A&ntilde;adir" />
+</form>

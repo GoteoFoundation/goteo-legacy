@@ -29,7 +29,9 @@ namespace Goteo\Controller\Admin {
 
     class Pages {
 
-        static public $node_pages = array('about', 'contact', 'press', 'service');
+        static public function _node_pages() {
+            return array('about', 'contact', 'press', 'service'); 
+        }
 
 
         public static function process ($action = 'list', $id = null) {
@@ -65,7 +67,7 @@ namespace Goteo\Controller\Admin {
                     break;
 
                 case 'edit':
-                    if ($node != \GOTEO_NODE && !in_array($id, self::$node_pages)) {
+                    if ($node != \GOTEO_NODE && !in_array($id, static::_node_pages())) {
                         Message::Info('No puedes gestionar la página <strong>'.$id.'</strong>');
                         throw new Redirection("/admin/pages");
                     }
@@ -81,7 +83,7 @@ namespace Goteo\Controller\Admin {
 
                             // Evento Feed
                             $log = new Feed();
-                            if ($node != \GOTEO_NODE && in_array($id, self::$node_pages)) {
+                            if ($node != \GOTEO_NODE && in_array($id, static::_node_pages())) {
                                 $log->setTarget($node, 'node');
                             }
                             $log->populate(Text::_('modificacion de página institucional (admin)'), '/admin/pages',

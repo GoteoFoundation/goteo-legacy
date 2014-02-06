@@ -58,7 +58,7 @@ include 'view/prologue.html.php';
 
         <div id="sub-header">
             <div>
-                <h2><?= _("Panel principal de administración"); ?></h2>
+                <h2><?php Text::_("Panel principal de administración"); ?></h2>
                 <?php if (defined('ADMIN_BCPATH')) : ?>
                 <blockquote><?php echo ADMIN_BCPATH; ?></blockquote>
                 <?php endif; ?>
@@ -132,14 +132,23 @@ include 'view/prologue.html.php';
                     Ver Feeds por:
 
                     <p class="categories">
-                        <?php foreach (Feed::$admin_types as $id=>$cat) : ?>
-                        <a href="/admin/?feed=<?php echo $id ?>#feed" <?php echo ($feed == $id) ? 'class="'.$cat['color'].'"': 'class="hov" rel="'.$cat['color'].'"' ?>><?php echo $cat['label'] ?></a>
+                        <?php foreach (Feed::_admin_types() as $id=>$cat) : ?>
+                        <a href="/admin/recent/?feed=<?php echo $id ?>#feed" <?php echo ($feed == $id) ? 'class="'.$cat['color'].'"': 'class="hov" rel="'.$cat['color'].'"' ?>><?php echo $cat['label'] ?></a>
                         <?php endforeach; ?>
                     </p>
 
-                    <?php echo new View('view/admin/feed/list.html.php', array('items' => $items)); ?>
+                    <div class="scroll-pane">
+                        <?php foreach ($items as $item) :
+                            $odd = !$odd ? true : false;
+                            ?>
+                        <div class="subitem<?php if ($odd) echo ' odd';?>">
+                           <span class="datepub"><?php echo Text::get('feed-timeago', $item->timeago); ?></span>
+                           <div class="content-pub"><?php echo $item->html; ?></div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
 
-                    <a href="/admin/feed/<?php echo isset($_GET['feed']) ? '?feed='.$_GET['feed'] : ''; ?>" style="margin-top:10px;float:right;text-transform:uppercase">Ver más</a>
+                    <a href="/admin/recent/<?php echo isset($_GET['feed']) ? '?feed='.$_GET['feed'] : ''; ?>" style="margin-top:10px;float:right;text-transform:uppercase">Ver más</a>
                     
                 </div>
             </div>

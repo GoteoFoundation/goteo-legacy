@@ -301,6 +301,15 @@ namespace Goteo\Controller {
                     $viewData['order'] = $_SESSION['dashboard-rewards-order'];
                     break;
 
+                // gestionar retornos
+                case 'commons':
+                    $icons = Model\Icon::getAll('social');
+                    foreach ($icons as $key => $icon) {
+                        $icons[$key] = $icon->name;
+                    }
+                    $viewData['icons'] = $icons;
+                    break;
+
                 // listar mensajeadores
                 case 'messegers':
                     $viewData['messegers'] = Model\Message::getMessegers($project->id);
@@ -654,7 +663,8 @@ namespace Goteo\Controller {
                         'updates' => Text::get('dashboard-menu-projects-updates'),
                         'supports' => Text::get('dashboard-menu-projects-supports'),
                         'rewards' => Text::get('dashboard-menu-projects-rewards'),
-                        'messegers' => Text::get('dashboard-menu-projects-messegers')
+                        'messegers' => Text::get('dashboard-menu-projects-messegers'),
+                        'commons' => Text::get('dashboard-menu-projects-commons')
                     )
                 )
             );

@@ -297,35 +297,42 @@ namespace Goteo\Controller\Dashboard {
                 SITE_URL . "/user/profile/" . $project->owner, $project->user->name);
             $content = \str_replace($search, $replace, $template->text);
 
+            // para usar el proceso Sender:
+
+
+            // - $who debe ser compatible con el formato $receivers
+            // (falta nombre e email), sacarlo con getMini
+            $receivers = array();
             foreach ($who as $userId) {
-                $errors = array();
-                //me cojo su email y lo meto en un array para enviar solo con una instancia de Mail
-                $userData = Model\User::getMini($userId);
-
-                // iniciamos el objeto mail
-                $mailHandler = new Mail();
-                $mailHandler->from = $project->user->email;
-                $mailHandler->fromName = $remite;
-                $mailHandler->to = $userData->email;
-                $mailHandler->toName = $userData->name;
-                // blind copy a goteo desactivado durante las verificaciones
-//                                    $mailHandler->bcc = 'comunicaciones@goteo.org';
-                $mailHandler->subject = $subject;
-                $mailHandler->content = str_replace('%NAME%', $userData->name, $content);
-                // esto tambien es pruebas
-                $mailHandler->html = true;
-                $mailHandler->template = $template->id;
-                if ($mailHandler->send($errors)) {
-                    Message::Info(Text::get('dashboard-investors-mail-sended', $userData->name));
-                } else {
-                    Message::Error(Text::get('dashboard-investors-mail-fail', $userData->name) . ' : ' . implode(', ', $errors));
-                }
-
-                unset($mailHandler);
-                unset($userData);
+                $user = Model\User::getMini($userId);
+                $user->user = $user->id;
+                $receivers[] = $user;
             }
-            
-            unset($who);
+
+            // - en la plantilla hay que cambiar %NAME% por %USERNAME% para que sender reemplace
+
+            // - 
+
+            // - se crea un registro de tabla mail
+            $sql = "INSERT INTO mail (id, email, html, template, node) VALUES ('', :email, :html, :template, :node)";
+            $values = array (
+                ':email' => 'any',
+                ':html' => $content,
+                ':template' => $template->id,
+                ':node' => \GOTEO_NODE
+            );
+            $query = \Goteo\Core\Model::query($sql, $values);
+            $mailId = \Goteo\Core\Model::insertId();
+
+
+            // - se usa el metodo initializeSending para grabar el envío (parametro para autoactivar)
+            // , también metemos el reply y repplyName (remitente) en la instancia de envío
+            if (\Goteo\Library\Sender::initiateSending($mailId, $subject, $receivers, 1, $project->user->email, $remite)) {
+                Message::Info(Text::get('dashboard-investors-mail-sended', 'la cola de envíos')); // cambiar este texto
+            } else {
+                Message::Error(Text::get('dashboard-investors-mail-fail', 'la cola de envíos')); // cambiar este texto
+            }
+
             
             return true;
         }
@@ -350,7 +357,7 @@ namespace Goteo\Controller\Dashboard {
          * @param array $errors (por referncia)
          * @return object $project Instancia de proyecto modificada
          */
-        public static function process_support ($project, &$errors = array()) {
+        public static function process_supports ($project, &$errors = array()) {
             // tratar colaboraciones existentes
             foreach ($project->supports as $key => $support) {
 
@@ -529,7 +536,7 @@ namespace Goteo\Controller\Dashboard {
                             ), $post->gallery[0]->id);
                     $log->doPublic('projects');
 
-                    // si no ha encontrado otro, lanzamos el update
+                    // si no ha encontrado otro, lanzamos la notificación a cofinanciadores
                     if (!$log->unique_issue) {
                         \Goteo\Controller\Cron\Send::toInvestors('update', $project, $post);
                     }

@@ -189,6 +189,11 @@ namespace Goteo\Model\Blog {
                         $post->owner_name = $proj_blog->name;
                         break;
 
+                    case 'node':
+                        $post->user   = User::getMini($post->author);
+                        $node_blog = Node::get($post->owner_id);
+                        $post->owner_name = $node_blog->name;
+                        break;
                 }
 
                 $list[$post->id] = $post;
@@ -325,6 +330,11 @@ namespace Goteo\Model\Blog {
                         $post->owner_name = $proj_blog->name;
                         break;
 
+                    case 'node':
+                        $post->user   = User::getMini($post->author);
+                        $node_blog = Node::get($post->owner_id);
+                        $post->owner_name = $node_blog->name;
+                        break;
                 }
 
                 $list[$post->id] = $post;

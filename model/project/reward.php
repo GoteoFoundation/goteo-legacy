@@ -336,9 +336,16 @@ namespace Goteo\Model\Project {
                     $sqlFilterUser = " AND (user.name LIKE :name OR user.email LIKE :name)";
                     $values[':name'] = "%{$filters['name']}%";
                 }
+                $and = " WHERE";
                 if (!empty($filters['status'])) {
-                    $sqlFilter = " WHERE invest_reward.fulfilled = :status";
+                    $sqlFilter .= $and." invest_reward.fulfilled = :status";
                     $values[':status'] = $filters['status'] == 'ok' ? 1 : 0;
+                    $and = " AND";
+                }
+                if (!empty($filters['friend'])) {
+                    $not = ($filters['friend'] == 'only') ? '' : 'NOT';
+                    $sqlFilter .= $and." invest_reward.invest {$not} IN (SELECT invest FROM invest_address WHERE regalo = 1)";
+                    $and = " AND";
                 }
 
                 $sql = "SELECT
@@ -377,6 +384,33 @@ namespace Goteo\Model\Project {
                 return $array;
             } catch (\PDOException $e) {
                 throw new \Goteo\Core\Exception($e->getMessage());
+            }
+        }
+
+        /*
+         * MÃ©todo simple para sacar la lista de recompensas de un aporte
+         */        
+        public static function txtRewards($invest) {
+            try {
+                $array = array();
+
+                $sql = "SELECT
+                            reward.reward as name
+                        FROM invest_reward
+                        INNER JOIN reward
+                            ON reward.id = invest_reward.reward
+                        WHERE invest_reward.invest = ?
+                        ORDER BY reward.amount ASC
+                        ";
+
+                $query = self::query($sql, array($invest));
+                foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $item) {
+                    $array[] = $item->name;
+                }
+                return implode(', ', $array);
+
+            } catch (\PDOException $e) {
+                return '';
             }
         }
 

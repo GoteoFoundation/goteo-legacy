@@ -74,7 +74,7 @@ namespace Goteo\Controller\Admin {
                         $invest->rewards = array($chosen);
                     }
 
-                    $invest->resign = $_POST['resign'];
+                    $invest->anonymous = $_POST['anonymous'];
 
                     // dirección de envio para la recompensa
                     // y datos fiscales por si fuera donativo

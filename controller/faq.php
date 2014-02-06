@@ -27,7 +27,15 @@ namespace Goteo\Controller {
 
     class Faq extends \Goteo\Core\Controller {
 
-        public function index () {
+        public function index ($current = 'node') {
+
+            // si llega una pregunta  ?q=70
+            if (isset($_GET['q'])) {
+                $current = null;
+                $show = $_GET['q'];
+            } else {
+                $show = null;
+            }
 
             $page = Page::get('faq');
             $faqs = array();
@@ -38,12 +46,20 @@ namespace Goteo\Controller {
             foreach ($sections as $id=>$name) {
                 $qs = Model\Faq::getAll($id);
                 
-                if (empty($qs))
+                if (empty($qs)) {
+                    if ($id == $current && $current != 'node') {
+                        throw new \Goteo\Core\Redirection('/faq');
+                    }
+                    unset($sections[$id]);
                     continue;
+                }
 
                 $faqs[$id] = $qs;
                 foreach ($faqs[$id] as &$question) {
                     $question->description = nl2br(str_replace(array('%SITE_URL%'), array(SITE_URL), $question->description));
+                    if (isset($show) && $show == $question->id) {
+                        $current = $id;
+                    }
                 }
             }
 
@@ -51,8 +67,10 @@ namespace Goteo\Controller {
                 'view/faq.html.php',
                 array(
                     'faqs'     => $faqs,
+                    'current'  => $current,
                     'sections' => $sections,
-                    'colors'   => $colors
+                    'colors'   => $colors,
+                    'show'     => $show
                 )
              );
 

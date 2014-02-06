@@ -32,6 +32,8 @@ namespace Goteo\Model {
         public
             $id = false,
             $lang,
+            $node, // Nodo al que pertenece
+            $nodeData, // Datos del nodo
             $userid, // para el login name al registrarse
             $email,
             $password, // para gestion de super admin
@@ -117,6 +119,7 @@ namespace Goteo\Model {
                     $data[':active'] = true;
                     $data[':confirmed'] = false;
                     $data[':lang'] = \LANG;
+                    $data[':node'] = \NODE_ID;
 
 					//active = 1 si no se quiere comprovar
 					if(in_array('active',$skip_validations) && $this->active) $data[':active'] = 1;
@@ -493,6 +496,24 @@ namespace Goteo\Model {
             } catch(\PDOException $e) {
                 $errors[] = Text::_("No se ha grabado correctamente. ") . $e->getMessage();
                 return false;
+            }
+
+        }
+
+        /**
+         * Este método actualiza directamente el campo de nodo
+         */
+        public function updateNode (&$errors = array()) {
+
+            $values = array(':id'=>$this->id, ':node'=>$this->node);
+
+            try {
+                $sql = "UPDATE user SET `node` = :node WHERE id = :id";
+                self::query($sql, $values);
+
+                return true;
+            } catch(\PDOException $e) {
+                $errors[] = "HA FALLADO!!! " . $e->getMessage();
                 return false;
             }
 

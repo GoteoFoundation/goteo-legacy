@@ -39,6 +39,7 @@ namespace Goteo\Controller\Admin {
             \array_unshift($groups, Text::_('Todas las agrupaciones'));
 
             // I dont know if this must serve in default lang or in current navigation lang
+ //@fixme temporal hasta pasar las agrupaciones a tabal o arreglar en el list.html.php
             $data = Text::getAll($filters, 'original');
             foreach ($data as $key=>$item) {
                 $data[$key]->group = $groups[$item->group];

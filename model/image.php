@@ -188,6 +188,7 @@ namespace Goteo\Model {
                     'image/gif',
                     'image/jpeg',
                     'image/png',
+                    'image/svg+xml',
                 );
                 if(!in_array($this->type, $allowed_types)) {
                     $errors['image'] = Text::get('error-image-type-not-allowed');

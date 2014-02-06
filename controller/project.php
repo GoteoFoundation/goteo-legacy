@@ -192,12 +192,12 @@ namespace Goteo\Controller {
                         // email a los de goteo
                         $mailHandler = new Mail();
 
+                        $mailHandler->reply = $project->user->email;
+                        $mailHandler->replyName = "{$project->user->name}";
                         $mailHandler->to = \GOTEO_MAIL;
                         $mailHandler->toName = 'Revisor de proyectos';
                         $mailHandler->subject = 'Proyecto ' . $project->name . ' enviado a valoración';
                         $mailHandler->content = '<p>Han enviado un nuevo proyecto a revisión</p><p>El nombre del proyecto es: <span class="message-highlight-blue">'.$project->name.'</span> <br />y se puede ver en <span class="message-highlight-blue"><a href="'.SITE_URL.'/project/'.$project->id.'">'.SITE_URL.'/project/'.$project->id.'</a></span></p>';
-                        $mailHandler->fromName = "{$project->user->name}";
-                        $mailHandler->from = $project->user->email;
                         $mailHandler->html = true;
                         $mailHandler->template = 0;
                         if ($mailHandler->send($errors)) {
@@ -404,7 +404,7 @@ namespace Goteo\Controller {
             if (empty($_SESSION['user'])) {
                 $_SESSION['jumpto'] = '/project/create';
                 Message::Info(Text::get('user-login-required-to_create'));
-                throw new Redirection("/user/login");
+                throw new Redirection(SEC_URL."/user/login");
             }
 
             if ($_POST['action'] != 'continue' || $_POST['confirm'] != 'true') {
@@ -412,7 +412,7 @@ namespace Goteo\Controller {
             }
 
             $project = new Model\Project;
-            if ($project->create()) {
+            if ($project->create(\GOTEO_NODE)) {
                 $_SESSION['stepped'] = array();
                 
                 // permisos para editarlo y borrarlo
@@ -450,8 +450,8 @@ namespace Goteo\Controller {
                 }
             }
 
-            // mensaje cuando, sin estar en campaña, financiado o cumplido, tiene fecha de publicación, es que la campaña ha sido cancelada
-            if (!in_array($project->status, array(3, 4, 5)) && !empty($project->published)) 
+            // mensaje cuando, sin estar en campaña, tiene fecha de publicación, es que la campaña ha sido cancelada
+            if ($project->status < 3 && !empty($project->published)) 
                 Message::Info(Text::get('project-unpublished'));
             elseif ($project->status < 3) 
                 // mensaje de no publicado siempre que no esté en campaña
@@ -540,7 +540,7 @@ namespace Goteo\Controller {
                             $step = 'start';
                         } elseif ($step == 'start') {
                             // para cuando salte
-                            $_SESSION['jumpto'] = '/project/' .  $id . '/invest/#continue';
+                            $_SESSION['jumpto'] = SEC_URL.'/project/' .  $id . '/invest/#continue';
                         } else {
                             $step = 'start';
                         }

@@ -31,6 +31,7 @@ namespace Goteo\Controller\Admin {
 
         public static function process ($action = 'list', $id = null, $filters = array()) {
             $templates = Template::getAllMini();
+            $nodes = array();
             $node = isset($_SESSION['admin_node']) ? $_SESSION['admin_node'] : \GOTEO_NODE;
 
             if ($filters['filtered'] == 'yes'){

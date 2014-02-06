@@ -57,6 +57,7 @@ namespace Goteo\Model {
             $query = static::query($sql, array(':lang'=>\LANG));
 
             foreach ($query->fetchAll(\PDO::FETCH_CLASS, __CLASS__) as $interest) {
+                if ($interest->id == 15) continue;
                 $list[$interest->id] = $interest;
             }
 
