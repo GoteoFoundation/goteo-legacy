@@ -330,12 +330,27 @@ namespace Goteo\Controller {
                     // si llega post, vamos a guardar los cambios
                     if ($action == 'edit' && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save'])) {
 
-                        if (!in_array($table, \array_keys(Content::$tables))) {
+                        if (!in_array($table, \array_keys(Content::_tables()))) {
                             $errors[] = "Tabla $table desconocida";
                             break;
                         }
 
                         if (Content::save($_POST, $errors)) {
+
+                            // Evento Feed
+                            /*
+                            $log = new Feed();
+                            $log->populate('contenido traducido (traductor)', '/translate/'.$table,
+                                \vsprintf('El traductor %s ha %s el contenido del registro %s de la tabla %s al %s', array(
+                                Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
+                                Feed::item('relevant', 'Traducido'),
+                                Feed::item('blog', $id),
+                                Feed::item('blog', $table),
+                                Feed::item('relevant', Lang::get($_SESSION['translate_lang'])->name)
+                            )));
+                            $log->doAdmin('admin');
+                            unset($log);
+                            */
 
                             Message::Info('Contenido del registro <strong>'.$id.'</strong> de la tabla <strong>'.$table.'</strong> traducido correctamente al <strong>'.Lang::get($_POST['lang'])->name.'</strong>');
 

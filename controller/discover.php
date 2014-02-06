@@ -29,20 +29,22 @@ namespace Goteo\Controller {
 
     class Discover extends \Goteo\Core\Controller {
     
-        public static $types = array(
-                'popular',
-                'recent',
-                'success',
-                'outdate',
-                'archive'
-            );
+        static public function _types() {
+             return array(
+                    'popular',
+                    'recent',
+                    'success',
+                    'outdate',
+                    'archive'
+                );
+        }
 
         /*
          * Descubre proyectos, página general
          */
         public function index () {
 
-            $types = self::$types;
+            $types = static::_types();
 
             $viewData = array(
                 'lists' => array()
@@ -124,7 +126,7 @@ namespace Goteo\Controller {
          */
         public function view ($type = 'all') {
 
-            $types = self::$types;
+            $types = static::_types();
             $types[] = 'all';
             if (!in_array($type, $types)) {
                 throw new Redirection('/discover');

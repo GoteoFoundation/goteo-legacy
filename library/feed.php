@@ -46,89 +46,73 @@ namespace Goteo\Library {
             $target_type, // tipo de objetivo del evento (user, project, call, node, etc..) normalmente project
             $target_id; // id registro del objetivo (normalmente varchar(50))
 
-        static public $admin_types = array(
-            'all' => array(
-                'label' => Text::_('Todo'),
-                'color' => 'light-blue'
-            ),
-            'admin' => array(
-                'label' => Text::_('Administrador'),
-                'color' => 'red'
-            ),
-            'user' => array(
-                'label' => Text::_('Usuario'),
-                'color' => 'blue'
-            ),
-            'project' => array(
-                'label' => Text::_('Proyecto'),
-                'color' => 'light-blue'
-            ),
-            'call' => array(
-                'label' => Text::_('Convocatoria'),
-                'color' => 'light-blue'
-            ),
-            'money' => array(
-                'label' => Text::_('Transferencias'),
-                'color' => 'violet'
-            ),
-            'system' => array(
-                'label' => Text::_('Sistema'),
-                'color' => 'grey'
-            )
-        );
+        static public function _admin_types() {
+            return array(
+                'all' => array(
+                    'label' => Text::_('Todo'),
+                    'color' => 'light-blue'
+                ),
+                'admin' => array(
+                    'label' => Text::_('Administrador'),
+                    'color' => 'red'
+                ),
+                'user' => array(
+                    'label' => Text::_('Usuario'),
+                    'color' => 'blue'
+                ),
+                'project' => array(
+                    'label' => Text::_('Proyecto'),
+                    'color' => 'light-blue'
+                ),
+                'call' => array(
+                    'label' => Text::_('Convocatoria'),
+                    'color' => 'light-blue'
+                ),
+                'money' => array(
+                    'label' => Text::_('Transferencias'),
+                    'color' => 'violet'
+                ),
+                'system' => array(
+                    'label' => Text::_('Sistema'),
+                    'color' => 'grey'
+                )
+            );
+        }
 
-        static public $public_types = array(
-            'goteo' => array(
-                'label' => Text::_('Goteo')
-            ),
-            'projects' => array(
-                'label' => Text::_('Proyectos')
-            ),
-            'community' => array(
-                'label' => Text::_('Comunidad')
-            )
-        );
+        static public function _color() {
+            return array(
+                'user' => 'blue',
+                'project' => 'light-blue',
+                'call' => 'light-blue',
+                'blog' => 'grey',
+                'news' => 'grey',
+                'money' => 'violet',
+                'drop' => 'violet',
+                'relevant' => 'red',
+                'comment' => 'green',
+                'update-comment' => 'grey',
+                'message' => 'green',
+                'system' => 'grey',
+                'update' => 'grey'
+            );
+        }
 
-        static public $private_types = array(
-            'info' => array(
-                'label' => Text::_('Información')
-            ),
-            'alert' => array(
-                'label' => Text::_('Alerta')
-            )
-        );
-
-        static public $color = array(
-            'user' => 'blue',
-            'project' => 'light-blue',
-            'call' => 'light-blue',
-            'blog' => 'grey',
-            'news' => 'grey',
-            'money' => 'violet',
-            'drop' => 'violet',
-            'relevant' => 'red',
-            'comment' => 'green',
-            'update-comment' => 'grey',
-            'message' => 'green',
-            'system' => 'grey',
-            'update' => 'grey'
-        );
-
-        static public $page = array(
-            'user' => '/user/profile/',
-            'project' => '/project/',
-            'call' => '/call/',
-            'drop' => SITE_URL,
-            'blog' => '/blog/',
-            'news' => '/news/',
-            'relevant' => '',
-            'comment' => '/blog/',
-            'update-comment' => '/project/',
-            'message' => '/project/',
-            'system' => '/admin/',
-            'update' => '/project/'
-        );
-
+        static public function _page() {
+            return array(
+                'user' => '/user/profile/',
+                'project' => '/project/',
+                'call' => '/call/',
+                'drop' => SITE_URL,
+                'blog' => '/blog/',
+                'news' => '/news/',
+                'relevant' => '',
+                'comment' => '/blog/',
+                'update-comment' => '/project/',
+                'message' => '/project/',
+                'system' => '/admin/',
+                'update' => '/project/'
+            );
+        }
         /**
          * Metodo que rellena instancia
          * No usamos el __construct para no joder el fetch_CLASS
@@ -532,11 +516,14 @@ namespace Goteo\Library {
          */
         public static function item ($type = 'system', $label = 'label', $id = null) {
 
+            $page = static::_page();
+            $color = static::color();
+
             // si llega id es un enlace
             if (isset($id)) {
-                return '<a href="'.self::$page[$type].$id.'" class="'.self::$color[$type].'" target="_blank">'.$label.'</a>';
+                return '<a href="'.$page[$type].$id.'" class="'.$color[$type].'" target="_blank">'.$label.'</a>';
             } else {
-                return '<span class="'.self::$color[$type].'">'.$label.'</span>';
+                return '<span class="'.$color[$type].'">'.$label.'</span>';
             }
 
 

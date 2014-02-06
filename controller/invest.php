@@ -35,8 +35,16 @@ namespace Goteo\Controller {
 
     class Invest extends \Goteo\Core\Controller {
 
+        // metodos habilitados
+        public static function _methods() {
+             return array(
+                    'tpv' => 'tpv',
+                    'paypal' => 'paypal'
+                );
+        }
+
         /*
-         *  La manera de obtener el id del usuario validado cambiará al tener la session
+         *  Este controlador no sirve ninguna página
          */
         public function index ($project = null) {
             if (empty($project))
@@ -45,21 +53,32 @@ namespace Goteo\Controller {
             $message = '';
 
             $projectData = Model\Project::get($project);
-            $methods = Model\Invest::methods();
+            $methods = static::_methods();
 
             // si no está en campaña no pueden esta qui ni de coña
             if ($projectData->status != 3) {
                 throw new Redirection('/project/'.$project, Redirection::TEMPORARY);
             }
 
-			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (Model\Project\Conf::getNoinvest($project)) {
+                Message::Error(Text::get('investing_closed'));
+                throw new Redirection('/project/'.$project);
+            }
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $errors = array();
                 $los_datos = $_POST;
+                $method = \strtolower($_POST['method']);
+
+                if (!isset($methods[$method])) {
+                    Message::Error(Text::get('invest-method-error'));
+                    throw new Redirection(SEC_URL."/project/$project/invest/?confirm=fail", Redirection::TEMPORARY);
+                }
 
                 if (empty($_POST['amount'])) {
                     Message::Error(Text::get('invest-amount-error'));
-                    throw new Redirection("/project/$project/invest/?confirm=fail", Redirection::TEMPORARY);
+                    throw new Redirection(SEC_URL."/project/$project/invest/?confirm=fail", Redirection::TEMPORARY);
                 }
 
                 // dirección de envio para las recompensas
@@ -75,26 +94,19 @@ namespace Goteo\Controller {
 
                 if ($projectData->owner == $_SESSION['user']->id) {
                     Message::Error(Text::get('invest-owner-error'));
-                    throw new Redirection("/project/$project/invest/?confirm=fail", Redirection::TEMPORARY);
+                    throw new Redirection(SEC_URL."/project/$project/invest/?confirm=fail", Redirection::TEMPORARY);
                 }
 
                 // añadir recompensas que ha elegido
-                
-                $rewards = array();
-                if (isset($_POST['resign']) && $_POST['resign'] == 1) {
+                $chosen = $_POST['selected_reward'];
+                if ($chosen == 0) {
                     // renuncia a las recompensas, bien por el/ella
+                    $resign = true;
+                    $reward = false;
                 } else {
-                    foreach ($_POST as $key=>$value) {
-                        if (substr($key, 0, strlen('reward_')) == 'reward_') {
-
-                            $id = \str_replace('reward_', '', $key);
-
-                            //no darle las recompensas que no entren en el rango del aporte por mucho que vengan marcadas
-                            if ($projectData->individual_rewards[$id]->amount <= $_POST['amount']) {
-                                $rewards[] = $id;
-                            }
-                        }
-                    }
+                    // ya no se aplica esto de recompensa es de tipo Reconocimiento para donativo
+                    $resign = false;
+                    $reward = true;
                 }
 
                 // insertamos los datos personales del usuario si no tiene registro aun
@@ -105,19 +117,24 @@ namespace Goteo\Controller {
                         'amount' => $_POST['amount'],
                         'user' => $_SESSION['user']->id,
                         'project' => $project,
-                        'method' => $_POST['method'],
+                        'method' => $method,
                         'status' => '-1',               // aporte en proceso
                         'invested' => date('Y-m-d'),
                         'anonymous' => $_POST['anonymous'],
-                        'resign' => $_POST['resign']
+                        'resign' => $resign
                     )
                 );
-                $invest->rewards = $rewards;
+                if ($reward) {
+                    $invest->rewards = array($chosen);
+                }
                 $invest->address = (object) $address;
 
                 if ($invest->save($errors)) {
+                    $invest->urlOK  = SEC_URL."/invest/confirmed/{$project}/{$invest->id}";
+                    $invest->urlNOK = SEC_URL."/invest/fail/{$project}/{$invest->id}";
+                    Model\Invest::setDetail($invest->id, 'init', 'Se ha creado el registro de aporte, el usuario ha clickado el boton de tpv o paypal. Proceso controller/invest');
 
-                    switch($_POST['method']) {
+                    switch($method) {
                         case 'tpv':
                             // redireccion al tpv
                             if (Tpv::preapproval($invest, $errors)) {
@@ -135,9 +152,13 @@ namespace Goteo\Controller {
                             }
                             break;
                         case 'cash':
-                            $invest->setStatus('0');
                             // En betatest aceptamos cash para pruebas
-                            throw new Redirection("/invest/confirmed/{$project}/{$invest->id}");
+                            if (GOTEO_ENV != 'real') {
+                                $invest->setStatus('1');
+                                throw new Redirection($invest->urlOK);
+                            } else {
+                                throw new Redirection('/');
+                            }
                             break;
                     }
                 } else {
@@ -148,30 +169,147 @@ namespace Goteo\Controller {
             }
 
             throw new Redirection("/project/$project/invest/?confirm=fail");
-            //throw new Redirection("/project/$project/invest");
         }
 
-
-        public function confirmed ($project = null, $invest = null) {
-            if (empty($project) || empty($invest)) {
+        /* para atender url de confirmación de aporte
+         * @params project id del proyecto ('bazargoteo' para hacerlo volver al catálogo)
+         * @params id id del aporte
+         * @params reward recompensa que selecciona
+         */
+        public function confirmed ($project = null, $id = null, $reward = null) {
+            if (empty($id)) {
                 Message::Error(Text::get('invest-data-error'));
-                throw new Redirection('/discover', Redirection::TEMPORARY);
+                throw new Redirection('/', Redirection::TEMPORARY);
             }
 
-            $confirm = Model\Invest::get($invest);
-            $projectData = Model\Project::getMini($project);
+            // el aporte
+            $invest = Model\Invest::get($id);
+
+            $projectData = Model\Project::getMedium($invest->project);
+
+
+            // para evitar las duplicaciones de feed y email
+            if (isset($_SESSION['invest_'.$invest->id.'_completed'])) {
+                Message::Info(Text::get('invest-process-completed'));
+                throw new Redirection($retUrl);
+            }
+
+
+            // segun método
+
+            if ($invest->method == 'tpv') {
+                // si el aporte no está en estado "cobrado por goteo" (1) 
+                if ($invest->status != '1') {
+                    @mail('goteo_fail@doukeshi.org',
+                        'Aporte tpv no pagado ' . $invest->id,
+                        'Ha llegado a invest/confirm el aporte '.$invest->id.' mediante tpv sin estado cobrado (llega con estado '.$invest->status.')');
+                    // mandarlo a la pagina de aportar para que lo intente de nuevo
+                    // si es de Bazar, a la del producto del catálogo
+                    if ($project == 'bazargoteo')
+                        throw new Redirection("/bazaar/{$reward}/fail");
+                    else
+                        throw new Redirection("/project/{$invest->project}/invest/?confirm=fail");
+                }
+            }
+
+            // Paypal solo disponible si activado
+            if ($invest->method == 'paypal') {
+
+                // hay que cambiarle el status a 0
+                $invest->setStatus('0');
+
+                // Evento Feed
+                $log = new Feed();
+                $log->setTarget($projectData->id);
+                $log->populate('Aporte PayPal', '/admin/invests',
+                    \vsprintf("%s ha aportado %s al proyecto %s mediante PayPal",
+                        array(
+                        Feed::item('user', $_SESSION['user']->name, $_SESSION['user']->id),
+                        Feed::item('money', $invest->amount.' &euro;'),
+                        Feed::item('project', $projectData->name, $projectData->id))
+                    ));
+                $log->doAdmin('money');
+                // evento público
+                $log_html = Text::html('feed-invest',
+                                    Feed::item('money', $invest->amount.' &euro;'),
+                                    Feed::item('project', $projectData->name, $projectData->id));
+                if ($invest->anonymous) {
+                    $log->populate(Text::get('regular-anonymous'), '/user/profile/anonymous', $log_html, 1);
+                } else {
+                    $log->populate($_SESSION['user']->name, '/user/profile/'.$_SESSION['user']->id, $log_html, $_SESSION['user']->avatar->id);
+                }
+                $log->doPublic('community');
+                unset($log);
+            }
+            // fin segun metodo
+
+            // Feed del aporte de la campaña
+            if (!empty($invest->droped) && $drop instanceof Model\Invest && is_object($callData)) {
+                // Evento Feed
+                $log = new Feed();
+                $log->setTarget($projectData->id);
+                $log->populate('Aporte riego '.$drop->method, '/admin/invests',
+                    \vsprintf("%s ha aportado %s de %s al proyecto %s a través de la campaña %s", array(
+                        Feed::item('user', $callData->user->name, $callData->user->id),
+                        Feed::item('money', $drop->amount.' &euro;'),
+                        Feed::item('drop', 'Capital Riego', '/service/resources'),
+                        Feed::item('project', $projectData->name, $projectData->id),
+                        Feed::item('call', $callData->name, $callData->id)
+                    )));
+                $log->doAdmin('money');
+                // evento público
+                $log->populate($callData->user->name, '/user/profile/'.$callData->user->id,
+                            Text::html('feed-invest',
+                                    Feed::item('money', $drop->amount.' &euro;')
+                                        . ' de '
+                                        . Feed::item('drop', 'Capital Riego', '/service/resources'),
+                                    Feed::item('project', $projectData->name, $projectData->id)
+                                        . ' a través de la campaña '
+                                        . Feed::item('call', $callData->name, $callData->id)
+                            ), $callData->user->avatar->id);
+                $log->doPublic('community');
+                unset($log);
+            }
+
+            // texto recompensa
+            // @TODO quitar esta lacra de N recompensas porque ya es solo una recompensa siempre
+            $rewards = $invest->rewards;
+            array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
+            $txt_rewards = implode(', ', $rewards);
+
+            // recaudado y porcentaje
+            $amount = $projectData->invested;
+            $percent = floor(($projectData->invested / $projectData->mincost) * 100);
+
 
             // email de agradecimiento al cofinanciador
             // primero monto el texto de recompensas
-            if ($confirm->resign) {
-                $txt_rewards = Text::get('invest-resign');
-                $template = Template::get(28); // plantilla de donativo
+            //@TODO el concepto principal sería 'renuncia' (porque todos los aportes son donativos)
+            if ($invest->resign) {
+                // Plantilla de donativo segun la ronda
+                if ($projectData->round == 2) {
+                    $template = Template::get(36); // en segunda ronda
+                } else {
+                    $template = Template::get(28); // en primera ronda
+                }
             } else {
-                $rewards = $confirm->rewards;
-                array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
-                $txt_rewards = implode(', ', $rewards);
-                $template = Template::get(10); // plantilla de agradecimiento
+                // plantilla de agradecimiento segun la ronda
+                if ($projectData->round == 2) {
+                    $template = Template::get(34); // en segunda ronda
+                } else {
+                    $template = Template::get(10); // en primera ronda
+                }
             }
+
+            
+            // Dirección en el mail (y version para regalo)
+            $txt_address = Text::get('invest-address-address-field') . ' ' . $invest->address->address;
+            $txt_address .= '<br> ' . Text::get('invest-address-zipcode-field') . ' ' . $invest->address->zipcode;
+            $txt_address .= '<br> ' . Text::get('invest-address-location-field') . ' ' . $invest->address->location;
+            $txt_address .= '<br> ' . Text::get('invest-address-country-field') . ' ' . $invest->address->country;
+
+            $txt_destaddr = $txt_address;
+            $txt_address = Text::get('invest-mail_info-address') .'<br>'. $txt_address;
 
             // Agradecimiento al cofinanciador
             // Sustituimos los datos
@@ -183,7 +321,8 @@ namespace Goteo\Controller {
             $content = \str_replace($search, $replace, $template->text);
 
             $mailHandler = new Mail();
-
+            $mailHandler->reply = GOTEO_CONTACT_MAIL;
+            $mailHandler->replyName = GOTEO_MAIL_NAME;
             $mailHandler->to = $_SESSION['user']->email;
             $mailHandler->toName = $_SESSION['user']->name;
             $mailHandler->subject = $subject;
@@ -207,7 +346,7 @@ namespace Goteo\Controller {
 
             // En el contenido:
             $search  = array('%OWNERNAME%', '%USERNAME%', '%PROJECTNAME%', '%SITEURL%', '%AMOUNT%', '%MESSAGEURL%');
-            $replace = array($projectData->user->name, $_SESSION['user']->name, $projectData->name, SITE_URL, $confirm->amount, SITE_URL.'/user/profile/'.$_SESSION['user']->id.'/message');
+            $replace = array($projectData->user->name, $_SESSION['user']->name, $projectData->name, SITE_URL, $invest->amount, SITE_URL.'/user/profile/'.$_SESSION['user']->id.'/message');
             $content = \str_replace($search, $replace, $template->text);
 
             $mailHandler = new Mail();
@@ -224,6 +363,10 @@ namespace Goteo\Controller {
 
 
 
+            // marcar que ya se ha completado el proceso de aportar
+            $_SESSION['invest_'.$invest->id.'_completed'] = true;
+            // log
+            Model\Invest::setDetail($invest->id, 'confirmed', 'El usuario regresó a /invest/confirmed');
 
 
             if ($confirm->method == 'paypal') {
