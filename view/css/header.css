@@ -159,7 +159,7 @@ div#sub-header > div > div.slides_container > div.slides_control > div.subhead-b
 div#sub-header > div > div.slides_container > div.slides_control > div.subhead-banner .shb-info small{
 	font: normal 11px Helvetica, Arial, Geneva, sans-serif;
     margin: 2px 0;
-    color:#1eb2b2;
+    color:#908499;
 	display:block;
 }
 
@@ -219,7 +219,7 @@ div#sub-header > div > div.slides_container > div.slides_control > div.subhead-b
 div#sub-header > div > div.slides_container > div.slides_control > div.subhead-banner .shb-info .financ-meter li.reached{
     font-size: 14px;
     font-weight: bold;
-	color:#1eb2b2;
+	color:#908499;
 }
 
 div#sub-header > div > div.slides_container > div.slides_control > div.subhead-banner .shb-info .financ-meter li.optimun{
@@ -237,7 +237,7 @@ div#sub-header > div > div.slides_container > div.slides_control > div.subhead-b
 
 
 div#sub-header > div > div.slides_container > div.slides_control > div.subhead-banner .shb-info .financ-meter li.days{
-	color:#1eb2b2;
+	color:#908499;
 }
 
 div#sub-header > div > div.slides_container > div.slides_control > div.subhead-banner h2.message{
@@ -245,7 +245,7 @@ div#sub-header > div > div.slides_container > div.slides_control > div.subhead-b
 }
 
 div.subhead-banner h2.message .greenblue{
-	color:#1eb2b2;
+	color:#908499;
 }
 
 div.subhead-banner .banner-button{
@@ -283,7 +283,7 @@ div#sub-header > div > div.mod-pojctopen > .modpo-open{
 
 div#sub-header > div > div.mod-pojctopen > .modpo-percent{
 	font: bold 22px Helvetica, Arial, Geneva, sans-serif;
-	color:#1eb2b2;
+	color:#908499;
 	margin: -10px 0 0;
 	border-bottom: 1px solid #a7a9ac;
 	padding: 4px 0 8px;
@@ -306,7 +306,7 @@ div#sub-header > div > h2 .red{
 /* lo del header verdeazulado */
 div#sub-header-secondary > div > h2 .greenblue,
 div#sub-header > div > h2 .greenblue{
-	color:#1eb2b2;
+	color:#908499;
 }
 /* fin de lo del header verdeazulado */
 
@@ -549,7 +549,6 @@ div#header div#highlights > ul > li > a {
 
 /* menu y despelgable dashboard */
 div#header div#menu {
-    background: #b5dadc url('header/background.png') repeat-x top;
     overflow: visible;
 }
 
@@ -734,7 +733,7 @@ div#header ul.lang {
 div#header div#menu > ul > li.community:hover,
 div#header div#menu > ul > li.login:hover,
 div#header div#menu > ul > li.dashboard:hover {
-    background-color: #1db3b2;    
+    background-color: #808285;    
 }
 
 div#header div#menu > ul > li.community:hover,
@@ -771,7 +770,7 @@ div#header div#menu > ul > li.dashboard > div > ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #1db3b2;
+    background-color: #808285;
 }
 
 div#header div#menu > ul > li.community > div > ul > li,
@@ -837,6 +836,6 @@ ul.lang li>a{
 	display:block;
 }
 ul.lang li:hover>a {
-	color: #1EB2B2;
+	color: #908499;
 }
 /* fin del desplegable de idiomas */

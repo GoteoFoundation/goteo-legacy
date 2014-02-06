@@ -127,7 +127,7 @@ div.center > div.widget.categorylist > div.list{
 	div.center > div.widget.categorylist > div.list > ul > li > a{text-transform:uppercase;font-size:12px;}
 
 /* detalle de categor�as (encabezado de categor�a)*/
-div.center > div.widget.user-mates > h3.title{padding: 9px 0 7px 5px;font-size: 12px;font-weight: normal; background:none; border-bottom: 1px solid #1eb2b2;border-top: 1px solid #808285;color: #20B3B2;font-size: 12px;
+div.center > div.widget.user-mates > h3.title{padding: 9px 0 7px 5px;font-size: 12px;font-weight: normal; background:none; border-bottom: 1px solid #908499;border-top: 1px solid #808285;color: #20B3B2;font-size: 12px;
 	margin: 0;
 }
 

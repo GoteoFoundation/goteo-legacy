@@ -285,7 +285,7 @@ div.widget.blog-content-module ul.share-goteo li.twitter a:hover,
 #blog-content .post ul.share-goteo li.twitter a:hover{
 	background: transparent url('twitter.png') scroll no-repeat  0 0;
 	opacity:0.6;
-	color:#1db3b2;
+	color:#808285;
 	text-decoration:none;
 }
 div.widget.blog-content-module ul.share-goteo li.facebook a,
@@ -297,7 +297,7 @@ div.widget.blog-content-module ul.share-goteo li.facebook a,
 div.widget.blog-content-module ul.share-goteo li.facebook a:hover,
 #blog-content .post ul.share-goteo li.facebook a:hover{
 	background: transparent url('facebook.png') scroll no-repeat  0 0;
-	color:#1db3b2;
+	color:#808285;
 	opacity:0.6;
 	text-decoration:none;
 }

@@ -65,7 +65,7 @@ div#footer a,div#subfooter a{
 }
 
 div#subfooter a:hover{
-	color:#1db3b2;
+	color:#808285;
 }
 
 /*hijos de footer*/
@@ -179,7 +179,7 @@ div#footer div.block ul li a{
 }
 
 div#footer div.block ul li a:hover{
-	color:#1db3b2;
+	color:#808285;
 }
 
 div#footer .scroll-pane

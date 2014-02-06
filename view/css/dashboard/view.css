@@ -129,7 +129,7 @@ body.dashboard div#dashboard-menu ul li.section.current a.section,
 body.dashboard div#dashboard-menu ul li.section.current ul,
 body.dashboard div#dashboard-menu ul li.section.active a.section,
 body.dashboard div#dashboard-menu ul li.section.active ul {
-    background-color: #1db3b2;
+    background-color: #808285;
 }
 
 body.dashboard div#dashboard-menu li.option a {
@@ -144,7 +144,7 @@ body.dashboard div#dashboard-menu li.option.active a {
 
 body.dashboard div#dashboard-menu li.section.current a {
     color: #ffffff;
-    background-color: #1db3b2;
+    background-color: #808285;
 }
 
 
