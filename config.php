@@ -130,8 +130,9 @@ define('AWS_SNS_COMPLAINTS_TOPIC', 'amazon-ses-complaints');
 define('GOTEO_DEFAULT_LANG', 'es');
 
 // url
-define('SITE_URL', 'http://example.com');
-define('SRC_URL', 'http://example.com');
+define('SITE_URL', 'http://example.com'); // endpoint url
+define('SRC_URL', 'http://example.com');  // host for statics
+define('SEC_URL', 'http://example.com');  // with SSL certified
 
 //Sessions
 //session handler: php, dynamodb
