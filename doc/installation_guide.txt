@@ -11,6 +11,8 @@ Prepare a htdocs folder on your server that can be accessed with a browser. Mayb
 Uncompress source files from github into that folder (you dont need to have the /db and /doc folders published)
 
 Execute the scripts on the `db` folder. goteo.sql first then the others. Not mention you have to create the database and a user for it.
+IMPORTANT: better to replace SiteName and SiteMail with your site name/mail BEFORE execute the script texts.sql
+Note that you have to write your own terms and privacy pages, those contents are empty at pages.sql
 
 On the first run you will see a settings file example, copy it into a file called `local-settings.php`.
 Modify it with database credentials:
