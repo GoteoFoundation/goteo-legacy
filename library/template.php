@@ -103,7 +103,7 @@ namespace Goteo\Library {
                 }
                 return $templates;
             } catch (\PDOException $e) {
-                throw new Exception(Text::_('No se ha grabado correctamente. ')S . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
+                throw new Exception(Text::_('No se ha grabado correctamente. ') . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
             }
 		}
 
@@ -127,7 +127,7 @@ namespace Goteo\Library {
                 }
                 return $templates;
             } catch (\PDOException $e) {
-                throw new Exception(Text::_('No se ha grabado correctamente. ') . $e->getMessage() . "<br />$sql<br /><pre>" . print_r($values, 1) . "</pre>");
+                throw new Exception(Text::_('No se ha grabado correctamente. ') . $e->getMessage() );
             }
 		}
 

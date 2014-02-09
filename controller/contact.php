@@ -77,7 +77,7 @@ namespace Goteo\Controller {
 
                     // En el contenido:
                     $search  = array('%TONAME%', '%MESSAGE%', '%USEREMAIL%');
-                    $replace = array($toName, $msg_content, $name.' '.$email);
+                    $replace = array($toName, $msg_content, $email);
                     $content = \str_replace($search, $replace, $template->text);
 
 
@@ -100,15 +100,16 @@ namespace Goteo\Controller {
                     unset($mailHandler);
                 }
 
-                return new View(
-                    'view/about/contact.html.php',
-                    array(
-                        'data'    => $data,
-                        'errors'  => $errors,
-                        'message' => $message
-                    )
-                );
-            
+            }
+
+            return new View(
+                'view/about/contact.html.php',
+                array(
+                    'data'    => $data,
+                    'errors'  => $errors
+                )
+            );
+
         }
         
     }

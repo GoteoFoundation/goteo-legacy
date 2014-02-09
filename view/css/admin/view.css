@@ -26,68 +26,75 @@ body.admin div#main {
 */
 
 body.admin div#sub-header {
-    padding-bottom: 0;
+    padding-bottom: 10px;
 }
 
-body.admin div.admin-menu {
-    max-width: 940px;
-    margin: 20px auto 0;
+body.admin div#sub-header div.breadcrumbs,
+body.admin div#sub-header div.breadcrumbs a {
+    color: #58595B;
+    font-size: 18px;
 }
 
-body.admin div.admin-menu ul {
+body.admin div#sub-header div.breadcrumbs a:hover {
+    color: #20B2B3;
+}
+
+body.admin div#sub-header div.breadcrumbs strong {
+    color: #20B2B3;
+}
+
+body.admin div#main div.admin-menu,
+body.admin div#main div.admin-home,
+body.admin div#main div.admin-side {
+    float: left;
+}
+
+body.admin div#main div.admin-menu {
+    width: 140px;
+    margin: 0px 10px 0px 0px;
+}
+
+body.admin div#main div.admin-menu fieldset {
+    margin-bottom: 3px;
+}
+
+body.admin div#main div.admin-menu fieldset legend {
+    font-weight: bold;
+}
+
+body.admin div#main div.admin-menu ul {
     padding: 0;
     margin: 0;
     list-style: none;
     font-size: 0;
 }
 
-body.admin  div.admin-menu ul li {
-    display: inline-block;
-    margin-right: 1px;    
-    background-color: #c8babc;
-
+body.admin div#main div.admin-menu ul li {
+    background-color: white;
+    padding: 0px 3px;
+    margin-bottom: 1px;
 }
 
-body.admin div.admin-menu ul li a {
-    display: inline-block;
-    padding: .6em 2em .2em .6em;
-    color: white;
-    text-transform: uppercase;
+body.admin div#main div.admin-menu ul li a {
     text-decoration: none;
 }
 
-body.admin div.admin-menu ul li a:hover {
-    color: black;
-}
-
-body.admin div.admin-menu ul li.home {
-    background-color: #1fb0b0;
-} 
-
-body.admin div.admin-menu ul li.checking {
-    background-color: #e13028;
-} 
-
-body.admin div.admin-menu ul li.accounting {
-    background-color: #313b96;
-}
-
-body.admin div.admin-menu ul li.comunication {
-    background-color: #00b05b;
+body.admin div#main div.admin-menu ul li a:hover {
+    color: #20B2B3;
 }
 
 body.admin div#main div.widget {
     margin-bottom: 20px;
 }
 
-body.admin div#main > div.center {
-    width: 620px;
-    float: left;
+body.admin div#main div.admin-side {
+    width: 300px;
+    margin-left: 10px;
 }
 
-body.admin div#main > div.side {
-    float: right;
-    width: 300px;
+body.admin div#main div.admin-home {
+    width: 440px;
+    margin-left: 0px;
 }
 
 
@@ -124,3 +131,53 @@ body.admin div#main div.board a:hover {
     color: black;
 }
 
+body.admin div#main div.widget.report th,
+body.admin div#main div.widget.report td {
+    padding: 2px 10px;
+}
+
+
+/* Feed */
+/* lateral */
+body.admin div#main > div.admin-center > div.admin-side{width:300px}
+body.admin div#main > div.admin-center > div.admin-side > div.widget{margin-bottom:20px}
+body.admin div#main > div.admin-center > div.admin-side > div.widget.feed > div.scroll-pane{height:520px;}
+body.admin div#main > div.admin-center > div.admin-side > div.widget.feed h3{margin-top:0;padding-bottom:10px;border-bottom:1px solid #E95C5C}
+body.admin div#main > div.admin-center > div.admin-side > div.widget.feed > p.categories > a{margin-right:15px;font-size:11px !important;text-transform:uppercase;}
+body.admin div#main > div.admin-center > div.admin-side > div.widget.feed > div.scroll-pane div.subitem{width:230px;padding-left:5px}
+body.admin div#main > div.admin-center > div.admin-side > div.widget.feed div.subitem span.datepub{margin-bottom:5px}
+
+
+/* central */
+body.admin div#main > div.admin-center > div.widget.feed > p.categories > a{margin-right:15px;font-size:12px !important;text-transform:uppercase;}
+body.admin div#main > div.admin-center > div.widget.feed > div.scroll-pane{height:800px}
+body.admin div#main > div.admin-center > div.widget.feed div.subitem{padding-left:5px}
+body.admin div#main > div.admin-center > div.widget.feed div.subitem > span.datepub{float:left;width:100px;margin-right:10px;clear:none;line-height:1.2em}
+body.admin div#main > div.admin-center > div.widget.feed div.subitem > div.content-pub{float:left;width:600px;clear:none;margin-top:0;}
+
+/* Capando el superform */
+body.admin div#main div.admin-center div.superform {
+    float: left;
+    max-width: 750px;
+}
+
+body.admin div#main div.admin-center div.superform > div.elements {
+    border-right: none !important;
+    border-bottom: 1px dashed #B7C2C5;
+}
+
+body.admin div#main div.admin-center div.superform > div.elements > ol > li.element {
+    margin: 0 !important;
+}
+
+body.admin div#main div.admin-center div.superform div.elements > ol > li.required > .title,
+body.admin div#main div.admin-center div.superform div.elements > ol > li.busy > .title {
+    margin: 0 !important;
+    background: none !important;
+}
+
+/* Reestilando botones */
+body.admin div#main div.admin-center input[type="submit"],
+body.admin div#main div.admin-center a.button {
+    padding: 0.2em 0.4em !important;
+}

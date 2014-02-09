@@ -21,96 +21,96 @@
 use Goteo\Library\Text,
     Goteo\Core\View,
     Goteo\Core\ACL,
-    Goteo\Library\Feed;
+    Goteo\Library\Feed,
 
-/*
-if (LANG != 'es') {
-    header('Location: /admin/?lang=es');
+    Goteo\Controller\Admin;
+if (!isset($_SESSION['admin_menu'])) {
+    $_SESSION['admin_menu'] = Admin::menu();
 }
-*/
-
-$allowed_contents = array(
-    'base',
-    'blog',
-    'texts',
-    'faq',
-    'pages',
-    'licenses',
-    'icons',
-    'tags',
-    'criteria',
-    'templates',
-    'glossary',
-    'info'
-);
-
 
 $bodyClass = 'admin';
 
-$message = '';
-if (!empty($this['errors']) || !empty($this['success'])) {
-    $message = '<div class="widget"><p>'.implode('<br />', $this['errors']).' '.implode('<br />', $this['success']).'</p></div>';
-}
+// funcionalidades con autocomplete
+$jsreq_autocomplete = $this['autocomplete'];
+
 
 include 'view/prologue.html.php';
+include 'view/header.html.php'; 
+?>
 
-    include 'view/header.html.php'; ?>
-
-        <div id="sub-header">
-            <div>
-                <h2><?php Text::_("Panel principal de administración"); ?></h2>
-                <?php if (defined('ADMIN_BCPATH')) : ?>
-                <blockquote><?php echo ADMIN_BCPATH; ?></blockquote>
-                <?php endif; ?>
-            </div>
+        <div id="sub-header" style="margin-bottom: 10px;">
+            <div class="breadcrumbs"><?php echo ADMIN_BCPATH; ?></div>
         </div>
 
 <?php if(isset($_SESSION['messages'])) { include 'view/header/message.html.php'; } ?>
 
-        <?php if (!empty($this['folder']) && !empty($this['file'])) : ?>
-
         <div id="main">
 
-            <?php echo $message; ?>
-            
-<?php
-                if ($this['folder'] == 'base') {
-                    $path = 'view/admin/'.$this['file'].'.html.php';
-                } else {
-                    $path = 'view/admin/'.$this['folder'].'/'.$this['file'].'.html.php';
-                }
+            <div class="admin-center">
 
-                echo new View ($path, $this);
-?>
-
-<?php   else :
-
-    // estamos en la portada, sacamos el feed
-    $feed = empty($_GET['feed']) ? 'all' : $_GET['feed'];
-    $items = Feed::getAll($feed, 'admin');
-    ?>
-        <div id="main">
-
-            <div class="center">
-
-                <?php echo $message; ?>
-
-                <?php foreach ($this['menu'] as $sCode=>$section) : ?>
-                <a name="<?php echo $sCode ?>"></a>
-                <div class="widget board collapse">
-                    <h3 class="title"><?php echo $section['label'] ?></h3>
+            <div class="admin-menu">
+                <?php foreach ($_SESSION['admin_menu'] as $sCode=>$section) : ?>
+                <fieldset>
+                    <legend><?php echo $section['label'] ?></legend>
                     <ul>
-                        <?php foreach ($section['options'] as $oCode=>$option) :
-                            echo '<li><a href="/admin/'.$oCode.'">'.$option['label'].'</a></li>
-                                ';
-                        endforeach; ?>
+                    <?php foreach ($section['options'] as $oCode=>$option) :
+                        echo '<li><a href="/admin/'.$oCode.'">'.$option['label'].'</a></li>';
+                    endforeach; ?>
                     </ul>
-                </div>
+                </fieldset>
                 <?php endforeach; ?>
             </div>
 
+            <?php if (isset($_SESSION['user']->roles['superadmin'])) : ?>
+            <div class="widget board">
+                <ul>
+                    <li><a href="/admin/projects"><?php echo Text::_("Proyectos"); ?></a></li>
+                    <li><a href="/admin/users"><?php echo Text::_("Usuarios"); ?></a></li>
+                    <li><a href="/admin/accounts"><?php echo Text::_("Aportes"); ?></a></li>
+                    <li><a href="/admin/tasks"><?php echo Text::_("Tareas"); ?></a></li>
+                    <li><a href="/admin/newsletter"><?php echo Text::_("Mailings"); ?></a></li>
+                </ul>
+            </div>
+            <?php endif; ?>
 
-            <div class="side">
+
+<?php if (!empty($this['folder']) && !empty($this['file'])) : 
+        if ($this['folder'] == 'base') {
+            $path = 'view/admin/'.$this['file'].'.html.php';
+        } else {
+            $path = 'view/admin/'.$this['folder'].'/'.$this['file'].'.html.php';
+        }
+
+            echo new View ($path, $this);
+       else :
+           
+            /* PORTADA ADMIN */
+            $node = isset($_SESSION['admin_node']) ? $_SESSION['admin_node'] : \GOTEO_NODE;
+
+            $feed = empty($_GET['feed']) ? 'all' : $_GET['feed'];
+    $items = Feed::getAll($feed, 'admin', 50);
+
+        // Central pendientes
+    ?>
+        <div class="widget admin-home">
+            <h3 class="title"><?php echo Text::_("Tareas pendientes"); ?></h3>
+            <?php if (!empty($this['tasks'])) : ?>
+            <table>
+                <?php foreach ($this['tasks'] as $task) : ?>
+                <tr>
+                    <td><?php if (!empty($task->url)) { echo ' <a href="'.$task->url.'">[IR]</a>';} ?></td>
+                    <td><?php echo $task->text; ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+            <?php else : ?>
+            <p><?php echo Text::_("No tienes tareas pendientes"); ?></p>
+            <?php endif; ?>
+        </div>
+    <?php
+        // Lateral de acctividad reciente
+    ?>
+            <div class="admin-side">
                 <a name="feed"></a>
                 <div class="widget feed">
 					<script type="text/javascript">
@@ -128,8 +128,8 @@ include 'view/prologue.html.php';
 
                     });
                     </script>
-                    <h3>actividad reciente</h3>
-                    Ver Feeds por:
+                    <h3><?php echo Text::_("actividad reciente"); ?></h3>
+                    <?php echo Text::_("Ver Feeds por:"); ?>
 
                     <p class="categories">
                         <?php foreach (Feed::_admin_types() as $id=>$cat) : ?>
@@ -154,9 +154,11 @@ include 'view/prologue.html.php';
             </div>
 
 
-            <?php endif; ?>
+        <?php endif; ?>
 
-        </div>
+            </div> <!-- fin center -->
+
+        </div> <!-- fin main -->
 
 <?php
     include 'view/footer.html.php';

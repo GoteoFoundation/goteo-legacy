@@ -124,6 +124,12 @@ namespace Goteo\Controller {
                     ),
                     'filters' => array('section' => 'node')
                 ),
+            'home' => array(
+                'label' => _('Elementos en portada',
+                'actions' => array(
+                    'list' => array('label' => _('Gestionando'), 'item' => false)
+                )
+            ),
                 'glossary' => array(
                     'label' => Text::_('Glosario'),
                     'actions' => array(
@@ -176,6 +182,14 @@ namespace Goteo\Controller {
                         'edit' => array('label' => Text::_('Editando Micronoticia'), 'item' => true),
                         'translate' => array('label' => Text::_('Traduciendo Micronoticia'), 'item' => true)
                     )
+            ),
+            'newsletter' => array(
+                'label' => _('Boletín'),
+                'actions' => array(
+                    'list' => array('label' => _('Estado del envío automático'), 'item' => false),
+                    'init' => array('label' => _('Iniciando un nuevo boletín'), 'item' => false),
+                    'init' => array('label' => _('Viendo listado completo'), 'item' => true)
+                )
                 ),
                 'pages' => array(
                     'label' => Text::_('Páginas'),
@@ -311,7 +325,8 @@ namespace Goteo\Controller {
             if ($option == 'index') {
                 $BC = self::menu(array('option' => $option, 'action' => null, 'id' => null));
                 define('ADMIN_BCPATH', $BC);
-                return new View('view/admin/index.html.php', array('menu' => $menu));
+                $tasks = Model\Task::getAll(array(), $node, true);
+                return new View('view/admin/index.html.php', array('tasks' => $tasks));
             } else {
                 $BC = self::menu(array('option' => $option, 'action' => $action, 'id' => $id));
                 define('ADMIN_BCPATH', $BC);
@@ -552,12 +567,14 @@ namespace Goteo\Controller {
                             'options' => array(
                                 'users' => $options['users'], // usuarios asociados al nodo
                                 'mailing' => $options['mailing'], // comunicaciones del nodoc on sus usuarios / promotores
-                                'sended' => $options['sended'], // historial de envios realizados por el nodo
+                                'sended' => $options['sended'], // historial de envios realizados por el nodo,
+                                'tasks' => $options['tasks']  // gestión de tareas
                             )
                         ),
                         'home' => array(
                             'label' => $labels['home'],
                             'options' => array(
+                                'home' => $options['home'], // elementos en portada
                                 'promote' => $options['promote'], // seleccion de proyectos destacados
                                 'blog' => $options['blog'], // entradas de blog (en la gestion de blog)
                                 'sponsors' => $options['sponsors'], // patrocinadores del nodo
