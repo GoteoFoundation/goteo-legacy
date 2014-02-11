@@ -23,11 +23,15 @@ Modify it with database credentials:
 Modify the access point to the site
 	· SITE_URL is 'http://your.intallation.site'
 	· SRC_URL is (for you and now) the same 'http://your.intallation.site'
+	· SEC_URL (if you have SSL certificate installed) is 'https://your.intallation.site'  (same otherwise)
 * If you're installing on localhost you have to create a hosts entry for this
 * if you want to install on a folder go hack the dispatcher /index.php
 
 Every thing should be working fine at http://your.intallation.site 
 * check that you have the .htaccess file (if downloaded the zip maybe not extracted) https://github.com/Goteo/Goteo/blob/master/.htaccess
+
+Modify all others configuration constants at will
+The PayPal implementation needs to be setup at library/paypal/config.php  (some day it will be merged into regular settings)
 
 Login with user `root` and empty pasword.
 Go `http://your.intallation.site/admin/users/edit/root` to change the password and email
