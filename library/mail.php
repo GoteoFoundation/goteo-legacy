@@ -192,9 +192,28 @@ namespace Goteo\Library {
             $viewData = array('content' => $this->content);
 
             // grabamos el contenido en la tabla de envios
+            // especial para newsletter, solo grabamos un sinoves
+            if ($this->template == 33) {
+                if (!empty($_SESSION['NEWSLETTER_SENDID']) ) {
+                    $sendId = $_SESSION['NEWSLETTER_SENDID'];
+                } else {
+                    $sql = "INSERT INTO mail (id, email, html, template, node) VALUES ('', :email, :html, :template, :node)";
+                    $values = array (
+                        ':email' => 'any',
+                        ':html' => $this->content,
+                        ':template' => $this->template,
+                        ':node' => $_SESSION['admin_node']
+                    );
+                    $query = Model::query($sql, $values);
+
+                    $sendId = Model::insertId();
+                    $_SESSION['NEWSLETTER_SENDID'] = $sendId;
+                }
+                $the_mail = 'any';
+            } else {
             $sql = "INSERT INTO mail (id, email, html, template) VALUES ('', :email, :html, :template)";
-            $values = array (
-                ':email' => $this->to,
+                $values = array (
+                    ':email' => $this->to,
                 ':html' => str_replace('cid:logo', SITE_URL.'/goteo_logo.png', $this->content),
                 ':template' => $this->template
             );
@@ -202,6 +221,7 @@ namespace Goteo\Library {
 
             $sendId = Model::insertId();
                 $the_mail = $this->to;
+            }
 
             if (!empty($sendId)) {
                 // token para el sinoves
@@ -219,7 +239,13 @@ namespace Goteo\Library {
 
                 ' . $viewData['sinoves'];
             } else {
-                return new View ('view/email/goteo.html.php', $viewData);
+                // para plantilla boletin
+                if ($this->template == 33) {
+                    $viewData['baja'] = \SITE_URL . '/user/leave/?unsuscribe=newsletter&email=' . $this->to;
+                    return new View (GOTEO_PATH.'/view/email/newsletter.html.php', $viewData);
+                } else {
+                    return new View ('view/email/goteo.html.php', $viewData);
+                }
             }
         }
 

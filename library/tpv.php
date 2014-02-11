@@ -53,6 +53,16 @@ namespace Goteo\Library {
 
                 // Guardar el codigo de preaproval en el registro de aporte (para confirmar o cancelar)
                 $invest->setPreapproval($token);
+                // mandarlo al tpv
+                $urlTPV = TPV_REDIRECT_URL;
+                $data = '';
+                $MsgStr = '';
+                foreach ($datos as $n => $v) {
+                    $data .= '<input name="'.$n.'" type="hidden" value="'.$v.'" />';
+                    $MsgStr .= "{$n}:'{$v}'; ";
+                }
+
+                $conf = array('mode' => 0600, 'timeFormat' => '%X %x');
                 $logger = &\Log::singleton('file', 'logs/'.date('Ymd').'_invest.log', 'caller', $conf);
 
                 $logger->log('##### TPV ['.$invest->id.'] '.date('d/m/Y').' User:'.$_SESSION['user']->id.'#####');
@@ -62,14 +72,16 @@ namespace Goteo\Library {
 
                 Invest::setDetail($invest->id, 'tpv-conection', 'Ha iniciado la comunicacion con el tpv, operacion numero ' . $token . '. Proceso libary/tpv::pay');
 
+                echo '<html><head><title>Goteo.org</title></head><body><form action="'.$urlTPV.'" method="post" id="form_tpv" enctype="application/x-www-form-urlencoded">'.$data.'</form><script type="text/javascript">document.getElementById("form_tpv").submit();</script></body></html>';
                 return true;
 			}
 			catch(Exception $ex) {
                 Invest::setDetail($invest->id, 'tpv-conection-fail', 'Ha fallado la comunicacion con el tpv. Proceso libary/tpv::pay');
                 $errors[] = 'Error fatal en la comunicacion con el TPV, se ha reportado la incidencia. Disculpe las molestias.';
-                @mail(\GOTEO_MAIL, 'Error fatal en comunicacion TPV Sermepa', 'ERROR en ' . __FUNCTION__ . '<br />' . $ex->getMessage());
+                @mail(\GOTEO_FAIL_MAIL, 'Error fatal en comunicacion TPV Sermepa', 'ERROR en ' . __FUNCTION__ . '<br />' . $ex->getMessage());
                 return false;
 			}
+            
         }
 
         public static function cancelPreapproval ($invest, &$errors = array(), $fail = false) {
@@ -93,8 +105,8 @@ namespace Goteo\Library {
 			}
 			catch(Exception $ex) {
                 Invest::setDetail($invest->id, 'tpv-cancel-conection-fail', 'Ha fallado la comunicacion con el tpv al anular la operacion. Proceso libary/tpv::cancelPay');
-                $errors[] = 'Error fatal en la comunicaciÃ³n con el TPV, se ha reportado la incidencia. Disculpe las molestias.';
-                @mail(\GOTEO_MAIL, 'Error fatal en comunicacion TPV Sermepa', 'ERROR en ' . __FUNCTION__ . '<br /><pre>' . print_r($handler, 1) . '</pre>');
+                $errors[] = 'Error fatal en la comunicación con el TPV, se ha reportado la incidencia. Disculpe las molestias.';
+                @mail(\GOTEO_FAIL_MAIL, 'Error fatal en comunicacion TPV Sermepa', 'ERROR en ' . __FUNCTION__ . '<br /><pre>' . print_r($handler, 1) . '</pre>');
                 return false;
 			}
 
