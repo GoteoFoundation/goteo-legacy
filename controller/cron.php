@@ -39,33 +39,58 @@ namespace Goteo\Controller {
          */
         public function execute () {
 
+            if (!\defined('CRON_EXEC')) {
+                @mail(\GOTEO_FAIL_MAIL, 'Se ha lanzado MANUALMENTE el cron '. __FUNCTION__ .' en ' . SITE_URL,
+                    'Se ha lanzado manualmente el cron '. __FUNCTION__ .' en ' . SITE_URL.' a las ' . date ('H:i:s') . ' Usuario '. $_SESSION['user']->id);
+               echo 'Lanzamiento manual a las ' . date ('H:i:s') . ' <br />';
+            } else {
+                echo 'Lanzamiento automatico a las ' . date ('H:i:s') . ' <br />';
+            }
+            
+            // a ver si existe el bloqueo
+            $block_file = GOTEO_PATH.'logs/cron-'.__FUNCTION__.'.block';
+            if (file_exists($block_file)) {
+                echo 'Ya existe un archivo de log '.date('Ymd').'_'.__FUNCTION__.'.log<br />';
+                $block_content = \file_get_contents($block_file);
+                echo 'El contenido del bloqueo es: '.$block_content;
+                // lo escribimos en el log
+                $log_file = GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log';
+                \file_put_contents($log_file, \ob_get_contents(), FILE_APPEND);
+                \chmod($log_file, 0777);
+                /*
+                @mail(\GOTEO_FAIL_MAIL, 'Cron '. __FUNCTION__ .' bloqueado en ' . SITE_URL,
+                    'Se ha encontrado con que el cron '. __FUNCTION__ .' está bloqueado el '.date('d-m-Y').' a las ' . date ('H:i:s') . '
+                        El contenido del bloqueo es: '. $block_content);
+                 */
+                die;
+            } else {
+                $block = 'Bloqueo del '.$block_file.' activado el '.date('d-m-Y').' a las '.date ('H:i:s').'<br />';
+                if (\file_put_contents($block_file, $block, FILE_APPEND)) {
+                    \chmod($block_file, 0777);
+                    echo $block;
+                } else {
+                    echo 'No se ha podido crear el archivo de bloqueo<br />';
+                    @mail(\GOTEO_FAIL_MAIL, 'Cron '. __FUNCTION__ .' no se ha podido bloquear en ' . SITE_URL,
+                        'No se ha podido crear el archivo '.$block_file.' el '.date('d-m-Y').' a las ' . date ('H:i:s'));
+                }
+            }
+            echo '<hr />';
+            
             // debug para supervisar en las fechas clave
 //            $debug = ($_GET['debug'] == 'debug') ? true : false;
-            $debug = false;
+            $debug = true;
 
             // revision de proyectos: dias, conseguido y cambios de estado
-            // proyectos en campaña 
-            $projects = Model\Project::active();
+            // proyectos en campaña,
+            // (publicados hace más de 40 días que no tengan fecha de pase)
+            // o (publicados hace mas de 80 días que no tengan fecha de exito)
+            $projects = Model\Project::getActive();
 
-            if ($debug) echo 'Comenzamos con los proyectos en campaña o financiados<br />';
+            if ($debug) echo 'Comenzamos con los proyectos en campaña (esto está en '.\LANG.')<br /><br />';
 
-            foreach ($projects as &$project) {
+            foreach ($projects as $project) {
 
                 if ($debug) echo 'Proyecto '.$project->name.'<br />';
-
-                //este método devuelve tambien los financiados pero vamos a pasar de ellos
-                // les ponemos los dias a cero y lsitos
-                if ($project->status != 3) {
-                    /*
-                    if ($debug) echo 'Financiado: dias a cero y listos<br />';
-                    if ($project->days > 0) {
-                        \Goteo\Core\Model::query("UPDATE project SET days = '0' WHERE id = ?", array($project->id));
-                    }
-                     * 
-                     */
-                    if ($debug) echo 'Financiado<hr />';
-                    continue;
-                }
 
                 // a ver si tiene cuenta paypal
                 $projectAccount = Model\Project\Account::get($project->id);
@@ -73,51 +98,53 @@ namespace Goteo\Controller {
                 if (empty($projectAccount->paypal)) {
 
                     if ($debug) echo 'No tiene cuenta PayPal<br />';
-                    /*
-                     * Evento Feed
-                     */
-                    $log = new Feed();
-                    $log->title = 'proyecto sin cuenta paypal (cron)';
-                    $log->url = '/admin/projects';
-                    $log->type = 'project';
-                    $log_text = 'El proyecto %s aun no ha puesto su %s !!!';
-                    $log_items = array(
-                        Feed::item('project', $project->name, $project->id),
-                        Feed::item('relevant', 'cuenta PayPal')
-                    );
-                    $log->html = \vsprintf($log_text, $log_items);
-                    $log->add($errors);
 
-                    unset($log);
+                    // Evento Feed solamente si automático
+                    if (\defined('CRON_EXEC')) {
+                        $log = new Feed();
+                        $log->setTarget($project->id);
+                        $log->populate('proyecto sin cuenta paypal (cron)', '/admin/projects',
+                            \vsprintf('El proyecto %s aun no ha puesto su %s !!!', array(
+                                Feed::item('project', $project->name, $project->id),
+                                Feed::item('relevant', 'cuenta PayPal')
+                        )));
+                        $log->doAdmin('project');
+                        unset($log);
+
+                        // mail de aviso
+                        $mailHandler = new Mail();
+                        $mailHandler->to = \GOTEO_CONTACT_MAIL;
+                        $mailHandler->toName = 'Goteo.org';
+                        $mailHandler->subject = 'El proyecto '.$project->name.' no tiene cuenta PayPal';
+                        $mailHandler->content = 'Hola Goteo, el proyecto '.$project->name.' no tiene cuenta PayPal y el proceso automatico no podrá tratar los preaprovals al final de ronda.';
+                        $mailHandler->html = false;
+                        $mailHandler->template = null;
+                        $mailHandler->send();
+                        unset($mailHandler);
+
+                        $task = new Model\Task();
+                        $task->node = \GOTEO_NODE;
+                        $task->text = "Poner la cuenta PayPal al proyecto <strong>{$project->name}</strong> urgentemente!";
+                        $task->url = "/admin/projects/accounts/{$project->id}";
+                        $task->done = null;
+                        $task->saveUnique();
+
+                    }
+
                 }
 
                 $log_text = null;
 
-				// costes y los sumammos
-				$project->costs = Model\Project\Cost::getAll($project->id);
-
-                $project->mincost = 0;
-
-                foreach ($project->costs as $item) {
-                    if ($item->required == 1) {
-                        $project->mincost += $item->amount;
-                    }
-                }
                 if ($debug) echo 'Minimo: '.$project->mincost.' &euro; <br />';
                 
                 $execute = false;
                 $cancelAll = false;
 
-                // conseguido
-                $amount = Model\Invest::invested($project->id);
-                if ($project->invested != $amount) {
-                    \Goteo\Core\Model::query("UPDATE project SET amount = '{$amount}' WHERE id = ?", array($project->id));
-                }
-                if ($debug) echo 'Obtenido: '.$amount.' &euro;<br />';
+                if ($debug) echo 'Obtenido: '.$project->amount.' &euro;<br />';
 
                 // porcentaje alcanzado
                 if ($project->mincost > 0) {
-                    $per_amount = \round(($amount / $project->mincost) * 100);
+                    $per_amount = \floor(($project->amount / $project->mincost) * 100);
                 } else {
                     $per_amount = 0;
                 }
@@ -136,64 +163,43 @@ namespace Goteo\Controller {
                 // a los 5, 3, 2, y 1 dia para finalizar ronda
                 if ($round > 0 && in_array((int) $rest, array(5, 3, 2, 1))) {
                     if ($debug) echo 'Feed publico cuando quedan 5, 3, 2, 1 dias<br />';
-                    /*
-                     * Evento Feed
-                     */
-                    $log = new Feed();
-                    $log->title = 'proyecto próximo a finalizar ronda (cron)';
-                    $log->url = '/admin/projects';
-                    $log->type = 'project';
-                    $log->html = Text::html('feed-project_runout',
-                                    Feed::item('project', $project->name, $project->id),
-                                    $rest,
-                                    $round
-                                    );
-                    $log->add($errors);
 
-                    // evento público
-                    $log->title = $project->name;
-                    $log->url = null;
-                    $log->scope = 'public';
-                    $log->type = 'projects';
-                    $log->add($errors);
-                    
-                    unset($log);
-                }
+                    // Evento Feed solo si ejecucion automática
+                    if (\defined('CRON_EXEC')) {
+                        $log = new Feed();
+                        $log->setTarget($project->id);
+                        $log->populate('proyecto próximo a finalizar ronda (cron)', '/admin/projects',
+                            Text::html('feed-project_runout',
+                                Feed::item('project', $project->name, $project->id),
+                                $rest,
+                                $round
+                        ));
+                        $log->doAdmin('project');
 
-                // pero seguimos trabajando con el numero de dias que lleva para enviar mail al autor
-                // cuando quedan 20 días
-                if ($round == 1 && $rest == 20) {
-                    self::toOwner('20_days', $project);
-                    if ($debug) echo 'Aviso al autor: lleva 20 dias<br />';
-                }
-                // cuando quedan 8 dias y no ha conseguido el minimo
-                if ($round == 1 && $rest == 8 && $amount < $project->mincost) {
-                    self::toOwner('8_days', $project);
-                    if ($debug) echo 'Aviso al autor: faltan 8 dias y no ha conseguido el minimo<br />';
-                }
-                // cuando queda 1 día y no ha conseguido el minimo pero casi
-                if ($round == 1 && $rest == 1 && $amount < $project->mincost && $per_amount > 70) {
-                    self::toOwner('1_day', $project);
-                    if ($debug) echo 'Aviso al autor: falta 1 dia y no supera el 70 el minimo<br />';
-                }
-                /* Fin verificacion */
+                        // evento público
+                        $log->title = $project->name;
+                        $log->url = null;
+                        $log->doPublic('projects');
 
+                        unset($log);
+                    }
+                }
 
                 //  (financiado a los 80 o cancelado si a los 40 no llega al minimo)
                 // si ha llegado a los 40 dias: mínimo-> ejecutar ; no minimo proyecto y todos los preapprovals cancelados
                 if ($days >= 40) {
                     // si no ha alcanzado el mínimo, pasa a estado caducado
-                    if ($amount < $project->mincost) {
+                    if ($project->amount < $project->mincost) {
                         if ($debug) echo 'Ha llegado a los 40 dias de campaña sin conseguir el minimo, no pasa a segunda ronda<br />';
 
-                        echo $project->name . ': ha recaudado ' . $amount . ', '.$per_amount.'% de ' . $project->mincost . '/' . $project->maxcost . '<br />';
+                        echo $project->name . ': ha recaudado ' . $project->amount . ', '.$per_amount.'% de ' . $project->mincost . '/' . $project->maxcost . '<br />';
                         echo 'No ha conseguido el minimo, cancelamos todos los aportes y lo caducamos:';
                         $cancelAll = true;
                         $errors = array();
                         if ($project->fail($errors)) {
                             $log_text = 'El proyecto %s ha %s obteniendo %s';
                         } else {
-                            @mail(\GOTEO_MAIL,
+                            @mail(\GOTEO_FAIL_MAIL,
                                 'Fallo al archivar ' . SITE_URL,
                                 'Fallo al marcar el proyecto '.$project->name.' como archivado ' . implode(',', $errors));
                             echo 'ERROR::' . implode(',', $errors);
@@ -201,64 +207,42 @@ namespace Goteo\Controller {
                         }
                         echo '<br />';
                         
-                        /*
-                         * Evento Feed
-                         */
-                        $log = new Feed();
-                        $log->title = 'proyecto caducado sin exito (cron)';
-                        $log->url = '/admin/projects';
-                        $log->type = 'project';
-                        $log_items = array(
-                            Feed::item('project', $project->name, $project->id),
-                            Feed::item('relevant', 'caducado sin éxito'),
-                            Feed::item('money', $amount.' &euro; ('.\round($per_amount).'&#37;) de aportes sobre minimo')
-                        );
-                        $log->html = \vsprintf($log_text, $log_items);
-                        $log->add($errors);
+                        // Evento Feed solo si ejecucion automatica
+                        if (\defined('CRON_EXEC')) {
+                            $log = new Feed();
+                            $log->setTarget($project->id);
+                            $log->populate('proyecto archivado (cron)', '/admin/projects',
+                                \vsprintf($log_text, array(
+                                    Feed::item('project', $project->name, $project->id),
+                                    Feed::item('relevant', 'caducado sin éxito'),
+                                    Feed::item('money', $project->amount.' &euro; ('.$per_amount.'&#37;) de aportes sobre minimo')
+                            )));
+                            $log->doAdmin('project');
 
-                        // evento público
-                        $log->title = $project->name;
-                        $log->url = null;
-                        $log->scope = 'public';
-                        $log->type = 'projects';
-                        $log->html = Text::html('feed-project_fail',
-                                        Feed::item('project', $project->name, $project->id),
-                                        $amount,
-                                        \round($per_amount)
-                                        );
-                        $log->add($errors);
+                            // evento público
+                            $log->populate($project->name, null,
+                                Text::html('feed-project_fail',
+                                    Feed::item('project', $project->name, $project->id),
+                                    $project->amount,
+                                    $per_amount
+                            ));
+                            $log->doPublic('projects');
 
-                        unset($log);
+                            unset($log);
 
-                        //Email de proyecto fallido al autor
-                        self::toOwner('fail', $project);
-                        //Email de proyecto fallido a los inversores
-                        self::toInvestors('fail', $project);
+                            //Email de proyecto fallido al autor
+                            Cron\Send::toOwner('fail', $project);
+                            //Email de proyecto fallido a los inversores
+                            Cron\Send::toInvestors('fail', $project);
+                        }
                         
                         echo '<br />';
                     } else {
-                        // Si el proyecto no tiene cuenta paypal
-                        if (empty($projectAccount->paypal)) {
-                            // iniciamos mail
-                            $mailHandler = new Mail();
-                            $mailHandler->to = \GOTEO_MAIL;
-                            $mailHandler->toName = 'Goteo.org';
-                            $mailHandler->subject = 'El proyecto '.$project->name.' no tiene cuenta PayPal';
-                            $mailHandler->content = 'Hola Goteo, el proyecto '.$project->name.' no tiene cuenta PayPal y el proceso automatico no podrá tratar los preaprovals al final de ronda.';
-                            $mailHandler->html = false;
-                            $mailHandler->template = null;
-                            $mailHandler->send();
-                            unset($mailHandler);
-
-                            echo 'El proyecto '.$project->name.' no tiene cuenta PayPal';
-                            continue;
-                        }
-
                         // tiene hasta 80 días para conseguir el óptimo (o más)
-                        if ($days > 80) {
+                        if ($days >= 80) {
                             if ($debug) echo 'Ha llegado a los 80 dias de campaña (final de segunda ronda)<br />';
 
-                            echo $project->name . ': ha recaudado ' . $amount . ', '.$per_amount.'% de ' . $project->mincost . '/' . $project->maxcost . '<br />';
+                            echo $project->name . ': ha recaudado ' . $project->amount . ', '.$per_amount.'% de ' . $project->mincost . '/' . $project->maxcost . '<br />';
                             echo 'Ha llegado a los 80 días: financiado. ';
 
                             $execute = true; // ejecutar los cargos de la segunda ronda
@@ -267,62 +251,92 @@ namespace Goteo\Controller {
                             if ($project->succeed($errors)) {
                                 $log_text = 'El proyecto %s ha sido %s obteniendo %s';
                             } else {
-                                @mail(\GOTEO_MAIL,
+                                @mail(\GOTEO_FAIL_MAIL,
                                     'Fallo al marcar financiado ' . SITE_URL,
                                     'Fallo al marcar el proyecto '.$project->name.' como financiado ' . implode(',', $errors));
                                 echo 'ERROR::' . implode(',', $errors);
                                 $log_text = 'El proyecto %s ha fallado al ser, %s obteniendo %s';
                             }
 
-                            /*
-                             * Evento Feed
-                             */
-                            $log = new Feed();
-                            $log->title = 'proyecto supera segunda ronda (cron)';
-                            $log->url = '/admin/projects';
-                            $log->type = 'project';
-                            $log_items = array(
-                                Feed::item('project', $project->name, $project->id),
-                                Feed::item('relevant', 'financiado'),
-                                Feed::item('money', $amount.' &euro; ('.\round($per_amount).'%) de aportes sobre minimo')
-                            );
-                            $log->html = \vsprintf($log_text, $log_items);
-                            $log->add($errors);
+                            // Evento Feed y mails solo si ejecucion automatica
+                            if (\defined('CRON_EXEC')) {
+                                $log = new Feed();
+                                $log->setTarget($project->id);
+                                $log->populate('proyecto supera segunda ronda (cron)', '/admin/projects',
+                                    \vsprintf($log_text, array(
+                                        Feed::item('project', $project->name, $project->id),
+                                        Feed::item('relevant', 'financiado'),
+                                        Feed::item('money', $project->amount.' &euro; ('.\round($per_amount).'%) de aportes sobre minimo')
+                                )));
+                                $log->doAdmin('project');
 
-                            // evento público
-                            $log->title = $project->name;
-                            $log->url = null;
-                            $log->scope = 'public';
-                            $log->type = 'projects';
-                            $log->html = Text::html('feed-project_finish',
-                                            Feed::item('project', $project->name, $project->id),
-                                            $amount,
-                                            \round($per_amount)
-                                            );
-                            $log->add($errors);
+                                // evento público
+                                $log->populate($project->name, null, Text::html('feed-project_finish',
+                                                Feed::item('project', $project->name, $project->id),
+                                                $project->amount,
+                                                \round($per_amount)
+                                                ));
+                                $log->doPublic('projects');
+                                unset($log);
 
-                            unset($log);
+                                //Email de proyecto final segunda ronda al autor
+                                Cron\Send::toOwner('r2_pass', $project);
+                                //Email de proyecto final segunda ronda a los inversores
+                                Cron\Send::toInvestors('r2_pass', $project);
 
-                            //Email de proyecto final segunda ronda al autor
-                            self::toOwner('r2_pass', $project);
-                            //Email de proyecto final segunda ronda a los inversores
-                            self::toInvestors('r2_pass', $project);
-                            
+                                // Tareas para gestionar
+                                // calculamos fecha de passed+90 días
+                                $passtime = strtotime($project->passed);
+                                $limsec = date('d/m/Y', \mktime(0, 0, 0, date('m', $passtime), date('d', $passtime)+89, date('Y', $passtime)));
+
+                                /*
+                                 * Ya no hacemos pagos secundarios mediante sistema
+                                $task = new Model\Task();
+                                $task->node = \GOTEO_NODE;
+                                $task->text = "Hacer los pagos secundarios al proyecto <strong>{$project->name}</strong> antes del día <strong>{$limsec}</strong>";
+                                $task->url = "/admin/accounts/?projects={$project->id}";
+                                $task->done = null;
+                                $task->save();
+                                 */
+
+                                // y preparar contrato
+                                $task = new Model\Task();
+                                $task->node = \GOTEO_NODE;
+                                $task->text = date('d/m/Y').": Enviar datos contrato <strong>{$project->name}</strong>, {$project->user->name}";
+                                //@TODO enlace a gestión de contrato
+                                $task->url = "/admin/projects?proj_name={$project->name}";
+                                $task->done = null;
+                                $task->saveUnique();
+                                
+                                // + mail a mercè
+                                @mail(\GOTEO_CONTACT_MAIL,
+                                    'Preparar contrato ' . $project->name,
+                                    'El proyecto '.$project->name.' ha pasado la primera ronda, enviarle los datos de contrato. Se ha creado una tarea para esto.');
+                            }
+
                             echo '<br />';
                         } elseif (empty($project->passed)) {
 
                             if ($debug) echo 'Ha llegado a los 40 dias de campaña, pasa a segunda ronda<br />';
 
-                            echo $project->name . ': ha recaudado ' . $amount . ', '.$per_amount.'% de ' . $project->mincost . '/' . $project->maxcost . '<br />';
+                            echo $project->name . ': ha recaudado ' . $project->amount . ', '.$per_amount.'% de ' . $project->mincost . '/' . $project->maxcost . '<br />';
                             echo 'El proyecto supera la primera ronda: marcamos fecha';
 
                             $execute = true; // ejecutar los cargos de la primera ronda
 
                             $errors = array();
                             if ($project->passed($errors)) {
-                                echo ' -> Ok';
+                                // se crea el registro de contrato
+                                if (Model\Contract::create($project->id, $errors)) {
+                                    echo ' -> Ok:: se ha creado el registro de contrato';
+                                } else {
+                                    @mail(\GOTEO_FAIL_MAIL,
+                                        'Fallo al crear registro de contrato ' . SITE_URL,
+                                        'Fallo al crear registro de contrato para el proyecto '.$project->name.': ' . implode(',', $errors));
+                                    echo ' -> semi-Ok: se ha actualiuzado el estado del proyecto pero ha fallado al crear el registro de contrato. ERROR: ' . implode(',', $errors);
+                                }
                             } else {
-                                @mail(\GOTEO_MAIL,
+                                @mail(\GOTEO_FAIL_MAIL,
                                     'Fallo al marcar fecha de paso a segunda ronda ' . SITE_URL,
                                     'Fallo al marcar la fecha de paso a segunda ronda para el proyecto '.$project->name.': ' . implode(',', $errors));
                                 echo ' -> ERROR::' . implode(',', $errors);
@@ -330,50 +344,51 @@ namespace Goteo\Controller {
 
                             echo '<br />';
 
+                            // Evento Feed solo si ejecucion automatica
+                            if (\defined('CRON_EXEC')) {
+                                $log = new Feed();
+                                $log->setTarget($project->id);
+                                $log->populate('proyecto supera primera ronda (cron)', '/admin/projects', \vsprintf('El proyecto %s %s en segunda ronda obteniendo %s', array(
+                                    Feed::item('project', $project->name, $project->id),
+                                    Feed::item('relevant', 'continua en campaña'),
+                                    Feed::item('money', $project->amount.' &euro; ('.\number_format($per_amount, 2).'%) de aportes sobre minimo')
+                                )));
+                                $log->doAdmin('project');
 
+                                // evento público
+                                $log->populate($project->name, null,
+                                    Text::html('feed-project_goon',
+                                        Feed::item('project', $project->name, $project->id),
+                                        $project->amount,
+                                        \round($per_amount)
+                                ));
+                                $log->doPublic('projects');
+                                unset($log);
 
+                                if ($debug) echo 'Email al autor y a los cofinanciadores<br />';
+                                // Email de proyecto pasa a segunda ronda al autor
+                                Cron\Send::toOwner('r1_pass', $project);
 
-                            /*
-                             * Evento Feed
-                             */
-                            $log = new Feed();
-                            $log->title = 'proyecto supera primera ronda (cron)';
-                            $log->url = '/admin/projects';
-                            $log->type = 'project';
-                            $log_text = 'El proyecto %s %s en segunda ronda obteniendo %s';
-                            $log_items = array(
-                                Feed::item('project', $project->name, $project->id),
-                                Feed::item('relevant', 'continua en campaña'),
-                                Feed::item('money', $amount.' &euro; ('.\number_format($per_amount, 2).'%) de aportes sobre minimo')
-                            );
-                            $log->html = \vsprintf($log_text, $log_items);
-                            $log->add($errors);
-
-                            // evento público
-                            $log->title = $project->name;
-                            $log->url = null;
-                            $log->scope = 'public';
-                            $log->type = 'projects';
-                            $log->html = Text::html('feed-project_goon',
-                                            Feed::item('project', $project->name, $project->id),
-                                            $amount,
-                                            \round($per_amount)
-                                            );
-                            $log->add($errors);
-
-                            unset($log);
-
-                            if ($debug) echo 'Email al autor y a los cofinanciadores<br />';
-
-                            // Email de proyecto pasa a segunda ronda al autor
-                            self::toOwner('r1_pass', $project);
-                            
-                            //Email de proyecto pasa a segunda ronda a los inversores
-                            self::toInvestors('r1_pass', $project);
+                                //Email de proyecto pasa a segunda ronda a los inversores
+                                Cron\Send::toInvestors('r1_pass', $project);
+                                
+                                // Tarea para hacer los pagos
+                                $task = new Model\Task();
+                                $task->node = \GOTEO_NODE;
+                                $task->text = date('d/m/Y').": Pagar a <strong>{$project->name}</strong>, {$project->user->name}";
+                                $task->url = "/admin/projects/report/{$project->id}";
+                                $task->done = null;
+                                $task->saveUnique();
+                                
+                                // + mail a susana
+                                @mail('susana@goteo.org',
+                                    'Pagar al proyecto ' . $project->name,
+                                    'El proyecto '.$project->name.' ha terminado la segunda ronda, hacer los pagos. Se ha creado una tarea para esto.');
+                            }
                             
                         } else {
                             if ($debug) echo 'Lleva más de 40 dias de campaña, debe estar en segunda ronda con fecha marcada<br />';
-                            if ($debug) echo $project->name . ': lleva recaudado ' . $amount . ', '.$per_amount.'% de ' . $project->mincost . '/' . $project->maxcost . ' y paso a segunda ronda el '.$project->passed.'<br />';
+                            if ($debug) echo $project->name . ': lleva recaudado ' . $project->amount . ', '.$per_amount.'% de ' . $project->mincost . '/' . $project->maxcost . ' y paso a segunda ronda el '.$project->passed.'<br />';
                         }
                     }
                 }
@@ -381,6 +396,7 @@ namespace Goteo\Controller {
                 // si hay que ejecutar o cancelar
                 if ($cancelAll || $execute) {
                     if ($debug) echo '::::::Comienza tratamiento de aportes:::::::<br />';
+                    if ($debug) echo 'Execute=' . (string) $execute . '  CancelAll=' . (string) $cancelAll . '<br />';
                     // tratamiento de aportes penddientes
                     $query = \Goteo\Core\Model::query("
                         SELECT  *
@@ -398,8 +414,10 @@ namespace Goteo\Controller {
                         ", array($project->id));
                     $project->invests = $query->fetchAll(\PDO::FETCH_CLASS, '\Goteo\Model\Invest');
 
-                    foreach ($project->invests as $key=>&$invest) {
-
+                    foreach ($project->invests as $key=>$invest) {
+                        $errors = array();
+                        $log_text = null;
+                        
                         $userData = Model\User::getMini($invest->user);
 
                         if ($invest->invested == date('Y-m-d')) {
@@ -408,6 +426,7 @@ namespace Goteo\Controller {
                             //si no tiene preaproval, cancelar
                             echo 'Aporte ' . $invest->id . ' cancelado por no tener preapproval.<br />';
                             $invest->cancel();
+                            Model\Invest::setDetail($invest->id, 'no-preapproval', 'Aporte cancelado porque no tiene preapproval. Proceso cron/execute');
                             continue;
                         }
 
@@ -417,7 +436,7 @@ namespace Goteo\Controller {
                             switch ($invest->method) {
                                 case 'paypal':
                                     $err = array();
-                                    if (Paypal::cancelPreapproval($invest, $err)) {
+                                    if (Paypal::cancelPreapproval($invest, $err, true)) {
                                         $log_text = "Se ha cancelado aporte y preapproval de %s de %s mediante PayPal (id: %s) al proyecto %s del dia %s";
                                     } else {
                                         $txt_errors = implode('; ', $err);
@@ -427,7 +446,7 @@ namespace Goteo\Controller {
                                 case 'tpv':
                                     // se habre la operación en optra ventana
                                     $err = array();
-                                    if (Tpv::cancelPreapproval($invest, $err)) {
+                                    if (Tpv::cancelPreapproval($invest, $err, true)) {
                                         $log_text = "Se ha anulado el cargo tpv de %s de %s mediante TPV (id: %s) al proyecto %s del dia %s";
                                     } else {
                                         $txt_errors = implode('; ', $err);
@@ -435,7 +454,7 @@ namespace Goteo\Controller {
                                     }
                                     break;
                                 case 'cash':
-                                    if ($invest->cancel()) {
+                                    if ($invest->cancel(true)) {
                                         $log_text = "Se ha cancelado aporte manual de %s de %s (id: %s) al proyecto %s del dia %s";
                                     } else{
                                         $log_text = "Ha fallado al cancelar el aporte manual de %s de %s (id: %s) al proyecto %s del dia %s. ";
@@ -443,26 +462,22 @@ namespace Goteo\Controller {
                                     break;
                         }
 
-                            /*
-                             * Evento Feed
-                             */
+                            // Evento Feed admin
                             $log = new Feed();
-                            $log->title = 'Cargo cancelado (cron)';
-                            $log->url = '/admin/invests';
-                            $log->type = 'system';
-                            $log_items = array(
+                            $log->setTarget($project->id);
+                            $log->populate('Preapproval cancelado por proyecto archivado (cron)', '/admin/invests', \vsprintf($log_text, array(
                                 Feed::item('user', $userData->name, $userData->id),
                                 Feed::item('money', $invest->amount.' &euro;'),
                                 Feed::item('system', $invest->id),
                                 Feed::item('project', $project->name, $project->id),
                                 Feed::item('system', date('d/m/Y', strtotime($invest->invested)))
-                            );
-                            $log->html = \vsprintf($log_text, $log_items);
-                            $log->add($errors);
+                            )));
+                            $log->doAdmin();
                             unset($log);
 
                             echo 'Aporte '.$invest->id.' cancelado por proyecto caducado.<br />';
                             $invest->setStatus('4');
+                            Model\Invest::setDetail($invest->id, 'project-expired', 'Aporte marcado como caducado porque el proyecto no ha tenido exito. Proceso cron/execute');
 
                             continue;
                         }
@@ -471,36 +486,60 @@ namespace Goteo\Controller {
                         if ($execute && empty($invest->payment)) {
                             if ($debug) echo 'Ejecutando aporte '.$invest->id.' ['.$invest->method.']';
 
-                            // si estamos aqui y no tiene cuenta paypal es que nos hemos colado en algo
-                            if (empty($projectAccount->paypal)) {
-                                if ($debug) echo '<br /> Al ejecutar nos encontramos que el proyecto '.$project->name.' no tiene cuenta paypal!!<br />';
-                                @mail(\GOTEO_MAIL,
-                                    'El proyecto '.$project->name.' no tiene cuenta paypal ' . SITE_URL,
-                                    'El proyecto '.$project->name.' no tiene cuenta paypal y esto intentaba ejecutarlo :S');
-
-                                break;
-
-                            }
-
-                            $errors = array();
-
-                            $log_text = null;
-
                             switch ($invest->method) {
                                 case 'paypal':
+                                    if (empty($projectAccount->paypal)) {
+                                        if ($debug) echo '<br />El proyecto '.$project->name.' no tiene cuenta paypal.<br />';
+                                        Model\Invest::setDetail($invest->id, 'no-paypal-account', 'El proyecto no tiene cuenta paypal en el momento de ejecutar el preapproval. Proceso cron/execute');
+                                        break;
+                                    }
+
                                     $invest->account = $projectAccount->paypal;
                                     $err = array();
                                     if (Paypal::pay($invest, $err)) {
                                         $log_text = "Se ha ejecutado el cargo a %s por su aporte de %s mediante PayPal (id: %s) al proyecto %s del dia %s";
                                         if ($debug) echo ' -> Ok';
+                                        Model\Invest::setDetail($invest->id, 'executed', 'Se ha ejecutado el preapproval, ha iniciado el pago encadenado. Proceso cron/execute');
+                                        // si era incidencia la desmarcamos
+                                        if ($invest->issue) {
+                                            Model\Invest::unsetIssue($invest->id);
+                                            Model\Invest::setDetail($invest->id, 'issue-solved', 'La incidencia se ha dado por resuelta al ejecutarse correctamente en el proceso automático');
+                                        }
                                     } else {
                                         $txt_errors = implode('; ', $err);
                                         echo 'Aporte ' . $invest->id . ': Fallo al ejecutar cargo paypal: ' . $txt_errors . '<br />';
-                                        @mail(\GOTEO_MAIL,
+                                        @mail(\GOTEO_FAIL_MAIL,
                                             'Fallo al ejecutar cargo Paypal ' . SITE_URL,
                                             'Aporte ' . $invest->id . ': Fallo al ejecutar cargo paypal: ' . $txt_errors);
-                                        $log_text = "Ha fallado al ejecutar el cargo a %s por su aporte de %s mediante PayPal (id: %s) al proyecto %s del dia %s. <br />Se han dado los siguientes errores: $txt_errors";
                                         if ($debug) echo ' -> ERROR!!';
+                                        Model\Invest::setDetail($invest->id, 'execution-failed', 'Fallo al ejecutar el preapproval, no ha iniciado el pago encadenado: ' . $txt_errors . '. Proceso cron/execute');
+
+                                        // Notifiacion de incidencia al usuario
+                                        // Obtenemos la plantilla para asunto y contenido
+                                        $template = Template::get(37);
+                                        // Sustituimos los datos
+                                        $subject = str_replace('%PROJECTNAME%', $project->name, $template->title);
+                                        $search  = array('%USERNAME%', '%PROJECTNAME%', '%PROJECTURL%', '%AMOUNT%', '%DETAILS%');
+                                        $replace = array($userData->name, $project->name, SITE_URL . '/project/' . $project->id, $invest->amount, '');
+                                        $content = \str_replace($search, $replace, $template->text);
+                                        // iniciamos mail
+                                        $mailHandler = new Mail();
+                                        $mailHandler->from = GOTEO_CONTACT_MAIL;
+                                        $mailHandler->to = $userData->email;
+                                        $mailHandler->toName = $userData->name;
+                                        $mailHandler->subject = $subject;
+                                        $mailHandler->content = $content;
+                                        $mailHandler->html = true;
+                                        $mailHandler->template = $template->id;
+                                        if ($mailHandler->send()) {
+                                            Model\Invest::setDetail($invest->id, 'issue-notified', "Se ha notificado la incidencia al usuario");
+                                        } else {
+                                            Model\Invest::setDetail($invest->id, 'issue-notify-failed', "Ha fallado al enviar el mail de notificacion de la incidencia al usuario");
+                                            @mail(\GOTEO_FAIL_MAIL,
+                                                'Fallo al enviar email de notificacion de incidencia PayPal' . SITE_URL,
+                                                'Fallo al enviar email de notificacion de incidencia PayPal: <pre>' . print_r($mailHandler, 1). '</pre>');
+                                        }
+                                        
                                     }
                                     break;
                                 case 'tpv':
@@ -520,30 +559,24 @@ namespace Goteo\Controller {
                                  */
                                     break;
                                 case 'cash':
-                                    // los cargos manuales vienen ejecutados de base
-                                    $invest->setStatus('1');
-                                    if ($debug) echo ' -> Ok';
+                                    // los cargos manuales no los modificamos
+                                    if ($debug) echo ' Cash, nada que hacer -> Ok';
                                     break;
                             }
                             if ($debug) echo '<br />';
 
                             if (!empty($log_text)) {
-                                /*
-                                 * Evento Feed
-                                 */
+                                // Evento Feed
                                 $log = new Feed();
-                                $log->title = 'Cargo ejecutado (cron)';
-                                $log->url = '/admin/invests';
-                                $log->type = 'system';
-                                $log_items = array(
+                                $log->setTarget($project->id);
+                                $log->populate('Cargo ejecutado (cron)', '/admin/invests', \vsprintf($log_text, array(
                                     Feed::item('user', $userData->name, $userData->id),
                                     Feed::item('money', $invest->amount.' &euro;'),
                                     Feed::item('system', $invest->id),
                                     Feed::item('project', $project->name, $project->id),
                                     Feed::item('system', date('d/m/Y', strtotime($invest->invested)))
-                                );
-                                $log->html = \vsprintf($log_text, $log_items);
-                                $log->add($errors);
+                                )));
+                                $log->doAdmin();
                                 if ($debug) echo $log->html . '<br />';
                                 unset($log);
                             }
@@ -559,8 +592,68 @@ namespace Goteo\Controller {
                 if ($debug) echo 'Fin tratamiento Proyecto '.$project->name.'<hr />';
             }
 
+
+            // checkeamos campañas activas
+            $campaigns = Model\Call::getActive(4);
+            foreach ($campaigns as $campaign) {
+                $errors = array();
+
+                // tiene que tener presupuesto
+                if (empty($campaign->amount)) {
+                    continue;
+                }
+
+                // si le quedan cero
+                // -> terminar la campaña exitosamente
+                if ($campaign->rest == 0 && !empty($campaign->amount))  {
+                    echo 'La convocatoria '.$campaign->name.': ';
+                    if ($campaign->checkSuccess($errors)) {
+                        if ($campaign->succeed($errors)) {
+                            echo 'Ha terminado exitosamente.<br />';
+
+                            $log = new Feed();
+                            $log->setTarget($campaign->id, 'call');
+                            $log->unique = true;
+                            $log->populate('Campaña terminada (cron)', '/admin/calls/'.$campaign->id.'?rest='.$amount,
+                                \vsprintf('La campaña %s ha terminado con exito', array(
+                                    Feed::item('call', $campaign->name, $campaign->id))
+                                ));
+                            $log->doAdmin('call');
+                            $log->populate($campaign->name, '/call/'.$campaign->id.'?rest='.$amount,
+                                \vsprintf('La campaña %s ha terminado con éxito', array(
+                                    Feed::item('call', $campaign->name, $campaign->id))
+                                ), $call->logo);
+                            $log->doPublic('projects');
+                            unset($log);
+
+                        } else {
+                            echo 'Ha fallado al marcar exitosa.<br />'.implode('<br />', $errors);
+                        }
+                    } else {
+                        echo 'Le Queda algun proyecto en primera ronda.<br />';
+                    }
+                }
+
+            }
+
+
+            // desbloqueamos
+            if (unlink($block_file)) {
+                echo 'Cron '. __FUNCTION__ .' desbloqueado<br />';
+            } else {
+                echo 'ALERT! Cron '. __FUNCTION__ .' no se ha podido desbloquear<br />';
+                if(file_exists($block_file)) {
+                    echo 'El archivo '.$block_file.' aun existe!<br />';
+                } else {
+                    echo 'No hay archivo de bloqueo '.$block_file.'!<br />';
+                }
+            }
+            
+            
             // recogemos el buffer para grabar el log
-            \file_put_contents(GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log', \ob_get_contents());
+            $log_file = GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log';
+            \file_put_contents($log_file, \ob_get_contents(), FILE_APPEND);
+            \chmod($log_file, 0777);
         }
 
 
@@ -570,69 +663,74 @@ namespace Goteo\Controller {
          *
          */
         public function verify () {
-
-            // proyectos en campaña (y los financiados por si se ha quedado alguno descolgado)
-            $projects = Model\Project::active();
-
-            foreach ($projects as &$project) {
-                $query = Model\Project::query("
-                    SELECT  *
-                    FROM  invest
-                    WHERE   invest.status = 0
-                    AND     invest.method = 'paypal'
-                    AND     invest.project = ?
-                    ", array($project->id));
-                $project->invests = $query->fetchAll(\PDO::FETCH_CLASS, '\Goteo\Model\Invest');
-
-                if (empty($project->invests)) continue;
-
-//                echo "Proyecto: {$project->name} <br />Aportes pendientes: " . count($project->invests) . "<br />";
-
-                foreach ($project->invests as $key=>&$invest) {
-
-                    $details = null;
-                    $errors = array();
-
-                    if (empty($invest->preapproval)) {
-                        // no tiene preaproval, cancelar
-                        echo 'Aporte ' . $invest->id . ' No tiene preapproval, aporte cancelado<br />';
-                        $invest->cancel();
-                    } else {
-                        // comprobar si está cancelado por el usuario
-                        if ($details = Paypal::preapprovalDetails($invest->preapproval, $errors)) {
-
-                            // actualizar la cuenta de paypal que se validó para aprobar
-                            $invest->setAccount($details->senderEmail);
-
-                            // si está aprobado y el aporte está en proceso, lo marcamos como pendiente de cargo
-                            if ($details->approved == true && $invest->status == '-1') {
-                                $invest->setStatus('0');
-                            }
-
-//                            echo \trace($details);
-                            switch ($details->status) {
-                                case 'ACTIVE':
-                                    //echo 'Sigue activo<br />';
-                                    break;
-                                case 'CANCELED':
-                                    echo 'Aporte ' . $invest->id . ' Preapproval cancelado por el usuario<br />';
-                                    $invest->cancel();
-                                    break;
-                                case 'DEACTIVED':
-                                    echo 'Aporte ' . $invest->id . ' Preapproval Desactivado!<br />';
-                                    break;
-                            }
-                        } else {
-                            @mail(\GOTEO_MAIL,
-                                'errores al pedir detalles Paypal ' . SITE_URL,
-                                'Aporte ' . $invest->id . ': al pedir detalles paypal: Errores:<br />' . implode('<br />', $errors));
-                        }
-                    }
-                }
+            if (!\defined('CRON_EXEC')) {
+                @mail(\GOTEO_FAIL_MAIL, 'Se ha lanzado el cron '. __FUNCTION__ .' en ' . SITE_URL,
+                    'Se ha lanzado manualmente el cron '. __FUNCTION__ .' en ' . SITE_URL.' a las ' . date ('H:i:s') . ' Usuario '. $_SESSION['user']->id);
+               echo 'Lanzamiento manual<br />';
+            } else {
+               echo 'Lanzamiento automatico<br />';
             }
-
+            
+            $debug = (isset($_GET['debug']) && $_GET['debug'] == 'debug') ? true : false;
+            if ($debug) echo 'Modo debug activado<br />';
+            
+            // lanzamos subcontrolador
+            Cron\Verify::process($debug);
+            // también el tratamiento de geologin
+            Cron\Geoloc::process($debug);
+            
             // recogemos el buffer para grabar el log
-            \file_put_contents(GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log', \ob_get_contents());
+            /*
+            $log_file = GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log';
+            \file_put_contents($log_file, \ob_get_contents(), FILE_APPEND);
+            \chmod($log_file, 0777);
+            */
+            die();
+        }
+
+        /*
+         *  Proceso que limpia la tabla de imágenes
+         * y también limpia el directorio
+         *
+         */
+        public function cleanup () {
+            if (\defined('CRON_EXEC')) {
+                @mail(\GOTEO_FAIL_MAIL, 'Se ha lanzado el cron '. __FUNCTION__ .' en ' . SITE_URL,
+                    'Se intentaba lanzar automáticamente el cron '. __FUNCTION__ .' en ' . SITE_URL.' a las ' . date ('H:i:s') . ' Usuario '. $_SESSION['user']->id);
+               die;
+            } else {
+                Cron\Cleanup::process();
+                die();
+            }
+        }
+
+        /*
+         *  Proceso para tratar los geologins
+         *
+         */
+        public function geoloc () {
+            // no necesito email de aviso por el momento
+            /*
+            if (!\defined('CRON_EXEC')) {
+                @mail(\GOTEO_FAIL_MAIL, 'Se ha lanzado el cron '. __FUNCTION__ .' en ' . SITE_URL,
+                    'Se ha lanzado manualmente el cron '. __FUNCTION__ .' en ' . SITE_URL.' a las ' . date ('H:i:s') . ' Usuario '. $_SESSION['user']->id);
+               echo 'Lanzamiento manual<br />';
+            } else {
+               echo 'Lanzamiento automatico<br />';
+            }
+            */
+            
+            // lanzamos subcontrolador
+            Cron\Geoloc::process();
+            
+            // Por el momento no grabamos log de esto, lo lanzamos manual
+            /*
+            $log_file = GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log';
+            \file_put_contents($log_file, \ob_get_contents(), FILE_APPEND);
+            \chmod($log_file, 0777);
+             */
+            
+            die();
         }
 
         /*
@@ -642,7 +740,42 @@ namespace Goteo\Controller {
          *
          */
         public function dopay ($project) {
+            die('Ya no realizamos pagos secundarios mediante sistema');
+            if (\defined('CRON_EXEC')) {
+                die('Este proceso no necesitamos lanzarlo automaticamente');
+            }
 
+            @mail(\GOTEO_FAIL_MAIL, 'Se ha lanzado el cron '. __FUNCTION__ .' en ' . SITE_URL,
+                'Se ha lanzado manualmente el cron '. __FUNCTION__ .' para el proyecto '.$project.' en ' . SITE_URL.' a las ' . date ('H:i:s') . ' Usuario '. $_SESSION['user']->id);
+            
+            // a ver si existe el bloqueo
+            $block_file = GOTEO_PATH.'logs/cron-'.__FUNCTION__.'.block';
+            if (file_exists($block_file)) {
+                echo 'Ya existe un archivo de log '.date('Ymd').'_'.__FUNCTION__.'.log<br />';
+                $block_content = \file_get_contents($block_file);
+                echo 'El contenido del bloqueo es: '.$block_content;
+                // lo escribimos en el log
+                $log_file = GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log';
+                \file_put_contents($log_file, \ob_get_contents(), FILE_APPEND);
+                \chmod($log_file, 0777);
+                /*
+                @mail(\GOTEO_FAIL_MAIL, 'Cron '. __FUNCTION__ .' bloqueado en ' . SITE_URL,
+                    'Se ha encontrado con que el cron '. __FUNCTION__ .' está bloqueado el '.date('d-m-Y').' a las ' . date ('H:i:s') . '
+                        El contenido del bloqueo es: '. $block_content);
+                 */
+                die;
+            } else {
+                $block = 'Bloqueo '.$block_file.' activado el '.date('d-m-Y').' a las '.date ('H:i:s').'<br />';
+                if (\file_put_contents($block_file, $block, FILE_APPEND)) {
+                    \chmod($block_file, 0777);
+                    echo $block;
+                } else {
+                    echo 'No se ha podido crear el archivo de bloqueo<br />';
+                    @mail(\GOTEO_FAIL_MAIL, 'Cron '. __FUNCTION__ .' no se ha podido bloquear en ' . SITE_URL,
+                        'No se ha podido crear el archivo '.$block_file.' el '.date('d-m-Y').' a las ' . date ('H:i:s'));
+                }
+            }
+            
             $projectData = Model\Project::getMini($project);
 
             // necesitamos la cuenta del proyecto y que sea la misma que cuando el preapproval
@@ -673,236 +806,60 @@ namespace Goteo\Controller {
                 ", array($project));
             $invests = $query->fetchAll(\PDO::FETCH_CLASS, '\Goteo\Model\Invest');
 
-            echo 'Vamos a tratar ' . count($invests) . ' aportes<br />';
+            echo 'Vamos a tratar ' . count($invests) . ' aportes para el proyecto '.$projectData->name.'<br />';
 
             foreach ($invests as $key=>$invest) {
                 $errors = array();
 
                 $userData = Model\User::getMini($invest->user);
-                echo 'Tratando: Aporte (id: '.$invest->id.') de '.$userData->name.'<br />';
+                echo 'Tratando: Aporte (id: '.$invest->id.') de '.$userData->name.' ['.$userData->email.']<br />';
 
                 if (Paypal::doPay($invest, $errors)) {
                     echo 'Aporte (id: '.$invest->id.') pagado al proyecto. Ver los detalles en la <a href="/admin/accounts/details/'.$invest->id.'">gestion de transacciones</a><br />';
                     $log_text = "Se ha realizado el pago de %s PayPal al proyecto %s por el aporte de %s (id: %s) del dia %s";
+                    Model\Invest::setDetail($invest->id, 'payed', 'Se ha realizado el pago secundario al proyecto. Proceso cron/doPay');
 
                 } else {
                     echo 'Fallo al pagar al proyecto el aporte (id: '.$invest->id.'). Ver los detalles en la <a href="/admin/accounts/details/'.$invest->id.'">gestion de transacciones</a><br />' . implode('<br />', $errors);
                     $log_text = "Ha fallado al realizar el pago de %s PayPal al proyecto %s por el aporte de %s (id: %s) del dia %s";
+                    Model\Invest::setDetail($invest->id, 'pay-failed', 'Fallo al realizar el pago secundario: ' . implode('<br />', $errors) . '. Proceso cron/doPay');
                 }
 
-                /*
-                 * Evento Feed
-                 */
+                // Evento Feed
                 $log = new Feed();
-                $log->title = 'Pago al proyecto encadenado-secundario (cron)';
-                $log->url = '/admin/accounts';
-                $log->type = 'system';
-                $log_items = array(
+                $log->setTarget($projectData->id);
+                $log->populate('Pago al proyecto encadenado-secundario (cron)', '/admin/accounts',
+                    \vsprintf($log_text, array(
                     Feed::item('money', $invest->amount.' &euro;'),
                     Feed::item('project', $projectData->name, $project),
                     Feed::item('user', $userData->name, $userData->id),
                     Feed::item('system', $invest->id),
                     Feed::item('system', date('d/m/Y', strtotime($invest->invested)))
-                );
-                $log->html = \vsprintf($log_text, $log_items);
-                $log->add($errors);
+                )));
+                $log->doAdmin();
                 unset($log);
 
                 echo '<hr />';
             }
 
-            // recogemos el buffer para grabar el log
-            \file_put_contents(GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log', \ob_get_contents());
-        }
-
-        /**
-         * Al autor del proyecto
-         *
-         * @param $type string
-         * @param $project Object
-         * @return bool
-         */
-        static private function toOwner ($type, $project) {
-            $tpl = null;
-            /// tipo de envio
-            switch ($type) {
-                case '8_days': // template 13, cuando faltan 8 días y no ha conseguido el mínimo
-                    $tpl = 13;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%WIDGETURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/widgets');
-                    break;
-
-                case '1_day': // template 14, cuando falta un día, no minimo pero si 70%
-                    $tpl = 14;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%WIDGETURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/widgets');
-                    break;
-
-                case '20_days': // template 19, 20 días de campaña
-                    $tpl = 19;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%WIDGETURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/widgets');
-                    break;
-
-                case 'r1_pass': // template 20, proyecto supera la primera ronda
-                    $tpl = 20;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%WIDGETURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/widgets');
-                    break;
-
-                case 'fail': // template 21, caduca sin conseguir el mínimo
-                    $tpl = 21;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%SUMMARYURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/summary');
-                    break;
-
-                case 'r2_pass': // template 22, finaliza segunda ronda
-                    $tpl = 22;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%REWARDSURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/rewards');
-                    break;
-
-                case 'no_updates': // template 23, 3 meses sin novedades
-                    $tpl = 23;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%UPDATESURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/updates');
-                    break;
-
-                case 'no_activity': // template 24, 3 meses sin actividad (no mensajes ni comentarios)
-                    $tpl = 24;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%UPDATESURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/updates');
-                    break;
-
-                case '2m_after': // template 25, dos meses despues de financiado
-                    $tpl = 25;
-                    $search  = array('%USERNAME%', '%PROJECTNAME%', '%REWARDSURL%');
-                    $replace = array($project->user->name, $project->name, SITE_URL . '/dashboard/projects/rewards');
-                    break;
-            }
-
-            if (!empty($tpl)) {
-                // Obtenemos la plantilla para asunto y contenido
-                $template = Template::get($tpl);
-                // Sustituimos los datos
-                $subject = str_replace('%PROJECTNAME%', $project->name, $template->title);
-                $content = \str_replace($search, $replace, $template->text);
-                // iniciamos mail
-                $mailHandler = new Mail();
-                $mailHandler->to = $project->user->email;
-                $mailHandler->toName = $project->user->name;
-                // blind copy a goteo desactivado durante las verificaciones
-    //              $mailHandler->bcc = 'comunicaciones@goteo.org';
-                $mailHandler->subject = $subject;
-                $mailHandler->content = $content;
-                $mailHandler->html = true;
-                $mailHandler->template = $template->id;
-                if ($mailHandler->send()) {
-                    return true;
-                } else {
-                    @mail(\GOTEO_MAIL,
-                        'Fallo al enviar email automaticamente al autor ' . SITE_URL,
-                        'Fallo al enviar email automaticamente al autor: <pre>' . print_r($mailHandler, 1). '</pre>');
-                }
-            }
-
-            return false;
-        }
-
-        /* A los cofinanciadores */
-        static private function toInvestors ($type, $project) {
-
-            // notificación
-            $notif = $type == 'update' ? 'updates' : 'rounds';
-
-            $anyfail = false;
-            $tpl = null;
-
-            // para cada inversor que no tenga bloqueado esta notificacion
-            $sql = "
-                SELECT
-                    invest.user as id,
-                    user.name as name,
-                    user.email as email
-                FROM  invest
-                INNER JOIN user
-                    ON user.id = invest.user
-                    AND user.active = 1
-                LEFT JOIN user_prefer
-                    ON user_prefer.user = invest.user
-                WHERE   invest.project = ?
-                AND (invest.status = 0 OR invest.status = 1 OR invest.status = 3 OR invest.status = 4)
-                AND (user_prefer.{$notif} = 0 OR user_prefer.{$notif} IS NULL)
-                GROUP BY user.id
-                ";
-            if ($query = \Goteo\Core\Model::query($sql, array($project->id))) {
-                foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $investor) {
-                    /// tipo de envio
-                    switch ($type) {
-                        case 'r1_pass': // template 15, proyecto supera la primera ronda
-                                $tpl = 15;
-                                $search  = array('%USERNAME%', '%PROJECTNAME%', '%PROJECTURL%');
-                                $replace = array($investor->name, $project->name, SITE_URL . '/project/' . $project->id);
-                            break;
-
-                        case 'fail': // template 17, caduca sin conseguir el mínimo
-                                $tpl = 17;
-                                $search  = array('%USERNAME%', '%PROJECTNAME%', '%DISCOVERURL%');
-                                $replace = array($investor->name, $project->name, SITE_URL . '/discover');
-                            break;
-
-                        case 'r2_pass': // template 16, finaliza segunda ronda
-                                $tpl = 16;
-                                $search  = array('%USERNAME%', '%PROJECTNAME%', '%PROJECTURL%');
-                                $replace = array($investor->name, $project->name, SITE_URL . '/project/' . $project->id);
-                            break;
-
-                        case 'update': // template 18, publica novedad
-                                $tpl = 18;
-                                $search  = array('%USERNAME%', '%PROJECTNAME%', '%UPDATEURL%');
-                                $replace = array($investor->name, $project->name, SITE_URL.'/project/'.$project->id.'/updates');
-                            break;
-                    }
-
-                    if (!empty($tpl)) {
-                        // Obtenemos la plantilla para asunto y contenido
-                        $template = Template::get($tpl);
-                        // Sustituimos los datos
-                        $subject = str_replace('%PROJECTNAME%', $project->name, $template->title);
-                        $content = \str_replace($search, $replace, $template->text);
-                        // iniciamos mail
-                        $mailHandler = new Mail();
-                        $mailHandler->to = $investor->email;
-                        $mailHandler->toName = $investor->name;
-                        // blind copy a goteo desactivado durante las verificaciones
-            //              $mailHandler->bcc = 'comunicaciones@goteo.org';
-                        $mailHandler->subject = $subject;
-                        $mailHandler->content = $content;
-                        $mailHandler->html = true;
-                        $mailHandler->template = $template->id;
-                        if ($mailHandler->send()) {
-
-                        } else {
-                            $anyfail = true;
-                            @mail(\GOTEO_MAIL,
-                                'Fallo al enviar email automaticamente al cofinanciador ' . SITE_URL,
-                                'Fallo al enviar email automaticamente al cofinanciador: <pre>' . print_r($mailHandler, 1). '</pre>');
-                        }
-                        unset($mailHandler);
-                    }
-                }
-                // fin bucle inversores
+            // desbloqueamos
+            if (unlink($block_file)) {
+                echo 'Cron '. __FUNCTION__ .' desbloqueado<br />';
             } else {
-                echo '<p>'.str_replace('?', $project->id, $sql).'</p>';
-                $anyfail = true;
+                echo 'ALERT! Cron '. __FUNCTION__ .' no se ha podido desbloquear<br />';
+                if(file_exists($block_file)) {
+                    echo 'El archivo '.$block_file.' aun existe!<br />';
+                } else {
+                    echo 'No hay archivo de bloqueo '.$block_file.'!<br />';
+                }
             }
             
-            if ($anyfail)
-                return false;
-            else
-                return true;
-
+            // recogemos el buffer para grabar el log
+            $log_file = GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log';
+            \file_put_contents($log_file, \ob_get_contents(), FILE_APPEND);
+            \chmod($log_file, 0777);
         }
+
 
 
         /**
@@ -915,168 +872,45 @@ namespace Goteo\Controller {
          */
         
         public function daily () {
-
-            // proyectos en campaña o financiados
-            $projects = Model\Project::active();
-
-            // para cada uno,
-            foreach ($projects as $project) {
-
-                // dias desde la publicacion
-                $from = $project->daysActive();
-
-                // si ya lleva 3 meses de publicacion
-                if ($from > 90) {
-                    //   mirar el tiempo desde la última actualización,
-                    $sql = "
-                        SELECT
-                            DATE_FORMAT(
-                                from_unixtime(unix_timestamp(now()) - unix_timestamp(date))
-                                , '%j'
-                            ) as days
-                        FROM post
-                        INNER JOIN blog
-                            ON  post.blog = blog.id
-                            AND blog.type = 'project'
-                            AND blog.owner = :project
-                        WHERE post.publish = 1
-                        ORDER BY post.date DESC
-                        LIMIT 1";
-    //                echo str_replace(':project', "'{$project->id}'", $sql) . '<br />';
-                    $query = Model\Project::query($sql, array(':project' => $project->id));
-                    $lastupdate = $query->fetchColumn(0);
-                    // si hace más de 3 meses, o nunca a posteado
-                    if ((int) $lastupdate > 90 || $lastupdate === false) {
-                        echo 'Proyecto: ' . $project->name . ' Publicado hace ' . $from . ' dias (mas de 3 meses). Ultima novedad hace ' . $lastupdate . ' dias o nunca<br />';
-                        // mirar el ultimo mensaje al email del autor con la plantilla 23
-                        $sql = "
-                            SELECT
-                                DATE_FORMAT(
-                                    from_unixtime(unix_timestamp(now()) - unix_timestamp(date))
-                                    , '%j'
-                                ) as days
-                            FROM mail
-                            WHERE mail.email = :email
-                            AND mail.template = 23
-                            ORDER BY mail.date DESC
-                            LIMIT 1";
-    //                    echo str_replace(':email', "'{$project->user->email}'", $sql) . '<br />';
-                        $query = Model\Project::query($sql, array(':email' => $project->user->email));
-                        $lastsend = $query->fetchColumn(0);
-                        // si hace más de un mes o nunca se le envió
-                        if ($lastsend > 30 || $lastsend === false) {
-                            echo 'Se le envió aviso hace ' . $lastsend . ' dias o nunca<br />';
-                            // enviar email no_updates
-                            self::toOwner('no_updates', $project);
-                        }
-                    }
-                }
-
-                
-                // si ya lleva 3 meses de publicacion
-                if ($from > 90) {
-                    // mirar el tiempo desde su último mensaje o comentario en su proyecto
-                    $sql = "
-                        SELECT
-                            IF (comment.date < message.date,
-                                DATE_FORMAT(
-                                    from_unixtime(unix_timestamp(now()) - unix_timestamp(comment.date))
-                                    , '%j'
-                                ),
-                                DATE_FORMAT(
-                                    from_unixtime(unix_timestamp(now()) - unix_timestamp(message.date))
-                                    , '%j'
-                                )
-                            ) as days
-                        FROM message, `comment`
-                        WHERE message.project = :project
-                        AND comment.user = :owner
-                        AND comment.post IN (
-                            SELECT post.id
-                            FROM post
-                            INNER JOIN blog
-                                ON  post.blog = blog.id
-                                AND blog.type = 'project'
-                                AND blog.owner = :project
-                            WHERE post.publish = 1
-                        )
-                        LIMIT 1";
-    //                echo str_replace(array(':project', ':owner'), array("'{$project->id}'", "'{$project->owner}'"), $sql) . '<br />';
-                    $query = Model\Project::query($sql, array(':project' => $project->id, ':owner' => $project->owner));
-                    $lastactivity = $query->fetchColumn(0);
-                    // si hace más de 3 meses, o nunca ha dicho nada
-                    if ((int) $lastactivity > 90 || ($lastactivity === false && $from > 90)) {
-                        echo 'Proyecto: ' . $project->name . ' Publicado hace ' . $from . ' dias (mas de 3 meses). Ultima actividad hace ' . $lastactivity . ' dias o nunca<br />';
-                        // mirar el ultimo mensaje al email del autor con la plantilla 24
-                        $sql = "
-                            SELECT
-                                DATE_FORMAT(
-                                    from_unixtime(unix_timestamp(now()) - unix_timestamp(date))
-                                    , '%j'
-                                ) as days
-                            FROM mail
-                            WHERE mail.email = :email
-                            AND mail.template = 24
-                            ORDER BY mail.date DESC
-                            LIMIT 1";
-    //                    echo str_replace(':email', "'{$project->user->email}'", $sql) . '<br />';
-                        $query = Model\Project::query($sql, array(':email' => $project->user->email));
-                        $lastsend = $query->fetchColumn(0);
-                        // si hace más de 15 días o nunca se le envió
-                        if ($lastsend > 15 || $lastsend === false) {
-                            echo 'Se le envió hace ' . $lastsend . ' dias o nunca<br />';
-                            // enviar email no_activity
-                            self::toOwner('no_activity', $project);
-                        }
-                    }
-                }
-
-                // mirar el tiempo desde la fecha success
-                $sql = "
-                    SELECT
-                        DATE_FORMAT(
-                            from_unixtime(unix_timestamp(now()) - unix_timestamp(success))
-                            , '%j'
-                        ) as days
-                    FROM project
-                    WHERE id = :project
-                    AND success != '0000-00-00'
-                    ";
-//                echo str_replace(':project', "'{$project->id}'", $sql) . '<br />';
-                $query = Model\Project::query($sql, array(':project' => $project->id));
-                // si esta financiado, claro
-                if ($lastsuccess = $query->fetchColumn(0)) {
-                    // si hace más de 2 meses
-                    if ((int) $lastsuccess > 60) {
-                        echo 'Proyecto: ' . $project->name . ' Financiado hace ' . $lastsuccess . ' dias (mas de 2 meses).<br />';
-                        // mirar el ultimo mensaje al email del autor con la plantilla 25
-                        $sql = "
-                            SELECT
-                                DATE_FORMAT(
-                                    from_unixtime(unix_timestamp(now()) - unix_timestamp(date))
-                                    , '%j'
-                                ) as days
-                            FROM mail
-                            WHERE mail.email = :email
-                            AND mail.template = 25
-                            ORDER BY mail.date DESC
-                            LIMIT 1";
-//                        echo str_replace(':email', "'{$project->user->email}'", $sql) . '<br />';
-                        $query = Model\Project::query($sql, array(':email' => $project->user->email));
-                        $lastsend = $query->fetchColumn(0);
-                        // si hace más de 15 días o nunca se le envió
-                        if ($lastsend > 15 || $lastsend === false) {
-                            echo 'Se le envió hace ' . (string) $lastsend . ' dias o nunca<br />';
-                            // enviar email 2m_after
-                            self::toOwner('2m_after', $project);
-                        }
-                    }
-                }
-
+            if (!\defined('CRON_EXEC')) {
+                @mail(\GOTEO_FAIL_MAIL, 'Se ha lanzado el cron '. __FUNCTION__ .' en ' . SITE_URL,
+                    'Se ha lanzado manualmente el cron '. __FUNCTION__ .' en ' . SITE_URL.' a las ' . date ('H:i:s') . ' Usuario '. $_SESSION['user']->id);
+//                die('Este proceso no necesitamos lanzarlo manualmente');
             }
+            
+            // temporalmente debug fijo (quitarlo al quitar monitorización)
+//            $debug = (isset($_GET['debug']) && $_GET['debug'] == 'debug') ? true : false;
+            $debug = true;
+            
+            if ($debug) echo 'Modo debug activado<br />';
+            
+            // subcontrolador Auto-tips
+            Cron\Daily::Projects($debug);
 
-            // recogemos el buffer para grabar el log
-            \file_put_contents(GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log', \ob_get_contents());
+            // subcontrolador progreso convocatorias
+            Cron\Daily::Calls($debug);
+            
+            
+            if ($debug) {
+                // recogemos el buffer para grabar el log
+                $log_file = GOTEO_PATH.'logs/cron/'.date('Ymd').'_'.__FUNCTION__.'.log';
+                \file_put_contents($log_file, \ob_get_contents(), FILE_APPEND);
+                \chmod($log_file, 0777);
+            }
+        }
+
+        /*
+         *  Proceso que arregla las extensiones de los archivos de imágenes
+         */
+        public function imgrename () {
+            if (\defined('CRON_EXEC')) {
+                @mail(\GOTEO_FAIL_MAIL, 'Se ha lanzado el cron '. __FUNCTION__ .' en ' . SITE_URL,
+                    'Se intentaba lanzar automáticamente el cron '. __FUNCTION__ .' en ' . SITE_URL.' a las ' . date ('H:i:s') . ' Usuario '. $_SESSION['user']->id);
+               die;
+            } else {
+                Cron\Imgrename::process();
+                die();
+            }
         }
 
     }
