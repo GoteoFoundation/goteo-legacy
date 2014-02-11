@@ -29,13 +29,16 @@ include 'view/header.html.php';
 
 $user = $this['user'];
 $worthcracy = Worth::getAll();
+
+$_SESSION['msg_token'] = uniqid(rand(), true);
+
 ?>
 <script type="text/javascript">
 	// Mark DOM as javascript-enabled
 	jQuery(document).ready(function ($) {
 	    //change div#preview content when textarea lost focus
 		$("#message").blur(function(){
-			$("#preview").html($("#message").val());
+			$("#preview").html($("#message").val().replace(/\n/g, "<br />"));
 		});
 
 		//add fancybox on #a-preview click
@@ -47,11 +50,7 @@ $worthcracy = Worth::getAll();
 	});
 </script>
 
-<div id="sub-header">
-    <div>
-        <h2><a href="/user/<?php echo $user->id; ?>"><img src="<?php echo $user->avatar->getLink(75, 75, true); ?>" /></a> <?php echo Text::get('profile-name-header'); ?> <br /><em><?php echo $user->name; ?></em></h2>
-    </div>
-</div>
+<?php echo new View('view/user/widget/header.html.php', array('user'=>$user)) ?>
 
 <div id="main">
 
@@ -63,7 +62,12 @@ $worthcracy = Worth::getAll();
         <h3 class="title"><?php echo Text::get('user-message-send_personal-header'); ?></h3>
 
         <form method="post" action="/message/personal/<?php echo $user->id; ?>">
-            <div id="bocadillo"></div>
+            <input type="hidden" name="msg_token" value="<?php echo $_SESSION['msg_token'] ; ?>" />
+            
+            <label for="contact-subject"><?php echo Text::get('contact-subject-field'); ?></label>
+            <input id="contact-subject" type="text" name="subject" value="" placeholder="" />
+            
+            <label for="message"><?php echo Text::get('contact-message-field'); ?></label>
             <textarea id="message" name="message" cols="50" rows="5"></textarea>
 
             <a target="_blank" id="a-preview" href="#preview" class="preview">&middot;<?php echo Text::get('regular-preview'); ?></a>

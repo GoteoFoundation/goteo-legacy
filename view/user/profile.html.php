@@ -66,12 +66,7 @@ $worthcracy = Worth::getAll();
     });
 </script>
 
-
-<div id="sub-header">
-    <div>
-        <h2><a href="/user/<?php echo $user->id; ?>"><img src="<?php echo $user->avatar->getLink(75, 75, true); ?>" /></a> <?php echo Text::get('profile-name-header'); ?> <br /><em><?php echo $user->name; ?></em></h2>
-    </div>
-</div>
+<?php echo new View('view/user/widget/header.html.php', array('user'=>$user)) ?>
 
 <?php if(isset($_SESSION['messages'])) { include 'view/header/message.html.php'; } ?>
 
@@ -81,7 +76,7 @@ $worthcracy = Worth::getAll();
 
         <?php echo new View('view/user/widget/worth.html.php', array('worthcracy' => $worthcracy, 'level' => $user->worth)) ?>
 
-        <?php echo new View('view/user/widget/about.html.php', array('user' => $user)) ?>
+        <?php echo new View('view/user/widget/about.html.php', array('user' => $user, 'projects' => $this['projects'])) ?>
 
         <?php echo new View('view/user/widget/social.html.php', array('user' => $user)) ?>
 
@@ -136,6 +131,7 @@ $worthcracy = Worth::getAll();
 
 </div>
 
-<?php include 'view/footer.html.php' ?>
+<?php 
+include 'view/footer.html.php';
+include 'view/epilogue.html.php';
 
-<?php include 'view/epilogue.html.php' ?>

@@ -55,11 +55,6 @@ extract($_POST);
                 <?php endif ?>
 
                 <form action="/user/recover" method="post">
-                    <div class="username">
-                        <label><?php echo Text::get('login-recover-username-field'); ?>
-                        <input type="text" name="username" value="<?php echo $username?>" /></label>
-                    </div>
-
                     <div class="email">
                         <label><?php echo Text::get('login-recover-email-field'); ?>
                         <input type="text" name="email" value="<?php echo $email?>" /></label>

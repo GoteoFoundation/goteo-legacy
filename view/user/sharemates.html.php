@@ -37,27 +37,22 @@ if (empty($categories)) {
     throw new Redirection('/user/profile/' . $this['user']->id);
 }
 
+$limit = empty($this['category']) ? 6 : 20;
+
 $shares = array();
-/* if (!empty($this['category'])) {
-    $shares[$this['category']->id] = Interest::share($user->id, $this['category']->id);
-} else { */
-    foreach ($categories as $catId => $catName) {
-        $gente = Interest::share($user->id, $catId);
-        if (count($gente) == 0) continue;
-        $shares[$catId] = $gente;
-    }
-//}
+foreach ($categories as $catId => $catName) {
+    $gente = Interest::share($user->id, $catId, $limit);
+    if (count($gente) == 0) continue;
+    $shares[$catId] = $gente;
+}
 
 if (empty($shares)) {
     throw new Redirection('/user/profile/' . $this['user']->id);
 }
 
 ?>
-<div id="sub-header">
-    <div>
-        <h2><a href="/user/<?php echo $user->id; ?>"><img src="<?php echo $user->avatar->getLink(75, 75, true); ?>" /></a> <?php echo Text::get('profile-name-header'); ?> <br /><em><?php echo $user->name; ?></em></h2>
-    </div>
-</div>
+
+<?php echo new View('view/user/widget/header.html.php', array('user'=>$user)) ?>
 
 <?php if(isset($_SESSION['messages'])) { include 'view/header/message.html.php'; } ?>
 
@@ -66,14 +61,14 @@ if (empty($shares)) {
     <div class="center">
        
        
-       <!-- lista de categor�as -->
+       <!-- lista de categorías -->
         <div class="widget categorylist">
             <h3 class="title"><?php echo Text::get('profile-sharing_interests-header');?></h3>
 			<!--
             <div class="filters">
                 <span>Ver por:</span>
                 <ul>
-                    <li><a href="#" class="active">Por categor�as</a></li>
+                    <li><a href="#" class="active">Por categorías</a></li>
                     <li class="separator">|</li>
                     <li><a href="#">Por tags</a></li>                
                 </ul>
@@ -95,11 +90,12 @@ if (empty($shares)) {
                 </ul>
             </div>
         </div>
-        <!-- fin lista de categor�as -->
+        <!-- fin lista de categorías -->
         
-        <!-- detalle de categor�a (cabecera de categor�a) -->
+        <!-- detalle de categoría (cabecera de categoría) -->
         <?php foreach ($shares as $catId => $sharemates) :
             if (count($sharemates) == 0) continue;
+            shuffle($sharemates);
             ?>
             <div class="widget user-mates" id="cat<?php echo $catId;?>" <?php if (!empty($this['category']) && $catId != $this['category']) echo 'style="display:none;"'?>>
                 <h3 class="title"><?php echo $categories[$catId] ?></h3>
@@ -133,7 +129,7 @@ if (empty($shares)) {
         <?php endif; ?>
         </div>
         <?php endforeach; ?>
-        <!-- fin detalle de categor�a (cabecera de categor�a) -->
+        <!-- fin detalle de categoría (cabecera de categoría) -->
         
     </div>
     <div class="side">

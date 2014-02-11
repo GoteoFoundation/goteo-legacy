@@ -39,6 +39,18 @@ namespace Goteo\Controller {
 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['send'])) {
 
+                // verificamos referer
+                $URL = (NODE_ID != GOTEO_NODE) ? NODE_URL : SITE_URL;
+                $referer = $URL.'/contact';
+                
+                // verificamos token
+                if (!isset($_POST['msg_token']) || $_POST['msg_token']!=$_SESSION['msg_token'] || $_SERVER['HTTP_REFERER']!=$referer) {
+                    header("HTTP/1.1 400 Bad request");
+                    die('Token incorrect');
+                }
+
+                $name = $_POST['name'];
+
                     // si falta mensaje, email o asunto, error
                     if(empty($_POST['email'])) {
                         $errors['email'] = Text::get('error-contact-email-empty');
@@ -60,12 +72,21 @@ namespace Goteo\Controller {
                     $msg_content = nl2br(\strip_tags($_POST['message']));
                     }
 
-                    if (empty($errors)) {
-                        $data = array(
-                                'subject' => $_POST['subject'],
-                                'email'   => $_POST['email'],
-                                'message' => $_POST['message']
-                        );
+                // verificamos el captcha
+                require 'library/recaptchalib.php';
+                $resp = recaptcha_check_answer (RECAPTCHA_PRIVATE_KEY, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response"]);
+                if (!$resp->is_valid) {
+                    $errors['recaptcha'] = Text::get('error-contact-captcha');
+                  }                
+                
+                $data = array(
+                        'subject' => $_POST['subject'],
+                        'name'    => $_POST['name'],
+                        'email'   => $_POST['email'],
+                        'message' => $_POST['message']
+                );
+                
+                if (empty($errors)) {
 
                 // Obtenemos la plantilla para asunto y contenido
                 $template = Template::get(1);

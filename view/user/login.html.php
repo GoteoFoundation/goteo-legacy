@@ -24,11 +24,13 @@ use Goteo\Core\View,
 $bodyClass = 'user-login';
 // para que el prologue ponga el c�digo js para bot�n facebook en el bannerside
 $fbCode = Text::widget(Text::get('social-account-facebook'), 'fb');
+$jscrypt = true;
 include 'view/prologue.html.php';
 include 'view/header.html.php';
 
 $errors = $this['errors'];
 extract($_POST);
+if (empty($username) && isset($this['username'])) $username = $this['username'];
 ?>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
@@ -68,6 +70,14 @@ jQuery(document).ready(function($) {
 		$('.sign-in-with li:hidden').slideDown();
 		return false;
 	});
+    
+    $("#login_frm").submit(function () {
+        $("#thepw").val(hex_sha1($("#thepw").val()));
+        return true;
+    });
+
+    
+    
 });
 </script>
 
@@ -88,7 +98,7 @@ jQuery(document).ready(function($) {
             <div>
                 <h2><?php echo Text::get('login-access-header'); ?></h2>
 
-                <form action="/user/login" method="post">
+                <form action="/user/login" method="post" id="login_frm">
                     <input type="hidden" name="return" value="<?php echo $_GET['return']; ?>" />
                     <div class="username">
                         <label><?php echo Text::get('login-access-username-field'); ?>
@@ -97,14 +107,16 @@ jQuery(document).ready(function($) {
 
                     <div class="password">
                         <label><?php echo Text::get('login-access-password-field'); ?>
-                        <input type="password" name="password" value="<?php echo $username?>" /></label>
+                        <input type="password" id="thepw" name="password" value="" /></label>
                     </div>
 
                     <input type="submit" name="login" value="<?php echo Text::get('login-access-button'); ?>" />
 
                 </form>
 
-                <a href="/user/recover"><?php echo Text::get('login-recover-link'); ?></a>
+                <p><a href="/user/recover"><?php echo Text::get('login-recover-link'); ?></a></p>
+                <br />
+                <p><a class="baja" href="/user/leave"><?php echo Text::get('login-leave-button'); ?></a></p>
 
             </div>
         </div>
@@ -157,13 +169,13 @@ jQuery(document).ready(function($) {
 
                     <div class="userid">
                         <label for="RegisterUserid"><?php echo Text::get('login-register-userid-field'); ?></label>
-                        <input type="text" id="RegisterUserid" name="userid" value="<?php echo htmlspecialchars($userid) ?>"/>
+                        <input type="text" id="RegisterUserid" name="userid" value="<?php echo htmlspecialchars($userid) ?>" maxlength="15" />
                     <?php if(isset($errors['userid'])) { ?><em><?php echo $errors['userid']?></em><?php } ?>
                     </div>
 
                     <div class="username">
                         <label for="RegisterUsername"><?php echo Text::get('login-register-username-field'); ?></label>
-                        <input type="text" id="RegisterUsername" name="username" value="<?php echo htmlspecialchars($username) ?>"/>
+                        <input type="text" id="RegisterUsername" name="username" value="<?php echo htmlspecialchars($username) ?>" maxlength="20" />
                     <?php if(isset($errors['username'])) { ?><em><?php echo $errors['username']?></em><?php } ?>
                     </div>
 

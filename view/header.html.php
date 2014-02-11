@@ -20,6 +20,7 @@
 
 use Goteo\Library\Text,
     Goteo\Library\i18n\Lang;
+//@NODESYS
 ?>
 
 <?php include 'view/header/lang.html.php' ?> 

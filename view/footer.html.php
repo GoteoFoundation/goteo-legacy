@@ -22,6 +22,7 @@ use Goteo\Library\Text,
     Goteo\Model\Category,
     Goteo\Model\Post,
     Goteo\Model\Sponsor;
+//@NODESYS
 
 $lang = (LANG != 'es') ? '?lang='.LANG : '';
 
@@ -42,7 +43,7 @@ jQuery(document).ready(function($) {
                 <h8 class="title"><?php echo Text::get('footer-header-categories') ?></h8>
                 <ul class="scroll-pane">
                 <?php foreach ($categories as $id=>$name) : ?>
-                    <li><a href="/discover/results/<?php echo $id; ?>"><?php echo $name; ?></a></li>
+                    <li><a href="/discover/results/<?php echo $id.'/'.$name; ?>"><?php echo $name; ?></a></li>
                 <?php endforeach; ?>
                 </ul>
             </div>
@@ -69,9 +70,10 @@ jQuery(document).ready(function($) {
                     <?php foreach ($posts as $id=>$title) : ?>
                     <li><a href="/blog/<?php echo $id ?>"><?php echo Text::recorta($title, 50) ?></a></li>
                     <?php endforeach; ?>
+                    <li><a href="https://github.com/Goteo/Goteo" target="_blank"><?php echo Text::get('footer-resources-source_code') ?></a></li>
                 </ul>
             </div>
-			<script>
+			<script type="text/javascript">
 				$(function(){
 					$('#slides_sponsor').slides({
 						container: 'slides_container',
@@ -88,7 +90,7 @@ jQuery(document).ready(function($) {
 				<div class="slides_container">
 					<?php $i = 1; foreach ($sponsors as $sponsor) : ?>
 					<div class="sponsor" id="footer-sponsor-<?php echo $i ?>">
-						<a href="<?php echo $sponsor->url ?>" title="<?php echo $sponsor->name ?>" target="_blank"><img src="<?php echo $sponsor->image->getLink(150, 85) ?>" alt="<?php echo $sponsor->name ?>" /></a>
+						<a href="<?php echo $sponsor->url ?>" title="<?php echo $sponsor->name ?>" target="_blank" rel="nofollow"><img src="<?php echo $sponsor->image->getLink(150, 85) ?>" alt="<?php echo $sponsor->name ?>" /></a>
 					</div>
 					<?php $i++; endforeach; ?>
 				</div>
@@ -103,12 +105,10 @@ jQuery(document).ready(function($) {
                 
                 <h8 class="title"><?php echo Text::get('footer-header-services') ?></h8>
                 <ul>
-                    <li><a href="/service/resources"><?php echo Text::get('footer-service-resources') ?></a></li>
-<?php /*                    <li><a href="/service/campaign"><?php echo Text::get('footer-service-campaign') ?></a></li>
-                    <li><a href="/service/consulting"><?php echo Text::get('footer-service-consulting') ?></a></li>
- *
- */ ?>
-                    <li><a href="/service/workshop"><?php echo Text::get('footer-service-workshop') ?></a></li>
+                    <li><a href="/blog"><?php echo Text::get('regular-header-blog'); ?></a></li>
+                    <li><a href="/about"><?php echo Text::get('regular-header-about'); ?></a></li>
+                    <li><a href="/user/login"><?php echo Text::get('regular-login'); ?></a></li>
+                    <li><a href="/contact"><?php echo Text::get('regular-footer-contact'); ?></a></li>
                 </ul>
                 
             </div>
@@ -134,11 +134,6 @@ jQuery(document).ready(function($) {
            
                 
                 <ul>
-                    <li><a href="/about"><?php echo Text::get('regular-header-about'); ?></a></li>
-                    <li><a href="/user/login"><?php echo Text::get('regular-login'); ?></a></li>
-                    <li><a href="/contact"><?php echo Text::get('regular-footer-contact'); ?></a></li>
-<!--                    <li><a href="/blog"><?php echo Text::get('regular-header-blog'); ?></a></li> -->
-<!--                    <li><a href="/about/legal"><?php echo Text::get('regular-footer-legal'); ?></a></li> -->
                     <li><a href="/legal/terms"><?php echo Text::get('regular-footer-terms'); ?></a></li>
                     <li><a href="/legal/privacy"><?php echo Text::get('regular-footer-privacy'); ?></a></li>
                 </ul>

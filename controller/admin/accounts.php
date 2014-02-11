@@ -287,6 +287,7 @@ namespace Goteo\Controller\Admin {
                 // usuarios
                 $users = Model\User::getAllMini();
                 // campañas
+//@CALLSYS
                 $calls = array();
                    
                 
@@ -311,6 +312,7 @@ namespace Goteo\Controller\Admin {
                             'admin'     => $_SESSION['user']->id
                         )
                     );
+//@CALLSYS
 
                     if ($invest->save($errors)) {
                         // Evento Feed

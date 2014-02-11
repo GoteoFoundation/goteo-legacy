@@ -19,18 +19,46 @@
  */
 
 use Goteo\Core\View,
+    Goteo\Model\Image,
     Goteo\Library\Text;
 
+//@NODESYS
+//@CALLSYS
 $bodyClass = 'home';
 // para que el prologue ponga el código js para botón facebook en el bannerside
 $fbCode = Text::widget(Text::get('social-account-facebook'), 'fb');
+
+// metas og: para que al compartir en facebook coja las imagenes de novedades
+$ogmeta = array(
+    'title' => 'Goteo.org',
+    'description' => 'Goteo.org',
+    'url' => SITE_URL
+);
+if (!empty($this['posts'])) {
+    foreach ($this['posts'] as $post) {
+        if (count($post->gallery) > 1) {
+            foreach ($post->gallery as $pbimg) {
+                if ($pbimg instanceof Image) {
+                    $ogmeta['image'][] = $pbimg->getLink(500, 285);
+                }
+            }
+        } elseif (!empty($post->image)) {
+            $ogmeta['image'][] = $post->image->getLink(500, 285);
+        }
+    }
+}
+
+
 include 'view/prologue.html.php';
 include 'view/header.html.php';
 ?>
 <script type="text/javascript">
     $(function(){
-        $('#sub-header').slides();
+        $('#sub-header').slides({
+            play: 8000
+        });
     });
+
 </script>
 <div id="sub-header" class="banners">
     <div class="clearfix">
@@ -53,76 +81,14 @@ include 'view/header.html.php';
         <a class="next">next</a>
     </div>
 </div>
+
+<?php if(isset($_SESSION['messages'])) { include 'view/header/message.html.php'; } ?>
+
 <div id="main">
 
-    <?php if (!empty($this['posts'])): ?>
-    <script type="text/javascript">
-        $(function(){
-            $('#learn').slides({
-                container: 'slder_container',
-                paginationClass: 'slderpag',
-                generatePagination: false,
-                play: 0
-            });
-        });
-    </script>
-    <div id="learn" class="widget learn">
-        <h2 class="title"><?php echo Text::get('home-posts-header'); ?></h2>
-        <div class="slder_container"<?php if (count($this['posts'])==1) echo ' style="display:block;"'; ?>>
-
-            <?php $i = 1; foreach ($this['posts'] as $post) : ?>
-            <div class="slder_slide">
-                <div class="post" id="home-post-<?php echo $i; ?>" style="display:block;">
-                    <?php  if (!empty($post->media->url)) : ?>
-                        <div class="embed">
-                            <?php echo $post->media->getEmbedCode(); ?>
-                        </div>
-                    <?php elseif (!empty($post->image)) : ?>
-                        <div class="image">
-                            <img src="<?php echo $post->image->getLink(500, 285); ?>" alt="Imagen"/>
-                        </div>
-                    <?php endif; ?>
-                    <h3><?php echo $post->title; ?></h3>
-                    <div class="description">
-                <?php echo Text::recorta($post->text, 600) ?>
-                    </div>
-
-                    <div class="read_more"><a href="/blog/<?php echo $post->id; ?>"><?php echo Text::get('regular-read_more') ?></a></div>
-                </div>
-            </div>
-            <?php $i++; endforeach; ?>
-        </div>
-        <a class="prev">prev</a>
-        <ul class="slderpag">
-            <?php $i = 1; foreach ($this['posts'] as $post) : ?>
-            <li><a href="#" id="navi-home-post-<?php echo $i ?>" rel="home-post-<?php echo $i ?>" class="tipsy navi-home-post" title="<?php echo htmlspecialchars($post->title) ?>">
-                <?php echo htmlspecialchars($post->title) ?></a>
-            </li>
-            <?php $i++; endforeach ?>
-        </ul>
-        <a class="next">next</a>
-
-    </div>
-
-    <?php endif; ?>
-
-    <?php if (!empty($this['promotes'])): ?>
-    <div class="widget projects">
-
-        <h2 class="title"><?php echo Text::get('home-promotes-header'); ?></h2>
-
-        <?php foreach ($this['promotes'] as $promo) : ?>
-
-                <?php echo new View('view/project/widget/project.html.php', array(
-                    'project' => $promo->projectData,
-                    'balloon' => '<h4>' . htmlspecialchars($promo->title) . '</h4>' .
-                                 '<blockquote>' . $promo->description . '</blockquote>'
-                )) ?>
-
-        <?php endforeach ?>
-
-    </div>
-    <?php endif; ?>
+    <?php foreach ($this['order'] as $item=>$itemData) {
+        if (!empty($this[$item])) echo new View("view/home/{$item}.html.php", $this);
+    } ?>
 
 </div>
 <?php include 'view/footer.html.php'; ?>
