@@ -108,13 +108,18 @@ namespace Goteo\Model {
             if($this->validate($errors,$skip_validations)) {
                 // Nuevo usuario.
                 if(empty($this->id)) {
+
+                    // bcript
+                    $hashed = (version_compare(phpversion(), '5.5.0', '>=')) ? password_hash($this->password, PASSWORD_BCRYPT) : crypt($this->password);
+                    if (!$hashed) $errors[Text::get('register-hash_fail')];
+
                     $insert = true;
                     $data[':id'] = $this->id = static::idealiza($this->userid);
                     $data[':name'] = $this->name;
                     $data[':location'] = $this->location;
                     $data[':email'] = $this->email;
                     $data[':token'] = $token = md5(uniqid());
-                    if(!in_array('password',$skip_validations)) $data[':password'] = sha1($this->password);
+                    if(!in_array('password',$skip_validations)) $data[':password'] = $hashed;
                     $data[':created'] = date('Y-m-d H:i:s');
                     $data[':active'] = true;
                     $data[':confirmed'] = false;
@@ -170,7 +175,11 @@ namespace Goteo\Model {
 
                     // Contraseña
                     if(!empty($this->password)) {
-                        $data[':password'] = sha1($this->password);
+                        // bcript
+                        $hashed = (version_compare(phpversion(), '5.5.0', '>=')) ? password_hash($this->password, PASSWORD_BCRYPT) : crypt($this->password);
+                        if (!$hashed) $errors[Text::get('register-hash_fail')];
+
+                        $data[':password'] = $hashed;
                         static::query('DELETE FROM user_login WHERE user= ?', $this->id);
                     }
 
@@ -464,7 +473,7 @@ namespace Goteo\Model {
             if (!empty($this->password)) {
                 if ($set != '') $set .= ", ";
                 $set .= "`password` = :password ";
-                $values[":password"] = sha1($this->password);
+                $values[":password"] = (version_compare(phpversion(), '5.5.0', '>=')) ? password_hash($this->password, PASSWORD_BCRYPT) : crypt($this->password);
             }
 
             if ($set == '') return false;
@@ -622,6 +631,7 @@ namespace Goteo\Model {
             $users = array();
 
             $sqlFilter = "";
+            $sqlOrder = "";
             if (!empty($filters['id'])) {
                 $sqlFilter .= " AND id = :id";
                 $values[':id'] = $filters['id'];
@@ -883,24 +893,27 @@ namespace Goteo\Model {
             
             $query = self::query("
                     SELECT
-                        id
+                        password
                     FROM user
-                    WHERE BINARY id = :username
-                    AND BINARY password = :password",
+                    WHERE BINARY id = :username",
 				array(
-					':username' => trim($username),
-                    // si la contraseña ya viene en formato sha1 no la encriptamos
-					':password' => (\is_sha1($password)) ? $password : sha1($password)
+					':username' => trim($username)
 				)
 			);
 
-			if($row = $query->fetch()) {
-			    $user = static::get($row['id']);
-			    if($user->active) {
-			        return $user;
-			    } else {
-			        Message::Error(Text::get('user-account-inactive'));
-			    }
+			if($row = $query->fetch(\PDO::FETCH_OBJ)) {
+
+                if (password_verify($password, $row->password)) {
+                    $user = static::get(trim($username));
+                    if(empty($user) ||$user->active) {
+                        return $user;
+                    } else {
+                        Message::Error(Text::get('user-account-inactive'));
+                    }
+                } else {
+                    return false;
+                }
+
 			}
 			return false;
 		}

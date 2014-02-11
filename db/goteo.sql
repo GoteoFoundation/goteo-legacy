@@ -1500,7 +1500,7 @@ CREATE TABLE `user` (
   `name` varchar(100) NOT NULL,
   `location` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(60) NOT NULL,
   `about` text,
   `keywords` tinytext,
   `active` tinyint(1) NOT NULL,
