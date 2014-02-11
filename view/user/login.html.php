@@ -22,7 +22,7 @@ use Goteo\Core\View,
     Goteo\Library\Text;
 
 $bodyClass = 'user-login';
-// para que el prologue ponga el c�digo js para bot�n facebook en el bannerside
+// para que el prologue ponga el código js para botón facebook en el bannerside
 $fbCode = Text::widget(Text::get('social-account-facebook'), 'fb');
 $jscrypt = true;
 include 'view/prologue.html.php';
@@ -70,13 +70,6 @@ jQuery(document).ready(function($) {
 		$('.sign-in-with li:hidden').slideDown();
 		return false;
 	});
-    
-    $("#login_frm").submit(function () {
-        $("#thepw").val(hex_sha1($("#thepw").val()));
-        return true;
-    });
-
-    
     
 });
 </script>
