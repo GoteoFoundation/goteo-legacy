@@ -39,7 +39,7 @@ To have your language available in the language selector on the top right you
 have to add it and enable it in the database. For example, if you want to add
 Greek, you can do so by running the following query in your database.
 
-INSERT INTO `lang` VALUES('el', 'Greek', 1, 'e???????', 'el_GR');
+INSERT INTO `lang` VALUES('el', 'Greek', 1, 'ελληνικά', 'el_GR');
 
 That's all there is to it.
 

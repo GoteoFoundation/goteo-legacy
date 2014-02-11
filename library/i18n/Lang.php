@@ -100,79 +100,37 @@ namespace Goteo\Library\i18n {
         /*
          * Establece el idioma de visualización de la web
          */
-
-        static public function set($force = null) {
-            //echo 'Session: ' . $_SESSION['lang'] . '<br />';
-            //echo 'Get: ' . $_GET['lang'] . '<br />';
-            //definido por navegador =
-            $nav = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-            // si lo estamos forzando
-            if (isset($force)) {
-                $_SESSION['lang'] = $force;
-            } elseif (isset($_GET['lang'])) {
-                // si lo estan cambiando, ponemos el que llega
-                setcookie("goteo_lang", $_GET['lang'], time() + 3600 * 24 * 365);
-                $_SESSION['lang'] = $_GET['lang'];
-            } elseif (empty($_SESSION['lang'])) {
-                //primero miramos si tiene cookie
-                if (isset($_COOKIE['goteo_lang'])) {
-                    $_SESSION['lang'] = $_COOKIE['goteo_lang'];
-                } elseif ($nav != 'es' && self::is_active($nav)) {
-                    // si el definido por navegador no es español y está activo
-                    $_SESSION['lang'] = $nav;
-                } else {
-                    $_SESSION['lang'] = defined('NODE_DEFAULT_LANG') ? \NODE_DEFAULT_LANG : \GOTEO_DEFAULT_LANG;
+		static public function set () {
+            // si lo estan cambiando, ponemos el que llega
+            if (isset($_GET['lang'])) {
+/*                // si está activo, sino default
+ *
+ *  Aunque no esté activo!!
+ *
+                if (Lang::is_active($_GET['lang'])) {
+ *
+ */
+                    $_SESSION['lang'] = $_GET['lang'];
+   /*             } else {
+                    $_SESSION['lang'] = \GOTEO_DEFAULT_LANG;
                 }
+    * 
+    */
+            } elseif (empty($_SESSION['lang'])) {
+                // si no hay uno de session ponemos el default
+                $_SESSION['lang'] = \GOTEO_DEFAULT_LANG;
             }
             // establecemos la constante
             define('LANG', $_SESSION['lang']);
+		}
 
-            //echo 'New Session: ' . $_SESSION['lang'] . '<br />';
-            //echo 'Const: ' . LANG . '<br />';
-        }
+		static public function locale () {
+			$sql = "SELECT locale FROM lang WHERE id = :id";
+			$query = Model::query($sql, array(':id' => \LANG));
+			return $query->fetchColumn();
+		}
 
-        static public function locale() {
-            $sql = "SELECT locale FROM lang WHERE id = :id";
-            $query = Model::query($sql, array(':id' => \LANG));
-            return $query->fetchColumn();
-        }
+	} // class
 
-        /*
-         * Para sacar lista de idiomas
-         */
-        public static function projectLangs($id) {
-            $array = array();
 
-            $sql = "SELECT
-                        lang.id,
-                        lang.name
-                    FROM lang
-                    WHERE lang.id IN (
-                        SELECT
-                            lang
-                        FROM project_lang
-                        WHERE id = :id
-                        )
-                    OR lang.id IN (
-                        SELECT
-                            project.lang
-                        FROM project
-                        WHERE project.id = :id
-                        )
-                    ";
-            $sql .= "ORDER BY lang.id ASC";
-
-//            die(str_replace(':id', "'$id'", $sql));
-
-            $query = Model::query($sql, array(':id' => $id));
-            foreach ($query->fetchAll(\PDO::FETCH_OBJ) as $lang) {
-                $array[$lang->id] = $lang->name;
-            }
-            return $array;
-        }
-
-        
-        
-    } //class
-
-}
+} // ns

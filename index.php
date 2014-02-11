@@ -28,6 +28,14 @@ use Goteo\Core\Resource,
 	Goteo\Library\i18n\Locale,
     Goteo\Library\i18n\Lang;
 
+
+if( !file_exists("config.php") ) {
+	$msg = "This instance of Goteo doesn't seem to be configured, please read the deployment guide, configure and try again.";
+	error_log($msg);
+	echo "<div id='failure'><h1>{$msg}</h1></div>";
+	die;
+}
+
 require_once 'config.php';
 require_once 'core/common.php';
 require_once 'library/i18n/Locale.php';
@@ -49,7 +57,7 @@ if (GOTEO_MAINTENANCE === true && $_SERVER['REQUEST_URI'] != '/about/maintenance
 spl_autoload_register(
 
     function ($cls) {
-
+		//echo "Trying to autoload {$cls}...";
         $file = __DIR__ . '/' . implode('/', explode('\\', strtolower(substr($cls, 6)))) . '.php';
         $file = realpath($file);
 
@@ -62,6 +70,7 @@ spl_autoload_register(
         }
 
         if ($file !== false) {
+			//echo "Autoloading {$file}...";
             include $file;
         }
 
@@ -93,7 +102,11 @@ Lang::set();
 // change current locale
 $locale_name = Lang::locale();
 $locale = new Locale($config['locale']);
-$locale->set($locale_name);
+// avoid Fatal Error if $local_name is empty.
+if ($locale_name)
+	$locale->set($locale_name);
+else
+	$locale->set('en_GB');
 Registry::set('locale', $locale);
 
 
