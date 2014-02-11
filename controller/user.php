@@ -174,14 +174,10 @@ namespace Goteo\Controller {
             );
         }
 
-		/**
-		 * Registro de usuario desde oauth
-		 */
-		public function oauth_register() {
-            if (\GOTEO_FREE) {
-// we offer development services to make this work, althougt it's easy to complete this code
-                return false;
-            }
+        /**
+         * Registro de usuario desde oauth
+         */
+        public function oauth_register() {
 
             //comprovar si venimos de un registro via oauth
             if ($_POST['provider']) {
@@ -271,9 +267,7 @@ namespace Goteo\Controller {
          */
         public function oauth() {
 
-            if (\GOTEO_FREE) {
-                return false;
-            }
+            require_once OAUTH_LIBS;
 
             $errors = array();
             if (isset($_GET["provider"]) && $_GET["provider"]) {
@@ -324,6 +318,13 @@ namespace Goteo\Controller {
                     Message::Error(Text::get($oauth->last_error));
                 }
             }
+
+            return new View(
+                            'view/user/login.html.php',
+                            array(
+                                'errors' => $errors
+                            )
+            );
         }
 
         /**
@@ -527,10 +528,7 @@ namespace Goteo\Controller {
                 }
             }
 
-            /*
-             *  Si es un usuario vip y tiene proyectos recomendados activados
-             *   mostramos la página especial de patronos
-             */
+		// vip profile
             $viewData = array();
             $viewData['user'] = $user;
 
@@ -705,6 +703,7 @@ namespace Goteo\Controller {
                 $error = Text::get('recover-token-incorrect');
             }
 
+		// password recovery only by email
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['recover'])) {
                 $email = $_POST['email'];
                 if (!empty($email) && Model\User::recover($email)) {

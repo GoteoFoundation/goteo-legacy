@@ -49,7 +49,7 @@ if (GOTEO_MAINTENANCE === true && $_SERVER['REQUEST_URI'] != '/about/maintenance
 spl_autoload_register(
 
     function ($cls) {
-		//echo "Trying to autoload {$cls}...";
+
         $file = __DIR__ . '/' . implode('/', explode('\\', strtolower(substr($cls, 6)))) . '.php';
         $file = realpath($file);
 
@@ -62,7 +62,6 @@ spl_autoload_register(
         }
 
         if ($file !== false) {
-			//echo "Autoloading {$file}...";
             include $file;
         }
 
@@ -81,6 +80,7 @@ set_error_handler (
 
 );
 
+//@NODESYS
     define('NODE_ID', GOTEO_NODE);
 /**
  * Sesión.
