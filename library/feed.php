@@ -517,7 +517,7 @@ namespace Goteo\Library {
         public static function item ($type = 'system', $label = 'label', $id = null) {
 
             $page = static::_page();
-            $color = static::color();
+            $color = static::_color();
 
             // si llega id es un enlace
             if (isset($id)) {

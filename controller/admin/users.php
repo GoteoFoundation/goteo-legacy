@@ -32,48 +32,50 @@ namespace Goteo\Controller\Admin {
 
     class Users {
 
-        public static $manageSubAct = array(
-            "ban" => array (
-                'sql' => "UPDATE user SET active = 0 WHERE id = :user",
-                'log' => Text::_("Desactivado")
-                ),
-            "unban" => array (
-                'sql' => "UPDATE user SET active = 1 WHERE id = :user",
-                'log' => Text::_("Activado")
-                ),
-            "show" => array (
-                'sql' => "UPDATE user SET hide = 0 WHERE id = :user",
-                'log' => Text::_("Mostrado")
-                ),
-            "hide" => array (
-                'sql' => "UPDATE user SET hide = 1 WHERE id = :user",
-                'log' => Text::_("Ocultado")
-                ),
-            "checker" => array (
-                'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'checker')",
-                'log' => Text::_("Hecho revisor")
-                ),
-            "nochecker" => array (
-                'sql' => "DELETE FROM user_role WHERE role_id = 'checker' AND user_id = :user",
-                'log' => Text::_("Quitado de revisor")
-                ),
-            "translator" => array (
-                'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'translator')",
-                'log' => Text::_("Hecho traductor")
-                ),
-            "notranslator" => array (
-                'sql' => "DELETE FROM user_role WHERE role_id = 'translator' AND user_id = :user",
-                'log' => Text::_("Quitado de traductor")
-                ),
-            "admin" => array (
-                'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'admin')",
-                'log' => Text::_("Hecho admin")
-                ),
-            "noadmin" => array (
-                'sql' => "DELETE FROM user_role WHERE role_id = 'admin' AND user_id = :user",
-                'log' => Text::_("Quitado de admin")
-                )            
-        );
+        public static function _manageSubAct() {
+            return array(
+                "ban" => array (
+                    'sql' => "UPDATE user SET active = 0 WHERE id = :user",
+                    'log' => Text::_("Desactivado")
+                    ),
+                "unban" => array (
+                    'sql' => "UPDATE user SET active = 1 WHERE id = :user",
+                    'log' => Text::_("Activado")
+                    ),
+                "show" => array (
+                    'sql' => "UPDATE user SET hide = 0 WHERE id = :user",
+                    'log' => Text::_("Mostrado")
+                    ),
+                "hide" => array (
+                    'sql' => "UPDATE user SET hide = 1 WHERE id = :user",
+                    'log' => Text::_("Ocultado")
+                    ),
+                "checker" => array (
+                    'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'checker')",
+                    'log' => Text::_("Hecho revisor")
+                    ),
+                "nochecker" => array (
+                    'sql' => "DELETE FROM user_role WHERE role_id = 'checker' AND user_id = :user",
+                    'log' => Text::_("Quitado de revisor")
+                    ),
+                "translator" => array (
+                    'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'translator')",
+                    'log' => Text::_("Hecho traductor")
+                    ),
+                "notranslator" => array (
+                    'sql' => "DELETE FROM user_role WHERE role_id = 'translator' AND user_id = :user",
+                    'log' => Text::_("Quitado de traductor")
+                    ),
+                "admin" => array (
+                    'sql' => "REPLACE INTO user_role (user_id, role_id) VALUES (:user, 'admin')",
+                    'log' => Text::_("Hecho admin")
+                    ),
+                "noadmin" => array (
+                    'sql' => "DELETE FROM user_role WHERE role_id = 'admin' AND user_id = :user",
+                    'log' => Text::_("Quitado de admin")
+                    )
+            );
+        }
         
         
         
@@ -188,9 +190,10 @@ namespace Goteo\Controller\Admin {
                     // si llega post: ejecutamos + mensaje + seguimos editando
 
                     // operación y acción para el feed
+                    $mngSa = static::_manageSubAct();
                     
-                    $sql = self::$manageSubAct[$subaction]['sql'];
-                    $log_action = self::$manageSubAct[$subaction]['log'];
+                    $sql = $mngSa[$subaction]['sql'];
+                    $log_action = $mngSa[$subaction]['log'];
                     
                     if (!empty($sql)) {
 
@@ -412,7 +415,6 @@ namespace Goteo\Controller\Admin {
                             'file' => 'list',
                             'users'=>$users,
                             'filters' => $filters,
-                            'name' => $name,
                             'status' => $status,
                             'interests' => $interests,
                             'roles' => $roles,

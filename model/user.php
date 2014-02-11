@@ -747,10 +747,10 @@ namespace Goteo\Model {
                         email,
                         active,
                         hide,
-                        DATE_FORMAT(created, '%d/%m/%Y %H:%i:%s') as register_date,
+                        DATE_FORMAT(created, '%d/%m/%Y %H:%i:%s') as register_date
                         $sqlCR
                     FROM user
-                    WHERE id != 'root'
+                    WHERE id IS NOT NULL
                         $sqlFilter
                    $sqlOrder
                     LIMIT 999
@@ -890,7 +890,9 @@ namespace Goteo\Model {
 		 * @return obj|false Objeto del usuario, en caso contrario devolverá 'false'.
 		 */
 		public static function login ($username, $password) {
-            
+
+            $ok = false;
+
             $query = self::query("
                     SELECT
                         password
@@ -903,7 +905,13 @@ namespace Goteo\Model {
 
 			if($row = $query->fetch(\PDO::FETCH_OBJ)) {
 
-                if (password_verify($password, $row->password)) {
+                if  (version_compare(phpversion(), '5.5.0', '>=')) {
+                    $ok = password_verify($password, $row->password);
+                } else {
+                    $ok = (crypt($password, $row->password) == $row->password);
+                }
+
+                if ($ok) {
                     $user = static::get(trim($username));
                     if(empty($user) ||$user->active) {
                         return $user;

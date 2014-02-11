@@ -22,6 +22,7 @@ Others changes:
 Last but not least:
 - Login with services  (/library/oauth)
 - PayPal adaptive payments integration based on sdk-php v1.4 (/library/paypal/* IPN not implemented, https://github.com/paypal/sdk-core-php <- v1.5)
+- Bcrypt to encript password (change the pass field on the user table)
 
 
 

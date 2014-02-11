@@ -124,12 +124,12 @@ namespace Goteo\Controller {
                     ),
                     'filters' => array('section' => 'node')
                 ),
-            'home' => array(
-                'label' => _('Elementos en portada',
-                'actions' => array(
-                    'list' => array('label' => _('Gestionando'), 'item' => false)
-                )
-            ),
+                'home' => array(
+                    'label' => Text::_('Elementos en portada'),
+                    'actions' => array(
+                        'list' => array('label' => Text::_('Gestionando'), 'item' => false)
+                    )
+                ),
                 'glossary' => array(
                     'label' => Text::_('Glosario'),
                     'actions' => array(

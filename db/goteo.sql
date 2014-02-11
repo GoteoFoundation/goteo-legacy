@@ -1525,7 +1525,7 @@ CREATE TABLE `user` (
 -- Volcar la base de datos para la tabla `user`
 --
 
-INSERT INTO `user` VALUES('root', 'Super administrador', '', 'root_goteo@doukeshi.org', 'f64dd0d8c9276d87c6d0ae24c5d12571c62ecf16', '', '', 1, 91, '', '', '', '', '', '', 0, '2011-08-31 19:54:11', '2011-12-21 22:45:39', '61aa85ea9169c68babfa5b8bdb44097broot_goteo@doukeshi.org', 1, 1, 'es');
+INSERT INTO `user` VALUES('root', 'Sysadmin', '', '', '', '', '', 1, 91, '', '', '', '', '', '', 0, '', '', '', 1, 1, 'es');
 -- --------------------------------------------------------
 
 --
