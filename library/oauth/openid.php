@@ -1,5 +1,10 @@
 <?php
 /**
+ * The library requires PHP >= 5.1.2 with curl or http/https stream wrappers enabled.
+ * @author Mewp
+ * @copyright Copyright (c) 2010, Mewp
+ * @license http://www.opensource.org/licenses/mit-license.php MIT
+ *
  * This class provides a simple interface for OpenID (1.1 and 2.0) authentication.
  * Supports Yadis discovery.
  * The authentication process is stateless/dumb.
@@ -42,10 +47,6 @@
  * To get the values, use $openid->getAttributes().
  *
  *
- * The library requires PHP >= 5.1.2 with curl or http/https stream wrappers enabled.
- * @author Mewp
- * @copyright Copyright (c) 2010, Mewp
- * @license http://www.opensource.org/licenses/mit-license.php MIT
  */
 class LightOpenID
 {

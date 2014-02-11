@@ -1,4 +1,15 @@
 <?php
+/*
+ *  Class to integrate with Twitter's API.
+ *    Authenticated calls are done using OAuth and require access tokens for a user.
+ *    API calls which do not require authentication do not require tokens (i.e. search/trends)
+ *
+ *  Full documentation available on github
+ *    http://wiki.github.com/jmathai/twitter-async
+ *
+ *  @author Jaisen Mathai <jaisen@jmathai.com>
+ */
+
 class EpiSequence
 {
   private $timers, $min, $max, $width = 100;
