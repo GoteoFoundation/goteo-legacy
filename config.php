@@ -82,12 +82,12 @@ define('GOTEO_META_KEYWORDS', '--keywords--');
 define('GOTEO_META_AUTHOR', '--author--');
 define('GOTEO_META_COPYRIGHT', '--copyright--');
 
-//AWS Credentials
+//Amazon Web Services Credentials
 define("AWS_KEY", "--------------");
 define("AWS_SECRET", "----------------------------------");
 define("AWS_REGION", "-----------");
 
-//Mail management: ses, phpmailer
+//Mail management: ses (amazon), phpmailer (php library)
 define("MAIL_HANDLER", "phpmailer");
 
 // Database
@@ -102,7 +102,7 @@ define('GOTEO_DB_PASSWORD', 'db-password');
 // Mail
 define('GOTEO_MAIL_FROM', 'noreply@example.com');
 define('GOTEO_MAIL_NAME', 'example.com');
-define('GOTEO_MAIL_TYPE', 'smtp');
+define('GOTEO_MAIL_TYPE', 'smtp'); // mail, sendmail or smtp
 define('GOTEO_MAIL_SMTP_AUTH', true);
 define('GOTEO_MAIL_SMTP_SECURE', 'ssl');
 define('GOTEO_MAIL_SMTP_HOST', 'smtp--host');
@@ -150,26 +150,25 @@ define("FILE_HANDLER", "file");
 //Log file management: s3, file
 define("LOG_HANDLER", "file");
 
-// tipo de entorno: local, beta, real
+// environment: local, beta, real
 define("GOTEO_ENV", "local");
 
-//S3 bucket
+//S3 bucket (if you set FILE_HANDLER to s3)
 define("AWS_S3_BUCKET", "static.example.com");
 define("AWS_S3_PREFIX", "");
-//bucket para logs
+
+//bucket para logs (if you set LOG_HANDLER to s3)
 define("AWS_S3_LOG_BUCKET", "bucket");
 define("AWS_S3_LOG_PREFIX", "applogs/");
 
-// nodo central
-define('GOTEO_NODE', 'goteo');
-
-// Cron params
+// Cron params (for cron processes using wget)
 define('CRON_PARAM', '--------------');
 define('CRON_VALUE', '--------------');
 
 
 /****************************************************
 Paypal constants (sandbox)
+* Must set cretentials on library/paypal/paypal_config.php as well
 ****************************************************/
 define('PAYPAL_REDIRECT_URL', '---Sandbox/Production-url-----https://www.sandbox.paypal.com/webscr&cmd=');
 define('PAYPAL_DEVELOPER_PORTAL', '--developper-domain--');
@@ -179,31 +178,35 @@ define('PAYPAL_BUSINESS_ACCOUNT', '--mail-like-paypal-account--');
 define('PAYPAL_IP_ADDRESS', '127.0.0.1');
 
 /****************************************************
-TPV [Bank Name]
+TPV [Bank Name] (depends on your bank)
 ****************************************************/
 define('TPV_MERCHANT_CODE', 'xxxxxxxxx');
 define('TPV_REDIRECT_URL', '--bank-rest-api-url--');
 define('TPV_ENCRYPT_KEY', 'xxxxxxxxx');
 
+/*
+Any other payment system configuration should be setted here
+*/
+
 /****************************************************
-Social Services constants
+Social Services constants  (needed to login-with on the controller/user and library/oauth)
 ****************************************************/
-// Credenciales app Facebook
+// Credentials Facebook app
 define('OAUTH_FACEBOOK_ID', '-----------------------------------'); //
 define('OAUTH_FACEBOOK_SECRET', '-----------------------------------'); //
 
-// Credenciales app Twitter
+// Credentials Twitter app
 define('OAUTH_TWITTER_ID', '-----------------------------------'); //
 define('OAUTH_TWITTER_SECRET', '-----------------------------------'); //
 
-// Credenciales app Linkedin
+// Credentials Linkedin app
 define('OAUTH_LINKEDIN_ID', '-----------------------------------'); //
 define('OAUTH_LINKEDIN_SECRET', '-----------------------------------'); //
 
-//Un secreto inventado cualquiera para encriptar los emails que sirven de secreto en openid
+// Un secreto inventado cualquiera para encriptar los emails que sirven de secreto en openid
 define('OAUTH_OPENID_SECRET','-----------------------------------');
 
-// recaptcha
+// recaptcha ( to be used in /contact form )
 define('RECAPTCHA_PUBLIC_KEY','-----------------------------------');
 define('RECAPTCHA_PRIVATE_KEY','-----------------------------------');
 
@@ -211,6 +214,7 @@ define('RECAPTCHA_PRIVATE_KEY','-----------------------------------');
 Google Analytics
 ****************************************************/
 define('GOTEO_ANALYTICS_TRACKER', "<script type=\"text/javascript\">
+__your_tracking_js_code_goes_here___
 </script>
 ");
 ?&gt;
@@ -221,9 +225,9 @@ EOF
 if (file_exists('tmp-settings.php'))
     require 'tmp-settings.php';
 else {
-    // Comportamientos temporales
-    define('DEVGOTEO_LOCAL', false);
-    define('GOTEO_MAINTENANCE', null);
-    define('GOTEO_EASY', null);
-define('GOTEO_FREE', true);
+    // Temporary behaviours
+    define('DEVGOTEO_LOCAL', false); // backwards compatibility
+    define('GOTEO_MAINTENANCE', null); // to show the maintenance page
+    define('GOTEO_EASY', null); // to take user overload easy
+	define('GOTEO_FREE', true); // used somewhere...
 }
