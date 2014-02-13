@@ -45,7 +45,7 @@ namespace Goteo\Controller\Admin {
                 $projData = Model\Project::get($_POST['id']);
                 if (empty($projData->id)) {
                     Message::Error('El proyecto '.$_POST['id'].' no existe');
-                    break;
+                    throw new Redirection('/admin/projects/images/'.$id);
                 }
 
                 if (isset($_POST['save-dates'])) {
@@ -68,10 +68,6 @@ namespace Goteo\Controller\Admin {
                             $_POST[$field] = null;
 
                         $values[":$field"] = $_POST[$field];
-                    }
-
-                    if ($set == '') {
-                        break;
                     }
 
                     try {
@@ -149,7 +145,7 @@ namespace Goteo\Controller\Admin {
                             Message::Info(Text::_('Verificar el proyecto').' -> <a href="'.SITE_URL.'/project/'.$newid.'" target="_blank">'.$projData->name.'</a>');
                             throw new Redirection('/admin/projects');
                         } else {
-                            Message::Info(Text::_('Ha fallado algo en el rebase, verificar el proyecto').' -> <a href="'.SITE_URL.'/project/'.$this->id.'" target="_blank">'.$projData->name.' ('.$id.')</a>');
+                            Message::Info(Text::_('Ha fallado algo en el rebase, verificar el proyecto').' -> <a href="'.SITE_URL.'/project/'.$projData->id.'" target="_blank">'.$projData->name.' ('.$id.')</a>');
                             throw new Redirection('/admin/projects/rebase/'.$id);
                         }
 
@@ -425,7 +421,7 @@ namespace Goteo\Controller\Admin {
             }
             $status = Model\Project::status();
             $categories = Model\Project\Category::getAll();
-            $contracts = Model\Contract::getProjects();
+            //@CONTRACTSYS
             $calls = array();
             // la lista de nodos la hemos cargado arriba
             $orders = array(
@@ -442,7 +438,7 @@ namespace Goteo\Controller\Admin {
                     'filters' => $filters,
                     'status' => $status,
                     'categories' => $categories,
-                    'contracts' => $contracts,
+//                    'contracts' => $contracts,
                     'calls' => $calls,
                     'nodes' => $nodes,
                     'orders' => $orders

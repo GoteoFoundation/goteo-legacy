@@ -25,6 +25,7 @@ namespace Goteo\Controller\Admin {
         Goteo\Core\Error,
 		Goteo\Library\Feed,
 		Goteo\Library\Message,
+		Goteo\Library\Text,
         Goteo\Model;
 
     class Reviews {

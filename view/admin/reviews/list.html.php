@@ -22,12 +22,20 @@ use Goteo\Library\Text;
 
 $filters = $this['filters'];
 
-//arrastramos los filtros
-$filter = "?status={$filters['status']}&checker={$filters['checker']}";
-
 ?>
 <div class="widget board">
 <form id="filter-form" action="/admin/reviews" method="get">
+   
+    <label for="project-filter">Del proyecto:</label>
+    <select id="project-filter" name="project" onchange="document.getElementById('filter-form').submit();">
+        <option value="">--</option>
+        <?php foreach ($this['projects'] as $projId=>$projName) : ?>
+            <option value="<?php echo $projId; ?>"<?php if ($filters['project'] == $projId) echo ' selected="selected"';?>><?php echo substr($projName, 0, 100); ?></option>
+        <?php endforeach; ?>
+    </select>
+
+    <br />
+
     <label for="status-filter">Mostrar por estado:</label>
     <select id="status-filter" name="status" onchange="document.getElementById('filter-form').submit();">
         <option value="">Todas</option>
@@ -46,8 +54,8 @@ $filter = "?status={$filters['status']}&checker={$filters['checker']}";
 </form>
 </div>
 
-<?php if (!empty($this['projects'])) : ?>
-    <?php foreach ($this['projects'] as $project) : ?>
+<?php if (!empty($this['list'])) : ?>
+    <?php foreach ($this['list'] as $project) : ?>
         <div class="widget board">
             <table>
                 <thead>
@@ -72,15 +80,15 @@ $filter = "?status={$filters['status']}&checker={$filters['checker']}";
                         <td><?php echo $project->progress; ?></td>
                         <td><?php echo $project->score . ' / ' . $project->max; ?></td>
                         <?php if (!empty($project->review)) : ?>
-                        <td><a href="/admin/reviews/edit/<?php echo $project->project; ?>/<?php echo $filter; ?>">[Editar]</a></td>
+                        <td><a href="/admin/reviews/edit/<?php echo $project->project; ?>">[Editar]</a></td>
                         <td><a href="/admin/reviews/report/<?php echo $project->project; ?>" target="_blank">[Ver informe]</a></td>
                             <?php if ( $project->status > 0 ) : ?>
-                        <td><a href="/admin/reviews/close/<?php echo $project->review; ?>/<?php echo $filter; ?>">[Cerrar]</a></td>
+                        <td><a href="/admin/reviews/close/<?php echo $project->review; ?>">[Cerrar]</a></td>
                             <?php else : ?>
                         <td>Revisión cerrada</td>
                             <?php endif; ?>
                         <?php else : ?>
-                        <td><a href="/admin/reviews/add/<?php echo $project->project; ?>/<?php echo $filter; ?>">[Iniciar revision]</a></td>
+                        <td><a href="/admin/reviews/add/<?php echo $project->project; ?>">[Iniciar revision]</a></td>
                         <td></td>
                         <?php endif; ?>
                         <td><?php if ($project->translate) : ?><a href="<?php echo "/admin/translates/edit/{$project->project}"; ?>">[Ir a traducción]</a>
@@ -104,13 +112,13 @@ $filter = "?status={$filters['status']}&checker={$filters['checker']}";
                 <tr>
                     <td><?php echo $checker->name; ?></td>
                     <td><?php echo $checker->score . '/' . $checker->max; ?></td>
-                    <td><?php if ($checker->ready) : ?>Listo <a href="/admin/reviews/unready/<?php echo $project->review; ?>/<?php echo $filter; ?>&user=<?php echo $user; ?>">[Reabrir]</a><?php endif ?></td>
-                    <td><a href="/admin/reviews/unassign/<?php echo $project->review; ?>/<?php echo $filter; ?>&user=<?php echo $user; ?>">[Desasignar]</a></td>
+                    <td><?php if ($checker->ready) : ?>Listo <a href="/admin/reviews/unready/<?php echo $project->review; ?>/?user=<?php echo $user; ?>">[Reabrir]</a><?php endif ?></td>
+                    <td><a href="/admin/reviews/unassign/<?php echo $project->review; ?>/?user=<?php echo $user; ?>">[Desasignar]</a></td>
                 </tr>
                 <?php endforeach; ?>
                 <?php if ($project->status > 0) : ?>
                 <tr>
-                    <form id="form-assign-<?php echo $project->review; ?>" action="/admin/reviews/assign/<?php echo $project->review; ?>/<?php echo $filter; ?>" method="get">
+                    <form id="form-assign-<?php echo $project->review; ?>" action="/admin/reviews/assign/<?php echo $project->review; ?>/" method="get">
                     <td colspan="2">
                         <select name="user">
                             <option value="">Selecciona un nuevo revisor</option>
