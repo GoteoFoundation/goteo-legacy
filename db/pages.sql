@@ -1,3 +1,15 @@
+-- pages
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('about', 'About', 'About', '/about');
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('big-error', 'BIG error', 'Internal server error and so on', '/about/fail');
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('contact', 'Contact', 'Contact form', '/contact');
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('error', 'Standard error', 'Url dont match controller', '/about/error');
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('howto', 'Crete a project', 'How to create a project', '/about/howto');
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('legal', 'Legal', 'Legal', '/about/legal');
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('maintenance', 'Maintenance', 'Maintenance', '/about/maintenance');
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('privacy', 'Privacy', 'Privacy', '/legal/privacy');
+REPLACE INTO `page` (`id`, `name`, `description`, `url`) VALUES('terms', 'Terms and conditions', 'Terms and conditions', '/legal/terms');
+
+-- page content
 REPLACE INTO `page_node` (`page`, `node`, `lang`, `content`) VALUES('about', 'goteo', 'en', '<p>\r\n	SiteName is a social network for collective financing (monetary donations) and distributed cooperations (services, infrastructures, etc). A platform for investments in projects that cointribute to the common good and are open source and open knowledge. A community for the development of autonomous, creative and innovative projects in the socia, cultural, technical or educational area, and that create new opportunities for the whole of society.</p>\r\n<p>\r\n	&nbsp;</p>\r\n');
 REPLACE INTO `page_node` (`page`, `node`, `lang`, `content`) VALUES('about', 'goteo', 'nl', '<p>\r\n	SiteName is een sociaal netwerk voor collectieve financiering (geldelijke donaties) en gedistribueerde samenwerkingen (diensten, infrastructuren en dergelijke). Een platform voor investeringen in projecten die bijdragen aan het algemeen belang, open source en open kennis. Een gemeenschap voor de ontwikkeling van autonome, creatieve en innovationele initiatieven op cultureel, sociaal, technisch en educatief gebied, die nieuwe mogelijkheden creeren voor de hele samenleving.</p>\r\n<p>\r\n	&nbsp;</p>\r\n');
 REPLACE INTO `page_node` (`page`, `node`, `lang`, `content`) VALUES('about', 'goteo', 'es', '<p>\r\n	SiteName es una red social de financiaci&oacute;n colectiva (aportaciones monetarias) y colaboraci&oacute;n distribuida (servicios, infraestructuras, microtareas y otros recursos). Una plataforma para la inversi&oacute;n de &ldquo;capital riego&rdquo; en proyectos que contribuyan al desarrollo del procom&uacute;n, el c&oacute;digo abierto y/o el conocimiento libre. Una comunidad para apoyar el desarrollo aut&oacute;nomo de iniciativas creativas e innovadoras cuyos fines sean de car&aacute;cter social, cultural, cient&iacute;fico, educativo, tecnol&oacute;gico o ecol&oacute;gico, que generen nuevas oportunidades para la mejora constante de la sociedad.</p>\r\n<p>\r\n	&nbsp;</p>\r\n');
