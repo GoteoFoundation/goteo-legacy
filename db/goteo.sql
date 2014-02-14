@@ -1590,7 +1590,6 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
-INSERT INTO `user_role` VALUES('root', 'admin', '*', NULL);
 INSERT INTO `user_role` VALUES('root', 'checker', '*', NULL);
 INSERT INTO `user_role` VALUES('root', 'root', '*', NULL);
 INSERT INTO `user_role` VALUES('root', 'superadmin', '*', NULL);
@@ -1609,6 +1608,19 @@ CREATE TABLE `user_translang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Idiomas de traductores';
 
 -- --------------------------------------------------------
+
+INSERT INTO `user_translang` (`user`, `lang`) VALUES
+('root', 'ca'),
+('root', 'de'),
+('root', 'el'),
+('root', 'en'),
+('root', 'es'),
+('root', 'eu'),
+('root', 'fr'),
+('root', 'gl'),
+('root', 'it'),
+('root', 'nl'),
+('root', 'pt');
 
 --
 -- Estructura de tabla para la tabla `user_translate`
