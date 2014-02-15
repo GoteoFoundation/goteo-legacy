@@ -23,7 +23,7 @@ use Goteo\Library\Text;
 ?>
 <div class="widget board">
     <!-- super form -->
-    <form method="post" action="/admin/icons?filter=<?php echo $this['filter']; ?>">
+    <form method="post" action="/admin/icons">
 
         <input type="hidden" name="action" value="<?php echo $this['action']; ?>" />
         <input type="hidden" name="id" value="<?php echo $this['icon']->id; ?>" />

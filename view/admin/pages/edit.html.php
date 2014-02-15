@@ -42,7 +42,7 @@ $(document).ready(function(){
 		skin: 'kama',
 		language: 'es',
 		height: '300px',
-		width: '800px'
+		width: '730px'
 	});
 });
 </script>

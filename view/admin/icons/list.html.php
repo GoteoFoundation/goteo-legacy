@@ -22,16 +22,15 @@ use Goteo\Library\Text,
     Goteo\Core\ACL;
 
 $translator = ACL::check('/translate') ? true : false;
+$filters = $this['filters'];
 ?>
-<!-- <a href="/admin/icons/add/?filter=<?php echo $this['filter']; ?>" class="button red">Añadir tipo</a> -->
-
 <div class="widget board">
     <form id="groupfilter-form" action="/admin/icons" method="get">
         <label for="group-filter"> <?php echo Text::_("Mostrar los tipos para:"); ?></label>
-        <select id="group-filter" name="filter" onchange="document.getElementById('groupfilter-form').submit();">
+        <select id="group-filter" name="group" onchange="document.getElementById('groupfilter-form').submit();">
             <option value=""><?php echo Text::_("Todo"); ?></option>
         <?php foreach ($this['groups'] as $groupId=>$groupName) : ?>
-            <option value="<?php echo $groupId; ?>"<?php if ($this['filter'] == $groupId) echo ' selected="selected"';?>><?php echo $groupName; ?></option>
+            <option value="<?php echo $groupId; ?>"<?php if ($filters['group'] == $groupId) echo ' selected="selected"';?>><?php echo $groupName; ?></option>
         <?php endforeach; ?>
         </select>
     </form>
@@ -54,14 +53,13 @@ $translator = ACL::check('/translate') ? true : false;
         <tbody>
             <?php foreach ($this['icons'] as $icon) : ?>
             <tr>
-                <td><a href="/admin/icons/edit/<?php echo $icon->id; ?>/?filter=<?php echo $this['filter']; ?>"><?php echo Text::_("[Editar]"); ?></a></td>
+                <td><a href="/admin/icons/edit/<?php echo $icon->id; ?>"><?php echo Text::_("[Editar]"); ?></a></td>
                 <td><?php echo $icon->name; ?></td>
                 <td><?php echo $icon->description; ?></td>
                 <td><?php echo !empty($icon->group) ? $this['groups'][$icon->group] : Text::_('Ambas'); ?></td>
                 <?php if ($translator) : ?>
                 <td><a href="/translate/icon/edit/<?php echo $icon->id; ?>" ><?php echo Text::_("[Traducir]"); ?></a></td>
                 <?php endif; ?>
-                <!-- <td><a href="/admin/icons/remove/<?php echo $icon->id; ?>/?filter=<?php echo $this['filter']; ?>" onclick="return confirm('Seguro que deseas eliminar este registro?');">[Quitar]</a></td> -->
             </tr>
             <?php endforeach; ?>
         </tbody>

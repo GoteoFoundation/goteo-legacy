@@ -22,7 +22,36 @@ use Goteo\Library\Text,
     Goteo\Core\ACL;
 
 $translator = ACL::check('/translate') ? true : false;
+
+$filters = $this['filters'];
 ?>
+<div class="widget board">
+    <form id="filter-form" action="/admin/templates" method="get">
+        <table>
+            <tr>
+                <td>
+                    <label for="group-filter">Filtrar agrupaci&oacute;n:</label><br />
+                    <select id="group-filter" name="group">
+                        <option value="">Todas las agrupaciones</option>
+                    <?php foreach ($this['groups'] as $groupId=>$groupName) : ?>
+                        <option value="<?php echo $groupId; ?>"<?php if ($filters['group'] == $groupId) echo ' selected="selected"';?>><?php echo $groupName; ?></option>
+                    <?php endforeach; ?>
+                    </select>
+                </td>
+                <td>
+                    <label for="name-filter">Filtrar por nombre o asunto:</label><br />
+                    <input type="text" id ="name-filter" name="name" value ="<?php echo $filters['name']?>" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" name="filter" value="Filtrar">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
 <div class="widget board">
     <?php if (!empty($this['templates'])) : ?>
     <table>

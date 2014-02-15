@@ -23,7 +23,7 @@ use Goteo\Library\Text,
 
 $translator = ACL::check('/translate') ? true : false;
 ?>
-<a href="/admin/glossary/add" class="button red"><?php echo Text::_("Nuevo término"); ?></a>
+<a href="/admin/glossary/add" class="button"><?php echo Text::_("Nuevo término"); ?></a>
 
 <div class="widget board">
     <?php if (!empty($this['posts'])) : ?>

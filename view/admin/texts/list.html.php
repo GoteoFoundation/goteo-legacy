@@ -24,17 +24,6 @@ use Goteo\Library\Text,
 $translator = ACL::check('/translate') ? true : false;
 
 $filters = $this['filters'];
-
-// si hay filtro lo arrastramos
-if (!empty($filters)) {
-    $filter = "?";
-    foreach ($filters as $key => $fil) {
-        $filter .= "$key={$fil['value']}&";
-    }
-} else {
-    $filter = '';
-}
-
 $botones = array(
     'edit' => '[Editar]',
     'remove' => '[Quitar]',
@@ -48,7 +37,7 @@ $per = 100 / $cols;
 
 ?>
 <?php if (!empty($this['addbutton'])) : ?>
-<a href="<?php echo $this['url'] ?>/add" class="button red"><?php echo $this['addbutton'] ?></a>
+<a href="<?php echo $this['url'] ?>/add" class="button"><?php echo $this['addbutton'] ?></a>
 <?php endif; ?>
 <!-- Filtro -->
 <?php if (!empty($filters)) : ?>
@@ -76,7 +65,9 @@ $per = 100 / $cols;
 
 <!-- lista -->
 <div class="widget board">
-    <?php if (!empty($this['data'])) : ?>
+<?php if ($filters['filtered'] != 'yes') : ?>
+    <p>Es necesario poner algun filtro, hay demasiados registros!</p>
+<?php elseif (!empty($this['data'])) : ?>
     <table>
         <thead>
             <tr>
@@ -89,7 +80,7 @@ $per = 100 / $cols;
         <tbody>
             <?php foreach ($this['data'] as $item) : ?>
             <tr>
-                <td><a href="/admin/texts/edit/<?php echo $item->id; ?>/<?php echo $filter; ?>">[Editar]</a></td>
+                <td><a href="/admin/texts/edit/<?php echo $item->id; ?>">[Editar]</a></td>
                 <td><?php echo $item->text; ?></td>
                 <td><?php echo $item->group; ?></td>
                 <?php if ($translator) : ?>

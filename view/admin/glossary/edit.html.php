@@ -18,13 +18,10 @@
  *
  */
 
-
 use Goteo\Library\Text,
     Goteo\Model,
     Goteo\Core\Redirection,
-    Goteo\Library\SuperForm;
-
-define('ADMIN_NOAUTOSAVE', true);
+    Goteo\Library\NormalForm;
 
 $post = $this['post'];
 
@@ -32,19 +29,17 @@ if (!$post instanceof Model\Glossary) {
     throw new Redirection('/admin/glossary');
 }
 
-// Superform
-    $images = array();
-    foreach ($post->gallery as $image) {
-        $images[] = array(
-            'type'  => 'html',
-            'class' => 'inline gallery-image',
-            'html'  => is_object($image) ?
+$images = array();
+foreach ($post->gallery as $image) {
+    $images[] = array(
+        'type'  => 'html',
+        'class' => 'inline gallery-image',
+        'html'  => is_object($image) ?
                        $image . '<img src="'.SRC_URL.'/image/'.$image->id.'/128/128" alt="'.Text::_("Imagen").'" /><button class="image-remove weak" type="submit" name="gallery-'.$image->id.'-remove" title="'.Text::_("Quitar imagen").'" value="'.Text::_("remove").'"></button>' :
-                       ''
-        );
+                   ''
+    );
 
-    }
-
+}
 ?>
 <script type="text/javascript" src="/view/js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
@@ -71,9 +66,9 @@ $(document).ready(function(){
 });
 </script>
 
-<form method="post" action="/admin/glossary/<?php echo $this['action']; ?>/<?php echo $post->id; ?>" class="project" enctype="multipart/form-data">
+<form method="post" action="/admin/glossary/<?php echo $this['action']; ?>/<?php echo $post->id; ?>" enctype="multipart/form-data">
 
-    <?php echo new SuperForm(array(
+    <?php echo new NormalForm(array(
 
         'action'        => '',
         'level'         => 3,
@@ -96,14 +91,12 @@ $(document).ready(function(){
             ),
             'title' => array(
                 'type'      => 'textbox',
-                'required'  => true,
                 'size'      => 20,
                 'title'     => Text::_("Término"),
                 'value'     => $post->title,
             ),
             'text' => array(
                 'type'      => 'textarea',
-                'required'  => true,
                 'cols'      => 40,
                 'rows'      => 4,
                 'title'     => Text::_("Explicación del término"),

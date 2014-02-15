@@ -26,6 +26,9 @@ $project = $this['project'];
 $campaign = $this['campaign'];
 $user = $this['user'];
 
+$rewards = $invest->rewards;
+array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
+
 ?>
 <div class="widget">
     <p>
@@ -111,7 +114,7 @@ $user = $this['user'];
     <dl>
         <dt><?php echo Text::_("Recompensas elegidas:"); ?></dt>
         <dd>
-            <?php echo implode(', ', $investData->rewards); ?>
+            <?php echo implode(', ', $rewards); ?>
         </dd>
     </dl>
     <?php endif; ?>

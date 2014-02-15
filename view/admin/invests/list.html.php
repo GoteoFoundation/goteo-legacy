@@ -18,7 +18,8 @@
  *
  */
 
-use Goteo\Library\Text;
+use Goteo\Library\Text,
+    Goteo\Model\Invest;
 
 $filters = $this['filters'];
 
@@ -47,12 +48,6 @@ $filters = $this['filters'];
         'label' =>  Text::_("Extra"),
         'first' =>  Text::_("Todos"))
 ); ?>
-<a href="/admin/invests/add" class="button red"><?php echo Text::_("Generar aportes manuales"); ?></a>
-<?php if (!empty($filters['projects'])) : ?>
-    <br />
-    <a href="/admin/invests/report/<?php echo $filters['projects'] ?>" class="button red" target="_blank"><?php echo Text::_("Informe financiero de "); ?><?php echo $this['projects'][$filters['projects']] ?></a>&nbsp;&nbsp;&nbsp;
-    <a href="/cron/dopay/<?php echo $filters['projects'] ?>" target="_blank" class="button red" onclick="return confirm(Text::_("No hay vuelta atrás, ok?"));"><?php echo Text::_("Realizar pagos secundarios a "); ?><?php echo $this['projects'][$filters['projects']] ?></a>
-<?php endif ?>
 <div class="widget board">
     <h3 class="title">Filtros</h3>
     <form id="filter-form" action="/admin/invests" method="get">
@@ -60,23 +55,39 @@ $filters = $this['filters'];
         <?php foreach ($the_filters as $filter=>$data) : ?>
         <div style="float:left;margin:5px;">
             <label for="<?php echo $filter ?>-filter"><?php echo $data['label'] ?></label><br />
-            <select id="<?php echo $filter ?>-filter" name="<?php echo $filter ?>" onchange="document.getElementById('filter-form').submit();">
+            <select id="<?php echo $filter ?>-filter" name="<?php echo $filter ?>">
                 <option value="<?php if ($filter == 'investStatus' || $filter == 'status') echo 'all' ?>"<?php if (($filter == 'investStatus' || $filter == 'status') && $filters[$filter] == 'all') echo ' selected="selected"'?>><?php echo $data['first'] ?></option>
             <?php foreach ($this[$filter] as $itemId=>$itemName) : ?>
-                <option value="<?php echo $itemId; ?>"<?php if ($filters[$filter] === (string) $itemId) echo ' selected="selected"';?>><?php echo $itemName; ?></option>
+                <option value="<?php echo $itemId; ?>"<?php if ($filters[$filter] === (string) $itemId) echo ' selected="selected"';?>><?php echo substr($itemName, 0, 50); ?></option>
             <?php endforeach; ?>
             </select>
         </div>
         <?php endforeach; ?>
+        <br clear="both" />
+
+        <div style="float:left;margin:5px;">
+            <label for="name-filter">Alias/Email del usuario:</label><br />
+            <input type="text" id ="name-filter" name="name" value ="<?php echo $filters['name']?>" />
+        </div>
+
+        <br clear="both" />
+
+        <div style="float:left;margin:5px;">
+            <input type="submit" value="filtrar" />
+        </div>
     </form>
     <br clear="both" />
-    <a href="/admin/invests"><?php echo Text::_("Quitar filtros"); ?></a>
+    <a href="/admin/invests/?reset=filters"><?php echo Text::_("Quitar filtros"); ?></a>
 </div>
 
 <div class="widget board">
 <?php if ($filters['filtered'] != 'yes') : ?>
     <p><?php echo Text::_("Es necesario poner algun filtro, hay demasiados registros!"); ?></p>
 <?php elseif (!empty($this['list'])) : ?>
+<?php $Total = 0; foreach ($this['list'] as $invest) { $Total += $invest->amount; } ?>
+    <p><strong>TOTAL:</strong>  <?php echo number_format($Total, 0, '', '.') ?> &euro;</p>
+    <p><strong>OJO!</strong> Resultado limitado a 999 registros como máximo.</p>
+    
     <table width="100%">
         <thead>
             <tr>
@@ -89,7 +100,7 @@ $filters = $this['filters'];
                 <th><?php echo Text::_("Metodo"); ?></th>
                 <th><?php echo Text::_("Estado aporte"); ?></th>
                 <th><?php echo Text::_("Importe"); ?></th>
-                <th>Extra</th>
+                <th><?php echo Text::_("Extra"); ?></th>
             </tr>
         </thead>
 
