@@ -63,7 +63,7 @@ if (!empty($project->video->url)) {
 
 ?>
 
-<form method="post" action="<?php echo SITE_URL ?>/dashboard/translates/overview/save" class="project" enctype="multipart/form-data">
+<form method="post" action="/dashboard/translates/overview/save" class="project" enctype="multipart/form-data">
 
 <?php echo new SuperForm(array(
     'level'         => 3,
@@ -210,6 +210,20 @@ if (!empty($project->video->url)) {
                     'errors'    => array(),
                     'ok'        => array(),
                     'value'     => $project->related
+                ),
+                'reward-orig' => array(
+                    'type'      => 'html',
+                    'title'     => Text::get('overview-field-reward'),
+                    'html'     => nl2br($original->reward)
+                ),
+                'reward' => array(
+                    'type'      => 'textarea',
+                    'title'     => '',
+                    'class'     => 'inline',
+                    'hint'      => Text::get('tooltip-project-reward'),
+                    'errors'    => array(),
+                    'ok'        => array(),
+                    'value'     => $project->reward
                 )
             )
         ),

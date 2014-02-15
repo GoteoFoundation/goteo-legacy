@@ -36,7 +36,7 @@ $sfid = 'sf-project-profile';
 <div class="widget">Estas traduciendo el perfil del autor del proyecto. <a href="/dashboard/translates/profile/own">Traducir mi perfil personal</a></div>
 <?php endif; ?>
 
-<form method="post" action="<?php echo SITE_URL ?>/dashboard/translates/profile/save" class="project" enctype="multipart/form-data">
+<form method="post" action="/dashboard/translates/profile/save" class="project" enctype="multipart/form-data">
 
 <?php echo new SuperForm(array(
     'id'            => $sfid,

@@ -70,21 +70,48 @@ if (!empty($project->social_rewards)) {
                             'errors'    => array(),
                             'ok'        => array(),
                             'hint'      => Text::get('tooltip-project-social_reward-description')
-                        ),
-                        "social_reward-{$social_reward->id}-buttons" => array(
-                            'type' => 'group',
-                            'class' => 'buttons',
-                            'children' => array(
-                                "social_reward-{$social_reward->id}-ok" => array(
-                                    'type'  => 'submit',
-                                    'label' => Text::get('form-accept-button'),
-                                    'class' => 'inline ok'
-                                )
-                            )
                         )
                     )
                 );
-                                
+
+
+                // añadir el campo otros
+                if ($social_reward->icon == 'other') {
+
+                    $social_rewards["social_reward-{$social_reward->id}"]['children']["social_reward-{$social_reward->id}-other-orig"] = array(
+                            'type'      => 'html',
+                            'title'     => Text::get('rewards-field-social_reward-other'),
+                            'html'      => $original->other
+                        );
+
+                    $social_rewards["social_reward-{$social_reward->id}"]['children']["social_reward-{$social_reward->id}-other"] = array(
+                            'title'     => '',
+                            'type'      => 'textbox',
+                            'size'      => 100,
+                            'class'     => 'inline other',
+                            'value'     => $social_reward->other,
+                            'errors'    => array(),
+                            'ok'        => array(),
+                            'hint'      => Text::get('tooltip-project-social_reward-icon-other')
+                        );
+
+                }
+
+
+                // el boton al final
+                $social_rewards["social_reward-{$social_reward->id}"]['children']["social_reward-{$social_reward->id}-buttons"] = array(
+                        'type' => 'group',
+                        'class' => 'buttons',
+                        'children' => array(
+                            "social_reward-{$social_reward->id}-ok" => array(
+                                'type'  => 'submit',
+                                'label' => Text::get('form-accept-button'),
+                                'class' => 'inline ok'
+                            )
+                        )
+                    );
+
+
         } else {
 
             $social_rewards["social_reward-{$social_reward->id}"] = array(
@@ -141,20 +168,48 @@ if (!empty($project->individual_rewards)) {
                             'errors'    => array(),
                             'ok'        => array(),
                             'hint'      => Text::get('tooltip-project-individual_reward-description')
-                        ),
-                        "individual_reward-{$individual_reward->id}-buttons" => array(
-                            'type' => 'group',
-                            'class' => 'buttons',
-                            'children' => array(
-                                "individual_reward-{$individual_reward->id}-ok" => array(
-                                    'type'  => 'submit',
-                                    'label' => Text::get('form-accept-button'),
-                                    'class' => 'inline ok'
-                                )
-                            )
                         )
                     )
                 );
+
+                // añadir el campo otros
+                if ($individual_reward->icon == 'other') {
+
+                    $individual_rewards["individual_reward-{$individual_reward->id}"]['children']["individual_reward-{$individual_reward->id}-other-orig"] = array(
+                            'type'      => 'html',
+                            'title'     => Text::get('rewards-field-individual_reward-other'),
+                            'html'      => $original->other
+                        );
+
+                    $individual_rewards["individual_reward-{$individual_reward->id}"]['children']["individual_reward-{$individual_reward->id}-other"] = array(
+                            'title'     => '',
+                            'type'      => 'textbox',
+                            'size'      => 100,
+                            'class'     => 'inline',
+                            'value'     => $individual_reward->other,
+                            'errors'    => array(),
+                            'ok'        => array(),
+                            'hint'      => Text::get('tooltip-project-individual_reward-icon-other')
+                        );
+
+                }
+
+
+
+                // el boton al final
+                $individual_rewards["individual_reward-{$individual_reward->id}"]['children']["individual_reward-{$individual_reward->id}-buttons"] = array(
+                        'type' => 'group',
+                        'class' => 'buttons',
+                        'children' => array(
+                            "individual_reward-{$individual_reward->id}-ok" => array(
+                                'type'  => 'submit',
+                                'label' => Text::get('form-accept-button'),
+                                'class' => 'inline ok'
+                            )
+                        )
+                    );
+
+
 
         } else {
 
@@ -172,7 +227,7 @@ $sfid = 'sf-project-rewards';
 
 ?>
 
-<form method="post" action="<?php echo SITE_URL ?>/dashboard/translates/rewards/save" class="project" enctype="multipart/form-data">
+<form method="post" action="/dashboard/translates/rewards/save" class="project" enctype="multipart/form-data">
 
 <?php echo new SuperForm(array(
 
@@ -237,7 +292,7 @@ $(function () {
 
     socials.delegate('li.element.editsocial_reward input.ok', 'click', function (event) {
         var data = {};
-        data[this.name.substring(0, 18) + 'edit'] = '0';
+        data[this.name.substring(0, this.name.length-2) + 'edit'] = '0';
         Superform.update(socials, data);
         event.preventDefault();
     });
@@ -254,7 +309,7 @@ $(function () {
 
     individuals.delegate('li.element.editindividual_reward input.ok', 'click', function (event) {
         var data = {};
-        data[this.name.substring(0, 22) + 'edit'] = '0';
+        data[this.name.substring(0, this.name.length-2) + 'edit'] = '0';
         Superform.update(individuals, data);
         event.preventDefault();
     });

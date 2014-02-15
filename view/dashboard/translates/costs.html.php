@@ -103,7 +103,7 @@ if (!empty($project->costs)) {
 $sfid = 'sf-project-costs';
 ?>
 
-<form method="post" action="<?php echo SITE_URL ?>/dashboard/translates/costs/save" class="project" enctype="multipart/form-data">
+<form method="post" action="/dashboard/translates/costs/save" class="project" enctype="multipart/form-data">
 
 <?php echo new SuperForm(array(
 
@@ -156,7 +156,7 @@ $(function () {
 
     costs.delegate('li.element.editcost input.ok', 'click', function (event) {
         var data = {};
-        data[this.name.substring(0, 9) + 'edit'] = '0';
+        data[this.name.substring(0, this.name.length-2) + 'edit'] = '0';
         Superform.update(costs, data);
         event.preventDefault();
     });

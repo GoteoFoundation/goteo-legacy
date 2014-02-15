@@ -106,7 +106,7 @@ $sfid = 'sf-project-supports';
 
 ?>
 
-<form method="post" action="<?php echo SITE_URL ?>/dashboard/translates/supports/save" class="project" enctype="multipart/form-data">
+<form method="post" action="/dashboard/translates/supports/save" class="project" enctype="multipart/form-data">
 
 <?php echo new SuperForm(array(
     'id'            => $sfid,
@@ -154,7 +154,7 @@ $(function () {
 
     supports.delegate('li.element.editsupport input.ok', 'click', function (event) {
         var data = {};
-        data[this.name.substring(0, 12) + 'edit'] = '0';
+        data[this.name.substring(0, this.name.length-2) + 'edit'] = '0';
         Superform.update(supports, data);
         event.preventDefault();
     });
