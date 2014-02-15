@@ -335,6 +335,23 @@ namespace Goteo\Controller {
             }
         }
 
+        // Para marcar tareas listas (solo si tiene módulo Tasks implementado)
+        public function done($id) {
+            $errors = array();
+            if (!empty($id) && isset($_SESSION['user']->id)) {
+                $task = Model\Task::get($id);
+                if ($task->setDone($errors)) {
+                    Message::Info('La tarea se ha marcado como realizada');
+                } else {
+                    Message::Error(implode('<br />', $errors));
+                }
+            } else {
+                Message::Error('Faltan datos');
+            }
+            throw new Redirection('/admin');
+        }
+
+
         /*
          * Menu de secciones, opciones, acciones y config para el panel Admin
          */
@@ -389,9 +406,7 @@ namespace Goteo\Controller {
                 if (!empty($BC['action']) && $BC['action'] != 'list') {
 
                     // si es una accion no catalogada, mostramos la lista
-                    if (!in_array(
-                                    $BC['action'], array_keys($options[$BC['option']]['actions'])
-                    )) {
+                    if (!in_array($BC['action'], array_keys($options[$BC['option']]['actions']))) {
                         $BC['action'] = '';
                         $BC['id'] = null;
                     }
@@ -619,6 +634,7 @@ namespace Goteo\Controller {
                                 'worth' => $options['worth'],
                                 'mailing' => $options['mailing'],
                                 'sended' => $options['sended'],
+                                'tasks' => $options['tasks']
                             )
                         ),
                         'home' => array(
@@ -628,7 +644,9 @@ namespace Goteo\Controller {
                                 'banners' => $options['banners'],
                                 'blog' => $options['blog'],
                                 'promote' => $options['promote'],
+                                'footer' => $options['footer'],
                                 'recent' => $options['recent'],
+                                'home' => $options['home']
                             )
                         ),
                         'sponsors' => array(

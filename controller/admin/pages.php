@@ -25,6 +25,7 @@ namespace Goteo\Controller\Admin {
         Goteo\Core\Error,
 		Goteo\Library\Message,
 		Goteo\Library\Feed,
+		Goteo\Library\Text,
 		Goteo\Library\Page;
 
     class Pages {
