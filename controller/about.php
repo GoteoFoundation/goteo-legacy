@@ -18,7 +18,6 @@
  *
  */
 
-
 namespace Goteo\Controller {
 
     use Goteo\Library\Page,
@@ -33,28 +32,22 @@ namespace Goteo\Controller {
         
         public function index ($id = null) {
 
-            if (empty($id)) {
-                $id = 'about';
+            // si llegan a la de mantenimiento sin estar en mantenimiento
+            if ($id == 'maintenance' && GOTEO_MAINTENANCE !== true) {
+                $id = 'credits';
             }
 
+            // paginas especificas
             if ($id == 'faq' || $id == 'contact') {
                 throw new Redirection('/'.$id, Redirection::TEMPORARY);
             }
 
-            $page = Page::get($id);
-
-            if ($id == 'about') {
-                return new View(
-                    'view/about/info.html.php',
-                    array(
-                        'name' => $page->name,
-                        'description' => $page->description,
-                        'content' => $page->content
-                    )
-                 );
-            }
-
+            // en estos casos se usa el contenido de goteo
             if ($id == 'howto') {
+                if (!$_SESSION['user'] instanceof Model\User) {
+                    throw new Redirection('/');
+                }
+                $page = Page::get($id);
                 return new View(
                     'view/about/howto.html.php',
                     array(
@@ -64,6 +57,27 @@ namespace Goteo\Controller {
                     )
                  );
             }
+
+            // el tipo de contenido de la pagina about es diferente
+            if ( empty($id) ||
+                 $id == 'about'
+                ) {
+                $id = 'about';
+
+                    $posts = Model\Info::getAll(true, \GOTEO_NODE);
+
+                    return new View(
+                        'view/about/info.html.php',
+                        array(
+                            'posts' => $posts
+                        )
+                     );
+
+
+            }
+
+            // resto de casos
+            $page = Page::get($id);
 
             return new View(
                 'view/about/sample.html.php',

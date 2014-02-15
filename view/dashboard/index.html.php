@@ -25,16 +25,17 @@ $bodyClass = 'dashboard project-edit';
 
 $user = $_SESSION['user'];
 
+$option = $this['option'];
 include 'view/prologue.html.php';
 include 'view/header.html.php'; ?>
 
         <div id="sub-header">
             <div class="dashboard-header">
                 <a href="/user/<?php echo $user->id; ?>" target="_blank"><img src="<?php echo $user->avatar->getLink(56, 56, true); ?>" /></a>
-                <h2><span>                    <?php if (empty($this['option'])) {
+                <h2><span><?php if (empty($option)) {
                         echo Text::get('dashboard-header-main');
                     } else {
-                        echo Text::get('dashboard-header-main') . ' / ' . $this['menu'][$this['section']]['options'][$this['option']];
+                        echo Text::get('dashboard-header-main') . ' / ' . $this['menu'][$this['section']]['label'] . ' / ' . $this['menu'][$this['section']]['options'][$option];
                     } ?></span></h2>
             </div>
         </div>

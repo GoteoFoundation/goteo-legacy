@@ -35,7 +35,8 @@ $element = $this['element'];
 <?php endif ?>
 
 <?php if (!empty($element->errors) || !empty($element->hint)): ?>
-<div class="feedback" id="superform-feedback-for-<?php echo htmlspecialchars($element->id) ?>">
+<div class="feedback" id="superform-feedback-for-<?php echo htmlspecialchars($element->id) ?>"
+    <?php if (in_array($element->id, array('user_avatar', 'images')) && !empty($element->errors)) echo ' style="display:block;"'; ?>>
 
     <?php if (!empty($element->errors)): ?>
     <div class="error">        
