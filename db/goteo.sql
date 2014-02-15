@@ -1460,6 +1460,7 @@ CREATE TABLE `user` (
   `hide` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'No se ve publicamente',
   `confirmed` int(1) NOT NULL DEFAULT '0',
   `lang` varchar(2) DEFAULT NULL,
+  `node` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1467,7 +1468,7 @@ CREATE TABLE `user` (
 -- Volcar la base de datos para la tabla `user`
 --
 
-INSERT INTO `user` VALUES('root', 'Sysadmin', '', '', '', '', '', 1, 91, '', '', '', '', '', '', 0, '', '', '', 1, 1, 'es');
+INSERT INTO `user` VALUES('root', 'Sysadmin', '', '', '', '', '', 1, 91, '', '', '', '', '', '', 0, '', '', '', 1, 1, 'es', 'goteo');
 -- --------------------------------------------------------
 
 --
