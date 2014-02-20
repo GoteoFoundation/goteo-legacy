@@ -35,6 +35,9 @@ $sizes = array(
     'url'         => 'cols="100" rows="1"',
     'text'        => 'cols="100" rows="10"'
 );
+
+$fields = Content::_fields();
+
 ?>
 <div class="widget board">
     <form action="/translate/<?php echo $table ?>/edit/<?php echo $id ?>/<?php echo $this['filter'] . '&page=' . $_GET['page'] ?>" method="post" >
@@ -43,7 +46,7 @@ $sizes = array(
         <input type="hidden" name="lang" value="<?php echo $_SESSION['translator_lang'] ?>" />
 
 
-        <?php foreach (Content::$fields[$table] as $field=>$fieldName) : ?>
+        <?php foreach ($fields[$table] as $field=>$fieldName) : ?>
         <p>
             <label for="<?php echo 'id'.$field ?>"><?php echo $fieldName ?></label><br />
             <textarea id="<?php echo 'id'.$field ?>" name="<?php echo $field ?>" <?php echo $sizes[$field] ?>><?php echo $content->$field; ?></textarea>
@@ -57,7 +60,7 @@ $sizes = array(
 <div class="widget board">
     <h3>Contenido original</h3>
 
-    <?php foreach (Content::$fields[$table] as $field=>$fieldName) :
+    <?php foreach ($fields[$table] as $field=>$fieldName) :
         $campo = 'original_'.$field; ?>
         <label for="<?php echo 'id'.$field ?>"><?php echo $fieldName ?>:</label><br />
         <blockquote>
