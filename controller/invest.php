@@ -60,11 +60,6 @@ namespace Goteo\Controller {
                 throw new Redirection('/project/'.$project, Redirection::TEMPORARY);
             }
 
-            if (Model\Project\Conf::getNoinvest($project)) {
-                Message::Error(Text::get('investing_closed'));
-                throw new Redirection('/project/'.$project);
-            }
-
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $errors = array();
