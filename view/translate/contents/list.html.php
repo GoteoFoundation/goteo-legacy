@@ -46,7 +46,8 @@ foreach ($data['ready'] as $key=>$item) {
 $pagedResults = new \Paginated($list, 20, isset($_GET['page']) ? $_GET['page'] : 1);
 
 // valores de filtro
-$types = Content::$fields[$table]; // por tipo de campo
+$fields = Content::_fields(); // por tipo de campo
+$types = $fields[$table];
 
 // metemos el todos
 \array_unshift($types, 'Todos los tipos');
