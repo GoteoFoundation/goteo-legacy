@@ -28,7 +28,7 @@ use Goteo\Core\View,
 
 $project = $this['project'];
 $show    = $this['show'];
-$invest  = $this['invest'];
+$invest  = $this['step'];
 $post    = $this['post'];
 
 $owner   = User::get($project->owner, LANG);

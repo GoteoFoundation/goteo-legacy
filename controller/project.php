@@ -531,10 +531,7 @@ namespace Goteo\Controller {
                         if (isset($_GET['amount']))
                             $_SESSION['invest-amount'] = $_GET['amount'];
 
-                        // si el usuario está validado, recuperamos posible amount y mostramos
-                        if ($_SESSION['user'] instanceof Model\User) {
-                            $step = 'confirm';
-                        } elseif ($step != 'start' && empty($_SESSION['user'])) {
+                        if ($step != 'start' && empty($_SESSION['user'])) {
                             // si no está validado solo puede estar en start
                             Message::Info(Text::get('user-login-required-to_invest'));
                             $step = 'start';
