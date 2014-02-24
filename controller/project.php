@@ -531,7 +531,10 @@ namespace Goteo\Controller {
                         if (isset($_GET['amount']))
                             $_SESSION['invest-amount'] = $_GET['amount'];
 
-                        if ($step != 'start' && empty($_SESSION['user'])) {
+                        // si el usuario está validado, recuperamos posible amount y mostramos
+                        if ($_SESSION['user'] instanceof Model\User) {
+                            $step = 'confirm';
+                        } elseif ($step != 'start' && empty($_SESSION['user'])) {
                             // si no está validado solo puede estar en start
                             Message::Info(Text::get('user-login-required-to_invest'));
                             $step = 'start';
@@ -543,23 +546,6 @@ namespace Goteo\Controller {
                         }
                     }
 
-                    /*
-                    elseif (isset($_SESSION['pre-invest'])) {
-                        // aporte incompleto, puede ser que aun no esté logueado
-                        if (empty($_SESSION['user'])) {
-                            $step = 'login';
-                        } else {
-                            $step = 'confirm';
-                        }
-                    }
-                     *
-                     */
-
-                    /*
-                        Message::Info(Text::get('user-login-required-to_invest'));
-                        throw new Redirection("/user/login");
-                     */
-                    
                     $viewData['step'] = $step;
                 }
 

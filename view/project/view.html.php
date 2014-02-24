@@ -28,24 +28,22 @@ use Goteo\Core\View,
 
 $project = $this['project'];
 $show    = $this['show'];
-$invest  = $this['step'];
+$step    = $this['step'];
 $post    = $this['post'];
+$blog    = $this['blog'];
 
-$owner   = User::get($project->owner, LANG);
 $user    = $_SESSION['user'];
+$personalData = ($user instanceof User) ? User::getPersonal($user->id) : new stdClass();
 
 $categories = Category::getNames($project->id);
 
-$blog = Blog::get($project->id);
-
-
 if (!empty($project->investors)) {
-    $supporters = ' (' . count($project->investors) . ')';
+    $supporters = ' (' . $project->num_investors . ')';
 } else {
     $supporters = '';
 }
 if (!empty($project->messages)) {
-    $messages = ' (' . count($project->messages) . ')';
+    $messages = ' (' . $project->num_messages . ')';
 } else {
     $messages = '';
 }
@@ -103,8 +101,8 @@ $bodyClass = 'project-show'; include 'view/prologue.html.php' ?>
                 new View('view/project/widget/support.html.php', array('project' => $project));
 
             if ((!empty($project->investors) &&
-                !empty($invest) &&
-                in_array($invest, array('start', 'ok', 'fail')) )
+                !empty($step) &&
+                in_array($step, array('start', 'login', 'confirm', 'continue', 'ok', 'fail')) )
                 || $show == 'messages' ) {
                 echo new View('view/project/widget/investors.html.php', array('project' => $project));
             }
@@ -117,7 +115,7 @@ $bodyClass = 'project-show'; include 'view/prologue.html.php' ?>
                 echo new View('view/project/widget/rewards.html.php', array('project' => $project));
             }
 
-            echo new View('view/user/widget/user.html.php', array('user' => $owner));
+            echo new View('view/user/widget/user.html.php', array('user' => $project->user));
 
             ?>
             </div>
@@ -143,36 +141,36 @@ $bodyClass = 'project-show'; include 'view/prologue.html.php' ?>
                     case 'supporters':
 
 						// segun el paso de aporte
-                        if (!empty($invest) && in_array($invest, array('start', 'ok', 'fail'))) {
+                        if (!empty($step) && in_array($step, array('start', 'login', 'confirm', 'continue', 'ok', 'fail'))) {
 
-                            switch ($invest) {
-                                case 'start':
-                                    echo
-                                        new View('view/project/widget/investMsg.html.php', array('message' => $invest, 'user' => $user)),
-                                        new View('view/project/widget/invest.html.php', array('project' => $project, 'personal' => User::getPersonal($user->id)));
-                                    break;
+                            switch ($step) {
                                 case 'continue':
                                     echo
-                                        new View('view/project/widget/investMsg.html.php', array('message' => $invest, 'user' => $user)),
-                                        new View('view/project/widget/invest_redirect.html.php', array('project' => $project, 'personal' => User::getPersonal($user->id)));
+                                        new View('view/project/widget/investMsg.html.php', array('message' => $step, 'user' => $user)),
+                                        new View('view/project/widget/invest_redirect.html.php', array('project' => $project, 'personal' => $personalData, 'step' => $step, 'allowpp'=> $this['allowpp']));
                                     break;
 									
                                 case 'ok':
                                     echo
-                                        new View('view/project/widget/investMsg.html.php', array('message' => $invest, 'user' => $user)), new View('view/project/widget/spread.html.php',array('project' => $project));
+                                        new View('view/project/widget/investMsg.html.php', array('message' => $step, 'user' => $user)), new View('view/project/widget/spread.html.php',array('project' => $project));
 										//sacarlo de div#center
 										$printSendMsg=true;										
                                     break;
 									
                                 case 'fail':
                                     echo
-                                        new View('view/project/widget/investMsg.html.php', array('message' => $invest, 'user' => User::get($_SESSION['user']->id))),
-                                        new View('view/project/widget/invest.html.php', array('project' => $project, 'personal' => User::getPersonal($_SESSION['user']->id)));
+                                        new View('view/project/widget/investMsg.html.php', array('message' => $step, 'user' => User::get($_SESSION['user']->id))),
+                                        new View('view/project/widget/invest.html.php', array('project' => $project, 'personal' => User::getPersonal($_SESSION['user']->id), 'allowpp'=> $this['allowpp']));
+                                    break;
+                                default:
+                                    echo
+                                        new View('view/project/widget/investMsg.html.php', array('message' => $step, 'user' => $user)),
+                                        new View('view/project/widget/invest.html.php', array('project' => $project, 'personal' => $personalData, 'step' => $step, 'allowpp'=> $this['allowpp']));
                                     break;
                             }
                         } else {
                             echo
-                                new View('view/project/widget/supporters.html.php', array('project' => $project)),
+                                new View('view/project/widget/supporters.html.php', $this),
                                 new View('view/worth/legend.html.php');
                         }
                         break;

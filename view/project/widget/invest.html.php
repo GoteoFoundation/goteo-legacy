@@ -20,15 +20,24 @@
 
 use Goteo\Core\View,
     Goteo\Library\Worth,
+    Goteo\Model\User,
     Goteo\Model\Invest,
     Goteo\Library\Text,
     Goteo\Model\License;
 
 $project = $this['project'];
 $personal = $this['personal'];
-if (!empty($_GET['amount'])) {
+
+// cantidad de aporte
+if (isset($_SESSION['invest-amount'])) {
+    $amount = $_SESSION['invest-amount'];
+    unset($_SESSION['invest-amount']);
+} elseif (!empty($_GET['amount'])) {
     $amount = $_GET['amount'];
+} else {
+    $amount = 0;
 }
+$step = $this['step'];
 
 $level = (int) $this['level'] ?: 3;
 
@@ -40,9 +49,7 @@ foreach (License::getAll() as $l) {
     $licenses[$l->id] = $l;
 }
 
-$action = '/invest/' . $project->id;
-
-
+$action = ($step == 'start') ? '/user/login' : '/invest/' . $project->id;
 ?>
 <div class="widget project-invest project-invest-amount">
     <h<?php echo $level ?> class="title"><?php echo Text::get('invest-amount') ?></h<?php echo $level ?>>
@@ -59,23 +66,25 @@ $action = '/invest/' . $project->id;
     <div class="individual">
         <h<?php echo $level+1 ?> class="title"><?php echo Text::get('project-rewards-individual_reward-title'); ?></h<?php echo $level+1 ?>>
         <ul>
-            <li><label class="resign"><input class="resign" type="checkbox" name="resign" value="1" /><span class="chkbox"></span><?php echo Text::get('invest-resign') ?></label></li>
+            <li><label class="resign"><input class="individual_reward" type="radio" id="resign_reward" name="selected_reward" value="0" amount="0"/><?php echo Text::get('invest-resign') ?></label></li>
+            <!-- <span class="chkbox"></span> -->
         <?php foreach ($project->individual_rewards as $individual) : ?>
         <li class="<?php echo $individual->icon ?><?php if ($individual->none) echo ' disabled' ?>">
-        <?php if ($individual->none) : ?>
-            <label class="amount">
-                <span style="color:red;"><?php echo Text::get('invest-reward-none') ?></span>
-                <h<?php echo $level + 2 ?> class="name"><?php echo htmlspecialchars($individual->reward) ?></h<?php echo $level + 2 ?>>
-                <p><?php echo htmlspecialchars($individual->description)?></p>
-            </label>
-        <?php else : ?>
+            
             <label class="amount" for="reward_<?php echo $individual->id; ?>">
-                <input type="checkbox"<?php if ($individual->none) echo ' disabled="disabled"';?> name="reward_<?php echo $individual->id; ?>" id="reward_<?php echo $individual->id; ?>" value="<?php echo $individual->amount; ?>" class="individual_reward" title="<?php echo htmlspecialchars($individual->reward) ?>" />
-                <span class="chkbox"></span><?php echo $individual->amount; ?> &euro;
+                <input type="radio" name="selected_reward" id="reward_<?php echo $individual->id; ?>" value="<?php echo $individual->id; ?>" amount="<?php echo $individual->amount; ?>" class="individual_reward" title="<?php echo htmlspecialchars($individual->reward) ?>" <?php if ($individual->none) echo 'disabled="disabled"' ?>/>
+                <span class="amount"><?php echo $individual->amount; ?> &euro;</span>
+            <!-- <span class="chkbox"></span> -->
         	<h<?php echo $level + 2 ?> class="name"><?php echo htmlspecialchars($individual->reward) ?></h<?php echo $level + 2 ?>>
             <p><?php echo htmlspecialchars($individual->description)?></p>
+                <?php if ($individual->none) : // no quedan ?>
+                <span class="left"><?php echo Text::get('invest-reward-none') ?></span>
+                <?php elseif (!empty($individual->units)) : // unidades limitadas ?>
+                <strong><?php echo Text::get('project-rewards-individual_reward-limited'); ?></strong><br />
+                <?php $units = ($individual->units - $individual->taken); // resto
+                echo Text::html('project-rewards-individual_reward-units_left', $units); ?><br />
+            <?php endif; ?>
             </label>
-        <?php endif; ?>
             
         </li>
         <?php endforeach ?>
@@ -84,27 +93,53 @@ $action = '/invest/' . $project->id;
 
 </div>
 
+<?php
+// si es el primer paso, mostramos el botÃ³n para ir a login
+if ($step == 'start') : ?>
+<div class="widget project-invest method">
+    <h<?php echo $level ?> class="beak"><?php echo Text::get('user-login-required-to_invest') ?></h<?php echo $level ?>>
+
+    <div class="buttons">
+        <button type="submit" class="button red" name="go-login" value=""><?php echo Text::get('imperative-register'); ?></button>
+    </div>
+
+    <div class="reminder"><?php echo Text::get('invest-alert-investing') ?> <span id="amount-reminder"><?php echo $amount ?></span></div>
+
+</div>
+<?php else : ?>
+<a name="continue"></a>
 <div class="widget project-invest address">
     <h<?php echo $level ?> class="beak" id="address-header"><?php echo Text::get('invest-address-header') ?></h<?php echo $level ?>>
     <table>
-        <tr id="donation-data" style="display:none;">
-            <td><label for="fullname"><?php echo Text::get('invest-address-name-field') ?></label></td>
-            <td colspan="3"><input type="text" id="fullname" name="fullname" value="<?php echo $personal->contract_name; ?>" /></td>
-            <td><label for="nif"><?php echo Text::get('invest-address-nif-field') ?></label></td>
-            <td><input type="text" id="nif" name="nif" value="<?php echo $personal->contract_nif; ?>" /></td>
+        <tr>
+            <td>
+                <label for="fullname"><?php echo Text::get('invest-address-name-field') ?></label><br />
+                <input type="text" id="fullname" name="fullname" value="<?php echo $personal->contract_name; ?>" />
+            </td>
+            <td><?php /* Para ocultar el campo nif:  id="donation-data" style="display:none;"  */ ?>
+                <label for="nif"><?php echo Text::get('invest-address-nif-field') ?></label><br />
+                <input type="text" id="nif" name="nif" value="<?php echo $personal->contract_nif; ?>" />
+            </td>
         </tr>
         <tr>
-            <td><label for="address"><?php echo Text::get('invest-address-address-field') ?></label></td>
-            <td colspan="3"><input type="text" id="address" name="address" value="<?php echo $personal->address; ?>" /></td>
-            <td><label for="zipcode"><?php echo Text::get('invest-address-zipcode-field') ?></label></td>
-            <td><input type="text" id="zipcode" name="zipcode" value="<?php echo $personal->zipcode; ?>" /></td>
+            <td>
+                <label for="address"><?php echo Text::get('invest-address-address-field') ?></label><br />
+                <input type="text" id="address" name="address" value="<?php echo $personal->address; ?>" />
+            </td>
+            <td>
+                <label for="zipcode"><?php echo Text::get('invest-address-zipcode-field') ?></label><br />
+                <input type="text" id="zipcode" name="zipcode" value="<?php echo $personal->zipcode; ?>" />
+            </td>
         </tr>
         <tr>
-            <td><label for="location"><?php echo Text::get('invest-address-location-field') ?></label></td>
-            <td><input type="text" id="location" name="location" value="<?php echo $personal->location; ?>" /></td>
-            <td><label for="country"><?php echo Text::get('invest-address-country-field') ?></label></td>
-            <td><input type="text" id="country" name="country" value="<?php echo $personal->country; ?>" /></td>
-            <td colspan="2"></td>
+            <td>
+                <label for="location"><?php echo Text::get('invest-address-location-field') ?></label><br />
+                <input type="text" id="location" name="location" value="<?php echo $personal->location; ?>" />
+            </td>
+            <td>
+                <label for="country"><?php echo Text::get('invest-address-country-field') ?></label><br />
+                <input type="text" id="country" name="country" value="<?php echo $personal->country; ?>" />
+            </td>
         </tr>
     </table>
 
@@ -114,7 +149,7 @@ $action = '/invest/' . $project->id;
 </div>
 
 
-<div class="widget project-invest">
+<div class="widget project-invest method">
     <h<?php echo $level ?> class="beak"><?php echo Text::get('project-invest-continue') ?></h<?php echo $level ?>>
             
 <input type="hidden" id="paymethod"  />
@@ -126,12 +161,13 @@ $action = '/invest/' . $project->id;
 <p><button type="submit" class="process pay-paypal" name="method"  value="paypal">PAYPAL</button></p>
 
 
-</form>
 </div>
+<?php endif; ?>
+</form>
 
 <?php echo new View('view/project/widget/worth.html.php', array('worthcracy' => $worthcracy, 'level' => $_SESSION['user']->worth)) ?>
 
-
+<a name="commons"></a>
 <div class="widget project-invest">
     <h<?php echo $level ?> class="beak"><?php echo Text::get('invest-social-header') ?></h<?php echo $level ?>>
 
@@ -164,120 +200,145 @@ $action = '/invest/' . $project->id;
     
     $(function () {
         
-        var input = $('div.widget.project-invest-amount input.amount'),
-            lastVal = {},
-            updating = null;
-            
         var update = function () {
-            
-            try {
-            
-                var val = input.val();
 
-                if (val !== lastVal) {
-                    clearTimeout(updating);
-                    lastVal = val;      
-                    updating = setTimeout(function () {
-                        var euros = parseFloat(val);
-                        if (isNaN(euros)) {
-                            euros = 0;
-                        }
-                        input.val(euros);
+            var $reward = null;
+            var val = parseFloat($('#amount').val());
 
-                        var resign = $('div.widget.project-invest-individual_rewards input.resign:checked').length > 0;
-                        
-                        $('div.widget.project-invest-individual_rewards input.individual_reward').each(function (i, cb) {
-                           var $cb = $(cb);
-                           var rval = parseFloat($cb.val());
-                           if (!resign && (rval > 0 && rval <= euros)) {
-                               $cb.removeAttr('disabled');
-                               $cb.closest('li').removeClass('disabled');
-                               if (!$cb.attr('checked')) {
-                                   $cb.click();
-                               }
-                           } else {
-                               $cb.attr('disabled', 'disabled');
-                               $cb.closest('li').addClass('disabled');
-                           }
-                        });
-                    });                  
-                } 
-            } catch (e) {
-                clearTimeout(updating);
-            }
-            
-        };    
-        
-        $('div.widget.project-invest-individual_rewards input.resign').change(function () {
-            // Force update
-            lastVal = {};
-            update();
-            var resign = $('div.widget.project-invest-individual_rewards input.resign:checked').length > 0;
-            if (!resign) {
-                $("#address-header").html('<?php echo Text::get('invest-address-header') ?>');
-                $("#donation-data").hide();
-            } else {
-                $("#address-header").html('<?php echo Text::get('invest-donation-header') ?>');
-                $("#donation-data").show();
-            }
-        });
+            $('div.widget.project-invest-individual_rewards input.individual_reward').each(function (i, cb) {
+               var $cb = $(cb);
+               $cb.closest('li').removeClass('chosed');
+               // importe de esta recompensa
+               var rval = parseFloat($cb.attr('amount'));
+               if (rval > 0 && rval <= val) {
+                   // si aun quedan
+                   if ($cb.attr('disabled') != 'disabled') {
+                       // nos quedamos con esta y seguimos
+                       $reward = $cb;
+                   }
+               }
 
-        input.keydown(function () {        
-            clearTimeout(updating);
-            updating = setTimeout(
-                function () {
-                    update();
-                }, 
-                150);                
-        });
-
-        input.bind('paste', function () {             
-            update();
-        });
-
-        input.focus(function () {
-            updating = null;
-            input.one('blur', function () {               
-                updating = update();
+               if ($reward != null) {
+                 $reward.click();
+                 $reward.closest('li').addClass('chosed');
+               } else {
+                 $('#resign_reward').click();
+                 $('#resign_reward').closest('li').addClass('chosed');
+               }
             });
-        });
-        
-        update();
+        };    
 
+        var reset_reward = function (chosen) {
+
+            $('div.widget.project-invest-individual_rewards input.individual_reward').each(function (i, cb) {
+               var $cb = $(cb);
+               $cb.closest('li').removeClass('chosed');
+
+               if ($cb.attr('id') == chosen) {
+                 $cb.closest('li').addClass('chosed');
+               }
+            });
+        };
+
+        // funcion comparar valores
+        var greater = function (a, b) {
+            if (parseFloat(a) > parseFloat(b)) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        // funcion resetear inpput de cantidad
+        var reset_amount = function (preset) {
+            $('#amount').val(preset);
+            update();
+        };
+
+        // funcion resetear copy de cantidad
+        var reset_reminder = function (amount) {
+            var euros = parseFloat(amount);
+            if (isNaN(euros)) {
+                euros = 0;
+            }
+
+            $('#amount').val(euros);
+            $('#amount-reminder').html(euros);
+        };
+
+/* Actualizar el copy */
+        $('#amount').bind('paste', function () {reset_reminder($('#amount').val());update()});
+
+        $('#amount').change(function () {reset_reminder($('#amount').val());update()});
+
+
+/* Si estan marcando o quitando el renuncio */
+        $(':radio').bind('change', function () {
+            var curr = $('#amount').val();
+            var a = $(this).attr('amount');
+            var i = $(this).attr('id');
+
+            <?php if ($step == 'start') : ?>
+                reset_reward(i);
+            <?php else : ?>
+            // si es renuncio
+            if ($('#resign_reward').attr('checked') == 'checked') {
+                $("#address-header").html('<?php echo Text::slash('invest-donation-header') ?>');
+                /*$("#donation-data").show();*/
+                reset_reward(i);
+            } else {
+                $("#address-header").html('<?php echo Text::slash('invest-address-header') ?>');
+                /*$("#donation-data").hide();*/
+                reset_reward(i);
+            }
+            <?php endif; ?>
+            
+            if (greater(a, curr)) {
+                reset_reminder(a);
+            }
+        });
+
+/* Verificacion, no tenemos en cuenta el paso porque solo son los botones de pago en el paso confirm */
         $('button.process').click(function () {
 
-            var input = $('div.widget.project-invest-amount input.amount');
-            var amount = input.val();
+            var amount = $('#amount').val();
+            var rest = $('#rest').val();
 
-            if (amount <= 0) {
-                alert('<?php echo Text::get('invest-amount-error') ?>');
-                input.focus();
+            if (parseFloat(amount) == 0 || isNaN(amount)) {
+                alert('<?php echo Text::slash('invest-amount-error') ?>');
+                $('#amount').focus();
                 return false;
             }
 
             /* Renuncias pero no has puesto tu NIF para desgravar el donativo */
-            if ($('input.resign').attr('checked') == 'checked') {
-                if ($('#nif').val() == '' && !confirm('<?php echo Text::get('invest-alert-renounce') ?>')) {
+            if ($('#resign_reward').attr('checked') == 'checked') {
+                if ($('#nif').val() == '' && !confirm('<?php echo Text::slash('invest-alert-renounce') ?>')) {
                     $('#nif').focus();
                     return false;
                 }
             } else {
-                var rewards = '';
+                var reward = '';
+                var chosen = 0;
                 /* No has marcado ninguna recompensa, renuncias? */
-                var noreward = true;
                 $('input.individual_reward').each(function (i, cb) {
-                   if ($(this).attr('checked') == 'checked' && $(this).attr('disabled') != 'disabled') {
-                       rewards += $(this).attr('title') + ', ';
-                       noreward = false;
+                   var prize = $(this).attr('amount');
+                   if (greater(prize, 0) && $(this).attr('checked') == 'checked') {
+                       reward = $(this).attr('title');
+                       chosen = prize;
                    }
                 });
 
-                if (noreward) {
-                    if (confirm('<?php echo Text::get('invest-alert-noreward') ?>')) {
-                        if (confirm('<?php echo Text::get('invest-alert-noreward_renounce') ?>')) {
-                            $("#address-header").html('<?php echo Text::get('invest-donation-header') ?>');
-                            $("#donation-data").show();
-                            $('input.resign').click();
+               if (greater(chosen, amount)) {
+                   alert('<?php echo Text::slash('invest-alert-lackamount') ?>');
+                   return false;
+               }
+
+                if (reward == '') {
+                    if (confirm('<?php echo Text::slash('invest-alert-noreward') ?>')) {
+                        if (confirm('<?php echo Text::slash('invest-alert-noreward_renounce') ?>')) {
+                            $("#address-header").html('<?php echo Text::slash('invest-donation-header') ?>');
+                            /*$("#donation-data").show();*/
+                            $('#resign_reward').click();
                             $('#nif').focus();
                             return false;
                         }
@@ -287,14 +348,23 @@ $action = '/invest/' . $project->id;
                     }
                 } else {
                     /* Has elegido las siguientes recompensas */
-                    if (!confirm('<?php echo Text::get('invest-alert-rewards') ?> '+rewards+' ok?')) {
+                    if (!confirm('<?php echo Text::slash('invest-alert-rewards') ?> '+reward+' ok?')) {
                         return false;
                     }
                 }
             }
 
-            return confirm('<?php echo Text::get('invest-alert-investing') ?> '+amount+' EUR');
+            if (rest > 0 && greater(amount, rest)) {
+                if (!confirm('<?php echo Text::slash('invest-alert-lackdrop') ?> '+rest+' EUR, ok?')) {
+                    return false;
+                }
+            }
+
+            return confirm('<?php echo Text::slash('invest-alert-investing') ?> '+amount+' EUR');
         });
+
+/* Seteo inicial por url */
+        reset_amount('<?php echo $amount ?>');
 
     });    
     
