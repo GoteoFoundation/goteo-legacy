@@ -654,6 +654,7 @@ namespace Goteo\Controller {
                             'options' => array(
                                 'newsletter' => $options['newsletter'],
                                 'sponsors' => $options['sponsors'],
+                                'tasks' => $options['tasks']  // gestión de tareas
                             )
                         )
                     );
