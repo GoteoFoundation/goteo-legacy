@@ -53,7 +53,7 @@ namespace Goteo\Controller {
 
             // cada tipo tiene sus grupos
             foreach ($types as $type) {
-                $projects = Model\Project::published($type, $limit);
+                $projects = Model\Project::published($type);
                 if (empty($projects)) continue;
                 $viewData['lists'][$type] = Listing::get($projects);
             }
@@ -114,7 +114,6 @@ namespace Goteo\Controller {
                 array(
                     'message' => $message,
                     'results' => $results,
-                    'query'   => $query,
                     'params'  => $params
                 )
              );
@@ -157,6 +156,7 @@ namespace Goteo\Controller {
 
             }
 
+        }
     }
     
 }
