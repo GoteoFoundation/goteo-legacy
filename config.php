@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright (C) 2012 Platoniq y Fundación Fuentes Abiertas (see README for details)
+ *  Copyright (C) 2012 Platoniq y Fundaciï¿½n Fuentes Abiertas (see README for details)
  *	This file is part of Goteo.
  *
  *  Goteo is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@ define('GOTEO_PATH', __DIR__ . DIRECTORY_SEPARATOR);
 if (function_exists('ini_set')) {
     ini_set('include_path', GOTEO_PATH . PATH_SEPARATOR . '.');
 } else {
-    throw new Exception("No puedo añadir la API GOTEO al include_path.");
+    throw new Exception("Cant add GOTEO_PATH to the include_path.");
 }
 
 // Nodo actual
@@ -32,7 +32,7 @@ define('PEAR', GOTEO_PATH . 'library' . '/' . 'pear' . '/');
 if (function_exists('ini_set')) {
     ini_set('include_path', ini_get('include_path') . PATH_SEPARATOR . PEAR);
 } else {
-    throw new Exception("No puedo añadir las librerías PEAR al include_path.");
+    throw new Exception("Cant add PEAR libraries to the include_path.");
 }
 
 /******************************************************
@@ -58,21 +58,21 @@ if (!defined('OAUTH_LIBS')) {
     define ('OAUTH_LIBS', GOTEO_PATH . 'library' . DIRECTORY_SEPARATOR . 'oauth' . DIRECTORY_SEPARATOR . 'SocialAuth.php');
 }
 
-//Uploads i catxe
+// Uploads and cache
 define('GOTEO_DATA_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR);
 
 /**
- * Carga de configuración local si existe
- * Si no se carga el real (si existe)
+ * If exists, loads settings for local environment
+ * If not, loat settings for live environment
 **/
-if (file_exists('local-settings.php')) //en .gitignore
+if (file_exists('local-settings.php')) // ignored for local settings
     require 'local-settings.php';
-elseif (file_exists('live-settings.php')) //se considera en git
+elseif (file_exists('live-settings.php')) // versioned 
     require 'live-settings.php';
 else
     die(<<<EOF
-No se encuentra el archivo de configuraci&oacute;n <strong>local-settings.php</strong>, debes crear este archivo en la raiz.<br />
-Puedes usar el siguiente c&oacute;digo modificado con los credenciales adecuados.<br />
+Setting file <strong>local-settings.php</strong> is not found, crete this file on the document root.<br />
+Use the following code with the correct values for your goteo instance.<br />
 <pre>
 &lt;?php
 // Metadata
@@ -115,27 +115,59 @@ define('GOTEO_CONTACT_MAIL', 'info@example.com');
 define('GOTEO_FAIL_MAIL', 'fail@example.com');
 define('GOTEO_LOG_MAIL', 'sitelog@example.com');
 
-//Quota de envio máximo para goteo en 24 horas
+/* This is to send mailing by Amazon SES*/
+//Quota limit, 24 hours
 define('GOTEO_MAIL_QUOTA', 50000);
-//Quota de envio máximo para newsletters para goteo en 24 horas
+//Quota limit for newsletters, 24 hours
 define('GOTEO_MAIL_SENDER_QUOTA', round(GOTEO_MAIL_QUOTA * 0.8));
-//clave de Amazon SNS para recopilar bounces automaticamente: 'arn:aws:sns:us-east-1:XXXXXXXXX:amazon-ses-bounces'
-//la URL de informacion debe ser: goteo_url.tld/aws-sns.php
+// Amazon SNS keys to get bounces automatically: 'arn:aws:sns:us-east-1:XXXXXXXXX:amazon-ses-bounces'
 define('AWS_SNS_CLIENT_ID', 'XXXXXXXXX');
 define('AWS_SNS_REGION', 'us-east-1');
 define('AWS_SNS_BOUNCES_TOPIC', 'amazon-ses-bounces');
 define('AWS_SNS_COMPLAINTS_TOPIC', 'amazon-ses-complaints');
 
-// Language
-define('GOTEO_DEFAULT_LANG', 'en');
-// name of the gettext .po file (used for admin only texts at the moment)
-define('GOTEO_GETTEXT_DOMAIN', 'messages');
-// gettext files are cached, to reload a new one requires to restart Apache which is stupid (and annoying while 
-//	developing) this setting tells the langueage code to bypass caching by using a clever file-renaming 
-// mechanism described in http://blog.ghost3k.net/articles/php/11/gettext-caching-in-php
-define('GOTEO_GETTEXT_BYPASS_CACHING', true);
+/**
+ * The locale options are used to define regional settings for
+ * things such as language, local legal forms, etc.
+ */
+&#36;config&#91;'locale'&#93; = array(
+    // default interface language
+    'default_language' => 'en',
+    // root directory of language files (relative to root of Goteo install)
+    'gettext_root' => 'locale',
+    // name of the gettext .po file (used for admin only texts at the moment)
+    'gettext_domain' => 'messages',
+    // gettext files are cached, to reload a new one requires to restart Apache which is stupid (and annoying while
+    //        developing) this setting tells the langueage code to bypass caching by using a clever file-renaming
+    // mechanism described in http://blog.ghost3k.net/articles/php/11/gettext-caching-in-php
+    'gettext_bypass_caching' => false,
+    // use php implementation (true) or apache module (false)?
+    // See this blogpost to understand why using the apache module is not a good idea
+    // unles you really know what you are doing
+    // http://blog.spinningkid.info/?p=2025
+    'gettext_use_php_implementation' => true,
 
-// url
+    // Social Security Number (or personal iscal number depending on country)
+    'social_number_required' => false, // is this an absolute must?
+    'function_validate_social_number' => 'Check::nif', // if it is, which function should we call to validate it? This may take into account local variations
+
+    // VAT validation configuration
+    'vat_required' => false, // is it an absolute must?
+    'function_validate_vat' => 'Check::vat', // if it is, which function should we call to validate it? This may take into account local variations
+);
+
+/**
+ * The options array contains configuration settings for optional features
+ * such as enhanced privacy.
+ */
+&#36;config&#91;'options'&#93; = array(
+    // avoid all trackers (e.g. facebook, google and all other JS based tracking APIs)
+    'enhanced-privacy' => true
+);
+// Language
+define('GOTEO_DEFAULT_LANG', &#36;config&#91;'locale'&#93;&#91;'default_language'&#93;);
+
+// url (this will change on Goteo v3)
 define('SITE_URL', 'http://example.com'); // endpoint url
 define('SRC_URL', 'http://example.com');  // host for statics
 define('SEC_URL', 'http://example.com');  // with SSL certified
@@ -222,6 +254,7 @@ __your_tracking_js_code_goes_here___
 EOF
 );
 
+// this is for compatibility with previous version
 if (file_exists('tmp-settings.php'))
     require 'tmp-settings.php';
 else {
