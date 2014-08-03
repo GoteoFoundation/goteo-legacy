@@ -155,6 +155,11 @@ namespace Goteo\Library {
                         $mail->Body    = $this->bodyHTML(true);
                     }
 
+                    // si estoy en entorno local ni lo intento
+                    if (GOTEO_ENV == 'local') {
+                        return true;
+                    }
+
                     // Envía el mensaje
                     if ($mail->Send($errors)) {
                         return true;
