@@ -60,6 +60,7 @@ namespace Goteo\Model {
                         $blog->project = $blog->owner;
                         break;
                 }
+
                 if ($blog->node == \GOTEO_NODE) {
                     $blog->posts = Blog\Post::getAll();
                 } elseif (!empty($blog->id)) {
@@ -67,7 +68,8 @@ namespace Goteo\Model {
                 } else {
                     $blog->posts = array();
                 }
-                return $blog;
+
+            return $blog;
         }
 
         /*

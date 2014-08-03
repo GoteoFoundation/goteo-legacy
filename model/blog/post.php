@@ -149,18 +149,21 @@ namespace Goteo\Model\Blog {
             if ($published) {
                 $sql .= " AND post.publish = 1
                 ";
+                // @NODESYS
+                /*
                 if (empty($blog)) {
                 $sql .= " AND blog.owner IN (SELECT id FROM node WHERE active = 1)
                     AND blog.owner != 'testnode'
                 ";
                 }
+                */
             }
             $sql .= "ORDER BY post.date DESC, post.id DESC
                 ";
             if (!empty($limit)) {
                 $sql .= "LIMIT $limit";
             }
-            
+
             $query = static::query($sql, $values);
                 
             foreach ($query->fetchAll(\PDO::FETCH_CLASS, __CLASS__) as $post) {
@@ -191,8 +194,9 @@ namespace Goteo\Model\Blog {
 
                     case 'node':
                         $post->user   = User::getMini($post->author);
-                        $node_blog = Node::get($post->owner_id);
-                        $post->owner_name = $node_blog->name;
+                        // @NODESYS
+                        //$node_blog = Node::get($post->owner_id);
+                        $post->owner_name = $post->user->name;
                         break;
                 }
 
@@ -332,8 +336,9 @@ namespace Goteo\Model\Blog {
 
                     case 'node':
                         $post->user   = User::getMini($post->author);
-                        $node_blog = Node::get($post->owner_id);
-                        $post->owner_name = $node_blog->name;
+                        // @NODESYS
+                        // $node_blog = Node::get($post->owner_id);
+                        $post->owner_name = $post->user->name;
                         break;
                 }
 

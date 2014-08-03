@@ -61,7 +61,7 @@ namespace Goteo\Controller\Admin {
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if (empty($_POST['blog'])) {
                         Message::Error('Hemos perdido de vista su blog!!!');
-                        break;
+                        throw new Redirection('/admin/blog');
                     }
 
                     $editing = false;
