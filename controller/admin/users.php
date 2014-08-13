@@ -83,10 +83,11 @@ namespace Goteo\Controller\Admin {
         
         public static function process ($action = 'list', $id = null, $filters = array(), $subaction = '') {
 
-            // multiples usos
+            // @NODESYS
             $nodes = array();
 
-            $node = isset($_SESSION['admin_node']) ? $_SESSION['admin_node'] : \GOTEO_NODE;
+            // @NODESYS
+            $node = \GOTEO_NODE;
 
             $errors = array();
 
@@ -205,24 +206,11 @@ namespace Goteo\Controller\Admin {
 //                            Message::Info('Ha <strong>' . $log_action . '</strong> al usuario <strong>'.$user->name.'</strong> CORRECTAMENTE');
                             $log_text = 'El admin %s ha %s al usuario %s';
 
-                            $onNode = \GOTEO_NODE;
-
                             // procesos adicionales
                             switch ($subaction) {
                                 case 'admin':
-                                    if ($onNode->assign($id)) {
-                                        Message::Info('El nuevo admin se ha añadido a los administradores del nodo <strong>'.$onNode->name.'</strong>.');
-                                    } else{
-                                        Message::Error('ERROR!!! El nuevo admin no se ha podido añadir a los administradores del nodo <strong>'.$onNode->name.'</strong>. Contactar con el superadmin');
-                                    }
-                                    break;
-
                                 case 'noadmin':
-                                    if ($onNode->unassign($id)) {
-                                        Message::Info('El ex-admin se ha quitado de los administradores del nodo <strong>'.$onNode->name.'</strong>.');
-                                    } else{
-                                        Message::Error('ERROR!!! El ex-admin no se ha podido quitar de los administradores del nodo <strong>'.$onNode->name.'</strong>. Contactar con el superadmin');
-                                    }
+                                    // @NODESYS : this admin/noadmin subactions are here for NODESYS module extra
                                     break;
 
                                 case 'translator':
