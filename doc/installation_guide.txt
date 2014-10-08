@@ -33,7 +33,7 @@ Every thing should be working fine at http://your.intallation.site
 Modify all others configuration constants at will
 The PayPal implementation needs to be setup at library/paypal/config.php  (some day it will be merged into regular settings)
 
-Login with user `root` and empty pasword.
+Login with user "root" and password "root" (no quotes both).
 Go `http://your.intallation.site/admin/users/edit/root` to change the password and email
 Try login with that password and manage the contents at http://your.intallation.site/admin
 	
@@ -46,5 +46,10 @@ We'll be thankful if you notify us about your implementation.
 
 Notes
 -----
-Github user 'blackhold' did a very good sideline guide. 
+Github user 'blackhold' did a very good sideline guide.
 Check it out at  http://blackhold.nusepas.com/2012/07/instalar-plataforma-goteo-en-nuestro-server/
+EXCEPT: password encription is now SHA1 with SALT.
+It can be updated to "root" (no quotes) with the following sql statement:
+UPDATE `user` SET password = '$1$L0HUgg5m$BFHWQWxOD/L3ekMBEIMVU.' WHERE id = 'root';
+
+Do not leave empty password if your php is under 5.3.5
