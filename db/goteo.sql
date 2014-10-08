@@ -1468,7 +1468,7 @@ CREATE TABLE `user` (
 -- Volcar la base de datos para la tabla `user`
 --
 
-INSERT INTO `user` VALUES('root', 'Sysadmin', '', '', '', '', '', 1, 91, '', '', '', '', '', '', 0, '', '', '', 1, 1, 'es', 'goteo');
+INSERT INTO `user` VALUES('root', 'Sysadmin', '', '', '$1$L0HUgg5m$BFHWQWxOD/L3ekMBEIMVU.', '', '', 1, 91, '', '', '', '', '', '', 0, '', '', '', 1, 1, 'es', 'goteo');
 -- --------------------------------------------------------
 
 --
