@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright (C) 2012 Platoniq y Fundaci�n Fuentes Abiertas (see README for details)
+ *  Copyright (C) 2012 Platoniq y Fundacion Fuentes Abiertas (see README for details)
  *	This file is part of Goteo.
  *
  *  Goteo is free software: you can redistribute it and/or modify
@@ -106,7 +106,7 @@ define('GOTEO_MAIL_TYPE', 'smtp'); // mail, sendmail or smtp
 define('GOTEO_MAIL_SMTP_AUTH', true);
 define('GOTEO_MAIL_SMTP_SECURE', 'ssl');
 define('GOTEO_MAIL_SMTP_HOST', 'smtp--host');
-define('GOTEO_MAIL_SMTP_PORT', --portnumber--);
+define('GOTEO_MAIL_SMTP_PORT', '--portnumber--');
 define('GOTEO_MAIL_SMTP_USERNAME', 'smtp-usermail');
 define('GOTEO_MAIL_SMTP_PASSWORD', 'smtp-password');
 
