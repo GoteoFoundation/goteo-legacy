@@ -1,12 +1,12 @@
-The code licensed here under the GNU Affero General Public License, version 3 [AGPL-3.0](http://www.gnu.org/licenses/agpl-3.0.html) has been developed by the Goteo team led by Platoniq and subsequently transferred to the Fundación Fuentes Abiertas, as detailed in http://www.goteo.org/about#info6
+The code licensed here under the GNU Affero General Public License, version 3 [AGPL-3.0](http://www.gnu.org/licenses/agpl-3.0.html) has been developed by the Goteo team led by Platoniq and subsequently transferred to the Fundación Goteo, as detailed in http://www.goteo.org/about#info6
 
 This is a web tool that allows the receipt, review and publishing of collective campaigns for their collective funding and the receiving of collaborations as well as the dynamic visualization of the support received, classification of initiatives and campaign tracking. The system also permits secure and distributed communication with users and between users, administration of highlighted projects on the home page and the creation of periodical publications such as blogs, a FAQ section and static pages.
 
-It is a standard version of Goteo, except for the payment gateway, whose development and adaptation should be undertaken by those who implement it, corresponding to the specified license and without maintenance, legal or any other responsibility of the Fundación Fuentes Abiertas.
+It is a standard version of Goteo, except for the payment gateway, whose development and adaptation should be undertaken by those who implement it, corresponding to the specified license and without maintenance, legal or any other responsibility of the Fundación Goteo.
 
 This version is provided as is accessible from this repository without additional documentation beyond the technical requirements, currently without possibility of advice or customization in your installation nor dedication to solving technical problems by the Goteo development team.
 
-To implement functional subdomains of the platform in Goteo autonomous node mode (ie,  hosted on the Fundación Fuentes Abiertas server and adapted to independently run by other organizations or groups that can ensure minimum joint resource correct operation) we recommend contacting us by the following e-mail: info [at] goteo.org
+To implement functional subdomains of the platform in Goteo autonomous node mode (ie,  hosted on the Fundación Goteo server and adapted to independently run by other organizations or groups that can ensure minimum joint resource correct operation) we recommend contacting us by the following e-mail: info [at] goteo.org
 
 Implementation instructions:
 - Upload repository files (except .sql and .doc)
