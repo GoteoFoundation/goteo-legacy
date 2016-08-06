@@ -109,7 +109,7 @@ array_walk($rewards, function (&$reward) { $reward = $reward->reward; });
                     echo '<br />'.Text::_('Capital riego');
 
                 if (!empty($invest->anonymous))
-                    echo '<br />'.Text::_(Aporte anónimo');
+                    echo '<br />'.Text::_('Aporte anónimo');
 
                 if (!empty($invest->resign))
                     echo "<br />".Text::_('Donativo de').": {$invest->address->name} [{$invest->address->nif}]";
