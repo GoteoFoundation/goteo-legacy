@@ -97,6 +97,12 @@ set_error_handler (
 session_name('goteo');
 session_start();
 
+$config = array('locale' => array(
+    'gettext_root' => dirname(__FILE__).'/locale',
+    'gettext_domain' => GOTEO_GETTEXT_DOMAIN,
+    'gettext_bypass_caching' => GOTEO_GETTEXT_BYPASS_CACHING,
+));
+
 // set Lang
 Lang::set();
 // change current locale
